@@ -1,0 +1,29 @@
+{
+  "name": "formgen",
+  "version": "1.0.0",
+  "description": "Form generator → from json to HTML form",
+  "main": "dist/index.html",
+  "dependencies": {
+    "node": "git+https://github.com/omudde/node.git"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omudde/formgen.git"
+  },
+  "keywords": [
+    "form",
+    "generator"
+  ],
+  "author": "olaf mudde <olaf.mudde@xs4all.nl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/omudde/formgen/issues"
+  },
+  "homepage": "https://github.com/omudde/formgen#readme"
+}

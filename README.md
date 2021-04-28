@@ -1,2 +1,2 @@
 # formgen
-Form generator → From json to HTML form
+Form generator → from json to HTML form
