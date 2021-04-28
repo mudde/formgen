@@ -1,4 +1,4 @@
-import Node from "../../Core/Node";
+import Node from "../../../node_modules/mudde-node/src/node"
 import BuilderAbstract from "../BuilderAbstract";
 import Form from "../Form";
 
