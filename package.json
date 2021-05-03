@@ -6,6 +6,7 @@
   "dependencies": {
     "bootstrap": "^5.0.0-beta3",
     "i": "^0.3.6",
+    "jsdom": "^16.5.3",
     "mudde-node": "omudde/node",
     "npm": "^7.11.1",
     "requirejs": "^2.3.6",
