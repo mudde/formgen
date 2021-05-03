@@ -108,4 +108,4 @@ Form generator → from json to HTML form
 }
 ```
 *OUTPUT*
-![Output image](readme.md/example-output.png?raw=true)
+[Output image](readme.md/example-output.png?raw=true)
