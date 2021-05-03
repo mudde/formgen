@@ -15,11 +15,9 @@
       "baseUrl": "./src/Mudde",
       "outFile": "./dist/formjs.js",
       "paths": {
-         "mudde-node/src/Mudde/Core/Node": [
-            "../../node_modules/mudde-node/src/node"
-         ],
          "Mudde/*": [
-            "./*"
+            "./*",
+            "../../node_modules/mudde-node/src/Mudde/*"
          ]
       }
    },

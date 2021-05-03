@@ -1,10 +1,10 @@
 ///<amd-module name='Mudde/Form/DataAbstract'/>
 
 import ConfigurableAbstract from "Mudde/Core/ConfigurableAbstract";
-import Event from "Mudde/Form/Event";
+import Event from "Mudde/Core/Event";
 import Form from "Mudde/Form/Form";
-import ObserverInterface from "Mudde/Form/ObserverInterface";
-import SubjectInterface from "Mudde/Form//SubjectInterface";
+import ObserverInterface from "Mudde/Core/ObserverInterface";
+import SubjectInterface from "Mudde/Core/SubjectInterface";
 
 export default abstract class DataAbstract extends ConfigurableAbstract implements SubjectInterface {
 

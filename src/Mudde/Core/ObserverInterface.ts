@@ -1,6 +1,6 @@
-///<amd-module name='Mudde/Form/ObserverInterface'/>
+///<amd-module name='Mudde/Core/ObserverInterface'/>
 
-import Event from "./Event";
+import Event from "Mudde/Core/Event";
 
 export default interface ObserverInterface {
 

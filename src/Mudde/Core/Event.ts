@@ -1,4 +1,4 @@
-///<amd-module name='Mudde/Form/Event'/>
+///<amd-module name='Mudde/Core/Event'/>
 
 export default class Event {
    

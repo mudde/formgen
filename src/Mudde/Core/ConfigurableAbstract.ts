@@ -21,5 +21,4 @@ export default abstract class ConfigurableAbstract {
    }
 
    abstract getDefaultConfig(): any
-
 }
