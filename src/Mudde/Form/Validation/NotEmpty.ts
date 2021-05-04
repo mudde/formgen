@@ -14,7 +14,7 @@ export default class NotEmpty extends ValidationAbstract {
    coreBuild(output: Node, input: InputAbstract): Node {
       if (!input.require) return output
 
-      var attributes: any = {
+      let attributes: any = {
          required: ''
       }
 
@@ -28,7 +28,7 @@ export default class NotEmpty extends ValidationAbstract {
    coreMultilingualBuild(output: Node, input: InputAbstract, language: string): Node {
       if (!input.require) return output
 
-      var attributes: any = {
+      let attributes: any = {
          required: ''
       }
 

@@ -2,6 +2,7 @@
 
 import ConfigurableAbstract from "Mudde/Core/ConfigurableAbstract";
 import Event from "Mudde/Core/Event";
+import DataEvent from "Mudde/Form/DataEvent";
 import Form from "Mudde/Form/Form";
 import ObserverInterface from "Mudde/Core/ObserverInterface";
 import SubjectInterface from "Mudde/Core/SubjectInterface";
@@ -16,20 +17,50 @@ export default abstract class DataAbstract extends ConfigurableAbstract implemen
 
    private _form?: Form
    private _observers: any = {}
+   protected _data: [] = []
+   protected _originalData: [] = []
 
-   constructor(form: Form) {
+   constructor(form?: Form) {
       super()
-      this.form = form
+      this._form = form
    }
 
-   abstract connect(): void
-   abstract restore(id: string): void
-   abstract update(): any
-   abstract set(id: string, value: any): void
+   getDefaultConfig(): {} {
+      return {};
+   }
+
+   abstract connect()
+   abstract update()
+
+   get(id: string): any {
+      var event = new DataEvent(this, DataAbstract.DATA_PRE_GET, id)
+      this.notify(event)
+
+      let value = this._data[id]
+
+      var event = new DataEvent(this, DataAbstract.DATA_POST_GET, id)
+      this.notify(event)
+
+      return value;
+   }
+
+   set(id: string, value: any): void {
+      var event = new DataEvent(this, DataAbstract.DATA_PRE_SET, id)
+      this.notify(event)
+
+      this._data[id] = value
+
+      var event = new DataEvent(this, DataAbstract.DATA_POST_SET, id)
+      this.notify(event)
+   }
+
+   restore(id: string): any {
+      this._data[id] = this._originalData[id]
+   }
 
    attach(observer: ObserverInterface): void {
-      var observerList = this._observers;
-      
+      let observerList = this._observers;
+
       if (observerList[observer.eventNumber] === undefined) {
          observerList[observer.eventNumber] = []
       }
@@ -38,7 +69,7 @@ export default abstract class DataAbstract extends ConfigurableAbstract implemen
    }
 
    detach(observer: ObserverInterface): void {
-      var observerList = this._observers[observer.eventNumber];
+      let observerList = this._observers[observer.eventNumber];
 
       if (observerList) {
          observerList.filter(ownObserver => {
@@ -47,15 +78,21 @@ export default abstract class DataAbstract extends ConfigurableAbstract implemen
       }
    }
 
-   notify(event:Event): void {
-      var eventNumber = event.eventNumber
-      var observerList = this._observers[eventNumber]
-      
+   notify(event: Event): void {
+      let eventNumber = event.eventNumber
+      let observerList = this._observers[eventNumber]
+
       if (observerList) {
          observerList.forEach(observer => {
             observer.update(event)
          })
       }
+   }
+
+   forEach(callable: { (element: any): void; (value: never, index: number, array: never[]): void; }): DataAbstract {
+      this._data.forEach(callable)
+
+      return this
    }
 
    set form(value: Form) {
@@ -66,6 +103,16 @@ export default abstract class DataAbstract extends ConfigurableAbstract implemen
       if (this._form === undefined) throw new Error('Form not set!')
 
       return this._form
+   }
+
+   set data(value: []) {
+      this._data = this._originalData = value
+   }
+
+   get data(): [] {
+      if (this._data === undefined) throw new Error('Data not set!')
+
+      return this._data
    }
 
 }

@@ -44,14 +44,14 @@ export default class Form extends ConfigurableAbstract {
    }
 
    private configureFields(rawFields: Object[]): void {
-      var main = this
-      var fields: InputAbstract[] = this.fields = []
+      let main = this
+      let fields: InputAbstract[] = this.fields = []
 
       rawFields.forEach(config => {
-         var type = config['_type']
+         let type = config['_type']
          main.count++
          requirejs(['Mudde/Form/Input/' + type], (className) => {
-            var object = new className.default(config, main)
+            let object = new className.default(config, main)
 
             fields.push(object)
             main.count--
@@ -60,15 +60,15 @@ export default class Form extends ConfigurableAbstract {
    }
 
    private configureButtons(rawFields: Object[]): void {
-      var main = this
-      var buttons: ButtonAbstract[] = this.buttons = []
+      let main = this
+      let buttons: ButtonAbstract[] = this.buttons = []
 
       rawFields.forEach(config => {
-         var type = config['_type']
+         let type = config['_type']
          main.count++
 
          requirejs(['Mudde/Form/Buttom/' + type], (className) => {
-            var object = new className.default(config, main)
+            let object = new className.default(config, main)
 
             buttons.push(object)
             main.count--
@@ -77,8 +77,8 @@ export default class Form extends ConfigurableAbstract {
    }
 
    private configureBuilders(rawFields: Object[]): void {
-      var main = this
-      var builders: FormBuilderAbstract[] = this.builders = []
+      let main = this
+      let builders: FormBuilderAbstract[] = this.builders = []
 
       rawFields.unshift('GeneralBuilder')
       rawFields.forEach(builder => {
@@ -91,11 +91,11 @@ export default class Form extends ConfigurableAbstract {
    }
 
    private configureData(config: Object[]): void {
-      var main = this
-      var type = StringHelper.ucfirst(config['_type'])
+      let main = this
+      let type = StringHelper.ucfirst(config['_type'])
       main.count++
       requirejs(['Mudde/Form/Data/' + type], (className) => {
-         var object: DataAbstract = new className.default(config, main)
+         let object: DataAbstract = new className.default(config, main)
 
          main._data = object
          main.count--
@@ -103,20 +103,20 @@ export default class Form extends ConfigurableAbstract {
    }
 
    static getFormById(id: string): Form | null {
-      var filterFunction = form => { return form.id === id }
-      var form = Form._forms.filter(filterFunction)
+      let filterFunction = form => { return form.id === id }
+      let form = Form._forms.filter(filterFunction)
 
       return form.length === 0 ? null : form[0]
    }
 
    render(): HTMLElement {
-      var form = this._form
+      let form = this._form
       if (form === undefined) throw new Error('Form not set!')
       form.root().innerHTML = ''
 
       this.fields.forEach(element => {
          if (form === undefined) throw new Error('Form not set!')
-         var renderedElement = element.render();
+         let renderedElement = element.render();
          form.appendElement_(renderedElement.root())
       });
 

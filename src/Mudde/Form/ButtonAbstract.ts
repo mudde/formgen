@@ -18,7 +18,8 @@ export default abstract class ButtonAbstract extends ConfigurableAbstract {
    }
 
    render(): Node {
-      var output = this.coreHTMLInput(GuidHelper.create().toString(), 'x','nl')
+      let output = this.coreHTMLInput(GuidHelper.create().toString(), 'x', 'nl')
+      
       return output
    }
 

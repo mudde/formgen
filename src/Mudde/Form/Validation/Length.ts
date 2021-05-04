@@ -22,7 +22,7 @@ export default class Length extends ValidationAbstract {
    }
 
    coreBuild(output: Node, input: InputAbstract): Node {
-      var attributes: any = {}
+      let attributes: any = {}
 
       if (this.min > 0) {
          attributes = { ...attributes, min: this.min }

@@ -53,7 +53,7 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
    }
 
    private configureBuilders(rawFields: Object[]): void {
-      var builders: InputBuilderAbstract[] = this.builders = []
+      let builders: InputBuilderAbstract[] = this.builders = []
 
       rawFields.unshift('GeneralBuilder')
       rawFields.forEach(builder => {
@@ -65,11 +65,11 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
    }
 
    private configureValidations(rawFields: Object[]): void {
-      var main = this
+      let main = this
       this.validations = []
 
       rawFields.forEach((config, index) => {
-         var type = config['_type']
+         let type = config['_type']
          requirejs(['Mudde/Form/Validation/' + type], (className) => {
             main.validations[index] = new className.default(config)
          });
@@ -77,18 +77,18 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
    }
 
    render(): Node {
-      var main = this
-      var elements: Node[] = []
-      var builders: InputBuilderAbstract[] = this.builders
-      var isMultilingual: boolean = this.isMultilingual
-      var languages: string[] = isMultilingual ? this.form.languages : [this.form.languages[0]]
-      var output = new Node('div', {})
+      let main = this
+      let elements: Node[] = []
+      let builders: InputBuilderAbstract[] = this.builders
+      let isMultilingual: boolean = this.isMultilingual
+      let languages: string[] = isMultilingual ? this.form.languages : [this.form.languages[0]]
+      let output = new Node('div', {})
 
       this.ids = []
 
       languages.forEach(language => {
-         var id: string = isMultilingual ? `${main.id}_${language}` : main.id
-         var name: string = isMultilingual ? `${main.id}[${language}]` : main.id
+         let id: string = isMultilingual ? `${main.id}_${language}` : main.id
+         let name: string = isMultilingual ? `${main.id}[${language}]` : main.id
          main.renderBuild(id, name, language, elements)
       })
 
@@ -100,11 +100,11 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
    }
 
    private renderBuild(id: string, name: string, language: string, elements: Node[]) {
-      var main = this
-      var validations: ValidationAbstract[] = this.validations
-      var builders: InputBuilderAbstract[] = this.builders
-      var isMultilingual: boolean = this.isMultilingual
-      var object: Node = this.coreHTMLInput(id, name, language)
+      let main = this
+      let validations: ValidationAbstract[] = this.validations
+      let builders: InputBuilderAbstract[] = this.builders
+      let isMultilingual: boolean = this.isMultilingual
+      let object: Node = this.coreHTMLInput(id, name, language)
 
       validations.forEach(validation => {
          object = isMultilingual

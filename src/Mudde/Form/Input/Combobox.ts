@@ -1,12 +1,15 @@
-///<amd-module name='Mudde/Form/Input/File'/>
+///<amd-module name='Mudde/Form/Input/Combobox'/>
 
 import Node from "mudde-node/src/Mudde/Core/Node"
 import Form from "Mudde/Form/Form"
 import InputAbstract from "Mudde/Form/InputAbstract"
+import DataAbstract from "Mudde/Form/DataAbstract"
+import Array from "../Data/Array"
 
-export default class File extends InputAbstract {
+export default class Combobox extends InputAbstract {
 
    private _multiple: boolean = false
+   private _data: DataAbstract = new Array({ data: [] })
 
    constructor(config: any, form: Form) {
       super(form)
@@ -17,21 +20,21 @@ export default class File extends InputAbstract {
       return {
          ...super.getDefaultConfig(),
          multiple: false,
+         data: new Array({ data: [] })
       }
    }
 
    coreHTMLInput(id: string, name: string, language: string): Node {
-      let attributes: any = {
+      let element: Node = new Node('select', {
          id: id,
          name: name,
-         type: 'file',
-      }
+         type: 'text',
+         placeholder: this.placeholder,
+      })
 
-      if (this.multiple) {
-         attributes = { ...attributes, multiple: '' }
-      }
-
-      let element: Node = new Node('input', attributes)
+      this._data.forEach(x => {
+         element.appendNode('li', { value: x.id }, x.value)
+      });
 
       return element
    }
@@ -44,4 +47,11 @@ export default class File extends InputAbstract {
       return this._multiple
    }
 
+   set data(value: DataAbstract) {
+      this._data = value
+   }
+
+   get data(): DataAbstract {
+      return this._data
+   }
 }

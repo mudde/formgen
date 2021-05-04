@@ -17,11 +17,12 @@ export default class Submit extends ButtonAbstract {
    }
 
    coreHTMLInput(id: string, name: string, language: string): Node {
-      var attributes: any = {
+      //  todo  Onclick naar andere functie!  Gr.O.M.
+      let attributes: any = {
          type: 'submit',
          class: 'btn btn-primary',
          onclick: `javascript:
-         b var data = {};
+         b let data = {};
          Array.from(document.forms[0].elements).forEach(element => {
              if (element.name) {
                  if (element.type === 'file') {
@@ -40,7 +41,7 @@ export default class Submit extends ButtonAbstract {
          value: this.label
       }
 
-      var element: Node = new Node('input', attributes)
+      let element: Node = new Node('input', attributes)
 
       return element
    }

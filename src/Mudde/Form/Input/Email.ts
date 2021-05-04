@@ -18,7 +18,7 @@ export default class Email extends InputAbstract {
    }
 
    coreHTMLInput(id: string, name: string, language: string): Node {
-      var element: Node = new Node('input', {
+      let element: Node = new Node('input', {
          id: id,
          name: name,
          type: 'email',

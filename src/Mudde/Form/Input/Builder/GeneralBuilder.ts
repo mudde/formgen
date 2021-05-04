@@ -9,8 +9,8 @@ import IconHelper from "Mudde/Form/Helper/IconHelper";
 export default class GeneralBuilder extends InputBuilderAbstract {
 
    setPanels(input: InputAbstract) {
-      var form: Node = input.form.form
-      var panelId: string = `panel-${input.panel}`
+      let form: Node = input.form.form
+      let panelId: string = `panel-${input.panel}`
 
       if (form.hasElementByClass(panelId)) {
          form.getElementById(panelId)
@@ -18,8 +18,8 @@ export default class GeneralBuilder extends InputBuilderAbstract {
          form.gotoRoot()
 
          if (panelId !== null) {
-            var firstPanel = form.getElementByClass('panel').length === 0
-            var panelNode: Node = new Node('div', { id: panelId, class: `panel ${panelId}` })
+            let firstPanel = form.getElementByClass('panel').length === 0
+            let panelNode: Node = new Node('div', { id: panelId, class: `panel ${panelId}` })
 
             if (!firstPanel) {
                panelNode.setAttributes({ hidden: '' })
@@ -33,7 +33,7 @@ export default class GeneralBuilder extends InputBuilderAbstract {
    coreBuild(output: Node, input: InputAbstract): Node {
       this.setPanels(input)
 
-      var attributes: any = {
+      let attributes: any = {
          id: input.id,
          name: input.id,
          'data-language': input.form.languages[0],
@@ -55,7 +55,7 @@ export default class GeneralBuilder extends InputBuilderAbstract {
    coreMultilingualBuild(output: Node, input: InputAbstract, language: string): Node {
       this.setPanels(input)
 
-      var attributes: any = {
+      let attributes: any = {
          id: `${input.id}_${language}`,
          name: `${input.id}[${language}]`,
          'data-language': language,
@@ -76,7 +76,7 @@ export default class GeneralBuilder extends InputBuilderAbstract {
    }
 
    finalBuild(elements: Node[], input: InputAbstract, output: Node): void {
-      var label: Node = new Node('label', { for: elements[0].id })
+      let label: Node = new Node('label', { for: elements[0].id })
 
       label.innerHTML = input.label + (input.require ? IconHelper.starFill('9px') : '')
 
