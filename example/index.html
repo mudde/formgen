@@ -20,10 +20,13 @@
 
         </div>
     </div>
+
+    <script src="./script/ckeditor.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./script/require.js"></script>
     <script src="../node_modules/mudde-node/dist/node.js"></script>
     <script src="../dist/formjs.js"></script>
+
     <script id="config" type="application/json">
         {
             "id": "form01",
@@ -47,26 +50,14 @@
                 }
             },
             "fields": [{
-                "_type": "Combobox",
-                "id": "dataconnecttest",
-                "label": "Datatest",
-                "help": "Your bla bla bla",
-                "multiple": true,
+                "_type": "Textarea",
+                "id": "dataconn",
+                "label": "WP test",
+                "help": "Your bla blie bla",
                 "panel": "a",
-                "placeholder": "adsvasdv",
                 "builders": [
                     "BootstrapBuilder"
-                ],
-                "data": {
-                    "_type": "array",
-                    "data": [
-                        {"id": 0, "value":"id 0"},
-                        {"id": 1, "value":"id 1"},
-                        {"id": 2, "value":"id 2"},
-                        {"id": 3, "value":"id 3"},
-                        {"id": 4, "value":"id 4"}
-                    ]
-                }
+                ]
             }, {
                 "_type": "Text",
                 "id": "name",
@@ -157,7 +148,11 @@
 
             setTimeout(() => {
                 document.getElementById('main').innerHTML = formgen.render().outerHTML
-            }, 100);
+                //  todo  This must be done by the textarea input plugin!  Gr.O.M.
+                Array.from(document.getElementsByTagName('textarea')).forEach(name => {
+                    ClassicEditor.create(name)
+                })
+            }, 250);
         });
     </script>
 </body>

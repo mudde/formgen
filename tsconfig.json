@@ -15,6 +15,9 @@
       "baseUrl": "./src/Mudde",
       "outFile": "./dist/formjs.js",
       "paths": {
+         "ckeditor/*":[
+            "../../node_modules/@ckeditor/ckeditor5-core/*"
+         ],
          "Mudde/*": [
             "./*",
             "../../node_modules/mudde-node/src/Mudde/*"

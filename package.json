@@ -4,6 +4,8 @@
   "description": "Form generator → from json to HTML form",
   "main": "dist/index.html",
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^27.1.0",
+    "@ckeditor/ckeditor5-typing": "^27.1.0",
     "bootstrap": "^5.0.0-beta3",
     "i": "^0.3.6",
     "jsdom": "^16.5.3",
@@ -32,6 +34,11 @@
     "url": "https://github.com/omudde/formgen/issues"
   },
   "homepage": "https://github.com/omudde/formgen#readme",
+  "workspaces": {
+    "packages": [
+      "ckeditor5-build-classic-master"
+    ]
+  },
   "devDependencies": {
     "@types/chai": "^4.2.17",
     "@types/mocha": "^8.2.2",
