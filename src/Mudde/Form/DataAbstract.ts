@@ -26,11 +26,14 @@ export default abstract class DataAbstract extends ConfigurableAbstract implemen
    }
 
    getDefaultConfig(): {} {
-      return {};
+      return {
+         data: [],
+         originalData: []
+      };
    }
 
-   abstract connect()
-   abstract update()
+   abstract init()
+   abstract process()
 
    get(id: string): any {
       var event = new DataEvent(this, DataAbstract.DATA_PRE_GET, id)
@@ -89,7 +92,7 @@ export default abstract class DataAbstract extends ConfigurableAbstract implemen
       }
    }
 
-   forEach(callable: { (element: any): void; (value: never, index: number, array: never[]): void; }): DataAbstract {
+   forEach(callable: any): DataAbstract {
       this._data.forEach(callable)
 
       return this

@@ -16,9 +16,9 @@ export default class Array extends DataAbstract {
       }
    }
 
-   update() {
+   init() {
    }
 
-   connect() {
+   process() {
    }
 }

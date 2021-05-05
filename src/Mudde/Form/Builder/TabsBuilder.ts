@@ -13,7 +13,7 @@ export default class TabsBuilder extends BuilderAbstract {
 
       for (let key = 0; key < panels.length; key++) {
          let panelLabel: string = (<HTMLElement>panels.item(key)).id
-         let javascript: string = `javascript:let panelName='${panelLabel}'; Array.from(document.getElementById('main').firstChild.getElementsByClassName('panel')).forEach(element=>{ if(element.id === panelName){ element.removeAttribute('hidden')} else { element.setAttribute('hidden', '') } });Array.from(document.getElementById('main').firstChild.getElementsByClassName('nav-link')).forEach(element=>{ if(element.innerText === panelName){ element.classList.add('active') } else { element.classList.remove('active')} })`
+         let javascript: string = `javascript:var panelName='${panelLabel}'; Array.from(document.getElementById('main').firstChild.getElementsByClassName('panel')).forEach(element=>{ if(element.id === panelName){ element.removeAttribute('hidden')} else { element.setAttribute('hidden', '') } });Array.from(document.getElementById('main').firstChild.getElementsByClassName('nav-link')).forEach(element=>{ if(element.innerText === panelName){ element.classList.add('active') } else { element.classList.remove('active')} })`
          tabs
             .appendElement(new Node('li', { class: 'nav-item' }))
             .appendElement(new Node('a', { class: 'nav-link ', href: javascript }, panelLabel))

@@ -7,6 +7,11 @@
     <title>FormGen Base example</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../node_modules/semantic-ui-flag/flag.min.css">
+    <style>
+        body {
+            overflow-y: scroll;
+        }
+    </style>
 </head>
 
 <body>
@@ -19,7 +24,7 @@
     <script src="./script/require.js"></script>
     <script src="../node_modules/mudde-node/dist/node.js"></script>
     <script src="../dist/formjs.js"></script>
-    <script id="myJson" type="application/json">
+    <script id="config" type="application/json">
         {
             "id": "form01",
             "languages": ["nl", "uk"],
@@ -47,16 +52,20 @@
                 "label": "Datatest",
                 "help": "Your bla bla bla",
                 "multiple": false,
+                "panel": "a",
+                "placeholder": "adsvasdv",
+                "builders": [
+                    "BootstrapBuilder"
+                ],
                 "data": {
                     "_type": "array",
-                    "data": {
-                        "name": {
-                            "nl": "Olaf",
-                            "uk": "Olaf"
-                        },
-                        "email": "olaf@xs4all.nl",
-                        "file": []
-                    }
+                    "data": [
+                        {"id": 0, "value":"id 0"},
+                        {"id": 1, "value":"id 1"},
+                        {"id": 2, "value":"id 2"},
+                        {"id": 3, "value":"id 3"},
+                        {"id": 4, "value":"id 4"}
+                    ]
                 }
             }, {
                 "_type": "Text",
@@ -143,8 +152,9 @@
 
     <script>
         requirejs(["Mudde/Form/Form"], function (form) {
-            var config = 
+            var config = JSON.parse(document.getElementById('config').innerText)
             var formgen = new form.default(config)
+
             setTimeout(() => {
                 document.getElementById('main').innerHTML = formgen.render().outerHTML
             }, 100);
