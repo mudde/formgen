@@ -19,18 +19,17 @@ export default class Submit extends ButtonAbstract {
    coreHTMLInput(id: string, name: string, language: string): Node {
       //  todo  Onclick naar andere functie!  Gr.O.M.
       let attributes: any = {
-         type: 'submit',
+         type: 'button',
          class: 'btn btn-primary',
          onclick: `javascript:
-         b let data = {};
+         var data = {};
          Array.from(document.forms[0].elements).forEach(element => {
              if (element.name) {
+                console.debug(element.type)
                  if (element.type === 'file') {
-                     tmpData = [];
-                     Array.from(element.files).forEach(element => {
-                         tmpData.push(element.name)
-                     });
-                     data[element.name] = tmpData
+                     data[element.name] = Array.from(element.files).flatMap(x => { return x.name });
+                 } else if(element.type === 'select-multiple') {
+                     data[element.name] = Array.from(element.selectedOptions).flatMap(x=>{ return x.value  })
                  } else {
                      data[element.name] = element.value
                  }

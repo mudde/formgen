@@ -5,7 +5,6 @@ import Form from "Mudde/Form/Form"
 import InputAbstract from "Mudde/Form/InputAbstract"
 import DataAbstract from "Mudde/Form/DataAbstract"
 import Array from "../Data/Array"
-import FormBuilderAbstract from "../FormBuilderAbstract"
 import StringHelper from "../Helper/StringHelper"
 
 export default class Combobox extends InputAbstract {
@@ -16,8 +15,6 @@ export default class Combobox extends InputAbstract {
    constructor(config: any, form: Form) {
       super(form)
       this.configuring(config)
-
-      console.debug(this)
    }
 
    configureData(config: Object[]): void {
@@ -43,13 +40,16 @@ export default class Combobox extends InputAbstract {
       let element: Node = new Node('select', {
          id: id,
          name: name,
-         placeholder: this.placeholder
+         placeholder: this.placeholder,
+         ...this.multiple === true ? { 'multiple': '' } : {}
       })
 
-      element.appendNode('option', { value: null }, '')
+      if(this.multiple !== true){
+         element.appendNode('option', { value: null }, '')
+      }
 
-      this._data.forEach(x => {
-         element.appendNode('option', { value: x.id }, x.value)
+      this._data.forEach(dataitem => {
+         element.appendNode('option', { value: dataitem.id }, dataitem.value)
       });
 
       return element
