@@ -1,10 +1,10 @@
-///<amd-module name='Mudde/Form/Input/Radio'/>
+///<amd-module name='Mudde/Form/Input/Checkbox'/>
 
 import Node from "mudde-node/src/Mudde/Core/Node"
 import Form from "Mudde/Form/Form"
 import GroupInputAbstract from "../GroupInputAbstract"
 
-export default class Radio extends GroupInputAbstract {
+export default class Checkbox extends GroupInputAbstract {
 
    constructor(config: any, form: Form) {
       super(form)
@@ -27,7 +27,7 @@ export default class Radio extends GroupInputAbstract {
             id: newId,
             name: name,
             class: 'form-check-input',
-            type: 'radio',
+            type: 'checkbox',
             value: currentData.id
          })
          .appendNode('label', {
