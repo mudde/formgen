@@ -40,11 +40,11 @@ export default class Combobox extends InputAbstract {
       let element: Node = new Node('select', {
          id: id,
          name: name,
-         placeholder: this.placeholder,
+         ...this.placeholder ? { placeholder: this.placeholder } : {},
          ...this.multiple === true ? { 'multiple': '' } : {}
       })
 
-      if(this.multiple !== true){
+      if (this.multiple !== true) {
          element.appendNode('option', { value: null }, '')
       }
 

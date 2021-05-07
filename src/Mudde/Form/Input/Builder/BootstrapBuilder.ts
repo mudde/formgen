@@ -8,26 +8,28 @@ import InputBuilderAbstract from "Mudde/Form/InputBuilderAbstract";
 export default class BootstrapBuilder extends InputBuilderAbstract {
 
    coreBuild(output: Node, input: InputAbstract): Node {
-      let attributes: any = {
-         class: 'form-control',
+      if (output.hasAttribute('no-bootstrap')) {
+         //  TODO  remove 'no-bootstrap' attribute  Gr.O.M.
+         return output
       }
 
-      if (input.help !== '') {
-         attributes = {
-            ...attributes,
-            'aria-describedby': input.id + 'Help'
-         }
+      let attributes: any = {
+         class: 'form-control',
+         ...input.help !== '' ? { 'aria-describedby': input.id + 'Help' } : {}
       }
 
       output
          .getElementById(input.id)
          .setAttributes(attributes)
 
-
       return output
    }
 
    coreMultilingualBuild(output: Node, input: InputAbstract, language: string): Node {
+      if (output.hasAttribute('no-bootstrap')) {
+         //  TODO  remove 'no-bootstrap' attribute  Gr.O.M.
+         return output
+      }
       output = this.coreBuild(output, input)
 
       let newNode = new Node('div', { class: 'input-group mb-1' })
@@ -42,12 +44,12 @@ export default class BootstrapBuilder extends InputBuilderAbstract {
    finalBuild(elements: Node[], input: InputAbstract, output: Node): void {
       output.setAttributes({ class: 'mb-1' })
       let label = output.getElementByTagName('label').item(0)
-      if(!label) throw new Error('label element not found!')
+      if (!label) throw new Error('label element not found!')
 
       label.classList.add('form-label')
 
       let help = output.getElementByClass(input.id).item(0)
-      if(!help) throw new Error('help element not found!')
+      if (!help) throw new Error('help element not found!')
       if (input.help !== '') {
          help.classList.add('form-text')
       }
@@ -72,5 +74,4 @@ export default class BootstrapBuilder extends InputBuilderAbstract {
 
       htmlForm.insertBefore(tabs.root(), htmlForm.firstChild)
    }
-
 }

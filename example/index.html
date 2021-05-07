@@ -11,6 +11,16 @@
         body {
             overflow-y: scroll;
         }
+
+        input[type=radio] {
+            margin-right: 10px;
+        }
+
+        .display-inline>div {
+            display: inline-block;
+        }
+
+
     </style>
 </head>
 
@@ -58,7 +68,29 @@
                 "builders": [
                     "BootstrapBuilder"
                 ]
-            }, {
+            }, 
+            {
+                "_type": "Combobox",
+                "id": "cbox",
+                "label": "Combobox test",
+                "help": "Your bla bla bla",
+                "multiple": true,
+                "panel": "a",
+                "builders": [
+                    "BootstrapBuilder"
+                ],
+                "data": {
+                    "_type": "array",
+                    "data": [
+                        {"id": 0, "value":"id Olaf Mudde"},
+                        {"id": 1, "value":"id Is een beetje"},
+                        {"id": 2, "value":"id Gek maar dat"},
+                        {"id": 3, "value":"id is geen probleem"},
+                        {"id": 4, "value":"id TOCH!!!!!!!!!!!"}
+                    ]
+                }
+            },
+            {
                 "_type": "Text",
                 "id": "name",
                 "input": true,
@@ -112,6 +144,26 @@
                 "builders": [
                     "BootstrapBuilder"
                 ]
+            }, {
+                "_type": "Radio",
+                "id": "daconntest",
+                "label": "Radio test",
+                "help": "Your bla bla bla",
+                "multiple": false,
+                "panel": "b",
+                "builders": [
+                    "BootstrapBuilder"
+                ],
+                "data": {
+                    "_type": "array",
+                    "data": [
+                        {"id": 0, "value":"id Olaf Mudde"},
+                        {"id": 1, "value":"id Is een beetje"},
+                        {"id": 2, "value":"id Gek maar dat"},
+                        {"id": 3, "value":"id is geen probleem"},
+                        {"id": 4, "value":"id TOCH!!!!!!!!!!!"}
+                    ]
+                }
             }, {
                 "_type": "File",
                 "id": "file",

@@ -25,10 +25,7 @@ export default class File extends InputAbstract {
          id: id,
          name: name,
          type: 'file',
-      }
-
-      if (this.multiple) {
-         attributes = { ...attributes, multiple: '' }
+         ... this.multiple ? { multiple: '' } : {}
       }
 
       let element: Node = new Node('input', attributes)

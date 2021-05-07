@@ -89,7 +89,9 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
       languages.forEach(language => {
          let id: string = isMultilingual ? `${main.id}_${language}` : main.id
          let name: string = isMultilingual ? `${main.id}[${language}]` : main.id
-         main.renderBuild(id, name, language, elements)
+         let object = main.renderBuild(id, name, language)
+
+         elements.push(object)
       })
 
       builders.forEach(builder => {
@@ -99,7 +101,7 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
       return output
    }
 
-   private renderBuild(id: string, name: string, language: string, elements: Node[]) {
+   protected renderBuild(id: string, name: string, language: string): Node {
       let main = this
       let validations: ValidationAbstract[] = this.validations
       let builders: InputBuilderAbstract[] = this.builders
@@ -119,7 +121,8 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
       })
 
       this.ids.push(id)
-      elements.push(object)
+
+      return object;
    }
 
    get isMultilingual(): boolean {

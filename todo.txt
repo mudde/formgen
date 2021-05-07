@@ -4,5 +4,8 @@
 ┃    █   █   █ █   █ █   █  ┃
 ┃    █    ███  ████   ███   ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+- If you change the panel value of a field. The next fields are also presented on the changed valued tab.
+- Add relations between two entities (for example add x times a different address to a company)
+-
 - More tests!
 - Readme update

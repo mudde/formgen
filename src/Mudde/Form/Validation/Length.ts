@@ -22,14 +22,9 @@ export default class Length extends ValidationAbstract {
    }
 
    coreBuild(output: Node, input: InputAbstract): Node {
-      let attributes: any = {}
-
-      if (this.min > 0) {
-         attributes = { ...attributes, min: this.min }
-      }
-
-      if (this.max > 0) {
-         attributes = { ...attributes, max: this.max }
+      let attributes: any = {
+         ... this.min > 0 ? { min: this.min } : {},
+         ... this.max > 0 ? { max: this.max } : {}
       }
 
       output

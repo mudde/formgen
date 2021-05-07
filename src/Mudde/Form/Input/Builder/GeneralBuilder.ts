@@ -38,13 +38,7 @@ export default class GeneralBuilder extends InputBuilderAbstract {
          name: input.id,
          'data-language': input.form.languages[0],
          autofocus: input.autofocus,
-      }
-
-      if (input.hidden) {
-         attributes = {
-            ...attributes,
-            hidden: ''
-         }
+         ...input.hidden ? { hidden: '' } : {}
       }
 
       output.setAttributes(attributes)
@@ -60,14 +54,8 @@ export default class GeneralBuilder extends InputBuilderAbstract {
          name: `${input.id}[${language}]`,
          'data-language': language,
          autofocus: input.autofocus && input.form.languages[0] === language ? true : false,
-         onchange: `javascript:`
-      }
-
-      if (input.hidden) {
-         attributes = {
-            ...attributes,
-            hidden: ''
-         }
+         onchange: `javascript:`,
+         ...input.hidden ? { hidden: '' } : {}
       }
 
       output.setAttributes(attributes)
