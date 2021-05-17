@@ -12,7 +12,8 @@
     "mudde-node": "omudde/node",
     "npm": "^7.11.1",
     "requirejs": "^2.3.6",
-    "semantic-ui-flag": "^2.4.0"
+    "semantic-ui-flag": "^2.4.0",
+    "tinycrop": "^1.7.0"
   },
   "directories": {
     "test": "test"

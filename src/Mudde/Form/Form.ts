@@ -93,6 +93,7 @@ export default class Form extends ConfigurableAbstract {
    private configureData(config: Object[]): void {
       let main = this
       let type = StringHelper.ucfirst(config['_type'])
+
       main.count++
       requirejs(['Mudde/Form/Data/' + type], (className) => {
          let object: DataAbstract = new className.default(config, main)
@@ -112,6 +113,7 @@ export default class Form extends ConfigurableAbstract {
    render(): HTMLElement {
       let form = this._form
       if (form === undefined) throw new Error('Form not set!')
+      
       form.root().innerHTML = ''
 
       this.fields.forEach(element => {

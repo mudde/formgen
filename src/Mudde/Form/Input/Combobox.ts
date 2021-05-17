@@ -17,6 +17,14 @@ export default class Combobox extends InputAbstract {
       this.configuring(config)
    }
 
+   getDefaultConfig() {
+      return {
+         ...super.getDefaultConfig(),
+         multiple: false,
+         data: new Array({ data: [] })
+      }
+   }
+
    configureData(config: Object[]): void {
       let main = this
       let type = StringHelper.ucfirst(config['_type'])
@@ -26,14 +34,6 @@ export default class Combobox extends InputAbstract {
 
          main._data = object
       });
-   }
-
-   getDefaultConfig() {
-      return {
-         ...super.getDefaultConfig(),
-         multiple: false,
-         data: new Array({ data: [] })
-      }
    }
 
    coreHTMLInput(id: string, name: string, language: string): Node {

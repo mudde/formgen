@@ -17,7 +17,7 @@ export default class GeneralBuilder extends InputBuilderAbstract {
       } else {
          form.gotoRoot()
 
-         if (panelId !== null) {
+         if (panelId) {
             let firstPanel = form.getElementByClass('panel').length === 0
             let panelNode: Node = new Node('div', { id: panelId, class: `panel ${panelId}` })
 
@@ -30,13 +30,14 @@ export default class GeneralBuilder extends InputBuilderAbstract {
       }
    }
 
-   coreBuild(output: Node, input: InputAbstract): Node {
+   coreBuild(output: Node, id: string, name: string, language: string): Node {
+      let input = this.input
       this.setPanels(input)
 
       let attributes: any = {
-         id: input.id,
-         name: input.id,
-         'data-language': input.form.languages[0],
+         id: id,
+         name: name,
+         'data-language': language,
          autofocus: input.autofocus,
          ...input.hidden ? { hidden: '' } : {}
       }
@@ -46,24 +47,7 @@ export default class GeneralBuilder extends InputBuilderAbstract {
       return output
    }
 
-   coreMultilingualBuild(output: Node, input: InputAbstract, language: string): Node {
-      this.setPanels(input)
-
-      let attributes: any = {
-         id: `${input.id}_${language}`,
-         name: `${input.id}[${language}]`,
-         'data-language': language,
-         autofocus: input.autofocus && input.form.languages[0] === language ? true : false,
-         onchange: `javascript:`,
-         ...input.hidden ? { hidden: '' } : {}
-      }
-
-      output.setAttributes(attributes)
-
-      return output
-   }
-
-   finalBuild(elements: Node[], input: InputAbstract, output: Node): void {
+   finalOutputBuild(elements: Node[], input: InputAbstract, output: Node): void {
       let label: Node = new Node('label', { for: elements[0].id })
 
       label.innerHTML = input.label + (input.require ? IconHelper.starFill('9px') : '')

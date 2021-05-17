@@ -18,6 +18,8 @@ export default class Text extends InputAbstract {
       this.configuring(config)
    }
 
+   protected canBeMultilingual(): boolean { return true }
+
    getDefaultConfig() {
       return {
          ...super.getDefaultConfig(),

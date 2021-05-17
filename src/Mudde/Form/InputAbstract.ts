@@ -1,11 +1,10 @@
 ///<amd-module name='Mudde/Form/InputAbstract'/>
 
 import ConfigurableAbstract from "Mudde/Core/ConfigurableAbstract";
+import HandlerInterface from "Mudde/Core/HandlerInterface";
 import Node from "mudde-node/src/Mudde/Core/Node"
 import GuidHelper from "Mudde/Form/Helper/GuidHelper";
 import Form from "Mudde/Form/Form";
-import InputBuilderAbstract from "Mudde/Form/InputBuilderAbstract";
-import ValidationAbstract from "Mudde/Form/ValidationAbstract";
 
 export default abstract class InputAbstract extends ConfigurableAbstract {
 
@@ -21,9 +20,7 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
    private _hidden: boolean = false
    private _require: boolean = false
    private _multilingual: boolean = false
-   private _ids: string[] = []
-   private _builders: InputBuilderAbstract[] = []
-   private _validations: ValidationAbstract[] = []
+   private _handler?: HandlerInterface
    private _form?: Form
 
    constructor(form: Form) {
@@ -32,6 +29,12 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
    }
 
    abstract coreHTMLInput(id: string, name: string, language: string): Node
+   protected preCoreHTMLInput(item: Node): Node | null { return null }
+   protected preHTMLInput(item: Node): Node | null { return null }
+   protected postCoreHTMLInput(item: Node): Node | null { return null }
+   protected postHTMLInput(item: Node): Node | null { return null }
+   protected javascript(): string { return '' }
+   protected canBeMultilingual(): boolean { return false }
 
    getDefaultConfig() {
       return {
@@ -53,12 +56,16 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
    }
 
    private configureBuilders(rawFields: Object[]): void {
-      let builders: InputBuilderAbstract[] = this.builders = []
+      let main = this
 
       rawFields.unshift('GeneralBuilder')
       rawFields.forEach(builder => {
          requirejs(['Mudde/Form/Input/Builder/' + builder], (className) => {
-            builders.push(new className.default())
+            let handler = new className.default(this)
+
+            main._handler = !main._handler
+               ? handler
+               : main._handler.setNext(handler)
          });
 
       })
@@ -66,67 +73,51 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
 
    private configureValidations(rawFields: Object[]): void {
       let main = this
-      this.validations = []
 
       rawFields.forEach((config, index) => {
          let type = config['_type']
          requirejs(['Mudde/Form/Validation/' + type], (className) => {
-            main.validations[index] = new className.default(config)
+            let handler = new className.default(this, config)
+
+            main._handler = !main._handler
+               ? handler
+               : main._handler.setNext(handler)
          });
       })
    }
 
    render(): Node {
       let main = this
-      let elements: Node[] = []
-      let builders: InputBuilderAbstract[] = this.builders
+      let mainId = this.id
+      const elements: Node[] = []
       let isMultilingual: boolean = this.isMultilingual
       let languages: string[] = isMultilingual ? this.form.languages : [this.form.languages[0]]
-      let output = new Node('div', {})
-
-      this.ids = []
 
       languages.forEach(language => {
-         let id: string = isMultilingual ? `${main.id}_${language}` : main.id
-         let name: string = isMultilingual ? `${main.id}[${language}]` : main.id
-         let object = main.renderBuild(id, name, language)
+         let id: string = isMultilingual ? `${mainId}_${language}` : mainId
+         let name: string = isMultilingual ? `${mainId}[${language}]` : mainId
+         let object: Node = this.coreHTMLInput(id, name, language)
 
+         this.handler?.handle({ id: id, name: name, object: object })
          elements.push(object)
       })
 
-      builders.forEach(builder => {
-         builder.finalBuild(elements, main, output)
+      let output = new Node('div', {})
+      elements.forEach(function (element, index) {
+         output
+            .appendElement(main.preCoreHTMLInput(element))
+            .appendElement(element)
+            .appendElement(main.postCoreHTMLInput(element))
+            .addSiblingElement(main.postHTMLInput(element))
       })
 
       return output
    }
 
-   protected renderBuild(id: string, name: string, language: string): Node {
-      let main = this
-      let validations: ValidationAbstract[] = this.validations
-      let builders: InputBuilderAbstract[] = this.builders
-      let isMultilingual: boolean = this.isMultilingual
-      let object: Node = this.coreHTMLInput(id, name, language)
-
-      validations.forEach(validation => {
-         object = isMultilingual
-            ? validation.coreMultilingualBuild(object, main, language)
-            : validation.coreBuild(object, main)
-      })
-
-      builders.forEach(builder => {
-         object = isMultilingual
-            ? builder.coreMultilingualBuild(object, main, language)
-            : builder.coreBuild(object, main)
-      })
-
-      this.ids.push(id)
-
-      return object;
-   }
-
    get isMultilingual(): boolean {
-      return this.form.languages.length > 1 && this.multilingual
+      let isMultilingualRequested = this.form.languages.length > 1 && this.multilingual
+
+      return this.canBeMultilingual() && isMultilingualRequested
    }
 
    set id(value: string) {
@@ -177,12 +168,14 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
       return this._unique
    }
 
-   set validations(value: ValidationAbstract[]) {
-      this._validations = value
+   set handler(value: HandlerInterface) {
+      this._handler = value
    }
 
-   get validations(): ValidationAbstract[] {
-      return this._validations
+   get handler(): HandlerInterface {
+      if (this._handler === undefined) throw new Error('Handler not set!');
+
+      return this._handler
    }
 
    set autofocus(value: boolean) {
@@ -225,22 +218,6 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
       if (this._form === undefined) throw new Error('Input not properly initialized!')
 
       return this._form
-   }
-
-   set ids(value: string[]) {
-      this._ids = value
-   }
-
-   get ids(): string[] {
-      return this._ids
-   }
-
-   set builders(value: InputBuilderAbstract[]) {
-      this._builders = value
-   }
-
-   get builders(): InputBuilderAbstract[] {
-      return this._builders
    }
 
    set placeholder(value: string) {

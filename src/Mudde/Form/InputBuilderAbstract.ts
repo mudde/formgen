@@ -2,12 +2,10 @@
 
 import Node from "mudde-node/src/Mudde/Core/Node"
 import BuilderAbstract from "Mudde/Form/BuilderAbstract";
-import InputAbstract from "Mudde/Form/InputAbstract";
+import CoreBuildInterface from "./CoreBuildInterface";
 
-export default abstract class InputBuilderAbstract extends BuilderAbstract {
+export default abstract class InputBuilderAbstract extends BuilderAbstract implements CoreBuildInterface {
 
-   abstract coreBuild(output: Node, input: InputAbstract): Node
-   abstract coreMultilingualBuild(output: Node, input: InputAbstract, language:string): Node
-   abstract finalBuild(elements: Node[], input: InputAbstract, output:Node): void
+   abstract coreBuild(output: Node, id:string, name:string, language:string): Node
 
 }

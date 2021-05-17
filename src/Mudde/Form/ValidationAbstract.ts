@@ -1,12 +1,48 @@
 ///<amd-module name='Mudde/Form/ValidationAbstract'/>
 
-import Node from "mudde-node/src/Mudde/Core/Node"
+import Node from "mudde-node/src/Mudde/Core/Node";
 import ConfigurableAbstract from "Mudde/Core/ConfigurableAbstract";
-import InputAbstract from "Mudde/Form/InputAbstract";
+import HandlerInterface from "Mudde/Core/HandlerInterface";
+import CoreBuildInterface from "./CoreBuildInterface";
+import InputAbstract from "./InputAbstract";
 
-export default abstract class ValidationAbstract extends ConfigurableAbstract {
+export default abstract class ValidationAbstract extends ConfigurableAbstract implements HandlerInterface, CoreBuildInterface {
 
-   abstract coreBuild(output: Node, input: InputAbstract): Node
-   abstract coreMultilingualBuild(output: Node, input: InputAbstract, language:string): Node
+  private _nextEvent?: HandlerInterface
 
+  abstract coreBuild(output: Node, id:string, name:string, language:string): Node
+
+  setNext(event: HandlerInterface): HandlerInterface {
+    this._nextEvent = event
+
+    return event
+  }
+
+  handle(data: any) {
+    this.coreBuild(data.output, data.id, data.name, data.language)
+    if (this._nextEvent) {
+      this._nextEvent.handle(data)
+    }
+
+    return data
+  }
+
+  //  todo  mixin from BuilderAbstract  Gr.O.M.
+  private _input?: InputAbstract
+
+  constructor(input: InputAbstract) {
+    super()
+    this._input = input
+  }
+
+  set input(value: InputAbstract) {
+    this._input = value
+  }
+
+  get input(): InputAbstract {
+    if (this._input === undefined) throw new Error('Input not set!');
+
+    return this._input
+  }
+  //  todo  end mixin from BuilderAbstract  Gr.O.M.
 }

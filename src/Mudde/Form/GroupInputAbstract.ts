@@ -35,12 +35,8 @@ export default abstract class GroupInputAbstract extends InputAbstract {
    render(): Node {
       let main = this
       let elements: Node[] = []
-      let builders: InputBuilderAbstract[] = this.builders
       let isMultilingual: boolean = this.isMultilingual
       let languages: string[] = isMultilingual ? this.form.languages : [this.form.languages[0]]
-      let output = new Node('div', {})
-
-      this.ids = []
 
       this._data.forEach(data => {
          this.currentData = data
@@ -48,14 +44,21 @@ export default abstract class GroupInputAbstract extends InputAbstract {
          languages.forEach(language => {
             let id: string = isMultilingual ? `${main.id}_${data.id}_${language}` : main.id
             let name: string = isMultilingual ? `${main.id}[${language}]` : main.id
-            let object: Node = main.renderBuild(id, name, language)
-
+            let object: Node = this.coreHTMLInput(id, name, language)
+      
+            this.handler?.handle(object)
+   
             elements.push(object)
          })
       })
 
-      builders.forEach(builder => {
-         builder.finalBuild(elements, main, output)
+      let output = new Node('div', {})
+      elements.forEach(function (element, index) {
+         output
+            .appendElement(main.preCoreHTMLInput(element))
+            .appendElement(element)
+            .appendElement(main.postCoreHTMLInput(element))
+            .addSiblingElement(main.postHTMLInput(element))
       })
 
       return output

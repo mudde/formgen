@@ -1,11 +1,39 @@
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃  █████  ███  ████   ███   ┃
-┃    █   █   █ █   █ █   █  ┃
-┃    █   █   █ █   █ █   █  ┃
-┃    █    ███  ████   ███   ┃
+┃  ▒▒▒▒▒  ▒▒▒  ▒▒▒▒   ▒▒▒   ┃
+┃    ▒   ▒   ▒ ▒   ▒ ▒   ▒  ┃
+┃    ▒   ▒   ▒ ▒   ▒ ▒   ▒  ┃
+┃    ▒    ▒▒▒  ▒▒▒▒   ▒▒▒   ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-- If you change the panel value of a field. The next fields are also presented on the changed valued tab.
-- Add relations between two entities (for example add x times a different address to a company)
--
-- More tests!
-- Readme update
+
+ﻩ ERROR - If you change the panel value of a field. The next fields are presented on the wrong tab.
+ﻩ Implementatie design pattern chain of responsibility voor builders and validation
+ﻩ InputAbstract add extraHTML method en addJS (or something)
+ﻩ Add relations between two entities (for example add x times a different address to a company)
+ﻩ tom-select for data selectors (like select2 but without jQuery)
+ﻩ Validators matching Symfony validators
+ﻩ Create an input for "Radio or else"/"Checkbox or else". ( ) Radio ( ) Radio ( ) Radio (ﻩ) Or else [Bla bla bla_____________________]
+ﻩ Date from till
+ﻩ DateTime from till
+ﻩ Image upload with face recognition
+ﻩ An Input must also have the possibility to be unable to be multilingual
+ﻩ No jQuery???
+ﻩ HTML opbouw in js en niet met innerHTML
+ﻩ More tests!
+ﻩ Readme update
+
+┏━━━━━━━━━━━━━━━━━━━━━━┓
+┃  RENDER ORDER INPUT  ┃
+┗━━━━━━━━━━━━━━━━━━━━━━┛
+
+ﻩ implementatie als events!
+
+ﻩ form->render
+   └ input.render                         <div>
+      ├ input.preHTML **                  <div><h1>
+      ├ input.renderBuild                 <div><h1><input />
+      │  ├ input.preHTMLCore **           <div><h1><h2><input />
+      │  ├ validation.coreBuild           <div><h1><h2><input notEmpty />
+      │  ├ builder.coreBuild              <div><h1><h2><input notEmpty id='x' />
+      │  └ input.postHTMLCore **          <div><h1><h2><input notEmpty id='x' /><span>
+      ├ builder.finalBuild                <div><h1><h2><label class='x'><input notEmpty id='x' /><span class='error'><span>
+      └ input.postHTML **                 <div><h1><h2><label class='x'><input notEmpty id='x' /><span class='error'><span><p>Extra text!</p>
