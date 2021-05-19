@@ -21,7 +21,9 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
    private _require: boolean = false
    private _multilingual: boolean = false
    private _handler?: HandlerInterface
+   private _handlerCurrent?: HandlerInterface
    private _form?: Form
+   private _coreIds: Node[] = [];
 
    constructor(form: Form) {
       super()
@@ -29,10 +31,10 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
    }
 
    abstract coreHTMLInput(id: string, name: string, language: string): Node
-   protected preCoreHTMLInput(item: Node): Node | null { return null }
-   protected preHTMLInput(item: Node): Node | null { return null }
-   protected postCoreHTMLInput(item: Node): Node | null { return null }
-   protected postHTMLInput(item: Node): Node | null { return null }
+   protected preCoreHTMLInput(): Node | null { return null }
+   protected preHTMLInput(): Node | null { return null }
+   protected postCoreHTMLInput(): Node | null { return null }
+   protected postHTMLInput(): Node | null { return null }
    protected javascript(): string { return '' }
    protected canBeMultilingual(): boolean { return false }
 
@@ -63,11 +65,13 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
          requirejs(['Mudde/Form/Input/Builder/' + builder], (className) => {
             let handler = new className.default(this)
 
-            main._handler = !main._handler
-               ? handler
-               : main._handler.setNext(handler)
+            if (!main._handler) {
+               main._handler = main._handlerCurrent = handler
+            } else {
+               main._handlerCurrent?.setNext(handler)
+               main._handlerCurrent = handler
+            }
          });
-
       })
    }
 
@@ -79,37 +83,40 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
          requirejs(['Mudde/Form/Validation/' + type], (className) => {
             let handler = new className.default(this, config)
 
-            main._handler = !main._handler
-               ? handler
-               : main._handler.setNext(handler)
+            if (!main._handler) {
+               main._handler = main._handlerCurrent = handler
+            } else {
+               main._handlerCurrent?.setNext(handler)
+               main._handlerCurrent = handler
+            }
          });
       })
    }
 
    render(): Node {
-      let main = this
       let mainId = this.id
-      const elements: Node[] = []
       let isMultilingual: boolean = this.isMultilingual
       let languages: string[] = isMultilingual ? this.form.languages : [this.form.languages[0]]
+      let output = new Node('div', {})
+      let ids: Node[] = this.coreIds = []
+
+      output.appendElement(this.preCoreHTMLInput())
 
       languages.forEach(language => {
          let id: string = isMultilingual ? `${mainId}_${language}` : mainId
          let name: string = isMultilingual ? `${mainId}[${language}]` : mainId
          let object: Node = this.coreHTMLInput(id, name, language)
 
-         this.handler?.handle({ id: id, name: name, object: object })
-         elements.push(object)
+         ids.push(object)
+         output.appendElement_(object)
       })
 
-      let output = new Node('div', {})
-      elements.forEach(function (element, index) {
-         output
-            .appendElement(main.preCoreHTMLInput(element))
-            .appendElement(element)
-            .appendElement(main.postCoreHTMLInput(element))
-            .addSiblingElement(main.postHTMLInput(element))
-      })
+      output
+         .appendElement_(this.postCoreHTMLInput())
+         .prependElement_(this.preHTMLInput())
+         .appendElement_(this.postHTMLInput())
+
+      this.handler?.handle(output)
 
       return output
    }
@@ -236,4 +243,11 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
       return this._panel
    }
 
+   get coreIds(): Node[] {
+      return this._coreIds;
+   }
+
+   set coreIds(value: Node[]) {
+      this._coreIds = value;
+   }
 }

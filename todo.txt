@@ -5,9 +5,7 @@
 ┃    ▒    ▒▒▒  ▒▒▒▒   ▒▒▒   ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-ﻩ ERROR - If you change the panel value of a field. The next fields are presented on the wrong tab.
-ﻩ Implementatie design pattern chain of responsibility voor builders and validation
-ﻩ InputAbstract add extraHTML method en addJS (or something)
+ﻩ InputAbstract add extraJS
 ﻩ Add relations between two entities (for example add x times a different address to a company)
 ﻩ tom-select for data selectors (like select2 but without jQuery)
 ﻩ Validators matching Symfony validators
@@ -15,7 +13,6 @@
 ﻩ Date from till
 ﻩ DateTime from till
 ﻩ Image upload with face recognition
-ﻩ An Input must also have the possibility to be unable to be multilingual
 ﻩ No jQuery???
 ﻩ HTML opbouw in js en niet met innerHTML
 ﻩ More tests!

@@ -30,10 +30,11 @@ export default class Checkbox extends GroupInputAbstract {
             type: 'checkbox',
             value: currentData.id
          })
-         .appendNode('label', {
+         .appendNode_('label', {
             'for': newId,
             'class': 'form-check-label'
          }, currentData.value)
+         
 
       return element
    }

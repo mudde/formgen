@@ -6,6 +6,16 @@ import CoreBuildInterface from "./CoreBuildInterface";
 
 export default abstract class InputBuilderAbstract extends BuilderAbstract implements CoreBuildInterface {
 
-   abstract coreBuild(output: Node, id:string, name:string, language:string): Node
+   abstract coreBuild(output: Node): void
+   
+   handle(data: any) {
+      if (this.nextEvent) {
+        this.nextEvent.handle(data)
+      }
+  
+      this.coreBuild(data)
+
+      return data
+    }   
 
 }

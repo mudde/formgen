@@ -1,7 +1,6 @@
 ///<amd-module name='Mudde/Form/GroupInputAbstract'/>
 
 import Node from "mudde-node/src/Mudde/Core/Node"
-import InputBuilderAbstract from "Mudde/Form/InputBuilderAbstract";
 import DataAbstract from "./DataAbstract";
 import StringHelper from "./Helper/StringHelper"
 import Array from "./Data/Array";
@@ -33,33 +32,34 @@ export default abstract class GroupInputAbstract extends InputAbstract {
    }
 
    render(): Node {
-      let main = this
-      let elements: Node[] = []
+      let mainId = this.id
       let isMultilingual: boolean = this.isMultilingual
       let languages: string[] = isMultilingual ? this.form.languages : [this.form.languages[0]]
+      let output = new Node('div', {})
+      let ids: Node[] = this.coreIds = []
+
+      output.appendElement(this.preCoreHTMLInput())
 
       this._data.forEach(data => {
          this.currentData = data
-         
+
          languages.forEach(language => {
-            let id: string = isMultilingual ? `${main.id}_${data.id}_${language}` : main.id
-            let name: string = isMultilingual ? `${main.id}[${language}]` : main.id
+            let id: string = isMultilingual ? `${mainId}_${language}` : mainId
+            let name: string = isMultilingual ? `${mainId}[${language}]` : mainId
             let object: Node = this.coreHTMLInput(id, name, language)
-      
-            this.handler?.handle(object)
-   
-            elements.push(object)
+
+            ids.push(object)
+            output.appendElement_(object)
          })
+
+         output.appendElement(this.postCoreHTMLInput())
       })
 
-      let output = new Node('div', {})
-      elements.forEach(function (element, index) {
-         output
-            .appendElement(main.preCoreHTMLInput(element))
-            .appendElement(element)
-            .appendElement(main.postCoreHTMLInput(element))
-            .addSiblingElement(main.postHTMLInput(element))
-      })
+      output
+         .prependElement(this.preHTMLInput())
+         .appendElement(this.postHTMLInput())
+
+      this.handler?.handle(output)
 
       return output
    }

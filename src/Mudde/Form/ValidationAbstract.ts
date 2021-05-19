@@ -10,7 +10,7 @@ export default abstract class ValidationAbstract extends ConfigurableAbstract im
 
   private _nextEvent?: HandlerInterface
 
-  abstract coreBuild(output: Node, id:string, name:string, language:string): Node
+  abstract coreBuild(output: Node): void
 
   setNext(event: HandlerInterface): HandlerInterface {
     this._nextEvent = event
@@ -19,10 +19,11 @@ export default abstract class ValidationAbstract extends ConfigurableAbstract im
   }
 
   handle(data: any) {
-    this.coreBuild(data.output, data.id, data.name, data.language)
     if (this._nextEvent) {
       this._nextEvent.handle(data)
     }
+
+    this.coreBuild(data)
 
     return data
   }

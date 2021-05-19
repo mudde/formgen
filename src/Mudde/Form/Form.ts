@@ -6,8 +6,8 @@ import GuidHelper from "Mudde/Form/Helper/GuidHelper"
 import StringHelper from "Mudde/Form/Helper/StringHelper"
 import ButtonAbstract from "Mudde/Form/ButtonAbstract"
 import DataAbstract from "Mudde/Form/DataAbstract"
-import FormBuilderAbstract from "Mudde/Form/FormBuilderAbstract"
 import InputAbstract from "Mudde/Form/InputAbstract"
+import HandlerInterface from "Mudde/Core/HandlerInterface"
 
 export default class Form extends ConfigurableAbstract {
 
@@ -16,9 +16,10 @@ export default class Form extends ConfigurableAbstract {
    private _fields: InputAbstract[] = []
    private _buttons: ButtonAbstract[] = []
    private _form?: Node
-   private _builders: FormBuilderAbstract[] = []
    private _data?: DataAbstract
    private _count: number = 0
+   private _handler?: HandlerInterface
+   private _handlerCurrent?: HandlerInterface
    private _loaded: boolean = false
    static _forms: Form[] = []
 
@@ -78,14 +79,17 @@ export default class Form extends ConfigurableAbstract {
 
    private configureBuilders(rawFields: Object[]): void {
       let main = this
-      let builders: FormBuilderAbstract[] = this.builders = []
 
       rawFields.unshift('GeneralBuilder')
       rawFields.forEach(builder => {
-         main.count++
          requirejs(['Mudde/Form/Builder/' + builder], (className) => {
-            builders.push(new className.default())
-            main.count--
+            let handler = new className.default(this)
+            if (!main._handler) {
+               main._handler = main._handlerCurrent = handler
+            } else {
+               main._handlerCurrent = main._handlerCurrent?.setNext(handler)
+            }
+
          });
       })
    }
@@ -110,30 +114,36 @@ export default class Form extends ConfigurableAbstract {
       return form.length === 0 ? null : form[0]
    }
 
-   render(): HTMLElement {
+   render(): Node {
       let form = this._form
       if (form === undefined) throw new Error('Form not set!')
-      
-      form.root().innerHTML = ''
 
-      this.fields.forEach(element => {
-         if (form === undefined) throw new Error('Form not set!')
-         let renderedElement = element.render();
-         form.appendElement_(renderedElement.root())
+      form.clear()
+
+      this.fields.forEach(field => {
+         let renderedElement: Node = field.render();
+         let panelId = 'panel_' + field.panel
+
+         if (!form?.hasElementById(panelId)) {
+            form
+               ?.gotoRoot()
+               .appendNode_('div', { id: panelId , class:'panel'})
+         }
+
+         form
+            ?.getElementById(panelId)
+            .appendElement_(renderedElement.root())
       });
 
-      this.builders.forEach(builder => {
-         builder.postBuild(this)
-      })
+      this._handler?.handle(form)
 
       form.gotoRoot()
 
       this.buttons.forEach(element => {
-         if (form === undefined) throw new Error('Form not set!')
-         form.appendElement_(element.render().root())
+         form?.appendElement_(element.render().root())
       });
 
-      return form.root()
+      return form
    }
 
    set id(value: string) {
@@ -183,14 +193,6 @@ export default class Form extends ConfigurableAbstract {
       return this._buttons
    }
 
-   set builders(value: FormBuilderAbstract[]) {
-      this._builders = value
-   }
-
-   get builders(): FormBuilderAbstract[] {
-      return this._builders
-   }
-
    set form(value: Node) {
       this._form = value
    }
@@ -201,4 +203,13 @@ export default class Form extends ConfigurableAbstract {
       return this._form
    }
 
+   set handler(value: HandlerInterface) {
+      this._handler = value
+   }
+
+   get handler(): HandlerInterface {
+      if (this._handler === undefined) throw new Error('Handler not set!');
+
+      return this._handler
+   }
 }

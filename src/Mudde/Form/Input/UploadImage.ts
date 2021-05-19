@@ -22,7 +22,7 @@ export default class UploadImage extends InputAbstract {
       }
    }
 
-   protected postCoreHTMLInput(item: Node): Node {
+   protected postCoreHTMLInput(): Node {
       return new Node('b', {},'Hello')
    }
 

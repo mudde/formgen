@@ -4,6 +4,6 @@ import Node from "mudde-node/src/Mudde/Core/Node";
 
 export default interface CoreBuildInterface {
 
-  coreBuild(output: Node, id:string, name:string, language:string): Node
+  coreBuild(output: Node): void
    
 }

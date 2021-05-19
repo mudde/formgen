@@ -91,5 +91,4 @@ export default class Text extends InputAbstract {
    get spellcheck(): boolean {
       return this._spellcheck
    }
-
 }

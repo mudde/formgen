@@ -14,15 +14,13 @@ export default class NotEmpty extends ValidationAbstract {
       return {}
    }
 
-   coreBuild(output: Node, id: string, name: string, language: string): Node {
+   coreBuild(output: Node): void {
       let attributes: any = {
          required: ''
       }
 
-      output
-         .getElementById(id)
-         .setAttributes(attributes)
-
-      return output
+      this.input.coreIds.forEach(element => {
+         element.setAttributes(attributes)
+      })
    }
 }

@@ -20,17 +20,15 @@ export default class Length extends ValidationAbstract {
       }
    }
 
-   coreBuild(output: Node, id: string, name: string, language: string): Node {
+   coreBuild(output: Node): void {
       let attributes: any = {
          ... this.min > 0 ? { min: this.min } : {},
          ... this.max > 0 ? { max: this.max } : {}
       }
 
-      output
-         .getElementById(id)
-         .setAttributes(attributes)
-
-      return output
+      this.input.coreIds.forEach(element => {
+         element.setAttributes(attributes)
+      })
    }
 
    get min(): number {

@@ -22,7 +22,6 @@ export default class Email extends InputAbstract {
          id: id,
          name: name,
          type: 'email',
-         class: 'form-control',
          'aria-label': this.label,
          'data-language': language
       })
