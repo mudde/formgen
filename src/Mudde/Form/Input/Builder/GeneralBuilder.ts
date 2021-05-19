@@ -10,12 +10,14 @@ export default class GeneralBuilder extends InputBuilderAbstract {
       let input = this.input
       let elements = input.coreIds
       let labelText = input.label + (input.require ? IconHelper.starFill('9px') : '')
-      let label: Node = new Node('label', { for: elements[0].id })
+      let label: Node = new Node('label', { for: elements[0].id, class: 'myLabel' })
+      let help: Node = new Node('span', { class: 'help', id: 'help_' + input.id })
       label.innerHTML = labelText
 
       output
          .gotoRoot()
-         .setAttributes({ 'style': 'border:1px solid red; margin-bottom: 10px;' })
+         .setAttributes({ 'style': 'margin-bottom: 10px;' })
          .prependElement_(label)
+         .appendElement_(help)
    }
 }

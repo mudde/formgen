@@ -132,7 +132,7 @@ export default class Form extends ConfigurableAbstract {
 
          form
             ?.getElementById(panelId)
-            .appendElement_(renderedElement.root())
+            .appendElement_(renderedElement)
       });
 
       this._handler?.handle(form)
@@ -140,7 +140,7 @@ export default class Form extends ConfigurableAbstract {
       form.gotoRoot()
 
       this.buttons.forEach(element => {
-         form?.appendElement_(element.render().root())
+         form?.appendElement_(element.render())
       });
 
       return form

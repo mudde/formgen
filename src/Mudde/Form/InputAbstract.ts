@@ -78,10 +78,10 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
    private configureValidations(rawFields: Object[]): void {
       let main = this
 
-      rawFields.forEach((config, index) => {
+      rawFields.forEach(config => {
          let type = config['_type']
          requirejs(['Mudde/Form/Validation/' + type], (className) => {
-            let handler = new className.default(this, config)
+            let handler = new className.default(main, config)
 
             if (!main._handler) {
                main._handler = main._handlerCurrent = handler
