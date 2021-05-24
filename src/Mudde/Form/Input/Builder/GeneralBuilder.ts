@@ -12,6 +12,7 @@ export default class GeneralBuilder extends InputBuilderAbstract {
       let labelText = input.label + (input.require ? IconHelper.starFill('9px') : '')
       let label: Node = new Node('label', { for: elements[0].id, class: 'myLabel' })
       let help: Node = new Node('span', { class: 'help', id: 'help_' + input.id })
+     
       label.innerHTML = labelText
 
       output

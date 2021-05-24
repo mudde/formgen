@@ -6,7 +6,7 @@ import FormBuilderAbstract from "../FormBuilderAbstract";
 export default class TabsBuilder extends FormBuilderAbstract {
 
    coreBuild(output: Node): void {
-      let htmlForm: HTMLElement = output.root()
+      let htmlForm: HTMLElement = output.root
       let panels: HTMLCollectionOf<Element> = htmlForm.getElementsByClassName('panel')
       let tabs: Node = new Node('ul', { class: "nav nav-tabs" })
 

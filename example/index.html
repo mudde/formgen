@@ -257,7 +257,7 @@
             var formgen = new form.default(config)
 
             setTimeout(() => {
-                document.getElementById('main').innerHTML = formgen.render().root().outerHTML
+                document.getElementById('main').innerHTML = formgen.render().root.outerHTML
                 //  todo  This must be done by the textarea input plugin!  Gr.O.M.
                 Array.from(document.getElementsByTagName('textarea')).forEach(name => {
                     ClassicEditor.create(name)
