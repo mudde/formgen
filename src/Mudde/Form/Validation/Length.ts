@@ -22,13 +22,18 @@ export default class Length extends ValidationAbstract {
 
    coreBuild(output: Node): void {
       let attributes: any = {
-         ... this.min > 0 ? { min: this.min } : {},
-         ... this.max > 0 ? { max: this.max } : {}
+         ... this.min > 0 ? { minlength: this.min } : {},
+         ... this.max > 0 ? { maxlength: this.max } : {}
       }
 
       this.input.coreIds.forEach(element => {
          element.setAttributes(attributes)
+         element.onchange(this.onchange)
       })
+   }
+
+   onchange(event: Event) {
+
    }
 
    get min(): number {
