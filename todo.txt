@@ -5,7 +5,8 @@
 ┃    ▒    ▒▒▒  ▒▒▒▒   ▒▒▒   ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-ﻩ InputAbstract add extraJS
+ﻩ No jQuery???
+ﻩ InputAbstract add extraJS (textarea update)
 ﻩ Panel naming
 ﻩ Add relations between two entities (for example add x times a different address to a company)
 ﻩ tom-select for data selectors (like select2 but without jQuery)
@@ -14,6 +15,5 @@
 ﻩ Date from till
 ﻩ DateTime from till
 ﻩ Image upload with face recognition
-ﻩ No jQuery???
 ﻩ More tests!
 ﻩ Readme update

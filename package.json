@@ -1,5 +1,5 @@
 {
-  "name": "formgen",
+  "name": "mudde-formgen",
   "version": "1.0.0",
   "description": "Form generator → from json to HTML form",
   "main": "dist/index.html",
@@ -8,10 +8,12 @@
     "@ckeditor/ckeditor5-typing": "^27.1.0",
     "bootstrap": "^5.0.0-beta3",
     "i": "^0.3.6",
+    "jquery": "^3.6.0",
     "jsdom": "^16.5.3",
     "mudde-node": "omudde/node",
     "npm": "^7.11.1",
     "requirejs": "^2.3.6",
+    "select2": "*",
     "semantic-ui-flag": "^2.4.0",
     "tinycrop": "^1.7.0"
   },
