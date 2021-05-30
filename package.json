@@ -12,8 +12,6 @@
     "jquery": "^3.6.0",
     "jsdom": "^16.5.3",
     "mudde-node": "omudde/node",
-    "npm": "^7.11.1",
-    "requirejs": "^2.3.6",
     "select2": "*",
     "semantic-ui-flag": "^2.4.0",
     "tinycrop": "^1.7.0"
@@ -44,6 +42,8 @@
     ]
   },
   "devDependencies": {
+    "requirejs": "^2.3.6",
+    "npm": "^7.11.1",
     "@types/chai": "^4.2.17",
     "@types/mocha": "^8.2.2",
     "@types/requirejs": "^2.1.32",
