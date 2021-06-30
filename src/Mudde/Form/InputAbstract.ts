@@ -1,8 +1,6 @@
-///<amd-module name='Mudde/Form/InputAbstract'/>
-
 import ConfigurableAbstract from "Mudde/Core/ConfigurableAbstract";
 import HandlerInterface from "Mudde/Core/HandlerInterface";
-import Node from "mudde-node/src/Mudde/Core/Node"
+import NodeCore from "mudde-node/src/NodeCore"
 import GuidHelper from "Mudde/Form/Helper/GuidHelper";
 import Form from "Mudde/Form/Form";
 
@@ -23,18 +21,18 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
    private _handler?: HandlerInterface
    private _handlerCurrent?: HandlerInterface
    private _form?: Form
-   private _coreIds: Node[] = [];
+   private _coreIds: NodeCore[] = [];
 
    constructor(form: Form) {
       super()
       this._form = form
    }
 
-   abstract coreHTMLInput(id: string, name: string, language: string): Node
-   protected preCoreHTMLInput(): Node | null { return null }
-   protected preHTMLInput(): Node | null { return null }
-   protected postCoreHTMLInput(): Node | null { return null }
-   protected postHTMLInput(): Node | null { return null }
+   abstract coreHTMLInput(id: string, name: string, language: string): NodeCore
+   protected preCoreHTMLInput(): NodeCore | null { return null }
+   protected preHTMLInput(): NodeCore | null { return null }
+   protected postCoreHTMLInput(): NodeCore | null { return null }
+   protected postHTMLInput(): NodeCore | null { return null }
    protected javascript(): string { return '' }
    protected canBeMultilingual(): boolean { return false }
 
@@ -93,19 +91,19 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
       })
    }
 
-   render(): Node {
+   render(): NodeCore {
       let mainId = this.id
       let isMultilingual: boolean = this.isMultilingual
       let languages: string[] = isMultilingual ? this.form.languages : [this.form.languages[0]]
-      let output = new Node('div', {})
-      let ids: Node[] = this.coreIds = []
+      let output = new NodeCore('div', {})
+      let ids: NodeCore[] = this.coreIds = []
 
       output.appendElement(this.preCoreHTMLInput())
 
       languages.forEach(language => {
          let id: string = isMultilingual ? `${mainId}_${language}` : mainId
          let name: string = isMultilingual ? `${mainId}[${language}]` : mainId
-         let object: Node = this.coreHTMLInput(id, name, language)
+         let object: NodeCore = this.coreHTMLInput(id, name, language)
 
          ids.push(object)
          output.appendElement_(object)
@@ -243,11 +241,11 @@ export default abstract class InputAbstract extends ConfigurableAbstract {
       return this._panel
    }
 
-   get coreIds(): Node[] {
+   get coreIds(): NodeCore[] {
       return this._coreIds;
    }
 
-   set coreIds(value: Node[]) {
+   set coreIds(value: NodeCore[]) {
       this._coreIds = value;
    }
 }

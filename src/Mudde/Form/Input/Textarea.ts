@@ -1,8 +1,6 @@
-///<amd-module name='Mudde/Form/Input/Textarea'/>
-
-import Node from 'mudde-node/src/Mudde/Core/Node'
-import Form from 'Mudde/Form/Form'
-import InputAbstract from 'Mudde/Form/InputAbstract'
+import NodeCore from "mudde-node/src/NodeCore"
+import Form from "Mudde/Form/Form"
+import InputAbstract from "Mudde/Form/InputAbstract"
 
 export default class Textarea extends InputAbstract {
 
@@ -20,8 +18,8 @@ export default class Textarea extends InputAbstract {
       }
    }
 
-   coreHTMLInput(id: string, name: string, language: string): Node {
-      let element: Node = new Node('textarea', {
+   coreHTMLInput(id: string, name: string, language: string): NodeCore {
+      let element: NodeCore = new NodeCore('textarea', {
          id: id,
          name: name,
          spellcheck: this.spellcheck

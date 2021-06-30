@@ -1,8 +1,7 @@
-///<amd-module name='Mudde/Form/Builder/GeneralBuilder'/>
-
+import NodeCore from "mudde-node/src/NodeCore"
 import BuilderAbstract from "Mudde/Form/BuilderAbstract";
 
 export default class GeneralBuilder extends BuilderAbstract {
-   coreBuild(output: Node): void {
+   coreBuild(output: NodeCore): void {
    }
 }

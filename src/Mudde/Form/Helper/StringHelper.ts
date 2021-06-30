@@ -1,5 +1,3 @@
-///<amd-module name='Mudde/Form/Helper/StringHelper'/>
-
 export default class StringHelper {
 
   static ucfirst(value: string) {

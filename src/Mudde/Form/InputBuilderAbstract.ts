@@ -1,12 +1,10 @@
-///<amd-module name='Mudde/Form/InputBuilderAbstract'/>
-
-import Node from "mudde-node/src/Mudde/Core/Node"
+import NodeCore from "mudde-node/src/NodeCore"
 import BuilderAbstract from "Mudde/Form/BuilderAbstract";
 import CoreBuildInterface from "./CoreBuildInterface";
 
 export default abstract class InputBuilderAbstract extends BuilderAbstract implements CoreBuildInterface {
 
-   abstract coreBuild(output: Node): void
+   abstract coreBuild(output: NodeCore): void
    
    handle(data: any) {
       if (this.nextEvent) {

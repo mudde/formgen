@@ -11,7 +11,7 @@
     "i": "^0.3.6",
     "jquery": "^3.6.0",
     "jsdom": "^16.5.3",
-    "mudde-node": "omudde/node",
+    "mudde-node": "mudde/node",
     "select2": "*",
     "semantic-ui-flag": "^2.4.0",
     "tinycrop": "^1.7.0"
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/omudde/formgen.git"
+    "url": "git+https://github.com/mudde/formgen.git"
   },
   "keywords": [
     "form",
@@ -33,9 +33,9 @@
   "author": "olaf mudde <olaf.mudde@xs4all.nl>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/omudde/formgen/issues"
+    "url": "https://github.com/mudde/formgen/issues"
   },
-  "homepage": "https://github.com/omudde/formgen#readme",
+  "homepage": "https://github.com/mudde/formgen#readme",
   "workspaces": {
     "packages": [
       "ckeditor5-build-classic-master"

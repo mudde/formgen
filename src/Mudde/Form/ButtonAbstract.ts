@@ -1,7 +1,5 @@
-///<amd-module name='Mudde/Form/ButtonAbstract'/>
-
 import ConfigurableAbstract from "Mudde/Core/ConfigurableAbstract";
-import Node from "mudde-node/src/Mudde/Core/Node"
+import NodeCore from "mudde-node/src/NodeCore"
 import GuidHelper from "Mudde/Form/Helper/GuidHelper";
 
 export default abstract class ButtonAbstract extends ConfigurableAbstract {
@@ -9,7 +7,7 @@ export default abstract class ButtonAbstract extends ConfigurableAbstract {
    private __type: string = ''
    private _label: string = ''
 
-   abstract coreHTMLInput(id: string, name: string, language: string): Node
+   abstract coreHTMLInput(id: string, name: string, language: string): NodeCore
 
    getDefaultConfig() {
       return {
@@ -17,7 +15,7 @@ export default abstract class ButtonAbstract extends ConfigurableAbstract {
       }
    }
 
-   render(): Node {
+   render(): NodeCore {
       let output = this.coreHTMLInput(GuidHelper.create().toString(), 'x', 'nl')
       
       return output

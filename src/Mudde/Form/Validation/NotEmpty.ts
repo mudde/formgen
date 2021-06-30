@@ -1,6 +1,4 @@
-///<amd-module name='Mudde/Form/Validation/NotEmpty'/>
-
-import Node from "mudde-node/src/Mudde/Core/Node"
+import NodeCore from "mudde-node/src/NodeCore"
 import ValidationAbstract from "Mudde/Form/ValidationAbstract";
 
 export default class NotEmpty extends ValidationAbstract {
@@ -14,7 +12,7 @@ export default class NotEmpty extends ValidationAbstract {
       return {}
    }
 
-   coreBuild(output: Node): void {
+   coreBuild(output: NodeCore): void {
       let attributes: any = {
          required: ''
       }

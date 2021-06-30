@@ -1,6 +1,4 @@
 // https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts
-///<amd-module name='Mudde/Form/Helper/GuidHelper'/>
-
 export default class GuidHelper {
 
     static validator = new RegExp("^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$", "i");

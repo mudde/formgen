@@ -1,6 +1,4 @@
-///<amd-module name='Mudde/Form/GroupInputAbstract'/>
-
-import Node from "mudde-node/src/Mudde/Core/Node"
+import NodeCore from "mudde-node/src/NodeCore"
 import DataAbstract from "./DataAbstract";
 import StringHelper from "./Helper/StringHelper"
 import Array from "./Data/Array";
@@ -11,7 +9,7 @@ export default abstract class GroupInputAbstract extends InputAbstract {
    private _data: DataAbstract = new Array({ data: [] })
    private _currentData: any = {}
 
-   abstract coreHTMLInput(id: string, name: string, language: string): Node
+   abstract coreHTMLInput(id: string, name: string, language: string): NodeCore
 
    getDefaultConfig() {
       return {
@@ -31,12 +29,12 @@ export default abstract class GroupInputAbstract extends InputAbstract {
       });
    }
 
-   render(): Node {
+   render(): NodeCore {
       let mainId = this.id
       let isMultilingual: boolean = this.isMultilingual
       let languages: string[] = isMultilingual ? this.form.languages : [this.form.languages[0]]
-      let output = new Node('div', {})
-      let ids: Node[] = this.coreIds = []
+      let output = new NodeCore('div', {})
+      let ids: NodeCore[] = this.coreIds = []
 
       output.appendElement(this.preCoreHTMLInput())
 
@@ -46,7 +44,7 @@ export default abstract class GroupInputAbstract extends InputAbstract {
          languages.forEach(language => {
             let id: string = isMultilingual ? `${mainId}_${language}` : mainId
             let name: string = isMultilingual ? `${mainId}[${language}]` : mainId
-            let object: Node = this.coreHTMLInput(id, name, language)
+            let object: NodeCore = this.coreHTMLInput(id, name, language)
 
             ids.push(object)
             output.appendElement_(object)

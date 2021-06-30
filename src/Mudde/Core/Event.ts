@@ -1,5 +1,3 @@
-///<amd-module name='Mudde/Core/Event'/>
-
 export default class Event {
    
    private _source?:any

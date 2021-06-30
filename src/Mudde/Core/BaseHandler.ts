@@ -1,5 +1,3 @@
-///<amd-module name='Mudde/Core/BaseHandler'/>
-
 import HandlerInterface from "./HandlerInterface"
 
 export default abstract class BaseHandler implements HandlerInterface {

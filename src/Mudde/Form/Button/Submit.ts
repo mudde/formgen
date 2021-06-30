@@ -1,6 +1,4 @@
-///<amd-module name='Mudde/Form/Buttom/Submit'/>
-
-import Node from "mudde-node/src/Mudde/Core/Node"
+import NodeCore from "mudde-node/src/NodeCore"
 import ButtonAbstract from "Mudde/Form/ButtonAbstract"
 
 export default class Submit extends ButtonAbstract {
@@ -16,7 +14,7 @@ export default class Submit extends ButtonAbstract {
       }
    }
 
-   coreHTMLInput(id: string, name: string, language: string): Node {
+   coreHTMLInput(id: string, name: string, language: string): NodeCore {
       //  todo  Onclick naar andere functie!  Gr.O.M.
       let attributes: any = {
          type: 'button',
@@ -40,7 +38,7 @@ export default class Submit extends ButtonAbstract {
          value: this.label
       }
 
-      let element: Node = new Node('input', attributes)
+      let element: NodeCore = new NodeCore('input', attributes)
 
       return element
    }

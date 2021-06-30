@@ -1,11 +1,9 @@
-///<amd-module name='Mudde/Form/Input/Builder/BootstrapBuilder'/>
-
-import Node from "mudde-node/src/Mudde/Core/Node"
+import NodeCore from "mudde-node/src/NodeCore"
 import InputBuilderAbstract from "Mudde/Form/InputBuilderAbstract";
 
 export default class BootstrapBuilder extends InputBuilderAbstract {
 
-   coreBuild(output: Node): void {
+   coreBuild(output: NodeCore): void {
       output
          .gotoRoot()
          .addClass('mb-1')
@@ -33,8 +31,8 @@ export default class BootstrapBuilder extends InputBuilderAbstract {
 
             output
                .getElementById(id)
-               .moveInNode(function (oldNode: Node) {
-                  return new Node('div', { class: 'input-group mb-1' })
+               .moveInNode(function (oldNode: NodeCore) {
+                  return new NodeCore('div', { class: 'input-group mb-1' })
                      .appendNode_('span', { class: 'input-group-text' })
                      .appendNode('i', { class: `${language} flag mr-0` })
                      ._()

@@ -1,5 +1,3 @@
-///<amd-module name='Mudde/Form/Helper/IconHelper'/>
-
 export default class IconHelper {
 
    static suitHeart(size:string='1em'): string {

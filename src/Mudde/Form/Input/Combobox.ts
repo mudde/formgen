@@ -1,6 +1,4 @@
-///<amd-module name='Mudde/Form/Input/Combobox'/>
-
-import Node from "mudde-node/src/Mudde/Core/Node"
+import NodeCore from "mudde-node/src/NodeCore"
 import Form from "Mudde/Form/Form"
 import InputAbstract from "Mudde/Form/InputAbstract"
 import DataAbstract from "Mudde/Form/DataAbstract"
@@ -36,8 +34,8 @@ export default class Combobox extends InputAbstract {
       });
    }
 
-   coreHTMLInput(id: string, name: string, language: string): Node {
-      let element: Node = new Node('select', {
+   coreHTMLInput(id: string, name: string, language: string): NodeCore {
+      let element: NodeCore = new NodeCore('select', {
          id: id,
          name: name,
          ...this.placeholder ? { placeholder: this.placeholder } : {},

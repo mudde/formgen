@@ -1,7 +1,5 @@
-///<amd-module name='Mudde/Form/Form'/>
-
 import ConfigurableAbstract from "Mudde/Core/ConfigurableAbstract"
-import Node from "mudde-node/src/Mudde/Core/Node"
+import NodeCore from "mudde-node/src/NodeCore"
 import GuidHelper from "Mudde/Form/Helper/GuidHelper"
 import StringHelper from "Mudde/Form/Helper/StringHelper"
 import ButtonAbstract from "Mudde/Form/ButtonAbstract"
@@ -15,7 +13,7 @@ export default class Form extends ConfigurableAbstract {
    private _languages: string[] = []
    private _fields: InputAbstract[] = []
    private _buttons: ButtonAbstract[] = []
-   private _form?: Node
+   private _form?: NodeCore
    private _data?: DataAbstract
    private _count: number = 0
    private _handler?: HandlerInterface
@@ -27,7 +25,7 @@ export default class Form extends ConfigurableAbstract {
       super()
 
       this.configuring(config)
-      this.form = new Node('form', { method: 'POST', action: '.', id: this.id })
+      this.form = new NodeCore('form', { method: 'POST', action: '.', id: this.id })
 
       Form._forms.push(this)
    }
@@ -114,14 +112,14 @@ export default class Form extends ConfigurableAbstract {
       return form.length === 0 ? null : form[0]
    }
 
-   render(): Node {
+   render(): NodeCore {
       let form = this._form
       if (form === undefined) throw new Error('Form not set!')
 
       form.clear()
 
       this.fields.forEach(field => {
-         let renderedElement: Node = field.render();
+         let renderedElement: NodeCore = field.render();
          let panelId = 'panel_' + field.panel
 
          if (!form?.hasElementById(panelId)) {
@@ -193,11 +191,11 @@ export default class Form extends ConfigurableAbstract {
       return this._buttons
    }
 
-   set form(value: Node) {
+   set form(value: NodeCore) {
       this._form = value
    }
 
-   get form(): Node {
+   get form(): NodeCore {
       if (this._form === undefined) throw new Error('Form not set!')
 
       return this._form

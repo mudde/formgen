@@ -1,6 +1,4 @@
-///<amd-module name='Mudde/Form/Input/Text'/>
-
-import Node from "mudde-node/src/Mudde/Core/Node"
+import NodeCore from "mudde-node/src/NodeCore"
 import Form from "Mudde/Form/Form"
 import InputAbstract from "Mudde/Form/InputAbstract"
 
@@ -32,8 +30,8 @@ export default class Text extends InputAbstract {
       }
    }
 
-   coreHTMLInput(id: string, name: string, language: string): Node {
-      let element: Node = new Node('input', {
+   coreHTMLInput(id: string, name: string, language: string): NodeCore {
+      let element: NodeCore = new NodeCore('input', {
          id: id,
          name: name,
          type: 'text',

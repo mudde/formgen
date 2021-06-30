@@ -1,6 +1,4 @@
-///<amd-module name='Mudde/Form/Input/UploadFile'/>
-
-import Node from "mudde-node/src/Mudde/Core/Node"
+import NodeCore from "mudde-node/src/NodeCore"
 import Form from "Mudde/Form/Form"
 import InputAbstract from "Mudde/Form/InputAbstract"
 
@@ -20,7 +18,7 @@ export default class UploadFile extends InputAbstract {
       }
    }
 
-   coreHTMLInput(id: string, name: string, language: string): Node {
+   coreHTMLInput(id: string, name: string, language: string): NodeCore {
       let attributes: any = {
          id: id,
          name: name,
@@ -28,7 +26,7 @@ export default class UploadFile extends InputAbstract {
          ... this.multiple ? { multiple: '' } : {}
       }
 
-      let element: Node = new Node('input', attributes)
+      let element: NodeCore = new NodeCore('input', attributes)
 
       return element
    }

@@ -1,6 +1,4 @@
-///<amd-module name='Mudde/Form/Input/Radio'/>
-
-import Node from "mudde-node/src/Mudde/Core/Node"
+import NodeCore from "mudde-node/src/NodeCore"
 import Form from "Mudde/Form/Form"
 import GroupInputAbstract from "../GroupInputAbstract"
 
@@ -17,9 +15,9 @@ export default class Radio extends GroupInputAbstract {
       }
    }
 
-   coreHTMLInput(id: string, name: string, language: string): Node {
+   coreHTMLInput(id: string, name: string, language: string): NodeCore {
       let currentData = this.currentData
-      let element: Node = new Node('div', { 'class': 'form-check',  style: 'display: table-cell;' })
+      let element: NodeCore = new NodeCore('div', { 'class': 'form-check',  style: 'display: table-cell;' })
       let newId = id + '_' + currentData.id
 
       element

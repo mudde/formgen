@@ -1,6 +1,4 @@
-///<amd-module name='Mudde/Form/ValidationAbstract'/>
-
-import Node from "mudde-node/src/Mudde/Core/Node";
+import NodeCore from "mudde-node/src/NodeCore";
 import ConfigurableAbstract from "Mudde/Core/ConfigurableAbstract";
 import HandlerInterface from "Mudde/Core/HandlerInterface";
 import CoreBuildInterface from "./CoreBuildInterface";
@@ -10,7 +8,7 @@ export default abstract class ValidationAbstract extends ConfigurableAbstract im
 
   private _nextEvent?: HandlerInterface
 
-  abstract coreBuild(output: Node): void
+  abstract coreBuild(output: NodeCore): void
 
   setNext(event: HandlerInterface): HandlerInterface {
     this._nextEvent = event

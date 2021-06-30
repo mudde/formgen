@@ -1,9 +1,7 @@
-///<amd-module name='Mudde/Core/CoreBuildInterface'/>
-
-import Node from "mudde-node/src/Mudde/Core/Node";
+import NodeCore from "mudde-node/src/NodeCore";
 
 export default interface CoreBuildInterface {
 
-  coreBuild(output: Node): void
+  coreBuild(output: NodeCore): void
    
 }

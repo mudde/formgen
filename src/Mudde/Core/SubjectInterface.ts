@@ -1,5 +1,3 @@
-///<amd-module name='Mudde/Form/SubjectInterface'/>
-
 import ObserverInterface from "./ObserverInterface";
 
 export default interface SubjectInterface {

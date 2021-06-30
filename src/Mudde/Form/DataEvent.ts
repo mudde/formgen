@@ -1,5 +1,3 @@
-///<amd-module name='Mudde/Form/DataEvent'/>
-
 import Event from "Mudde/Core/Event";
 
 export default class DataEvent extends Event {

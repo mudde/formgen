@@ -1,6 +1,6 @@
 {
    "compilerOptions": {
-      "module": "AMD",
+      "module": "commonjs",
       "target": "ES2015",
       "lib": [
          "ES2015",
@@ -12,8 +12,8 @@
       "removeComments": true,
       "skipLibCheck": true,
       "inlineSourceMap": true,
-      "baseUrl": "./src/Mudde",
-      "outFile": "./dist/formjs.js",
+      "baseUrl": "src/Mudde",
+      "outDir": "dist/",
       "paths": {
          "ckeditor/*":[
             "../../node_modules/@ckeditor/ckeditor5-core/*"

@@ -1,5 +1,3 @@
-///<amd-module name='Mudde/Core/ConfigurableAbstract'/>
-
 import StringHelper from "Mudde/Form/Helper/StringHelper"
 
 export default abstract class ConfigurableAbstract {

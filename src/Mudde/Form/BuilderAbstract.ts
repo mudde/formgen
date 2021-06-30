@@ -1,5 +1,3 @@
-///<amd-module name='Mudde/Form/BuilderAbstract'/>
-
 import BaseHandler from "Mudde/Core/BaseHandler"
 import InputAbstract from "./InputAbstract"
 

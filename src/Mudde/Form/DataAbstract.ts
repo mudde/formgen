@@ -1,5 +1,3 @@
-///<amd-module name='Mudde/Form/DataAbstract'/>
-
 import ConfigurableAbstract from "Mudde/Core/ConfigurableAbstract";
 import Event from "Mudde/Core/Event";
 import DataEvent from "Mudde/Form/DataEvent";
@@ -22,7 +20,9 @@ export default abstract class DataAbstract extends ConfigurableAbstract implemen
 
    constructor(form?: Form) {
       super()
-      this._form = form
+      if (form) {
+         this._form = form
+      }
    }
 
    getDefaultConfig(): {} {

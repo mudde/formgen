@@ -1,6 +1,4 @@
-///<amd-module name='Mudde/Form/Input/UploadImage'/>
-
-import Node from "mudde-node/src/Mudde/Core/Node"
+import NodeCore from "mudde-node/src/NodeCore"
 import Form from "Mudde/Form/Form"
 import InputAbstract from "Mudde/Form/InputAbstract"
 
@@ -22,11 +20,11 @@ export default class UploadImage extends InputAbstract {
       }
    }
 
-   protected postCoreHTMLInput(): Node {
-      return new Node('b', {},'Hello')
+   protected postCoreHTMLInput(): NodeCore {
+      return new NodeCore('b', {},'Hello')
    }
 
-   coreHTMLInput(id: string, name: string, language: string): Node {
+   coreHTMLInput(id: string, name: string, language: string): NodeCore {
       let attributes: any = {
          id: id,
          name: name,
@@ -40,7 +38,7 @@ export default class UploadImage extends InputAbstract {
       //  img.setAttribute('src', URL.createObjectURL(temp1.files[0])); 
       //  document.getElementById('fileimage').parentNode.appendChild(img)
 
-      let element: Node = new Node('input', attributes)
+      let element: NodeCore = new NodeCore('input', attributes)
 
       return element
    }
