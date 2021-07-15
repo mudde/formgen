@@ -1,4 +1,4 @@
-import BaseHandler from "Mudde/Core/BaseHandler"
+import BaseHandler from "../../../node_modules/mudde-core/src/Mudde/Core/BaseHandler"
 import InputAbstract from "./InputAbstract"
 
 export default abstract class BuilderAbstract extends BaseHandler {

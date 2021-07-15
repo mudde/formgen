@@ -1,9 +1,9 @@
-import ConfigurableAbstract from "Mudde/Core/ConfigurableAbstract";
-import Event from "Mudde/Core/Event";
+import ConfigurableAbstract from "../../../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract";
+import Event from "../../../node_modules/mudde-core/src/Mudde/Core/Event";
 import DataEvent from "Mudde/Form/DataEvent";
 import Form from "Mudde/Form/Form";
-import ObserverInterface from "Mudde/Core/ObserverInterface";
-import SubjectInterface from "Mudde/Core/SubjectInterface";
+import ObserverInterface from "../../../node_modules/mudde-core/src/Mudde/Core/ObserverInterface";
+import SubjectInterface from "../../../node_modules/mudde-core/src/Mudde/Core/SubjectInterface";
 
 export default abstract class DataAbstract extends ConfigurableAbstract implements SubjectInterface {
 

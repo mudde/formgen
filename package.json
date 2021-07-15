@@ -1,8 +1,8 @@
 {
-  "name": "mudde-formgen",
+  "name": "my-webpack-project",
   "version": "1.0.0",
-  "description": "Form generator → from json to HTML form",
-  "main": "dist/index.html",
+  "description": "My webpack project",
+  "main": "dist/index.js",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^27.1.0",
     "@ckeditor/ckeditor5-typing": "^27.1.0",
@@ -11,7 +11,7 @@
     "i": "^0.3.6",
     "jquery": "^3.6.0",
     "jsdom": "^16.5.3",
-    "mudde-node": "mudde/node",
+    "mudde-core": "mudde/node",
     "select2": "*",
     "semantic-ui-flag": "^2.4.0",
     "tinycrop": "^1.7.0"
@@ -20,7 +20,12 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --reporter spec --require node_modules/ts-node/register --require node_modules/amd-loader/  test/**/*.ts"
+    "test": "./node_modules/mocha/bin/mocha --reporter spec --require node_modules/ts-node/register --require node_modules/amd-loader/  test/**/*.ts",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
   },
   "repository": {
     "type": "git",
@@ -42,15 +47,26 @@
     ]
   },
   "devDependencies": {
-    "requirejs": "^2.3.6",
-    "npm": "^7.11.1",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
     "@types/chai": "^4.2.17",
     "@types/mocha": "^8.2.2",
     "@types/requirejs": "^2.1.32",
+    "@webpack-cli/generators": "^2.2.0",
     "amd-loader": "^0.0.8",
+    "babel-loader": "^8.2.2",
     "chai": "^4.3.4",
+    "create-ts-index": "^1.13.6",
+    "ctix": "^0.3.1",
     "mocha": "^8.3.2",
-    "ts-loader": "^9.1.1",
-    "ts-node": "^9.1.1"
+    "npm": "^7.11.1",
+    "prettier": "^2.3.2",
+    "requirejs": "^2.3.6",
+    "ts-loader": "^9.2.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.3.5",
+    "webpack": "^5.44.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
   }
 }

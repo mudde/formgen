@@ -1,4 +1,4 @@
-import NodeCore from "mudde-node/src/NodeCore"
+import NodeCore from "../../../../node_modules/mudde-core/src/Mudde/Core/NodeCore"
 import Form from "Mudde/Form/Form"
 import InputAbstract from "Mudde/Form/InputAbstract"
 import DataAbstract from "Mudde/Form/DataAbstract"

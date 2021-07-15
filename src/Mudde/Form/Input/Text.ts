@@ -1,6 +1,6 @@
-import NodeCore from "mudde-node/src/NodeCore"
-import Form from "Mudde/Form/Form"
-import InputAbstract from "Mudde/Form/InputAbstract"
+import NodeCore from "../../../../node_modules/mudde-core/src/Mudde/Core/NodeCore"
+import Form from "../Form"
+import InputAbstract from "../InputAbstract"
 
 export default class Text extends InputAbstract {
 

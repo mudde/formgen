@@ -1,11 +1,11 @@
-import ConfigurableAbstract from "Mudde/Core/ConfigurableAbstract"
-import NodeCore from "mudde-node/src/NodeCore"
-import GuidHelper from "Mudde/Form/Helper/GuidHelper"
-import StringHelper from "Mudde/Form/Helper/StringHelper"
+import ConfigurableAbstract from "../../../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract"
+import NodeCore from "../../../node_modules/mudde-core/src/Mudde/Core/NodeCore"
+import GuidHelper from "../../../node_modules/mudde-core/src/Mudde/Helper/GuidHelper"
+import StringHelper from "../../../node_modules/mudde-core/src/Mudde/Helper/StringHelper"
 import ButtonAbstract from "Mudde/Form/ButtonAbstract"
 import DataAbstract from "Mudde/Form/DataAbstract"
 import InputAbstract from "Mudde/Form/InputAbstract"
-import HandlerInterface from "Mudde/Core/HandlerInterface"
+import HandlerInterface from "../../../node_modules/mudde-core/src/Mudde/Core/HandlerInterface"
 
 export default class Form extends ConfigurableAbstract {
 

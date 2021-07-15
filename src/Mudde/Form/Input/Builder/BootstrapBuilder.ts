@@ -1,5 +1,5 @@
-import NodeCore from "mudde-node/src/NodeCore"
-import InputBuilderAbstract from "Mudde/Form/InputBuilderAbstract";
+import NodeCore from "../../../../../node_modules/mudde-core/src/Mudde/Core/NodeCore"
+import InputBuilderAbstract from "../../InputBuilderAbstract";
 
 export default class BootstrapBuilder extends InputBuilderAbstract {
 

@@ -1,6 +1,6 @@
-import NodeCore from "mudde-node/src/NodeCore";
-import ConfigurableAbstract from "Mudde/Core/ConfigurableAbstract";
-import HandlerInterface from "Mudde/Core/HandlerInterface";
+import NodeCore from "../../../node_modules/mudde-core/src/Mudde/Core/NodeCore";
+import ConfigurableAbstract from "../../../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract";
+import HandlerInterface from "../../../node_modules/mudde-core/src/Mudde/Core/HandlerInterface";
 import CoreBuildInterface from "./CoreBuildInterface";
 import InputAbstract from "./InputAbstract";
 

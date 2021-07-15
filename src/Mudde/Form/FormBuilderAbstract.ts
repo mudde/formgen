@@ -1,4 +1,4 @@
-import NodeCore from "mudde-node/src/NodeCore"
+import NodeCore from "../../../node_modules/mudde-core/src/Mudde/Core/NodeCore"
 import BuilderAbstract from "Mudde/Form/BuilderAbstract";
 import CoreBuildInterface from "./CoreBuildInterface";
 

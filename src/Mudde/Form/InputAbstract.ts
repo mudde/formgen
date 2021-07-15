@@ -1,7 +1,7 @@
-import ConfigurableAbstract from "Mudde/Core/ConfigurableAbstract";
-import HandlerInterface from "Mudde/Core/HandlerInterface";
-import NodeCore from "mudde-node/src/NodeCore"
-import GuidHelper from "Mudde/Form/Helper/GuidHelper";
+import ConfigurableAbstract from "../../../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract";
+import HandlerInterface from "../../../node_modules/mudde-core/src/Mudde/Core/HandlerInterface";
+import NodeCore from "../../../node_modules/mudde-core/src/Mudde/Core/NodeCore"
+import GuidHelper from "../../../node_modules/mudde-core/src/Mudde/Helper/GuidHelper";
 import Form from "Mudde/Form/Form";
 
 export default abstract class InputAbstract extends ConfigurableAbstract {

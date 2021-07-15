@@ -1,6 +1,6 @@
-import NodeCore from "mudde-node/src/NodeCore"
-import IconHelper from "Mudde/Form/Helper/IconHelper";
-import InputBuilderAbstract from "Mudde/Form/InputBuilderAbstract";
+import NodeCore from "../../../../../node_modules/mudde-core/src/Mudde/Core/NodeCore"
+import IconHelper from "../../Helper/IconHelper";
+import InputBuilderAbstract from "../../InputBuilderAbstract";
 
 export default class GeneralBuilder extends InputBuilderAbstract {
 
