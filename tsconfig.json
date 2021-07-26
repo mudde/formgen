@@ -11,10 +11,7 @@
   "files": ["src/index.ts"],
   "paths": {
     "ckeditor/*":[
-       "../../node_modules/@ckeditor/ckeditor5-core/*"
-    ],
-    "Mudde/*": [
-       "./src/Mudde/*",
+       "./node_modules/@ckeditor/ckeditor5-core/*"
     ]
  }
 }
