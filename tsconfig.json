@@ -2,16 +2,26 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
-    "moduleResolution": "classic",
-    "module": "UMD",
+    "module": "CommonJS",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
     "target": "es5",
     "allowJs": true,
-    "baseUrl": "./src"
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "dist"
   },
-  "files": ["src/index.ts"],
+  "files": [
+    "src/index.ts"
+  ],
   "paths": {
-    "ckeditor/*":[
-       "./node_modules/@ckeditor/ckeditor5-core/*"
-    ]
- }
+    "ckeditor/*": [
+      "./node_modules/@ckeditor/ckeditor5-core/*"
+    ],
+    "@mudde-core":[
+      "./node_modules/mudde-core/src"
+    ],
+  }
 }

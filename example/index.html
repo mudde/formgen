@@ -42,12 +42,10 @@
         </div>
     </div>
 
-    <script src="./script/ckeditor.js"></script>
-    <script src="../node_modules/tinycrop/dist/tinycrop.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./script/require.js"></script>
-    <script src="../node_modules/mudde-node/dist/node.js"></script>
-    <script src="../dist/formjs.js"></script>
+    <!-- <script src="../node_modules/requirejs/require.js"></script> -->
+    <script>var exports ={};</script>
+    <script src="../dist/formgen.js"></script>
 
     <script id="config" type="application/json">
         {
@@ -252,18 +250,20 @@
     </script>
 
     <script>
-        requirejs(["Mudde/Form/Form"], function (form) {
-            var config = JSON.parse(document.getElementById('config').innerText)
-            var formgen = new form.default(config)
+        // requirejs(["MuddeFormgen"], function (muddeFormgen) {
+        //     var config = JSON.parse(document.getElementById('config').innerText)
+        //     var formgen = new muddeFormgen.Form(config)
 
-            setTimeout(() => {
-                document.getElementById('main').innerHTML = formgen.render().root.outerHTML
-                //  todo  This must be done by the textarea input plugin!  Gr.O.M.
-                Array.from(document.getElementsByTagName('textarea')).forEach(name => {
-                    ClassicEditor.create(name)
-                })
-            }, 250);
-        });
+        //     console.debug(formgen);
+
+        //     setTimeout(() => {
+        //         document.getElementById('main').innerHTML = formgen.render().root.outerHTML
+        //         //  todo  This must be done by the textarea input plugin!  Gr.O.M.
+        //         Array.from(document.getElementsByTagName('textarea')).forEach(name => {
+        //             ClassicEditor.create(name)
+        //         })
+        //     }, 250);
+        // });
     </script>
 </body>
 

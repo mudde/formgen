@@ -1,42 +1,49 @@
-/*
- * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
-var MuddeFormgen;
-/******/ (() => { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["MuddeFormgen"] = factory();
+	else
+		root["MuddeFormgen"] = factory();
+})(self, function() {
+return /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
-
-/***/ "./node_modules/mudde-core/src/Mudde/Core sync recursive":
-/*!******************************************************!*\
-  !*** ./node_modules/mudde-core/src/Mudde/Core/ sync ***!
-  \******************************************************/
-/***/ ((module) => {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = () => ([]);\nwebpackEmptyContext.resolve = webpackEmptyContext;\nwebpackEmptyContext.id = \"./node_modules/mudde-core/src/Mudde/Core sync recursive\";\nmodule.exports = webpackEmptyContext;\n\n//# sourceURL=webpack://MuddeFormgen/./node_modules/mudde-core/src/Mudde/Core/_sync?");
-
-/***/ }),
-
-/***/ "./node_modules/mudde-core/src/Mudde/Helper sync recursive":
-/*!********************************************************!*\
-  !*** ./node_modules/mudde-core/src/Mudde/Helper/ sync ***!
-  \********************************************************/
-/***/ ((module) => {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = () => ([]);\nwebpackEmptyContext.resolve = webpackEmptyContext;\nwebpackEmptyContext.id = \"./node_modules/mudde-core/src/Mudde/Helper sync recursive\";\nmodule.exports = webpackEmptyContext;\n\n//# sourceURL=webpack://MuddeFormgen/./node_modules/mudde-core/src/Mudde/Helper/_sync?");
-
-/***/ }),
 
 /***/ "./node_modules/mudde-core/src/Mudde/Core/BaseHandler.ts":
 /*!***************************************************************!*\
   !*** ./node_modules/mudde-core/src/Mudde/Core/BaseHandler.ts ***!
   \***************************************************************/
-/***/ ((module, exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, exports) => {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./node_modules/mudde-core/src/Mudde/Core sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var BaseHandler = /** @class */ (function () {\n        function BaseHandler() {\n        }\n        BaseHandler.prototype.setNext = function (event) {\n            this._nextEvent = event;\n            return event;\n        };\n        BaseHandler.prototype.handle = function (data) {\n            if (this._nextEvent) {\n                this._nextEvent.handle(data);\n            }\n            return data;\n        };\n        Object.defineProperty(BaseHandler.prototype, \"nextEvent\", {\n            get: function () {\n                return this._nextEvent;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return BaseHandler;\n    }());\n    exports.default = BaseHandler;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./node_modules/mudde-core/src/Mudde/Core/BaseHandler.ts?");
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var BaseHandler = /** @class */ (function () {
+    function BaseHandler() {
+    }
+    BaseHandler.prototype.setNext = function (event) {
+        this._nextEvent = event;
+        return event;
+    };
+    BaseHandler.prototype.handle = function (data) {
+        if (this._nextEvent) {
+            this._nextEvent.handle(data);
+        }
+        return data;
+    };
+    Object.defineProperty(BaseHandler.prototype, "nextEvent", {
+        get: function () {
+            return this._nextEvent;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return BaseHandler;
+}());
+exports.default = BaseHandler;
+
 
 /***/ }),
 
@@ -44,9 +51,33 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!************************************************************************!*\
   !*** ./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts ***!
   \************************************************************************/
-/***/ ((module, exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./node_modules/mudde-core/src/Mudde/Core sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../Helper/StringHelper */ \"./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var StringHelper_1 = require(\"../Helper/StringHelper\");\n    var ConfigurableAbstract = /** @class */ (function () {\n        function ConfigurableAbstract() {\n        }\n        ConfigurableAbstract.prototype.configuring = function (config) {\n            var defaultConfig = this.getDefaultConfig();\n            for (var key in defaultConfig) {\n                var methodName = 'configure' + StringHelper_1.default.ucfirst(key);\n                var hasMethod = this[methodName] !== undefined;\n                var value = config[key] ? config[key] : defaultConfig[key];\n                if (hasMethod) {\n                    this[methodName](value);\n                }\n                else {\n                    this[key] = value;\n                }\n            }\n        };\n        return ConfigurableAbstract;\n    }());\n    exports.default = ConfigurableAbstract;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts?");
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ConfigurableAbstract = void 0;
+var StringHelper_1 = __webpack_require__(/*! ../Helper/StringHelper */ "./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts");
+var ConfigurableAbstract = /** @class */ (function () {
+    function ConfigurableAbstract() {
+    }
+    ConfigurableAbstract.prototype.configuring = function (config) {
+        var defaultConfig = this.getDefaultConfig();
+        for (var key in defaultConfig) {
+            var methodName = 'configure' + StringHelper_1.default.ucfirst(key);
+            var hasMethod = this[methodName] !== undefined;
+            var value = config[key] ? config[key] : defaultConfig[key];
+            if (hasMethod) {
+                this[methodName](value);
+            }
+            else {
+                this[key] = value;
+            }
+        }
+    };
+    return ConfigurableAbstract;
+}());
+exports.ConfigurableAbstract = ConfigurableAbstract;
+
 
 /***/ }),
 
@@ -54,9 +85,37 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!*********************************************************!*\
   !*** ./node_modules/mudde-core/src/Mudde/Core/Event.ts ***!
   \*********************************************************/
-/***/ ((module, exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, exports) => {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./node_modules/mudde-core/src/Mudde/Core sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var Event = /** @class */ (function () {\n        function Event(source, event) {\n            this._source = source;\n            this._eventNumber = event;\n        }\n        Object.defineProperty(Event.prototype, \"source\", {\n            get: function () {\n                if (this._source === undefined)\n                    throw new Error('Source not set!');\n                return this._source;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Event.prototype, \"eventNumber\", {\n            get: function () {\n                if (this._eventNumber === undefined)\n                    throw new Error('Event number not set!');\n                return this._eventNumber;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return Event;\n    }());\n    exports.default = Event;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./node_modules/mudde-core/src/Mudde/Core/Event.ts?");
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var Event = /** @class */ (function () {
+    function Event(source, event) {
+        this._source = source;
+        this._eventNumber = event;
+    }
+    Object.defineProperty(Event.prototype, "source", {
+        get: function () {
+            if (this._source === undefined)
+                throw new Error('Source not set!');
+            return this._source;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Event.prototype, "eventNumber", {
+        get: function () {
+            if (this._eventNumber === undefined)
+                throw new Error('Event number not set!');
+            return this._eventNumber;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return Event;
+}());
+exports.default = Event;
+
 
 /***/ }),
 
@@ -64,9 +123,280 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!************************************************************!*\
   !*** ./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts ***!
   \************************************************************/
-/***/ ((module, exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, exports) => {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./node_modules/mudde-core/src/Mudde/Core sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var NodeCore = /** @class */ (function () {\n        function NodeCore(tagName, attributes, text, documentX) {\n            this._idSearch = [];\n            this._document = documentX !== null && documentX !== void 0 ? documentX : document;\n            this._root = this._current = tagName[0] === '#'\n                ? this.getNodeById(tagName.substr(1))\n                : this.createNode(tagName, attributes, text);\n        }\n        NodeCore.prototype.getNodeById = function (nodeId) {\n            var document = this.document;\n            var element = document.getElementById(nodeId);\n            if (!element)\n                throw new Error('Element not found by id!');\n            return element;\n        };\n        NodeCore.prototype.createNode = function (tagName, attributes, text) {\n            var document = this.document;\n            var node = document.createElement(tagName);\n            if (attributes) {\n                for (var key in attributes) {\n                    var value = attributes[key];\n                    if (key === 'id') {\n                        this._idSearch[value] = node;\n                    }\n                    node.setAttribute(key, value);\n                }\n            }\n            if (text) {\n                node.innerText = text;\n            }\n            return node;\n        };\n        NodeCore.prototype.moveInNode = function (callable) {\n            var current = this.current;\n            var tmpNode = this.document.createElement('div');\n            current.replaceWith(tmpNode);\n            var newNodeRaw = callable(current);\n            var newNode = this.importElement(newNodeRaw);\n            tmpNode.replaceWith(newNode);\n            return this;\n        };\n        NodeCore.prototype.removeChild = function (node) {\n            var nodeX = node instanceof NodeCore ? node.root : node;\n            this.current.removeChild(nodeX);\n            return this;\n        };\n        NodeCore.prototype.addSibling_ = function (tagName, attributes, text) {\n            return this.addSibling(tagName, attributes, text, true);\n        };\n        NodeCore.prototype.addSibling = function (tagName, attributes, text, setCurrent) {\n            if (setCurrent === void 0) { setCurrent = false; }\n            var newNode = this.createNode(tagName, attributes, text);\n            var parent = this.current.parentNode;\n            parent === null || parent === void 0 ? void 0 : parent.insertBefore(newNode, this.current);\n            if (setCurrent) {\n                this._current = newNode;\n            }\n            return this;\n        };\n        NodeCore.prototype.addSiblingNode_ = function (node) {\n            return this.addSiblingNode(node, true);\n        };\n        NodeCore.prototype.addSiblingNode = function (node, setCurrent) {\n            if (setCurrent === void 0) { setCurrent = false; }\n            var newNode = this.importElement(node);\n            var current = this.current;\n            var parent = current.parentElement;\n            parent === null || parent === void 0 ? void 0 : parent.insertBefore(newNode, current);\n            if (setCurrent) {\n                this._current = newNode;\n            }\n            return this;\n        };\n        NodeCore.prototype.addClass = function (className) {\n            var currentClass = this.current.className;\n            this.current.setAttribute('class', (currentClass + \" \" + className).trimLeft());\n            return this;\n        };\n        NodeCore.prototype.removeClass = function (className) {\n            var currentClass = ' ' + this.current.className + ' ';\n            this.current.setAttribute('class', currentClass.replace(' ' + className + ' ', ' ').trim());\n            return this;\n        };\n        NodeCore.prototype.clear = function () {\n            var root = this._current = this.root;\n            root.innerHTML = '';\n        };\n        NodeCore.prototype.getAttribute = function (name) {\n            return this.current.getAttribute(name);\n        };\n        NodeCore.prototype.getElementById = function (id) {\n            if (id in this._idSearch) {\n                this._current = this._idSearch[id];\n            }\n            return this;\n        };\n        NodeCore.prototype.getElementByTagName = function (tagName) {\n            var element = this.root.getElementsByTagName(tagName);\n            return element;\n        };\n        NodeCore.prototype.getElementByClass = function (className) {\n            var element = this.root.getElementsByClassName(className);\n            return element;\n        };\n        NodeCore.prototype.hasAttribute = function (name) {\n            return this.current.hasAttribute(name);\n        };\n        NodeCore.prototype.hasElementById = function (id) {\n            return id in this._idSearch;\n        };\n        NodeCore.prototype.hasElementByClass = function (className) {\n            return this.root.getElementsByClassName(className).length !== 0;\n        };\n        NodeCore.prototype.a = function (tagName, attributes, text, setCurrent) {\n            return this.appendNode(tagName, attributes, text, setCurrent);\n        };\n        NodeCore.prototype.prependNode_ = function (tagName, attributes, text) {\n            return this.prependNode(tagName, attributes, text, true);\n        };\n        NodeCore.prototype.prependNode = function (tagName, attributes, text, setCurrent) {\n            var firstChild = this.current.firstChild;\n            if (firstChild) {\n                var HTMLElement_1 = this.current.insertBefore(this.createNode(tagName, attributes, text), firstChild);\n                if (setCurrent === true) {\n                    this._current = HTMLElement_1;\n                }\n            }\n            return this;\n        };\n        NodeCore.prototype.appendNode = function (tagName, attributes, text, setCurrent) {\n            if (setCurrent === void 0) { setCurrent = false; }\n            var newNode = this.createNode(tagName, attributes, text);\n            var HTMLElement = this.current.appendChild(newNode);\n            HTMLElement.innerText = text ? text : '';\n            if (setCurrent === true) {\n                this._current = HTMLElement;\n            }\n            return this;\n        };\n        NodeCore.prototype.a_ = function (tagName, attributes, text) {\n            return this.appendNode(tagName, attributes, text, true);\n        };\n        NodeCore.prototype.appendNode_ = function (tagName, attributes, text) {\n            return this.appendNode(tagName, attributes, text, true);\n        };\n        NodeCore.prototype.toHTML = function (outerHTML) {\n            if (outerHTML === void 0) { outerHTML = true; }\n            var root = this.root;\n            return outerHTML ? root.outerHTML : root.innerHTML;\n        };\n        NodeCore.prototype.setAttributes = function (attributes) {\n            var node = this.current;\n            for (var key in attributes) {\n                var value = attributes[key];\n                if (key === 'id') {\n                    this._idSearch[value] = node;\n                }\n                node.setAttribute(key, value);\n            }\n            return this;\n        };\n        NodeCore.prototype.parent = function () {\n            var parent = this.current.parentElement;\n            this._current = parent === null ? this.current : parent;\n            return this;\n        };\n        NodeCore.prototype._ = function () {\n            return this.parent();\n        };\n        NodeCore.prototype.prependElement = function (node) {\n            if (node === null)\n                return this;\n            var childNode = this.importElement(node);\n            var firstChild = this.current.firstChild;\n            if (firstChild) {\n                this.current.insertBefore(childNode, firstChild);\n            }\n            this._current = childNode;\n            return this;\n        };\n        NodeCore.prototype.prependElement_ = function (node) {\n            if (node === null)\n                return this;\n            var childNode = this.importElement(node);\n            var firstChild = this.current.firstChild;\n            if (firstChild) {\n                this.current.insertBefore(childNode, firstChild);\n            }\n            return this;\n        };\n        NodeCore.prototype.appendElement = function (node) {\n            if (node === null)\n                return this;\n            var childNode = this.importElement(node);\n            this._current = this.current.appendChild(childNode);\n            return this;\n        };\n        NodeCore.prototype.importElement = function (node) {\n            if (!(node instanceof NodeCore)) {\n                return node;\n            }\n            var childIdNodes = node._idSearch;\n            for (var key in childIdNodes) {\n                this._idSearch[key] = childIdNodes[key];\n            }\n            return node.root;\n        };\n        NodeCore.prototype.appendElement_ = function (node) {\n            if (node === null)\n                return this;\n            var childNode = this.importElement(node);\n            this.current.appendChild(childNode);\n            return this;\n        };\n        NodeCore.prototype.gotoRoot = function () {\n            this._current = this.root;\n            return this;\n        };\n        Object.defineProperty(NodeCore.prototype, \"root\", {\n            get: function () {\n                if (this._root === undefined)\n                    throw new Error('Root node not defined!');\n                return this._root;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(NodeCore.prototype, \"id\", {\n            get: function () {\n                return this.current.getAttribute('id');\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(NodeCore.prototype, \"innerHTML\", {\n            set: function (html) {\n                this.current.innerHTML = html;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(NodeCore.prototype, \"idSearch\", {\n            get: function () {\n                return this._idSearch;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(NodeCore.prototype, \"current\", {\n            get: function () {\n                if (this._current === undefined)\n                    throw new Error('Current not set!');\n                return this._current;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(NodeCore.prototype, \"document\", {\n            get: function () {\n                if (this._document === undefined)\n                    throw new Error('Document not set!');\n                return this._document;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return NodeCore;\n    }());\n    exports.default = NodeCore;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts?");
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var NodeCore = /** @class */ (function () {
+    function NodeCore(tagName, attributes, text, documentX) {
+        this._idSearch = [];
+        this._document = documentX !== null && documentX !== void 0 ? documentX : document;
+        this._root = this._current = tagName[0] === '#'
+            ? this.getNodeById(tagName.substr(1))
+            : this.createNode(tagName, attributes, text);
+    }
+    NodeCore.prototype.getNodeById = function (nodeId) {
+        var document = this.document;
+        var element = document.getElementById(nodeId);
+        if (!element)
+            throw new Error('Element not found by id!');
+        return element;
+    };
+    NodeCore.prototype.createNode = function (tagName, attributes, text) {
+        var document = this.document;
+        var node = document.createElement(tagName);
+        if (attributes) {
+            for (var key in attributes) {
+                var value = attributes[key];
+                if (key === 'id') {
+                    this._idSearch[value] = node;
+                }
+                node.setAttribute(key, value);
+            }
+        }
+        if (text) {
+            node.innerText = text;
+        }
+        return node;
+    };
+    NodeCore.prototype.moveInNode = function (callable) {
+        var current = this.current;
+        var tmpNode = this.document.createElement('div');
+        current.replaceWith(tmpNode);
+        var newNodeRaw = callable(current);
+        var newNode = this.importElement(newNodeRaw);
+        tmpNode.replaceWith(newNode);
+        return this;
+    };
+    NodeCore.prototype.removeChild = function (node) {
+        var nodeX = node instanceof NodeCore ? node.root : node;
+        this.current.removeChild(nodeX);
+        return this;
+    };
+    NodeCore.prototype.addSibling_ = function (tagName, attributes, text) {
+        return this.addSibling(tagName, attributes, text, true);
+    };
+    NodeCore.prototype.addSibling = function (tagName, attributes, text, setCurrent) {
+        if (setCurrent === void 0) { setCurrent = false; }
+        var newNode = this.createNode(tagName, attributes, text);
+        var parent = this.current.parentNode;
+        parent === null || parent === void 0 ? void 0 : parent.insertBefore(newNode, this.current);
+        if (setCurrent) {
+            this._current = newNode;
+        }
+        return this;
+    };
+    NodeCore.prototype.addSiblingNode_ = function (node) {
+        return this.addSiblingNode(node, true);
+    };
+    NodeCore.prototype.addSiblingNode = function (node, setCurrent) {
+        if (setCurrent === void 0) { setCurrent = false; }
+        var newNode = this.importElement(node);
+        var current = this.current;
+        var parent = current.parentElement;
+        parent === null || parent === void 0 ? void 0 : parent.insertBefore(newNode, current);
+        if (setCurrent) {
+            this._current = newNode;
+        }
+        return this;
+    };
+    NodeCore.prototype.addClass = function (className) {
+        var currentClass = this.current.className;
+        this.current.setAttribute('class', (currentClass + " " + className).trimLeft());
+        return this;
+    };
+    NodeCore.prototype.removeClass = function (className) {
+        var currentClass = ' ' + this.current.className + ' ';
+        this.current.setAttribute('class', currentClass.replace(' ' + className + ' ', ' ').trim());
+        return this;
+    };
+    NodeCore.prototype.clear = function () {
+        var root = this._current = this.root;
+        root.innerHTML = '';
+    };
+    NodeCore.prototype.getAttribute = function (name) {
+        return this.current.getAttribute(name);
+    };
+    NodeCore.prototype.getElementById = function (id) {
+        if (id in this._idSearch) {
+            this._current = this._idSearch[id];
+        }
+        return this;
+    };
+    NodeCore.prototype.getElementByTagName = function (tagName) {
+        var element = this.root.getElementsByTagName(tagName);
+        return element;
+    };
+    NodeCore.prototype.getElementByClass = function (className) {
+        var element = this.root.getElementsByClassName(className);
+        return element;
+    };
+    NodeCore.prototype.hasAttribute = function (name) {
+        return this.current.hasAttribute(name);
+    };
+    NodeCore.prototype.hasElementById = function (id) {
+        return id in this._idSearch;
+    };
+    NodeCore.prototype.hasElementByClass = function (className) {
+        return this.root.getElementsByClassName(className).length !== 0;
+    };
+    NodeCore.prototype.a = function (tagName, attributes, text, setCurrent) {
+        return this.appendNode(tagName, attributes, text, setCurrent);
+    };
+    NodeCore.prototype.prependNode_ = function (tagName, attributes, text) {
+        return this.prependNode(tagName, attributes, text, true);
+    };
+    NodeCore.prototype.prependNode = function (tagName, attributes, text, setCurrent) {
+        var firstChild = this.current.firstChild;
+        if (firstChild) {
+            var HTMLElement_1 = this.current.insertBefore(this.createNode(tagName, attributes, text), firstChild);
+            if (setCurrent === true) {
+                this._current = HTMLElement_1;
+            }
+        }
+        return this;
+    };
+    NodeCore.prototype.appendNode = function (tagName, attributes, text, setCurrent) {
+        if (setCurrent === void 0) { setCurrent = false; }
+        var newNode = this.createNode(tagName, attributes, text);
+        var HTMLElement = this.current.appendChild(newNode);
+        HTMLElement.innerText = text ? text : '';
+        if (setCurrent === true) {
+            this._current = HTMLElement;
+        }
+        return this;
+    };
+    NodeCore.prototype.a_ = function (tagName, attributes, text) {
+        return this.appendNode(tagName, attributes, text, true);
+    };
+    NodeCore.prototype.appendNode_ = function (tagName, attributes, text) {
+        return this.appendNode(tagName, attributes, text, true);
+    };
+    NodeCore.prototype.toHTML = function (outerHTML) {
+        if (outerHTML === void 0) { outerHTML = true; }
+        var root = this.root;
+        return outerHTML ? root.outerHTML : root.innerHTML;
+    };
+    NodeCore.prototype.setAttributes = function (attributes) {
+        var node = this.current;
+        for (var key in attributes) {
+            var value = attributes[key];
+            if (key === 'id') {
+                this._idSearch[value] = node;
+            }
+            node.setAttribute(key, value);
+        }
+        return this;
+    };
+    NodeCore.prototype.parent = function () {
+        var parent = this.current.parentElement;
+        this._current = parent === null ? this.current : parent;
+        return this;
+    };
+    NodeCore.prototype._ = function () {
+        return this.parent();
+    };
+    NodeCore.prototype.prependElement = function (node) {
+        if (node === null)
+            return this;
+        var childNode = this.importElement(node);
+        var firstChild = this.current.firstChild;
+        if (firstChild) {
+            this.current.insertBefore(childNode, firstChild);
+        }
+        this._current = childNode;
+        return this;
+    };
+    NodeCore.prototype.prependElement_ = function (node) {
+        if (node === null)
+            return this;
+        var childNode = this.importElement(node);
+        var firstChild = this.current.firstChild;
+        if (firstChild) {
+            this.current.insertBefore(childNode, firstChild);
+        }
+        return this;
+    };
+    NodeCore.prototype.appendElement = function (node) {
+        if (node === null)
+            return this;
+        var childNode = this.importElement(node);
+        this._current = this.current.appendChild(childNode);
+        return this;
+    };
+    NodeCore.prototype.importElement = function (node) {
+        if (!(node instanceof NodeCore)) {
+            return node;
+        }
+        var childIdNodes = node._idSearch;
+        for (var key in childIdNodes) {
+            this._idSearch[key] = childIdNodes[key];
+        }
+        return node.root;
+    };
+    NodeCore.prototype.appendElement_ = function (node) {
+        if (node === null)
+            return this;
+        var childNode = this.importElement(node);
+        this.current.appendChild(childNode);
+        return this;
+    };
+    NodeCore.prototype.gotoRoot = function () {
+        this._current = this.root;
+        return this;
+    };
+    Object.defineProperty(NodeCore.prototype, "root", {
+        get: function () {
+            if (this._root === undefined)
+                throw new Error('Root node not defined!');
+            return this._root;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(NodeCore.prototype, "id", {
+        get: function () {
+            return this.current.getAttribute('id');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(NodeCore.prototype, "innerHTML", {
+        set: function (html) {
+            this.current.innerHTML = html;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(NodeCore.prototype, "idSearch", {
+        get: function () {
+            return this._idSearch;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(NodeCore.prototype, "current", {
+        get: function () {
+            if (this._current === undefined)
+                throw new Error('Current not set!');
+            return this._current;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(NodeCore.prototype, "document", {
+        get: function () {
+            if (this._document === undefined)
+                throw new Error('Document not set!');
+            return this._document;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return NodeCore;
+}());
+exports.default = NodeCore;
+
 
 /***/ }),
 
@@ -74,9 +404,64 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!****************************************************************!*\
   !*** ./node_modules/mudde-core/src/Mudde/Helper/GuidHelper.ts ***!
   \****************************************************************/
-/***/ ((module, exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, exports) => {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./node_modules/mudde-core/src/Mudde/Helper sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    // https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts\n    var GuidHelper = /** @class */ (function () {\n        function GuidHelper(guid) {\n            if (!guid) {\n                throw new TypeError(\"Invalid argument; `value` has no value.\");\n            }\n            this.value = GuidHelper.EMPTY;\n            if (guid && GuidHelper.isGuid(guid)) {\n                this.value = guid;\n            }\n        }\n        GuidHelper.isGuid = function (guid) {\n            var value = guid.toString();\n            return guid && (guid instanceof GuidHelper || GuidHelper.validator.test(value));\n        };\n        GuidHelper.create = function () {\n            return new GuidHelper([GuidHelper.gen(2), GuidHelper.gen(1), GuidHelper.gen(1), GuidHelper.gen(1), GuidHelper.gen(3)].join(\"-\"));\n        };\n        GuidHelper.createEmpty = function () {\n            return new GuidHelper(\"emptyGuid\");\n        };\n        GuidHelper.parse = function (guid) {\n            return new GuidHelper(guid);\n        };\n        GuidHelper.raw = function () {\n            return [GuidHelper.gen(2), GuidHelper.gen(1), GuidHelper.gen(1), GuidHelper.gen(1), GuidHelper.gen(3)].join(\"-\");\n        };\n        GuidHelper.gen = function (count) {\n            var out = \"\";\n            for (var i = 0; i < count; i++) {\n                out += (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);\n            }\n            return out;\n        };\n        GuidHelper.prototype.equals = function (other) {\n            return GuidHelper.isGuid(other) && this.value === other.toString();\n        };\n        GuidHelper.prototype.isEmpty = function () {\n            return this.value === GuidHelper.EMPTY;\n        };\n        GuidHelper.prototype.toString = function () {\n            return this.value;\n        };\n        GuidHelper.prototype.toJSON = function () {\n            return {\n                value: this.value,\n            };\n        };\n        GuidHelper.validator = new RegExp(\"^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$\", \"i\");\n        GuidHelper.EMPTY = \"00000000-0000-0000-0000-000000000000\";\n        return GuidHelper;\n    }());\n    exports.default = GuidHelper;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./node_modules/mudde-core/src/Mudde/Helper/GuidHelper.ts?");
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+// https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts
+var GuidHelper = /** @class */ (function () {
+    function GuidHelper(guid) {
+        if (!guid) {
+            throw new TypeError("Invalid argument; `value` has no value.");
+        }
+        this.value = GuidHelper.EMPTY;
+        if (guid && GuidHelper.isGuid(guid)) {
+            this.value = guid;
+        }
+    }
+    GuidHelper.isGuid = function (guid) {
+        var value = guid.toString();
+        return guid && (guid instanceof GuidHelper || GuidHelper.validator.test(value));
+    };
+    GuidHelper.create = function () {
+        return new GuidHelper([GuidHelper.gen(2), GuidHelper.gen(1), GuidHelper.gen(1), GuidHelper.gen(1), GuidHelper.gen(3)].join("-"));
+    };
+    GuidHelper.createEmpty = function () {
+        return new GuidHelper("emptyGuid");
+    };
+    GuidHelper.parse = function (guid) {
+        return new GuidHelper(guid);
+    };
+    GuidHelper.raw = function () {
+        return [GuidHelper.gen(2), GuidHelper.gen(1), GuidHelper.gen(1), GuidHelper.gen(1), GuidHelper.gen(3)].join("-");
+    };
+    GuidHelper.gen = function (count) {
+        var out = "";
+        for (var i = 0; i < count; i++) {
+            out += (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        }
+        return out;
+    };
+    GuidHelper.prototype.equals = function (other) {
+        return GuidHelper.isGuid(other) && this.value === other.toString();
+    };
+    GuidHelper.prototype.isEmpty = function () {
+        return this.value === GuidHelper.EMPTY;
+    };
+    GuidHelper.prototype.toString = function () {
+        return this.value;
+    };
+    GuidHelper.prototype.toJSON = function () {
+        return {
+            value: this.value,
+        };
+    };
+    GuidHelper.validator = new RegExp("^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$", "i");
+    GuidHelper.EMPTY = "00000000-0000-0000-0000-000000000000";
+    return GuidHelper;
+}());
+exports.default = GuidHelper;
+
 
 /***/ }),
 
@@ -84,9 +469,22 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!******************************************************************!*\
   !*** ./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts ***!
   \******************************************************************/
-/***/ ((module, exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, exports) => {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./node_modules/mudde-core/src/Mudde/Helper sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var StringHelper = /** @class */ (function () {\n        function StringHelper() {\n        }\n        StringHelper.ucfirst = function (value) {\n            if (value === undefined)\n                return;\n            return value.charAt(0).toUpperCase() + value.slice(1);\n        };\n        return StringHelper;\n    }());\n    exports.default = StringHelper;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts?");
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var StringHelper = /** @class */ (function () {
+    function StringHelper() {
+    }
+    StringHelper.ucfirst = function (value) {
+        if (value === undefined)
+            return;
+        return value.charAt(0).toUpperCase() + value.slice(1);
+    };
+    return StringHelper;
+}());
+exports.default = StringHelper;
+
 
 /***/ }),
 
@@ -94,9 +492,38 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!***************************************!*\
   !*** ./src/Builder/GeneralBuilder.ts ***!
   \***************************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Builder sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../BuilderAbstract */ \"./src/BuilderAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var BuilderAbstract_1 = require(\"../BuilderAbstract\");\n    var GeneralBuilder = /** @class */ (function (_super) {\n        __extends(GeneralBuilder, _super);\n        function GeneralBuilder() {\n            return _super !== null && _super.apply(this, arguments) || this;\n        }\n        GeneralBuilder.prototype.coreBuild = function (output) {\n        };\n        return GeneralBuilder;\n    }(BuilderAbstract_1.default));\n    exports.default = GeneralBuilder;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Builder/GeneralBuilder.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GeneralBuilder = void 0;
+var BuilderAbstract_1 = __webpack_require__(/*! ../BuilderAbstract */ "./src/BuilderAbstract.ts");
+var GeneralBuilder = /** @class */ (function (_super) {
+    __extends(GeneralBuilder, _super);
+    function GeneralBuilder() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    GeneralBuilder.prototype.coreBuild = function (output) {
+    };
+    return GeneralBuilder;
+}(BuilderAbstract_1.BuilderAbstract));
+exports.GeneralBuilder = GeneralBuilder;
+
 
 /***/ }),
 
@@ -104,9 +531,58 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!************************************!*\
   !*** ./src/Builder/TabsBuilder.ts ***!
   \************************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Builder sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../FormBuilderAbstract */ \"./src/FormBuilderAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var NodeCore_1 = require(\"../../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var FormBuilderAbstract_1 = require(\"../FormBuilderAbstract\");\n    var TabsBuilder = /** @class */ (function (_super) {\n        __extends(TabsBuilder, _super);\n        function TabsBuilder() {\n            return _super !== null && _super.apply(this, arguments) || this;\n        }\n        TabsBuilder.prototype.coreBuild = function (output) {\n            var htmlForm = output.root;\n            var panels = htmlForm.getElementsByClassName('panel');\n            var tabs = new NodeCore_1.default('ul', { class: \"nav nav-tabs\" });\n            for (var key = 0; key < panels.length; key++) {\n                var panelLabel = panels.item(key).id;\n                var javascript = \"javascript:var panelName='\" + panelLabel + \"'; Array.from(document.getElementById('main').firstChild.getElementsByClassName('panel')).forEach(element=>{ if(element.id === panelName){ element.removeAttribute('hidden')} else { element.setAttribute('hidden', '') } });Array.from(document.getElementById('main').firstChild.getElementsByClassName('nav-link')).forEach(element=>{ if(element.innerText === panelName){ element.classList.add('active') } else { element.classList.remove('active')} })\";\n                tabs\n                    .appendElement(new NodeCore_1.default('li', { class: 'nav-item' }))\n                    .appendElement(new NodeCore_1.default('a', { class: 'nav-link ', href: javascript }, panelLabel));\n                if (key === 0) {\n                    tabs.addClass('active');\n                }\n                else {\n                    panels[key].setAttribute('hidden', '');\n                }\n            }\n            output\n                .gotoRoot()\n                .prependElement_(tabs);\n        };\n        return TabsBuilder;\n    }(FormBuilderAbstract_1.default));\n    exports.default = TabsBuilder;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Builder/TabsBuilder.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.TabsBuilder = void 0;
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var FormBuilderAbstract_1 = __webpack_require__(/*! ../FormBuilderAbstract */ "./src/FormBuilderAbstract.ts");
+var TabsBuilder = /** @class */ (function (_super) {
+    __extends(TabsBuilder, _super);
+    function TabsBuilder() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    TabsBuilder.prototype.coreBuild = function (output) {
+        var htmlForm = output.root;
+        var panels = htmlForm.getElementsByClassName('panel');
+        var tabs = new NodeCore_1.default('ul', { class: "nav nav-tabs" });
+        for (var key = 0; key < panels.length; key++) {
+            var panelLabel = panels.item(key).id;
+            var javascript = "javascript:var panelName='" + panelLabel + "'; Array.from(document.getElementById('main').firstChild.getElementsByClassName('panel')).forEach(element=>{ if(element.id === panelName){ element.removeAttribute('hidden')} else { element.setAttribute('hidden', '') } });Array.from(document.getElementById('main').firstChild.getElementsByClassName('nav-link')).forEach(element=>{ if(element.innerText === panelName){ element.classList.add('active') } else { element.classList.remove('active')} })";
+            tabs
+                .appendElement(new NodeCore_1.default('li', { class: 'nav-item' }))
+                .appendElement(new NodeCore_1.default('a', { class: 'nav-link ', href: javascript }, panelLabel));
+            if (key === 0) {
+                tabs.addClass('active');
+            }
+            else {
+                panels[key].setAttribute('hidden', '');
+            }
+        }
+        output
+            .gotoRoot()
+            .prependElement_(tabs);
+    };
+    return TabsBuilder;
+}(FormBuilderAbstract_1.FormBuilderAbstract));
+exports.TabsBuilder = TabsBuilder;
+
 
 /***/ }),
 
@@ -114,9 +590,24 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!******************************!*\
   !*** ./src/Builder/index.ts ***!
   \******************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// created from 'create-ts-index'\nvar __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });\n}) : (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    o[k2] = m[k];\n}));\nvar __exportStar = (this && this.__exportStar) || function(m, exports) {\n    for (var p in m) if (p !== \"default\" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Builder sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./GeneralBuilder */ \"./src/Builder/GeneralBuilder.ts\"), __webpack_require__(/*! ./TabsBuilder */ \"./src/Builder/TabsBuilder.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    __exportStar(require(\"./GeneralBuilder\"), exports);\n    __exportStar(require(\"./TabsBuilder\"), exports);\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Builder/index.ts?");
+
+// created from 'create-ts-index'
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(/*! ./GeneralBuilder */ "./src/Builder/GeneralBuilder.ts"), exports);
+__exportStar(__webpack_require__(/*! ./TabsBuilder */ "./src/Builder/TabsBuilder.ts"), exports);
+
 
 /***/ }),
 
@@ -124,9 +615,50 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!********************************!*\
   !*** ./src/BuilderAbstract.ts ***!
   \********************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/BaseHandler */ \"./node_modules/mudde-core/src/Mudde/Core/BaseHandler.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var BaseHandler_1 = require(\"../node_modules/mudde-core/src/Mudde/Core/BaseHandler\");\n    var BuilderAbstract = /** @class */ (function (_super) {\n        __extends(BuilderAbstract, _super);\n        function BuilderAbstract(input) {\n            var _this = _super.call(this) || this;\n            _this._input = input;\n            return _this;\n        }\n        Object.defineProperty(BuilderAbstract.prototype, \"input\", {\n            get: function () {\n                if (this._input === undefined)\n                    throw new Error('Input not set!');\n                return this._input;\n            },\n            set: function (value) {\n                this._input = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return BuilderAbstract;\n    }(BaseHandler_1.default));\n    exports.default = BuilderAbstract;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/BuilderAbstract.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BuilderAbstract = void 0;
+var BaseHandler_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/BaseHandler */ "./node_modules/mudde-core/src/Mudde/Core/BaseHandler.ts");
+var BuilderAbstract = /** @class */ (function (_super) {
+    __extends(BuilderAbstract, _super);
+    function BuilderAbstract(input) {
+        var _this = _super.call(this) || this;
+        _this._input = input;
+        return _this;
+    }
+    Object.defineProperty(BuilderAbstract.prototype, "input", {
+        get: function () {
+            if (this._input === undefined)
+                throw new Error('Input not set!');
+            return this._input;
+        },
+        set: function (value) {
+            this._input = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return BuilderAbstract;
+}(BaseHandler_1.default));
+exports.BuilderAbstract = BuilderAbstract;
+
 
 /***/ }),
 
@@ -134,9 +666,64 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!******************************!*\
   !*** ./src/Button/Submit.ts ***!
   \******************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Button sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../ButtonAbstract */ \"./src/ButtonAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var NodeCore_1 = require(\"../../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var ButtonAbstract_1 = require(\"../ButtonAbstract\");\n    var Submit = /** @class */ (function (_super) {\n        __extends(Submit, _super);\n        function Submit(config) {\n            var _this = _super.call(this) || this;\n            _this.configuring(config);\n            return _this;\n        }\n        Submit.prototype.getDefaultConfig = function () {\n            return __assign({}, _super.prototype.getDefaultConfig.call(this));\n        };\n        Submit.prototype.coreHTMLInput = function (id, name, language) {\n            //  todo  Onclick naar andere functie!  Gr.O.M.\n            var attributes = {\n                type: 'button',\n                class: 'btn btn-primary',\n                onclick: \"javascript:\\n         var data = {};\\n         Array.from(document.forms[0].elements).forEach(element => {\\n             if (element.name) {\\n                console.debug(element.type)\\n                 if (element.type === 'file') {\\n                     data[element.name] = Array.from(element.files).flatMap(x => { return x.name });\\n                 } else if(element.type === 'select-multiple') {\\n                     data[element.name] = Array.from(element.selectedOptions).flatMap(x=>{ return x.value  })\\n                 } else {\\n                     data[element.name] = element.value\\n                 }\\n             }\\n         });\\n         alert(JSON.stringify({valid: document.forms[0].checkValidity(),...data}, null, 4));\\n         return false\",\n                value: this.label\n            };\n            var element = new NodeCore_1.default('input', attributes);\n            return element;\n        };\n        return Submit;\n    }(ButtonAbstract_1.default));\n    exports.default = Submit;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Button/Submit.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Submit = void 0;
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var ButtonAbstract_1 = __webpack_require__(/*! ../ButtonAbstract */ "./src/ButtonAbstract.ts");
+var Submit = /** @class */ (function (_super) {
+    __extends(Submit, _super);
+    function Submit(config) {
+        var _this = _super.call(this) || this;
+        _this.configuring(config);
+        return _this;
+    }
+    Submit.prototype.getDefaultConfig = function () {
+        return __assign({}, _super.prototype.getDefaultConfig.call(this));
+    };
+    Submit.prototype.coreHTMLInput = function (id, name, language) {
+        //  todo  Onclick naar andere functie!  Gr.O.M.
+        var attributes = {
+            type: 'button',
+            class: 'btn btn-primary',
+            onclick: "javascript:\n         var data = {};\n         Array.from(document.forms[0].elements).forEach(element => {\n             if (element.name) {\n                console.debug(element.type)\n                 if (element.type === 'file') {\n                     data[element.name] = Array.from(element.files).flatMap(x => { return x.name });\n                 } else if(element.type === 'select-multiple') {\n                     data[element.name] = Array.from(element.selectedOptions).flatMap(x=>{ return x.value  })\n                 } else {\n                     data[element.name] = element.value\n                 }\n             }\n         });\n         alert(JSON.stringify({valid: document.forms[0].checkValidity(),...data}, null, 4));\n         return false",
+            value: this.label
+        };
+        var element = new NodeCore_1.default('input', attributes);
+        return element;
+    };
+    return Submit;
+}(ButtonAbstract_1.ButtonAbstract));
+exports.Submit = Submit;
+
 
 /***/ }),
 
@@ -144,9 +731,23 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!*****************************!*\
   !*** ./src/Button/index.ts ***!
   \*****************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// created from 'create-ts-index'\nvar __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });\n}) : (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    o[k2] = m[k];\n}));\nvar __exportStar = (this && this.__exportStar) || function(m, exports) {\n    for (var p in m) if (p !== \"default\" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Button sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./Submit */ \"./src/Button/Submit.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    __exportStar(require(\"./Submit\"), exports);\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Button/index.ts?");
+
+// created from 'create-ts-index'
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(/*! ./Submit */ "./src/Button/Submit.ts"), exports);
+
 
 /***/ }),
 
@@ -154,9 +755,69 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!*******************************!*\
   !*** ./src/ButtonAbstract.ts ***!
   \*******************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ \"./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts\"), __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/GuidHelper */ \"./node_modules/mudde-core/src/Mudde/Helper/GuidHelper.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var ConfigurableAbstract_1 = require(\"../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract\");\n    var GuidHelper_1 = require(\"../node_modules/mudde-core/src/Mudde/Helper/GuidHelper\");\n    var ButtonAbstract = /** @class */ (function (_super) {\n        __extends(ButtonAbstract, _super);\n        function ButtonAbstract() {\n            var _this = _super !== null && _super.apply(this, arguments) || this;\n            _this.__type = '';\n            _this._label = '';\n            return _this;\n        }\n        ButtonAbstract.prototype.getDefaultConfig = function () {\n            return {\n                label: '',\n            };\n        };\n        ButtonAbstract.prototype.render = function () {\n            var output = this.coreHTMLInput(GuidHelper_1.default.create().toString(), 'x', 'nl');\n            return output;\n        };\n        Object.defineProperty(ButtonAbstract.prototype, \"_type\", {\n            get: function () {\n                return this.__type;\n            },\n            set: function (value) {\n                this.__type = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(ButtonAbstract.prototype, \"label\", {\n            get: function () {\n                return this._label;\n            },\n            set: function (value) {\n                this._label = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return ButtonAbstract;\n    }(ConfigurableAbstract_1.default));\n    exports.default = ButtonAbstract;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/ButtonAbstract.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ButtonAbstract = void 0;
+var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts");
+var GuidHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/GuidHelper */ "./node_modules/mudde-core/src/Mudde/Helper/GuidHelper.ts");
+var ButtonAbstract = /** @class */ (function (_super) {
+    __extends(ButtonAbstract, _super);
+    function ButtonAbstract() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.__type = '';
+        _this._label = '';
+        return _this;
+    }
+    ButtonAbstract.prototype.getDefaultConfig = function () {
+        return {
+            label: '',
+        };
+    };
+    ButtonAbstract.prototype.render = function () {
+        var output = this.coreHTMLInput(GuidHelper_1.default.create().toString(), 'x', 'nl');
+        return output;
+    };
+    Object.defineProperty(ButtonAbstract.prototype, "_type", {
+        get: function () {
+            return this.__type;
+        },
+        set: function (value) {
+            this.__type = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(ButtonAbstract.prototype, "label", {
+        get: function () {
+            return this._label;
+        },
+        set: function (value) {
+            this._label = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return ButtonAbstract;
+}(ConfigurableAbstract_1.ConfigurableAbstract));
+exports.ButtonAbstract = ButtonAbstract;
+
 
 /***/ }),
 
@@ -164,9 +825,11 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!***********************************!*\
   !*** ./src/CoreBuildInterface.ts ***!
   \***********************************/
-/***/ ((module, exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, exports) => {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/CoreBuildInterface.ts?");
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
 
 /***/ }),
 
@@ -174,9 +837,57 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!***************************!*\
   !*** ./src/Data/Array.ts ***!
   \***************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Data sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../DataAbstract */ \"./src/DataAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var DataAbstract_1 = require(\"../DataAbstract\");\n    var Array = /** @class */ (function (_super) {\n        __extends(Array, _super);\n        function Array(config, form) {\n            var _this = this;\n            form ? _this = _super.call(this, form) || this : _this = _super.call(this) || this;\n            _this.configuring(config);\n            return _this;\n        }\n        Array.prototype.getDefaultConfig = function () {\n            return __assign({}, _super.prototype.getDefaultConfig.call(this));\n        };\n        Array.prototype.init = function () {\n        };\n        Array.prototype.process = function () {\n        };\n        return Array;\n    }(DataAbstract_1.default));\n    exports.default = Array;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Data/Array.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Array = void 0;
+var DataAbstract_1 = __webpack_require__(/*! ../DataAbstract */ "./src/DataAbstract.ts");
+var Array = /** @class */ (function (_super) {
+    __extends(Array, _super);
+    function Array(config, form) {
+        var _this = this;
+        form ? _this = _super.call(this, form) || this : _this = _super.call(this) || this;
+        _this.configuring(config);
+        return _this;
+    }
+    Array.prototype.getDefaultConfig = function () {
+        return __assign({}, _super.prototype.getDefaultConfig.call(this));
+    };
+    Array.prototype.init = function () {
+    };
+    Array.prototype.process = function () {
+    };
+    return Array;
+}(DataAbstract_1.DataAbstract));
+exports.Array = Array;
+
 
 /***/ }),
 
@@ -184,9 +895,23 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!***************************!*\
   !*** ./src/Data/index.ts ***!
   \***************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// created from 'create-ts-index'\nvar __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });\n}) : (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    o[k2] = m[k];\n}));\nvar __exportStar = (this && this.__exportStar) || function(m, exports) {\n    for (var p in m) if (p !== \"default\" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Data sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./Array */ \"./src/Data/Array.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    __exportStar(require(\"./Array\"), exports);\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Data/index.ts?");
+
+// created from 'create-ts-index'
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(/*! ./Array */ "./src/Data/Array.ts"), exports);
+
 
 /***/ }),
 
@@ -194,9 +919,124 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!*****************************!*\
   !*** ./src/DataAbstract.ts ***!
   \*****************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ \"./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts\"), __webpack_require__(/*! ./DataEvent */ \"./src/DataEvent.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var ConfigurableAbstract_1 = require(\"../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract\");\n    var DataEvent_1 = require(\"./DataEvent\");\n    var DataAbstract = /** @class */ (function (_super) {\n        __extends(DataAbstract, _super);\n        function DataAbstract(form) {\n            var _this = _super.call(this) || this;\n            _this._observers = {};\n            _this._data = [];\n            _this._originalData = [];\n            if (form) {\n                _this._form = form;\n            }\n            return _this;\n        }\n        DataAbstract.prototype.getDefaultConfig = function () {\n            return {\n                data: [],\n                originalData: []\n            };\n        };\n        DataAbstract.prototype.get = function (id) {\n            var event = new DataEvent_1.default(this, DataAbstract.DATA_PRE_GET, id);\n            this.notify(event);\n            var value = this._data[id];\n            var event = new DataEvent_1.default(this, DataAbstract.DATA_POST_GET, id);\n            this.notify(event);\n            return value;\n        };\n        DataAbstract.prototype.set = function (id, value) {\n            var event = new DataEvent_1.default(this, DataAbstract.DATA_PRE_SET, id);\n            this.notify(event);\n            this._data[id] = value;\n            var event = new DataEvent_1.default(this, DataAbstract.DATA_POST_SET, id);\n            this.notify(event);\n        };\n        DataAbstract.prototype.restore = function (id) {\n            this._data[id] = this._originalData[id];\n        };\n        DataAbstract.prototype.attach = function (observer) {\n            var observerList = this._observers;\n            if (observerList[observer.eventNumber] === undefined) {\n                observerList[observer.eventNumber] = [];\n            }\n            observerList[observer.eventNumber].push(observer);\n        };\n        DataAbstract.prototype.detach = function (observer) {\n            var observerList = this._observers[observer.eventNumber];\n            if (observerList) {\n                observerList.filter(function (ownObserver) {\n                    return ownObserver === observer;\n                });\n            }\n        };\n        DataAbstract.prototype.notify = function (event) {\n            var eventNumber = event.eventNumber;\n            var observerList = this._observers[eventNumber];\n            if (observerList) {\n                observerList.forEach(function (observer) {\n                    observer.update(event);\n                });\n            }\n        };\n        DataAbstract.prototype.forEach = function (callable) {\n            this._data.forEach(callable);\n            return this;\n        };\n        Object.defineProperty(DataAbstract.prototype, \"form\", {\n            get: function () {\n                if (this._form === undefined)\n                    throw new Error('Form not set!');\n                return this._form;\n            },\n            set: function (value) {\n                this._form = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(DataAbstract.prototype, \"data\", {\n            get: function () {\n                if (this._data === undefined)\n                    throw new Error('Data not set!');\n                return this._data;\n            },\n            set: function (value) {\n                this._data = this._originalData = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        DataAbstract.DATA_PRE_SET = 1;\n        DataAbstract.DATA_POST_SET = 2;\n        DataAbstract.DATA_PRE_GET = 4;\n        DataAbstract.DATA_POST_GET = 8;\n        return DataAbstract;\n    }(ConfigurableAbstract_1.default));\n    exports.default = DataAbstract;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/DataAbstract.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.DataAbstract = void 0;
+var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts");
+var DataEvent_1 = __webpack_require__(/*! ./DataEvent */ "./src/DataEvent.ts");
+var DataAbstract = /** @class */ (function (_super) {
+    __extends(DataAbstract, _super);
+    function DataAbstract(form) {
+        var _this = _super.call(this) || this;
+        _this._observers = {};
+        _this._data = [];
+        _this._originalData = [];
+        if (form) {
+            _this._form = form;
+        }
+        return _this;
+    }
+    DataAbstract.prototype.getDefaultConfig = function () {
+        return {
+            data: [],
+            originalData: []
+        };
+    };
+    DataAbstract.prototype.get = function (id) {
+        var event = new DataEvent_1.DataEvent(this, DataAbstract.DATA_PRE_GET, id);
+        this.notify(event);
+        var value = this._data[id];
+        var event = new DataEvent_1.DataEvent(this, DataAbstract.DATA_POST_GET, id);
+        this.notify(event);
+        return value;
+    };
+    DataAbstract.prototype.set = function (id, value) {
+        var event = new DataEvent_1.DataEvent(this, DataAbstract.DATA_PRE_SET, id);
+        this.notify(event);
+        this._data[id] = value;
+        var event = new DataEvent_1.DataEvent(this, DataAbstract.DATA_POST_SET, id);
+        this.notify(event);
+    };
+    DataAbstract.prototype.restore = function (id) {
+        this._data[id] = this._originalData[id];
+    };
+    DataAbstract.prototype.attach = function (observer) {
+        var observerList = this._observers;
+        if (observerList[observer.eventNumber] === undefined) {
+            observerList[observer.eventNumber] = [];
+        }
+        observerList[observer.eventNumber].push(observer);
+    };
+    DataAbstract.prototype.detach = function (observer) {
+        var observerList = this._observers[observer.eventNumber];
+        if (observerList) {
+            observerList.filter(function (ownObserver) {
+                return ownObserver === observer;
+            });
+        }
+    };
+    DataAbstract.prototype.notify = function (event) {
+        var eventNumber = event.eventNumber;
+        var observerList = this._observers[eventNumber];
+        if (observerList) {
+            observerList.forEach(function (observer) {
+                observer.update(event);
+            });
+        }
+    };
+    DataAbstract.prototype.forEach = function (callable) {
+        this._data.forEach(callable);
+        return this;
+    };
+    Object.defineProperty(DataAbstract.prototype, "form", {
+        get: function () {
+            if (this._form === undefined)
+                throw new Error('Form not set!');
+            return this._form;
+        },
+        set: function (value) {
+            this._form = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(DataAbstract.prototype, "data", {
+        get: function () {
+            if (this._data === undefined)
+                throw new Error('Data not set!');
+            return this._data;
+        },
+        set: function (value) {
+            this._data = this._originalData = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    DataAbstract.DATA_PRE_SET = 1;
+    DataAbstract.DATA_POST_SET = 2;
+    DataAbstract.DATA_PRE_GET = 4;
+    DataAbstract.DATA_POST_GET = 8;
+    return DataAbstract;
+}(ConfigurableAbstract_1.ConfigurableAbstract));
+exports.DataAbstract = DataAbstract;
+
 
 /***/ }),
 
@@ -204,9 +1044,47 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!**************************!*\
   !*** ./src/DataEvent.ts ***!
   \**************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/Event */ \"./node_modules/mudde-core/src/Mudde/Core/Event.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var Event_1 = require(\"../node_modules/mudde-core/src/Mudde/Core/Event\");\n    var DataEvent = /** @class */ (function (_super) {\n        __extends(DataEvent, _super);\n        function DataEvent(source, event, id) {\n            var _this = _super.call(this, source, event) || this;\n            _this._id = id;\n            return _this;\n        }\n        Object.defineProperty(DataEvent.prototype, \"id\", {\n            get: function () {\n                if (this._id === undefined)\n                    throw new Error('Id not set!');\n                return this._id;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return DataEvent;\n    }(Event_1.default));\n    exports.default = DataEvent;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/DataEvent.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.DataEvent = void 0;
+var Event_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/Event */ "./node_modules/mudde-core/src/Mudde/Core/Event.ts");
+var DataEvent = /** @class */ (function (_super) {
+    __extends(DataEvent, _super);
+    function DataEvent(source, event, id) {
+        var _this = _super.call(this, source, event) || this;
+        _this._id = id;
+        return _this;
+    }
+    Object.defineProperty(DataEvent.prototype, "id", {
+        get: function () {
+            if (this._id === undefined)
+                throw new Error('Id not set!');
+            return this._id;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return DataEvent;
+}(Event_1.default));
+exports.DataEvent = DataEvent;
+
 
 /***/ }),
 
@@ -214,9 +1092,221 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!*********************!*\
   !*** ./src/Form.ts ***!
   \*********************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ \"./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts\"), __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/GuidHelper */ \"./node_modules/mudde-core/src/Mudde/Helper/GuidHelper.ts\"), __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/StringHelper */ \"./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var ConfigurableAbstract_1 = require(\"../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract\");\n    var NodeCore_1 = require(\"../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var GuidHelper_1 = require(\"../node_modules/mudde-core/src/Mudde/Helper/GuidHelper\");\n    var StringHelper_1 = require(\"../node_modules/mudde-core/src/Mudde/Helper/StringHelper\");\n    var Form = /** @class */ (function (_super) {\n        __extends(Form, _super);\n        function Form(config) {\n            var _this = _super.call(this) || this;\n            _this._id = '';\n            _this._languages = [];\n            _this._fields = [];\n            _this._buttons = [];\n            _this._count = 0;\n            _this._loaded = false;\n            _this.configuring(config);\n            _this.form = new NodeCore_1.default('form', { method: 'POST', action: '.', id: _this.id });\n            Form._forms.push(_this);\n            return _this;\n        }\n        Form.prototype.getDefaultConfig = function () {\n            return {\n                id: GuidHelper_1.default.raw(),\n                languages: ['nl'],\n                fields: [],\n                buttons: [],\n                layout: [],\n                builders: [],\n                data: {}\n            };\n        };\n        Form.prototype.configureFields = function (rawFields) {\n            var main = this;\n            var fields = this.fields = [];\n            rawFields.forEach(function (config) {\n                var type = config['_type'];\n                main.count++;\n                // requirejs(['Mudde/Form/Input/' + type], (className) => {\n                //    let object = new className.default(config, main)\n                //    fields.push(object)\n                //    main.count--\n                // });\n            });\n        };\n        Form.prototype.configureButtons = function (rawFields) {\n            var main = this;\n            var buttons = this.buttons = [];\n            rawFields.forEach(function (config) {\n                var type = config['_type'];\n                main.count++;\n                // requirejs(['Mudde/Form/Buttom/' + type], (className) => {\n                //    let object = new className.default(config, main)\n                //    buttons.push(object)\n                //    main.count--\n                // });\n            });\n        };\n        Form.prototype.configureBuilders = function (rawFields) {\n            var main = this;\n            rawFields.unshift('GeneralBuilder');\n            rawFields.forEach(function (builder) {\n                // requirejs(['Mudde/Form/Builder/' + builder], (className) => {\n                //    let handler = new className.default(this)\n                //    if (!main._handler) {\n                //       main._handler = main._handlerCurrent = handler\n                //    } else {\n                //       main._handlerCurrent = main._handlerCurrent?.setNext(handler)\n                //    }\n                // });\n            });\n        };\n        Form.prototype.configureData = function (config) {\n            var main = this;\n            var type = StringHelper_1.default.ucfirst(config['_type']);\n            main.count++;\n            // requirejs(['Mudde/Form/Data/' + type], (className) => {\n            //    let object: DataAbstract = new className.default(config, main)\n            //    main._data = object\n            //    main.count--\n            // });\n        };\n        Form.getFormById = function (id) {\n            var filterFunction = function (form) { return form.id === id; };\n            var form = Form._forms.filter(filterFunction);\n            return form.length === 0 ? null : form[0];\n        };\n        Form.prototype.render = function () {\n            var _a;\n            var form = this._form;\n            if (form === undefined)\n                throw new Error('Form not set!');\n            form.clear();\n            this.fields.forEach(function (field) {\n                var renderedElement = field.render();\n                var panelId = 'panel_' + field.panel;\n                if (!(form === null || form === void 0 ? void 0 : form.hasElementById(panelId))) {\n                    form === null || form === void 0 ? void 0 : form.gotoRoot().appendNode_('div', { id: panelId, class: 'panel' });\n                }\n                form === null || form === void 0 ? void 0 : form.getElementById(panelId).appendElement_(renderedElement);\n            });\n            (_a = this._handler) === null || _a === void 0 ? void 0 : _a.handle(form);\n            form.gotoRoot();\n            this.buttons.forEach(function (element) {\n                form === null || form === void 0 ? void 0 : form.appendElement_(element.render());\n            });\n            return form;\n        };\n        Object.defineProperty(Form.prototype, \"id\", {\n            get: function () {\n                return this._id;\n            },\n            set: function (value) {\n                this._id = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Form.prototype, \"count\", {\n            get: function () {\n                return this._count;\n            },\n            set: function (value) {\n                this._count = value;\n                if (this._count === 0) {\n                    this._loaded = true;\n                }\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Form.prototype, \"loaded\", {\n            get: function () {\n                return this._loaded;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Form.prototype, \"languages\", {\n            get: function () {\n                return this._languages;\n            },\n            set: function (value) {\n                this._languages = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Form.prototype, \"fields\", {\n            get: function () {\n                return this._fields;\n            },\n            set: function (value) {\n                this._fields = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Form.prototype, \"buttons\", {\n            get: function () {\n                return this._buttons;\n            },\n            set: function (value) {\n                this._buttons = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Form.prototype, \"form\", {\n            get: function () {\n                if (this._form === undefined)\n                    throw new Error('Form not set!');\n                return this._form;\n            },\n            set: function (value) {\n                this._form = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Form.prototype, \"handler\", {\n            get: function () {\n                if (this._handler === undefined)\n                    throw new Error('Handler not set!');\n                return this._handler;\n            },\n            set: function (value) {\n                this._handler = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Form._forms = [];\n        return Form;\n    }(ConfigurableAbstract_1.default));\n    exports.default = Form;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Form.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Form = void 0;
+var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts");
+var NodeCore_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var GuidHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/GuidHelper */ "./node_modules/mudde-core/src/Mudde/Helper/GuidHelper.ts");
+var StringHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/StringHelper */ "./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts");
+var Form = /** @class */ (function (_super) {
+    __extends(Form, _super);
+    function Form(config) {
+        var _this = _super.call(this) || this;
+        _this._id = '';
+        _this._languages = [];
+        _this._fields = [];
+        _this._buttons = [];
+        _this._count = 0;
+        _this._loaded = false;
+        _this.configuring(config);
+        _this.form = new NodeCore_1.default('form', { method: 'POST', action: '.', id: _this.id });
+        Form._forms.push(_this);
+        return _this;
+    }
+    Form.prototype.getDefaultConfig = function () {
+        return {
+            id: GuidHelper_1.default.raw(),
+            languages: ['nl'],
+            fields: [],
+            buttons: [],
+            layout: [],
+            builders: [],
+            data: {}
+        };
+    };
+    Form.prototype.configureFields = function (rawFields) {
+        var main = this;
+        var fields = this.fields = [];
+        rawFields.forEach(function (config) {
+            var type = config['_type'];
+            main.count++;
+            // requirejs(['Mudde/Form/Input/' + type], (className) => {
+            //    let object = new className.default(config, main)
+            //    fields.push(object)
+            //    main.count--
+            // });
+        });
+    };
+    Form.prototype.configureButtons = function (rawFields) {
+        var main = this;
+        var buttons = this.buttons = [];
+        rawFields.forEach(function (config) {
+            var type = config['_type'];
+            main.count++;
+            // requirejs(['Mudde/Form/Buttom/' + type], (className) => {
+            //    let object = new className.default(config, main)
+            //    buttons.push(object)
+            //    main.count--
+            // });
+        });
+    };
+    Form.prototype.configureBuilders = function (rawFields) {
+        var main = this;
+        rawFields.unshift('GeneralBuilder');
+        rawFields.forEach(function (builder) {
+            // requirejs(['Mudde/Form/Builder/' + builder], (className) => {
+            //    let handler = new className.default(this)
+            //    if (!main._handler) {
+            //       main._handler = main._handlerCurrent = handler
+            //    } else {
+            //       main._handlerCurrent = main._handlerCurrent?.setNext(handler)
+            //    }
+            // });
+        });
+    };
+    Form.prototype.configureData = function (config) {
+        var main = this;
+        var type = StringHelper_1.default.ucfirst(config['_type']);
+        main.count++;
+        // requirejs(['Mudde/Form/Data/' + type], (className) => {
+        //    let object: DataAbstract = new className.default(config, main)
+        //    main._data = object
+        //    main.count--
+        // });
+    };
+    Form.getFormById = function (id) {
+        var filterFunction = function (form) { return form.id === id; };
+        var form = Form._forms.filter(filterFunction);
+        return form.length === 0 ? null : form[0];
+    };
+    Form.prototype.render = function () {
+        var _a;
+        var form = this._form;
+        if (form === undefined)
+            throw new Error('Form not set!');
+        form.clear();
+        this.fields.forEach(function (field) {
+            var renderedElement = field.render();
+            var panelId = 'panel_' + field.panel;
+            if (!(form === null || form === void 0 ? void 0 : form.hasElementById(panelId))) {
+                form === null || form === void 0 ? void 0 : form.gotoRoot().appendNode_('div', { id: panelId, class: 'panel' });
+            }
+            form === null || form === void 0 ? void 0 : form.getElementById(panelId).appendElement_(renderedElement);
+        });
+        (_a = this._handler) === null || _a === void 0 ? void 0 : _a.handle(form);
+        form.gotoRoot();
+        this.buttons.forEach(function (element) {
+            form === null || form === void 0 ? void 0 : form.appendElement_(element.render());
+        });
+        return form;
+    };
+    Object.defineProperty(Form.prototype, "id", {
+        get: function () {
+            return this._id;
+        },
+        set: function (value) {
+            this._id = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Form.prototype, "count", {
+        get: function () {
+            return this._count;
+        },
+        set: function (value) {
+            this._count = value;
+            if (this._count === 0) {
+                this._loaded = true;
+            }
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Form.prototype, "loaded", {
+        get: function () {
+            return this._loaded;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Form.prototype, "languages", {
+        get: function () {
+            return this._languages;
+        },
+        set: function (value) {
+            this._languages = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Form.prototype, "fields", {
+        get: function () {
+            return this._fields;
+        },
+        set: function (value) {
+            this._fields = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Form.prototype, "buttons", {
+        get: function () {
+            return this._buttons;
+        },
+        set: function (value) {
+            this._buttons = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Form.prototype, "form", {
+        get: function () {
+            if (this._form === undefined)
+                throw new Error('Form not set!');
+            return this._form;
+        },
+        set: function (value) {
+            this._form = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Form.prototype, "handler", {
+        get: function () {
+            if (this._handler === undefined)
+                throw new Error('Handler not set!');
+            return this._handler;
+        },
+        set: function (value) {
+            this._handler = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Form._forms = [];
+    return Form;
+}(ConfigurableAbstract_1.ConfigurableAbstract));
+exports.Form = Form;
+
 
 /***/ }),
 
@@ -224,9 +1314,43 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!************************************!*\
   !*** ./src/FormBuilderAbstract.ts ***!
   \************************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./BuilderAbstract */ \"./src/BuilderAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var BuilderAbstract_1 = require(\"./BuilderAbstract\");\n    var FormBuilderAbstract = /** @class */ (function (_super) {\n        __extends(FormBuilderAbstract, _super);\n        function FormBuilderAbstract() {\n            return _super !== null && _super.apply(this, arguments) || this;\n        }\n        FormBuilderAbstract.prototype.handle = function (data) {\n            if (this.nextEvent) {\n                this.nextEvent.handle(data);\n            }\n            this.coreBuild(data);\n            return data;\n        };\n        return FormBuilderAbstract;\n    }(BuilderAbstract_1.default));\n    exports.default = FormBuilderAbstract;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/FormBuilderAbstract.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FormBuilderAbstract = void 0;
+var BuilderAbstract_1 = __webpack_require__(/*! ./BuilderAbstract */ "./src/BuilderAbstract.ts");
+var FormBuilderAbstract = /** @class */ (function (_super) {
+    __extends(FormBuilderAbstract, _super);
+    function FormBuilderAbstract() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    FormBuilderAbstract.prototype.handle = function (data) {
+        if (this.nextEvent) {
+            this.nextEvent.handle(data);
+        }
+        this.coreBuild(data);
+        return data;
+    };
+    return FormBuilderAbstract;
+}(BuilderAbstract_1.BuilderAbstract));
+exports.FormBuilderAbstract = FormBuilderAbstract;
+
 
 /***/ }),
 
@@ -234,9 +1358,110 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!***********************************!*\
   !*** ./src/GroupInputAbstract.ts ***!
   \***********************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/StringHelper */ \"./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts\"), __webpack_require__(/*! ./Data/Array */ \"./src/Data/Array.ts\"), __webpack_require__(/*! ./InputAbstract */ \"./src/InputAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var NodeCore_1 = require(\"../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var StringHelper_1 = require(\"../node_modules/mudde-core/src/Mudde/Helper/StringHelper\");\n    var Array_1 = require(\"./Data/Array\");\n    var InputAbstract_1 = require(\"./InputAbstract\");\n    var GroupInputAbstract = /** @class */ (function (_super) {\n        __extends(GroupInputAbstract, _super);\n        function GroupInputAbstract() {\n            var _this = _super !== null && _super.apply(this, arguments) || this;\n            _this._data = new Array_1.default({ data: [] });\n            _this._currentData = {};\n            return _this;\n        }\n        GroupInputAbstract.prototype.getDefaultConfig = function () {\n            return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { data: new Array_1.default({ data: [] }) });\n        };\n        GroupInputAbstract.prototype.configureData = function (config) {\n            var main = this;\n            var type = StringHelper_1.default.ucfirst(config['_type']);\n            // requirejs(['Mudde/Form/Data/' + type], (className) => {\n            //    let object: DataAbstract = new className.default(config, main)\n            //    main._data = object\n            // });\n        };\n        GroupInputAbstract.prototype.render = function () {\n            var _this = this;\n            var _a;\n            var mainId = this.id;\n            var isMultilingual = this.isMultilingual;\n            var languages = isMultilingual ? this.form.languages : [this.form.languages[0]];\n            var output = new NodeCore_1.default('div', {});\n            var ids = this.coreIds = [];\n            output.appendElement(this.preCoreHTMLInput());\n            this._data.forEach(function (data) {\n                _this.currentData = data;\n                languages.forEach(function (language) {\n                    var id = isMultilingual ? mainId + \"_\" + language : mainId;\n                    var name = isMultilingual ? mainId + \"[\" + language + \"]\" : mainId;\n                    var object = _this.coreHTMLInput(id, name, language);\n                    ids.push(object);\n                    output.appendElement_(object);\n                });\n                output.appendElement(_this.postCoreHTMLInput());\n            });\n            output\n                .prependElement(this.preHTMLInput())\n                .appendElement(this.postHTMLInput());\n            (_a = this.handler) === null || _a === void 0 ? void 0 : _a.handle(output);\n            return output;\n        };\n        Object.defineProperty(GroupInputAbstract.prototype, \"data\", {\n            get: function () {\n                return this._data;\n            },\n            set: function (value) {\n                this._data = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(GroupInputAbstract.prototype, \"currentData\", {\n            get: function () {\n                return this._currentData;\n            },\n            set: function (value) {\n                this._currentData = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return GroupInputAbstract;\n    }(InputAbstract_1.default));\n    exports.default = GroupInputAbstract;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/GroupInputAbstract.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GroupInputAbstract = void 0;
+var NodeCore_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var StringHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/StringHelper */ "./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts");
+var Array_1 = __webpack_require__(/*! ./Data/Array */ "./src/Data/Array.ts");
+var InputAbstract_1 = __webpack_require__(/*! ./InputAbstract */ "./src/InputAbstract.ts");
+var GroupInputAbstract = /** @class */ (function (_super) {
+    __extends(GroupInputAbstract, _super);
+    function GroupInputAbstract() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this._data = new Array_1.Array({ data: [] });
+        _this._currentData = {};
+        return _this;
+    }
+    GroupInputAbstract.prototype.getDefaultConfig = function () {
+        return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { data: new Array_1.Array({ data: [] }) });
+    };
+    GroupInputAbstract.prototype.configureData = function (config) {
+        var main = this;
+        var type = StringHelper_1.default.ucfirst(config['_type']);
+        // requirejs(['Mudde/Form/Data/' + type], (className) => {
+        //    let object: DataAbstract = new className.default(config, main)
+        //    main._data = object
+        // });
+    };
+    GroupInputAbstract.prototype.render = function () {
+        var _this = this;
+        var _a;
+        var mainId = this.id;
+        var isMultilingual = this.isMultilingual;
+        var languages = isMultilingual ? this.form.languages : [this.form.languages[0]];
+        var output = new NodeCore_1.default('div', {});
+        var ids = this.coreIds = [];
+        output.appendElement(this.preCoreHTMLInput());
+        this._data.forEach(function (data) {
+            _this.currentData = data;
+            languages.forEach(function (language) {
+                var id = isMultilingual ? mainId + "_" + language : mainId;
+                var name = isMultilingual ? mainId + "[" + language + "]" : mainId;
+                var object = _this.coreHTMLInput(id, name, language);
+                ids.push(object);
+                output.appendElement_(object);
+            });
+            output.appendElement(_this.postCoreHTMLInput());
+        });
+        output
+            .prependElement(this.preHTMLInput())
+            .appendElement(this.postHTMLInput());
+        (_a = this.handler) === null || _a === void 0 ? void 0 : _a.handle(output);
+        return output;
+    };
+    Object.defineProperty(GroupInputAbstract.prototype, "data", {
+        get: function () {
+            return this._data;
+        },
+        set: function (value) {
+            this._data = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(GroupInputAbstract.prototype, "currentData", {
+        get: function () {
+            return this._currentData;
+        },
+        set: function (value) {
+            this._currentData = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return GroupInputAbstract;
+}(InputAbstract_1.InputAbstract));
+exports.GroupInputAbstract = GroupInputAbstract;
+
 
 /***/ }),
 
@@ -244,9 +1469,26 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!**********************************!*\
   !*** ./src/Helper/IconHelper.ts ***!
   \**********************************/
-/***/ ((module, exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, exports) => {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Helper sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var IconHelper = /** @class */ (function () {\n        function IconHelper() {\n        }\n        IconHelper.suitHeart = function (size) {\n            if (size === void 0) { size = '1em'; }\n            return \"<svg width=\\\"\" + size + \"\\\" height=\\\"\" + size + \"\\\" viewBox=\\\"0 0 16 16\\\" class=\\\"bi bi-suit-heart ml-1\\\" fill=\\\"currentColor\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\">\\n      <path fill-rule=\\\"evenodd\\\" d=\\\"M8 6.236l.894-1.789c.222-.443.607-1.08 1.152-1.595C10.582 2.345 11.224 2 12 2c1.676 0 3 1.326 3 2.92 0 1.211-.554 2.066-1.868 3.37-.337.334-.721.695-1.146 1.093C10.878 10.423 9.5 11.717 8 13.447c-1.5-1.73-2.878-3.024-3.986-4.064-.425-.398-.81-.76-1.146-1.093C1.554 6.986 1 6.131 1 4.92 1 3.326 2.324 2 4 2c.776 0 1.418.345 1.954.852.545.515.93 1.152 1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z\\\"/>\\n      </svg>\";\n        };\n        IconHelper.starFill = function (size) {\n            if (size === void 0) { size = '1em'; }\n            return \"<svg width=\\\"\" + size + \"\\\" height=\\\"\" + size + \"\\\" viewBox=\\\"0 0 16 16\\\" class=\\\"bi bi-star-fill ml-1 mb-2\\\" fill=\\\"currentColor\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\">\\n      <path d=\\\"M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z\\\"/>\\n    </svg>\";\n        };\n        return IconHelper;\n    }());\n    exports.default = IconHelper;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Helper/IconHelper.ts?");
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.IconHelper = void 0;
+var IconHelper = /** @class */ (function () {
+    function IconHelper() {
+    }
+    IconHelper.suitHeart = function (size) {
+        if (size === void 0) { size = '1em'; }
+        return "<svg width=\"" + size + "\" height=\"" + size + "\" viewBox=\"0 0 16 16\" class=\"bi bi-suit-heart ml-1\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n      <path fill-rule=\"evenodd\" d=\"M8 6.236l.894-1.789c.222-.443.607-1.08 1.152-1.595C10.582 2.345 11.224 2 12 2c1.676 0 3 1.326 3 2.92 0 1.211-.554 2.066-1.868 3.37-.337.334-.721.695-1.146 1.093C10.878 10.423 9.5 11.717 8 13.447c-1.5-1.73-2.878-3.024-3.986-4.064-.425-.398-.81-.76-1.146-1.093C1.554 6.986 1 6.131 1 4.92 1 3.326 2.324 2 4 2c.776 0 1.418.345 1.954.852.545.515.93 1.152 1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z\"/>\n      </svg>";
+    };
+    IconHelper.starFill = function (size) {
+        if (size === void 0) { size = '1em'; }
+        return "<svg width=\"" + size + "\" height=\"" + size + "\" viewBox=\"0 0 16 16\" class=\"bi bi-star-fill ml-1 mb-2\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n      <path d=\"M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z\"/>\n    </svg>";
+    };
+    return IconHelper;
+}());
+exports.IconHelper = IconHelper;
+
 
 /***/ }),
 
@@ -254,29 +1496,146 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!*****************************!*\
   !*** ./src/Helper/index.ts ***!
   \*****************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// created from 'create-ts-index'\nvar __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });\n}) : (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    o[k2] = m[k];\n}));\nvar __exportStar = (this && this.__exportStar) || function(m, exports) {\n    for (var p in m) if (p !== \"default\" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Helper sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./IconHelper */ \"./src/Helper/IconHelper.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    __exportStar(require(\"./IconHelper\"), exports);\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Helper/index.ts?");
+
+// created from 'create-ts-index'
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(/*! ./IconHelper */ "./src/Helper/IconHelper.ts"), exports);
+
 
 /***/ }),
 
-/***/ "./src/Input/Builder/BootstrapBuilder.ts":
-/*!***********************************************!*\
-  !*** ./src/Input/Builder/BootstrapBuilder.ts ***!
-  \***********************************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./src/Input/Builder/BootstrapInputBuilder.ts":
+/*!****************************************************!*\
+  !*** ./src/Input/Builder/BootstrapInputBuilder.ts ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Input/Builder sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../../InputBuilderAbstract */ \"./src/InputBuilderAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var NodeCore_1 = require(\"../../../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var InputBuilderAbstract_1 = require(\"../../InputBuilderAbstract\");\n    var BootstrapBuilder = /** @class */ (function (_super) {\n        __extends(BootstrapBuilder, _super);\n        function BootstrapBuilder() {\n            return _super !== null && _super.apply(this, arguments) || this;\n        }\n        BootstrapBuilder.prototype.coreBuild = function (output) {\n            output\n                .gotoRoot()\n                .addClass('mb-1');\n            var label = output.getElementByTagName('label').item(0);\n            label === null || label === void 0 ? void 0 : label.classList.add('form-label');\n            var input = this.input;\n            var help = output.getElementByClass('help').item(0);\n            if (help) {\n                help.classList.add('form-text');\n                help.innerHTML = input.help;\n            }\n            input.coreIds.forEach(function (item) {\n                var classes = '' + item.getAttribute('class');\n                if (classes.indexOf('form-check') === -1) {\n                    item.gotoRoot().addClass('form-control');\n                }\n            });\n            if (input.isMultilingual) {\n                input.form.languages.forEach(function (language) {\n                    var id = input.id + '_' + language;\n                    output\n                        .getElementById(id)\n                        .moveInNode(function (oldNode) {\n                        return new NodeCore_1.default('div', { class: 'input-group mb-1' })\n                            .appendNode_('span', { class: 'input-group-text' })\n                            .appendNode('i', { class: language + \" flag mr-0\" })\n                            ._()\n                            .appendElement_(oldNode);\n                    });\n                });\n            }\n        };\n        return BootstrapBuilder;\n    }(InputBuilderAbstract_1.default));\n    exports.default = BootstrapBuilder;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Input/Builder/BootstrapBuilder.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BootstrapInputBuilder = void 0;
+var NodeCore_1 = __webpack_require__(/*! ../../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var InputBuilderAbstract_1 = __webpack_require__(/*! ../../InputBuilderAbstract */ "./src/InputBuilderAbstract.ts");
+var BootstrapInputBuilder = /** @class */ (function (_super) {
+    __extends(BootstrapInputBuilder, _super);
+    function BootstrapInputBuilder() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    BootstrapInputBuilder.prototype.coreBuild = function (output) {
+        output
+            .gotoRoot()
+            .addClass('mb-1');
+        var label = output.getElementByTagName('label').item(0);
+        label === null || label === void 0 ? void 0 : label.classList.add('form-label');
+        var input = this.input;
+        var help = output.getElementByClass('help').item(0);
+        if (help) {
+            help.classList.add('form-text');
+            help.innerHTML = input.help;
+        }
+        input.coreIds.forEach(function (item) {
+            var classes = '' + item.getAttribute('class');
+            if (classes.indexOf('form-check') === -1) {
+                item.gotoRoot().addClass('form-control');
+            }
+        });
+        if (input.isMultilingual) {
+            input.form.languages.forEach(function (language) {
+                var id = input.id + '_' + language;
+                output
+                    .getElementById(id)
+                    .moveInNode(function (oldNode) {
+                    return new NodeCore_1.default('div', { class: 'input-group mb-1' })
+                        .appendNode_('span', { class: 'input-group-text' })
+                        .appendNode('i', { class: language + " flag mr-0" })
+                        ._()
+                        .appendElement_(oldNode);
+                });
+            });
+        }
+    };
+    return BootstrapInputBuilder;
+}(InputBuilderAbstract_1.InputBuilderAbstract));
+exports.BootstrapInputBuilder = BootstrapInputBuilder;
+
 
 /***/ }),
 
-/***/ "./src/Input/Builder/GeneralBuilder.ts":
-/*!*********************************************!*\
-  !*** ./src/Input/Builder/GeneralBuilder.ts ***!
-  \*********************************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./src/Input/Builder/GeneralInputBuilder.ts":
+/*!**************************************************!*\
+  !*** ./src/Input/Builder/GeneralInputBuilder.ts ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Input/Builder sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../../Helper/IconHelper */ \"./src/Helper/IconHelper.ts\"), __webpack_require__(/*! ../../InputBuilderAbstract */ \"./src/InputBuilderAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var NodeCore_1 = require(\"../../../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var IconHelper_1 = require(\"../../Helper/IconHelper\");\n    var InputBuilderAbstract_1 = require(\"../../InputBuilderAbstract\");\n    var GeneralBuilder = /** @class */ (function (_super) {\n        __extends(GeneralBuilder, _super);\n        function GeneralBuilder() {\n            return _super !== null && _super.apply(this, arguments) || this;\n        }\n        GeneralBuilder.prototype.coreBuild = function (output) {\n            var input = this.input;\n            var elements = input.coreIds;\n            var labelText = input.label + (input.require ? IconHelper_1.default.starFill('9px') : '');\n            var label = new NodeCore_1.default('label', { for: elements[0].id, class: 'myLabel' });\n            var help = new NodeCore_1.default('span', { class: 'help', id: 'help_' + input.id });\n            label.innerHTML = labelText;\n            output\n                .gotoRoot()\n                .setAttributes({ 'style': 'margin-bottom: 10px;' })\n                .prependElement_(label)\n                .appendElement_(help);\n        };\n        return GeneralBuilder;\n    }(InputBuilderAbstract_1.default));\n    exports.default = GeneralBuilder;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Input/Builder/GeneralBuilder.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GeneralInputBuilder = void 0;
+var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var IconHelper_1 = __webpack_require__(/*! ../../Helper/IconHelper */ "./src/Helper/IconHelper.ts");
+var InputBuilderAbstract_1 = __webpack_require__(/*! ../../InputBuilderAbstract */ "./src/InputBuilderAbstract.ts");
+var GeneralInputBuilder = /** @class */ (function (_super) {
+    __extends(GeneralInputBuilder, _super);
+    function GeneralInputBuilder() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    GeneralInputBuilder.prototype.coreBuild = function (output) {
+        var input = this.input;
+        var elements = input.coreIds;
+        var labelText = input.label + (input.require ? IconHelper_1.IconHelper.starFill('9px') : '');
+        var label = new NodeCore_1.default('label', { for: elements[0].id, class: 'myLabel' });
+        var help = new NodeCore_1.default('span', { class: 'help', id: 'help_' + input.id });
+        label.innerHTML = labelText;
+        output
+            .gotoRoot()
+            .setAttributes({ 'style': 'margin-bottom: 10px;' })
+            .prependElement_(label)
+            .appendElement_(help);
+    };
+    return GeneralInputBuilder;
+}(InputBuilderAbstract_1.InputBuilderAbstract));
+exports.GeneralInputBuilder = GeneralInputBuilder;
+
 
 /***/ }),
 
@@ -284,9 +1643,24 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!************************************!*\
   !*** ./src/Input/Builder/index.ts ***!
   \************************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// created from 'create-ts-index'\nvar __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });\n}) : (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    o[k2] = m[k];\n}));\nvar __exportStar = (this && this.__exportStar) || function(m, exports) {\n    for (var p in m) if (p !== \"default\" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Input/Builder sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./BootstrapBuilder */ \"./src/Input/Builder/BootstrapBuilder.ts\"), __webpack_require__(/*! ./GeneralBuilder */ \"./src/Input/Builder/GeneralBuilder.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    __exportStar(require(\"./BootstrapBuilder\"), exports);\n    __exportStar(require(\"./GeneralBuilder\"), exports);\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Input/Builder/index.ts?");
+
+// created from 'create-ts-index'
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(/*! ./BootstrapInputBuilder */ "./src/Input/Builder/BootstrapInputBuilder.ts"), exports);
+__exportStar(__webpack_require__(/*! ./GeneralInputBuilder */ "./src/Input/Builder/GeneralInputBuilder.ts"), exports);
+
 
 /***/ }),
 
@@ -294,9 +1668,71 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!*******************************!*\
   !*** ./src/Input/Checkbox.ts ***!
   \*******************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Input sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../GroupInputAbstract */ \"./src/GroupInputAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var NodeCore_1 = require(\"../../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var GroupInputAbstract_1 = require(\"../GroupInputAbstract\");\n    var Checkbox = /** @class */ (function (_super) {\n        __extends(Checkbox, _super);\n        function Checkbox(config, form) {\n            var _this = _super.call(this, form) || this;\n            _this.configuring(config);\n            return _this;\n        }\n        Checkbox.prototype.getDefaultConfig = function () {\n            return __assign({}, _super.prototype.getDefaultConfig.call(this));\n        };\n        Checkbox.prototype.coreHTMLInput = function (id, name, language) {\n            var currentData = this.currentData;\n            var element = new NodeCore_1.default('div', { 'class': 'form-check', style: 'display: table-cell;' });\n            var newId = id + '_' + currentData.id;\n            element\n                .appendNode('input', {\n                id: newId,\n                name: name,\n                class: 'form-check-input',\n                type: 'checkbox',\n                value: currentData.id\n            })\n                .appendNode_('label', {\n                'for': newId,\n                'class': 'form-check-label'\n            }, currentData.value);\n            return element;\n        };\n        return Checkbox;\n    }(GroupInputAbstract_1.default));\n    exports.default = Checkbox;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Input/Checkbox.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Checkbox = void 0;
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var GroupInputAbstract_1 = __webpack_require__(/*! ../GroupInputAbstract */ "./src/GroupInputAbstract.ts");
+var Checkbox = /** @class */ (function (_super) {
+    __extends(Checkbox, _super);
+    function Checkbox(config, form) {
+        var _this = _super.call(this, form) || this;
+        _this.configuring(config);
+        return _this;
+    }
+    Checkbox.prototype.getDefaultConfig = function () {
+        return __assign({}, _super.prototype.getDefaultConfig.call(this));
+    };
+    Checkbox.prototype.coreHTMLInput = function (id, name, language) {
+        var currentData = this.currentData;
+        var element = new NodeCore_1.default('div', { 'class': 'form-check', style: 'display: table-cell;' });
+        var newId = id + '_' + currentData.id;
+        element
+            .appendNode('input', {
+            id: newId,
+            name: name,
+            class: 'form-check-input',
+            type: 'checkbox',
+            value: currentData.id
+        })
+            .appendNode_('label', {
+            'for': newId,
+            'class': 'form-check-label'
+        }, currentData.value);
+        return element;
+    };
+    return Checkbox;
+}(GroupInputAbstract_1.GroupInputAbstract));
+exports.Checkbox = Checkbox;
+
 
 /***/ }),
 
@@ -304,9 +1740,95 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!*******************************!*\
   !*** ./src/Input/Combobox.ts ***!
   \*******************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Input sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../InputAbstract */ \"./src/InputAbstract.ts\"), __webpack_require__(/*! ../Data/Array */ \"./src/Data/Array.ts\"), __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Helper/StringHelper */ \"./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var NodeCore_1 = require(\"../../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var InputAbstract_1 = require(\"../InputAbstract\");\n    var Array_1 = require(\"../Data/Array\");\n    var StringHelper_1 = require(\"../../node_modules/mudde-core/src/Mudde/Helper/StringHelper\");\n    var Combobox = /** @class */ (function (_super) {\n        __extends(Combobox, _super);\n        function Combobox(config, form) {\n            var _this = _super.call(this, form) || this;\n            _this._multiple = false;\n            _this._data = new Array_1.default({ data: [] });\n            _this.configuring(config);\n            return _this;\n        }\n        Combobox.prototype.getDefaultConfig = function () {\n            return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { multiple: false, data: new Array_1.default({ data: [] }) });\n        };\n        Combobox.prototype.configureData = function (config) {\n            var main = this;\n            var type = StringHelper_1.default.ucfirst(config['_type']);\n            // requirejs(['Mudde/Form/Data/' + type], (className) => {\n            //    let object: DataAbstract = new className.default(config, main)\n            //    main._data = object\n            // });\n        };\n        Combobox.prototype.coreHTMLInput = function (id, name, language) {\n            var element = new NodeCore_1.default('select', __assign(__assign({ id: id, name: name }, this.placeholder ? { placeholder: this.placeholder } : {}), this.multiple === true ? { 'multiple': '' } : {}));\n            if (this.multiple !== true) {\n                element.appendNode('option', { value: null }, '');\n            }\n            this._data.forEach(function (dataitem) {\n                element.appendNode('option', { value: dataitem.id }, dataitem.value);\n            });\n            return element;\n        };\n        Object.defineProperty(Combobox.prototype, \"multiple\", {\n            get: function () {\n                return this._multiple;\n            },\n            set: function (value) {\n                this._multiple = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Combobox.prototype, \"data\", {\n            get: function () {\n                return this._data;\n            },\n            set: function (value) {\n                this._data = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return Combobox;\n    }(InputAbstract_1.default));\n    exports.default = Combobox;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Input/Combobox.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Combobox = void 0;
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
+var Array_1 = __webpack_require__(/*! ../Data/Array */ "./src/Data/Array.ts");
+var StringHelper_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Helper/StringHelper */ "./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts");
+var Combobox = /** @class */ (function (_super) {
+    __extends(Combobox, _super);
+    function Combobox(config, form) {
+        var _this = _super.call(this, form) || this;
+        _this._multiple = false;
+        _this._data = new Array_1.Array({ data: [] });
+        _this.configuring(config);
+        return _this;
+    }
+    Combobox.prototype.getDefaultConfig = function () {
+        return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { multiple: false, data: new Array_1.Array({ data: [] }) });
+    };
+    Combobox.prototype.configureData = function (config) {
+        var main = this;
+        var type = StringHelper_1.default.ucfirst(config['_type']);
+        // requirejs(['Mudde/Form/Data/' + type], (className) => {
+        //    let object: DataAbstract = new className.default(config, main)
+        //    main._data = object
+        // });
+    };
+    Combobox.prototype.coreHTMLInput = function (id, name, language) {
+        var element = new NodeCore_1.default('select', __assign(__assign({ id: id, name: name }, this.placeholder ? { placeholder: this.placeholder } : {}), this.multiple === true ? { 'multiple': '' } : {}));
+        if (this.multiple !== true) {
+            element.appendNode('option', { value: null }, '');
+        }
+        this._data.forEach(function (dataitem) {
+            element.appendNode('option', { value: dataitem.id }, dataitem.value);
+        });
+        return element;
+    };
+    Object.defineProperty(Combobox.prototype, "multiple", {
+        get: function () {
+            return this._multiple;
+        },
+        set: function (value) {
+            this._multiple = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Combobox.prototype, "data", {
+        get: function () {
+            return this._data;
+        },
+        set: function (value) {
+            this._data = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return Combobox;
+}(InputAbstract_1.InputAbstract));
+exports.Combobox = Combobox;
+
 
 /***/ }),
 
@@ -314,9 +1836,63 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!****************************!*\
   !*** ./src/Input/Email.ts ***!
   \****************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Input sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../InputAbstract */ \"./src/InputAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var NodeCore_1 = require(\"../../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var InputAbstract_1 = require(\"../InputAbstract\");\n    var Email = /** @class */ (function (_super) {\n        __extends(Email, _super);\n        function Email(config, form) {\n            var _this = _super.call(this, form) || this;\n            _this.configuring(config);\n            return _this;\n        }\n        Email.prototype.getDefaultConfig = function () {\n            return __assign({}, _super.prototype.getDefaultConfig.call(this));\n        };\n        Email.prototype.coreHTMLInput = function (id, name, language) {\n            var element = new NodeCore_1.default('input', {\n                id: id,\n                name: name,\n                type: 'email',\n                'aria-label': this.label,\n                'data-language': language\n            });\n            return element;\n        };\n        return Email;\n    }(InputAbstract_1.default));\n    exports.default = Email;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Input/Email.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Email = void 0;
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
+var Email = /** @class */ (function (_super) {
+    __extends(Email, _super);
+    function Email(config, form) {
+        var _this = _super.call(this, form) || this;
+        _this.configuring(config);
+        return _this;
+    }
+    Email.prototype.getDefaultConfig = function () {
+        return __assign({}, _super.prototype.getDefaultConfig.call(this));
+    };
+    Email.prototype.coreHTMLInput = function (id, name, language) {
+        var element = new NodeCore_1.default('input', {
+            id: id,
+            name: name,
+            type: 'email',
+            'aria-label': this.label,
+            'data-language': language
+        });
+        return element;
+    };
+    return Email;
+}(InputAbstract_1.InputAbstract));
+exports.Email = Email;
+
 
 /***/ }),
 
@@ -324,9 +1900,71 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!****************************!*\
   !*** ./src/Input/Radio.ts ***!
   \****************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Input sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../GroupInputAbstract */ \"./src/GroupInputAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var NodeCore_1 = require(\"../../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var GroupInputAbstract_1 = require(\"../GroupInputAbstract\");\n    var Radio = /** @class */ (function (_super) {\n        __extends(Radio, _super);\n        function Radio(config, form) {\n            var _this = _super.call(this, form) || this;\n            _this.configuring(config);\n            return _this;\n        }\n        Radio.prototype.getDefaultConfig = function () {\n            return __assign({}, _super.prototype.getDefaultConfig.call(this));\n        };\n        Radio.prototype.coreHTMLInput = function (id, name, language) {\n            var currentData = this.currentData;\n            var element = new NodeCore_1.default('div', { 'class': 'form-check', style: 'display: table-cell;' });\n            var newId = id + '_' + currentData.id;\n            element\n                .appendNode('input', {\n                id: newId,\n                name: name,\n                class: 'form-check-input',\n                type: 'radio',\n                value: currentData.id\n            })\n                .appendNode('label', {\n                'for': newId,\n                'class': 'form-check-label'\n            }, currentData.value);\n            return element;\n        };\n        return Radio;\n    }(GroupInputAbstract_1.default));\n    exports.default = Radio;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Input/Radio.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Radio = void 0;
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var GroupInputAbstract_1 = __webpack_require__(/*! ../GroupInputAbstract */ "./src/GroupInputAbstract.ts");
+var Radio = /** @class */ (function (_super) {
+    __extends(Radio, _super);
+    function Radio(config, form) {
+        var _this = _super.call(this, form) || this;
+        _this.configuring(config);
+        return _this;
+    }
+    Radio.prototype.getDefaultConfig = function () {
+        return __assign({}, _super.prototype.getDefaultConfig.call(this));
+    };
+    Radio.prototype.coreHTMLInput = function (id, name, language) {
+        var currentData = this.currentData;
+        var element = new NodeCore_1.default('div', { 'class': 'form-check', style: 'display: table-cell;' });
+        var newId = id + '_' + currentData.id;
+        element
+            .appendNode('input', {
+            id: newId,
+            name: name,
+            class: 'form-check-input',
+            type: 'radio',
+            value: currentData.id
+        })
+            .appendNode('label', {
+            'for': newId,
+            'class': 'form-check-label'
+        }, currentData.value);
+        return element;
+    };
+    return Radio;
+}(GroupInputAbstract_1.GroupInputAbstract));
+exports.Radio = Radio;
+
 
 /***/ }),
 
@@ -334,9 +1972,130 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!***************************!*\
   !*** ./src/Input/Text.ts ***!
   \***************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Input sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../InputAbstract */ \"./src/InputAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var NodeCore_1 = require(\"../../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var InputAbstract_1 = require(\"../InputAbstract\");\n    var Text = /** @class */ (function (_super) {\n        __extends(Text, _super);\n        function Text(config, form) {\n            var _this = _super.call(this, form) || this;\n            _this._mask = '';\n            _this._format = '';\n            _this._prefix = '';\n            _this._suffix = '';\n            _this._multiple = false;\n            _this._spellcheck = false;\n            _this.configuring(config);\n            return _this;\n        }\n        Text.prototype.canBeMultilingual = function () { return true; };\n        Text.prototype.getDefaultConfig = function () {\n            return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { mask: '', format: '', prefix: '', suffix: '', multiple: false, spellcheck: false });\n        };\n        Text.prototype.coreHTMLInput = function (id, name, language) {\n            var element = new NodeCore_1.default('input', {\n                id: id,\n                name: name,\n                type: 'text',\n                placeholder: this.placeholder,\n                spellcheck: this.spellcheck\n            });\n            return element;\n        };\n        Object.defineProperty(Text.prototype, \"mask\", {\n            get: function () {\n                return this._mask;\n            },\n            set: function (value) {\n                this._mask = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Text.prototype, \"format\", {\n            get: function () {\n                return this._format;\n            },\n            set: function (value) {\n                this._format = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Text.prototype, \"prefix\", {\n            get: function () {\n                return this._prefix;\n            },\n            set: function (value) {\n                this._prefix = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Text.prototype, \"suffix\", {\n            get: function () {\n                return this._suffix;\n            },\n            set: function (value) {\n                this._suffix = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Text.prototype, \"multiple\", {\n            get: function () {\n                return this._multiple;\n            },\n            set: function (value) {\n                this._multiple = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Text.prototype, \"spellcheck\", {\n            get: function () {\n                return this._spellcheck;\n            },\n            set: function (value) {\n                this._spellcheck = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return Text;\n    }(InputAbstract_1.default));\n    exports.default = Text;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Input/Text.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Text = void 0;
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
+var Text = /** @class */ (function (_super) {
+    __extends(Text, _super);
+    function Text(config, form) {
+        var _this = _super.call(this, form) || this;
+        _this._mask = '';
+        _this._format = '';
+        _this._prefix = '';
+        _this._suffix = '';
+        _this._multiple = false;
+        _this._spellcheck = false;
+        _this.configuring(config);
+        return _this;
+    }
+    Text.prototype.canBeMultilingual = function () { return true; };
+    Text.prototype.getDefaultConfig = function () {
+        return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { mask: '', format: '', prefix: '', suffix: '', multiple: false, spellcheck: false });
+    };
+    Text.prototype.coreHTMLInput = function (id, name, language) {
+        var element = new NodeCore_1.default('input', {
+            id: id,
+            name: name,
+            type: 'text',
+            placeholder: this.placeholder,
+            spellcheck: this.spellcheck
+        });
+        return element;
+    };
+    Object.defineProperty(Text.prototype, "mask", {
+        get: function () {
+            return this._mask;
+        },
+        set: function (value) {
+            this._mask = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Text.prototype, "format", {
+        get: function () {
+            return this._format;
+        },
+        set: function (value) {
+            this._format = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Text.prototype, "prefix", {
+        get: function () {
+            return this._prefix;
+        },
+        set: function (value) {
+            this._prefix = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Text.prototype, "suffix", {
+        get: function () {
+            return this._suffix;
+        },
+        set: function (value) {
+            this._suffix = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Text.prototype, "multiple", {
+        get: function () {
+            return this._multiple;
+        },
+        set: function (value) {
+            this._multiple = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Text.prototype, "spellcheck", {
+        get: function () {
+            return this._spellcheck;
+        },
+        set: function (value) {
+            this._spellcheck = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return Text;
+}(InputAbstract_1.InputAbstract));
+exports.Text = Text;
+
 
 /***/ }),
 
@@ -344,9 +2103,72 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!*******************************!*\
   !*** ./src/Input/Textarea.ts ***!
   \*******************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Input sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../InputAbstract */ \"./src/InputAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var NodeCore_1 = require(\"../../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var InputAbstract_1 = require(\"../InputAbstract\");\n    var Textarea = /** @class */ (function (_super) {\n        __extends(Textarea, _super);\n        function Textarea(config, form) {\n            var _this = _super.call(this, form) || this;\n            _this._spellcheck = false;\n            _this.configuring(config);\n            return _this;\n        }\n        Textarea.prototype.getDefaultConfig = function () {\n            return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { spellcheck: false });\n        };\n        Textarea.prototype.coreHTMLInput = function (id, name, language) {\n            var element = new NodeCore_1.default('textarea', {\n                id: id,\n                name: name,\n                spellcheck: this.spellcheck\n            });\n            return element;\n        };\n        Object.defineProperty(Textarea.prototype, \"spellcheck\", {\n            get: function () {\n                return this._spellcheck;\n            },\n            set: function (value) {\n                this._spellcheck = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return Textarea;\n    }(InputAbstract_1.default));\n    exports.default = Textarea;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Input/Textarea.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Textarea = void 0;
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
+var Textarea = /** @class */ (function (_super) {
+    __extends(Textarea, _super);
+    function Textarea(config, form) {
+        var _this = _super.call(this, form) || this;
+        _this._spellcheck = false;
+        _this.configuring(config);
+        return _this;
+    }
+    Textarea.prototype.getDefaultConfig = function () {
+        return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { spellcheck: false });
+    };
+    Textarea.prototype.coreHTMLInput = function (id, name, language) {
+        var element = new NodeCore_1.default('textarea', {
+            id: id,
+            name: name,
+            spellcheck: this.spellcheck
+        });
+        return element;
+    };
+    Object.defineProperty(Textarea.prototype, "spellcheck", {
+        get: function () {
+            return this._spellcheck;
+        },
+        set: function (value) {
+            this._spellcheck = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return Textarea;
+}(InputAbstract_1.InputAbstract));
+exports.Textarea = Textarea;
+
 
 /***/ }),
 
@@ -354,9 +2176,69 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!*********************************!*\
   !*** ./src/Input/UploadFile.ts ***!
   \*********************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Input sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../InputAbstract */ \"./src/InputAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var NodeCore_1 = require(\"../../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var InputAbstract_1 = require(\"../InputAbstract\");\n    var UploadFile = /** @class */ (function (_super) {\n        __extends(UploadFile, _super);\n        function UploadFile(config, form) {\n            var _this = _super.call(this, form) || this;\n            _this._multiple = false;\n            _this.configuring(config);\n            return _this;\n        }\n        UploadFile.prototype.getDefaultConfig = function () {\n            return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { multiple: false });\n        };\n        UploadFile.prototype.coreHTMLInput = function (id, name, language) {\n            var attributes = __assign({ id: id, name: name, type: 'file' }, this.multiple ? { multiple: '' } : {});\n            var element = new NodeCore_1.default('input', attributes);\n            return element;\n        };\n        Object.defineProperty(UploadFile.prototype, \"multiple\", {\n            get: function () {\n                return this._multiple;\n            },\n            set: function (value) {\n                this._multiple = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return UploadFile;\n    }(InputAbstract_1.default));\n    exports.default = UploadFile;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Input/UploadFile.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UploadFile = void 0;
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
+var UploadFile = /** @class */ (function (_super) {
+    __extends(UploadFile, _super);
+    function UploadFile(config, form) {
+        var _this = _super.call(this, form) || this;
+        _this._multiple = false;
+        _this.configuring(config);
+        return _this;
+    }
+    UploadFile.prototype.getDefaultConfig = function () {
+        return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { multiple: false });
+    };
+    UploadFile.prototype.coreHTMLInput = function (id, name, language) {
+        var attributes = __assign({ id: id, name: name, type: 'file' }, this.multiple ? { multiple: '' } : {});
+        var element = new NodeCore_1.default('input', attributes);
+        return element;
+    };
+    Object.defineProperty(UploadFile.prototype, "multiple", {
+        get: function () {
+            return this._multiple;
+        },
+        set: function (value) {
+            this._multiple = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return UploadFile;
+}(InputAbstract_1.InputAbstract));
+exports.UploadFile = UploadFile;
+
 
 /***/ }),
 
@@ -364,9 +2246,87 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!**********************************!*\
   !*** ./src/Input/UploadImage.ts ***!
   \**********************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Input sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../InputAbstract */ \"./src/InputAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var NodeCore_1 = require(\"../../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var InputAbstract_1 = require(\"../InputAbstract\");\n    var UploadImage = /** @class */ (function (_super) {\n        __extends(UploadImage, _super);\n        function UploadImage(config, form) {\n            var _this = _super.call(this, form) || this;\n            _this._multiple = false;\n            _this._accept = '';\n            _this.configuring(config);\n            return _this;\n        }\n        UploadImage.prototype.getDefaultConfig = function () {\n            return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { accept: 'image/x-png, image/gif, image/jpeg', multiple: false });\n        };\n        UploadImage.prototype.postCoreHTMLInput = function () {\n            return new NodeCore_1.default('b', {}, 'Hello');\n        };\n        UploadImage.prototype.coreHTMLInput = function (id, name, language) {\n            var attributes = __assign({ id: id, name: name, type: 'file', accept: this.accept }, this.multiple ? { multiple: '' } : {});\n            // todo  Add JS to show and edit images!  Gr.O.M.\n            //  var img = document.createElement('img'); \n            //  img.setAttribute('src', URL.createObjectURL(temp1.files[0])); \n            //  document.getElementById('fileimage').parentNode.appendChild(img)\n            var element = new NodeCore_1.default('input', attributes);\n            return element;\n        };\n        Object.defineProperty(UploadImage.prototype, \"multiple\", {\n            get: function () {\n                return this._multiple;\n            },\n            set: function (value) {\n                this._multiple = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(UploadImage.prototype, \"accept\", {\n            get: function () {\n                return this._accept;\n            },\n            set: function (value) {\n                this._accept = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return UploadImage;\n    }(InputAbstract_1.default));\n    exports.default = UploadImage;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Input/UploadImage.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UploadImage = void 0;
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
+var UploadImage = /** @class */ (function (_super) {
+    __extends(UploadImage, _super);
+    function UploadImage(config, form) {
+        var _this = _super.call(this, form) || this;
+        _this._multiple = false;
+        _this._accept = '';
+        _this.configuring(config);
+        return _this;
+    }
+    UploadImage.prototype.getDefaultConfig = function () {
+        return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { accept: 'image/x-png, image/gif, image/jpeg', multiple: false });
+    };
+    UploadImage.prototype.postCoreHTMLInput = function () {
+        return new NodeCore_1.default('b', {}, 'Hello');
+    };
+    UploadImage.prototype.coreHTMLInput = function (id, name, language) {
+        var attributes = __assign({ id: id, name: name, type: 'file', accept: this.accept }, this.multiple ? { multiple: '' } : {});
+        // todo  Add JS to show and edit images!  Gr.O.M.
+        //  var img = document.createElement('img'); 
+        //  img.setAttribute('src', URL.createObjectURL(temp1.files[0])); 
+        //  document.getElementById('fileimage').parentNode.appendChild(img)
+        var element = new NodeCore_1.default('input', attributes);
+        return element;
+    };
+    Object.defineProperty(UploadImage.prototype, "multiple", {
+        get: function () {
+            return this._multiple;
+        },
+        set: function (value) {
+            this._multiple = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(UploadImage.prototype, "accept", {
+        get: function () {
+            return this._accept;
+        },
+        set: function (value) {
+            this._accept = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return UploadImage;
+}(InputAbstract_1.InputAbstract));
+exports.UploadImage = UploadImage;
+
 
 /***/ }),
 
@@ -374,9 +2334,31 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!****************************!*\
   !*** ./src/Input/index.ts ***!
   \****************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// created from 'create-ts-index'\nvar __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });\n}) : (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    o[k2] = m[k];\n}));\nvar __exportStar = (this && this.__exportStar) || function(m, exports) {\n    for (var p in m) if (p !== \"default\" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Input sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./Builder/index */ \"./src/Input/Builder/index.ts\"), __webpack_require__(/*! ./Checkbox */ \"./src/Input/Checkbox.ts\"), __webpack_require__(/*! ./Combobox */ \"./src/Input/Combobox.ts\"), __webpack_require__(/*! ./Email */ \"./src/Input/Email.ts\"), __webpack_require__(/*! ./Radio */ \"./src/Input/Radio.ts\"), __webpack_require__(/*! ./Text */ \"./src/Input/Text.ts\"), __webpack_require__(/*! ./Textarea */ \"./src/Input/Textarea.ts\"), __webpack_require__(/*! ./UploadFile */ \"./src/Input/UploadFile.ts\"), __webpack_require__(/*! ./UploadImage */ \"./src/Input/UploadImage.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    __exportStar(require(\"./Builder/index\"), exports);\n    __exportStar(require(\"./Checkbox\"), exports);\n    __exportStar(require(\"./Combobox\"), exports);\n    __exportStar(require(\"./Email\"), exports);\n    __exportStar(require(\"./Radio\"), exports);\n    __exportStar(require(\"./Text\"), exports);\n    __exportStar(require(\"./Textarea\"), exports);\n    __exportStar(require(\"./UploadFile\"), exports);\n    __exportStar(require(\"./UploadImage\"), exports);\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Input/index.ts?");
+
+// created from 'create-ts-index'
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(/*! ./Builder */ "./src/Input/Builder/index.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Checkbox */ "./src/Input/Checkbox.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Combobox */ "./src/Input/Combobox.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Email */ "./src/Input/Email.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Radio */ "./src/Input/Radio.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Text */ "./src/Input/Text.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Textarea */ "./src/Input/Textarea.ts"), exports);
+__exportStar(__webpack_require__(/*! ./UploadFile */ "./src/Input/UploadFile.ts"), exports);
+__exportStar(__webpack_require__(/*! ./UploadImage */ "./src/Input/UploadImage.ts"), exports);
+
 
 /***/ }),
 
@@ -384,9 +2366,292 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!******************************!*\
   !*** ./src/InputAbstract.ts ***!
   \******************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ \"./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts\"), __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/NodeCore */ \"./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts\"), __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/GuidHelper */ \"./node_modules/mudde-core/src/Mudde/Helper/GuidHelper.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var ConfigurableAbstract_1 = require(\"../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract\");\n    var NodeCore_1 = require(\"../node_modules/mudde-core/src/Mudde/Core/NodeCore\");\n    var GuidHelper_1 = require(\"../node_modules/mudde-core/src/Mudde/Helper/GuidHelper\");\n    var InputAbstract = /** @class */ (function (_super) {\n        __extends(InputAbstract, _super);\n        function InputAbstract(form) {\n            var _this = _super.call(this) || this;\n            _this.__type = '';\n            _this._id = '';\n            _this._label = '';\n            _this._help = '';\n            _this._placeholder = '';\n            _this._panel = '';\n            _this._unique = false;\n            _this._input = false;\n            _this._autofocus = false;\n            _this._hidden = false;\n            _this._require = false;\n            _this._multilingual = false;\n            _this._coreIds = [];\n            _this._form = form;\n            return _this;\n        }\n        InputAbstract.prototype.preCoreHTMLInput = function () { return null; };\n        InputAbstract.prototype.preHTMLInput = function () { return null; };\n        InputAbstract.prototype.postCoreHTMLInput = function () { return null; };\n        InputAbstract.prototype.postHTMLInput = function () { return null; };\n        InputAbstract.prototype.javascript = function () { return ''; };\n        InputAbstract.prototype.canBeMultilingual = function () { return false; };\n        InputAbstract.prototype.getDefaultConfig = function () {\n            return {\n                _type: 'Text',\n                id: GuidHelper_1.default.raw(),\n                input: true,\n                label: '',\n                help: '',\n                unique: false,\n                validations: [],\n                placeholder: '',\n                panel: null,\n                autofocus: false,\n                require: false,\n                hidden: false,\n                multilingual: false,\n                builders: []\n            };\n        };\n        InputAbstract.prototype.configureBuilders = function (rawFields) {\n            var main = this;\n            rawFields.unshift('GeneralBuilder');\n            rawFields.forEach(function (builder) {\n                // requirejs(['Mudde/Form/Input/Builder/' + builder], (className) => {\n                //    let handler = new className.default(this)\n                //    if (!main._handler) {\n                //       main._handler = main._handlerCurrent = handler\n                //    } else {\n                //       main._handlerCurrent?.setNext(handler)\n                //       main._handlerCurrent = handler\n                //    }\n                // });\n            });\n        };\n        InputAbstract.prototype.configureValidations = function (rawFields) {\n            var main = this;\n            rawFields.forEach(function (config) {\n                var type = config['_type'];\n                // requirejs(['Mudde/Form/Validation/' + type], (className) => {\n                //    let handler = new className.default(main, config)\n                //    if (!main._handler) {\n                //       main._handler = main._handlerCurrent = handler\n                //    } else {\n                //       main._handlerCurrent?.setNext(handler)\n                //       main._handlerCurrent = handler\n                //    }\n                // });\n            });\n        };\n        InputAbstract.prototype.render = function () {\n            var _this = this;\n            var _a;\n            var mainId = this.id;\n            var isMultilingual = this.isMultilingual;\n            var languages = isMultilingual ? this.form.languages : [this.form.languages[0]];\n            var output = new NodeCore_1.default('div', {});\n            var ids = this.coreIds = [];\n            output.appendElement(this.preCoreHTMLInput());\n            languages.forEach(function (language) {\n                var id = isMultilingual ? mainId + \"_\" + language : mainId;\n                var name = isMultilingual ? mainId + \"[\" + language + \"]\" : mainId;\n                var object = _this.coreHTMLInput(id, name, language);\n                ids.push(object);\n                output.appendElement_(object);\n            });\n            output\n                .appendElement_(this.postCoreHTMLInput())\n                .prependElement_(this.preHTMLInput())\n                .appendElement_(this.postHTMLInput());\n            (_a = this.handler) === null || _a === void 0 ? void 0 : _a.handle(output);\n            return output;\n        };\n        Object.defineProperty(InputAbstract.prototype, \"isMultilingual\", {\n            get: function () {\n                var isMultilingualRequested = this.form.languages.length > 1 && this.multilingual;\n                return this.canBeMultilingual() && isMultilingualRequested;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"id\", {\n            get: function () {\n                return this._id;\n            },\n            set: function (value) {\n                this._id = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"input\", {\n            get: function () {\n                return this._input;\n            },\n            set: function (value) {\n                this._input = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"_type\", {\n            get: function () {\n                return this.__type;\n            },\n            set: function (value) {\n                this.__type = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"label\", {\n            get: function () {\n                return this._label;\n            },\n            set: function (value) {\n                this._label = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"help\", {\n            get: function () {\n                return this._help;\n            },\n            set: function (value) {\n                this._help = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"unique\", {\n            get: function () {\n                return this._unique;\n            },\n            set: function (value) {\n                this._unique = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"handler\", {\n            get: function () {\n                if (this._handler === undefined)\n                    throw new Error('Handler not set!');\n                return this._handler;\n            },\n            set: function (value) {\n                this._handler = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"autofocus\", {\n            get: function () {\n                return this._autofocus;\n            },\n            set: function (value) {\n                this._autofocus = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"hidden\", {\n            get: function () {\n                return this._hidden;\n            },\n            set: function (value) {\n                this._hidden = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"require\", {\n            get: function () {\n                return this._require;\n            },\n            set: function (value) {\n                this._require = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"multilingual\", {\n            get: function () {\n                return this._multilingual;\n            },\n            set: function (value) {\n                this._multilingual = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"form\", {\n            get: function () {\n                if (this._form === undefined)\n                    throw new Error('Input not properly initialized!');\n                return this._form;\n            },\n            set: function (value) {\n                this._form = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"placeholder\", {\n            get: function () {\n                return this._placeholder;\n            },\n            set: function (value) {\n                this._placeholder = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"panel\", {\n            get: function () {\n                return this._panel;\n            },\n            set: function (value) {\n                this._panel = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(InputAbstract.prototype, \"coreIds\", {\n            get: function () {\n                return this._coreIds;\n            },\n            set: function (value) {\n                this._coreIds = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return InputAbstract;\n    }(ConfigurableAbstract_1.default));\n    exports.default = InputAbstract;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/InputAbstract.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.InputAbstract = void 0;
+var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts");
+var NodeCore_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var GuidHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/GuidHelper */ "./node_modules/mudde-core/src/Mudde/Helper/GuidHelper.ts");
+var InputAbstract = /** @class */ (function (_super) {
+    __extends(InputAbstract, _super);
+    function InputAbstract(form) {
+        var _this = _super.call(this) || this;
+        _this.__type = '';
+        _this._id = '';
+        _this._label = '';
+        _this._help = '';
+        _this._placeholder = '';
+        _this._panel = '';
+        _this._unique = false;
+        _this._input = false;
+        _this._autofocus = false;
+        _this._hidden = false;
+        _this._require = false;
+        _this._multilingual = false;
+        _this._coreIds = [];
+        _this._form = form;
+        return _this;
+    }
+    InputAbstract.prototype.preCoreHTMLInput = function () { return null; };
+    InputAbstract.prototype.preHTMLInput = function () { return null; };
+    InputAbstract.prototype.postCoreHTMLInput = function () { return null; };
+    InputAbstract.prototype.postHTMLInput = function () { return null; };
+    InputAbstract.prototype.javascript = function () { return ''; };
+    InputAbstract.prototype.canBeMultilingual = function () { return false; };
+    InputAbstract.prototype.getDefaultConfig = function () {
+        return {
+            _type: 'Text',
+            id: GuidHelper_1.default.raw(),
+            input: true,
+            label: '',
+            help: '',
+            unique: false,
+            validations: [],
+            placeholder: '',
+            panel: null,
+            autofocus: false,
+            require: false,
+            hidden: false,
+            multilingual: false,
+            builders: []
+        };
+    };
+    InputAbstract.prototype.configureBuilders = function (rawFields) {
+        var main = this;
+        rawFields.unshift('GeneralBuilder');
+        rawFields.forEach(function (builder) {
+            // requirejs(['Mudde/Form/Input/Builder/' + builder], (className) => {
+            //    let handler = new className.default(this)
+            //    if (!main._handler) {
+            //       main._handler = main._handlerCurrent = handler
+            //    } else {
+            //       main._handlerCurrent?.setNext(handler)
+            //       main._handlerCurrent = handler
+            //    }
+            // });
+        });
+    };
+    InputAbstract.prototype.configureValidations = function (rawFields) {
+        var main = this;
+        rawFields.forEach(function (config) {
+            var type = config['_type'];
+            // requirejs(['Mudde/Form/Validation/' + type], (className) => {
+            //    let handler = new className.default(main, config)
+            //    if (!main._handler) {
+            //       main._handler = main._handlerCurrent = handler
+            //    } else {
+            //       main._handlerCurrent?.setNext(handler)
+            //       main._handlerCurrent = handler
+            //    }
+            // });
+        });
+    };
+    InputAbstract.prototype.render = function () {
+        var _this = this;
+        var _a;
+        var mainId = this.id;
+        var isMultilingual = this.isMultilingual;
+        var languages = isMultilingual ? this.form.languages : [this.form.languages[0]];
+        var output = new NodeCore_1.default('div', {});
+        var ids = this.coreIds = [];
+        output.appendElement(this.preCoreHTMLInput());
+        languages.forEach(function (language) {
+            var id = isMultilingual ? mainId + "_" + language : mainId;
+            var name = isMultilingual ? mainId + "[" + language + "]" : mainId;
+            var object = _this.coreHTMLInput(id, name, language);
+            ids.push(object);
+            output.appendElement_(object);
+        });
+        output
+            .appendElement_(this.postCoreHTMLInput())
+            .prependElement_(this.preHTMLInput())
+            .appendElement_(this.postHTMLInput());
+        (_a = this.handler) === null || _a === void 0 ? void 0 : _a.handle(output);
+        return output;
+    };
+    Object.defineProperty(InputAbstract.prototype, "isMultilingual", {
+        get: function () {
+            var isMultilingualRequested = this.form.languages.length > 1 && this.multilingual;
+            return this.canBeMultilingual() && isMultilingualRequested;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "id", {
+        get: function () {
+            return this._id;
+        },
+        set: function (value) {
+            this._id = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "input", {
+        get: function () {
+            return this._input;
+        },
+        set: function (value) {
+            this._input = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "_type", {
+        get: function () {
+            return this.__type;
+        },
+        set: function (value) {
+            this.__type = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "label", {
+        get: function () {
+            return this._label;
+        },
+        set: function (value) {
+            this._label = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "help", {
+        get: function () {
+            return this._help;
+        },
+        set: function (value) {
+            this._help = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "unique", {
+        get: function () {
+            return this._unique;
+        },
+        set: function (value) {
+            this._unique = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "handler", {
+        get: function () {
+            if (this._handler === undefined)
+                throw new Error('Handler not set!');
+            return this._handler;
+        },
+        set: function (value) {
+            this._handler = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "autofocus", {
+        get: function () {
+            return this._autofocus;
+        },
+        set: function (value) {
+            this._autofocus = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "hidden", {
+        get: function () {
+            return this._hidden;
+        },
+        set: function (value) {
+            this._hidden = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "require", {
+        get: function () {
+            return this._require;
+        },
+        set: function (value) {
+            this._require = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "multilingual", {
+        get: function () {
+            return this._multilingual;
+        },
+        set: function (value) {
+            this._multilingual = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "form", {
+        get: function () {
+            if (this._form === undefined)
+                throw new Error('Input not properly initialized!');
+            return this._form;
+        },
+        set: function (value) {
+            this._form = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "placeholder", {
+        get: function () {
+            return this._placeholder;
+        },
+        set: function (value) {
+            this._placeholder = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "panel", {
+        get: function () {
+            return this._panel;
+        },
+        set: function (value) {
+            this._panel = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "coreIds", {
+        get: function () {
+            return this._coreIds;
+        },
+        set: function (value) {
+            this._coreIds = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return InputAbstract;
+}(ConfigurableAbstract_1.ConfigurableAbstract));
+exports.InputAbstract = InputAbstract;
+
 
 /***/ }),
 
@@ -394,9 +2659,43 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!*************************************!*\
   !*** ./src/InputBuilderAbstract.ts ***!
   \*************************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./BuilderAbstract */ \"./src/BuilderAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var BuilderAbstract_1 = require(\"./BuilderAbstract\");\n    var InputBuilderAbstract = /** @class */ (function (_super) {\n        __extends(InputBuilderAbstract, _super);\n        function InputBuilderAbstract() {\n            return _super !== null && _super.apply(this, arguments) || this;\n        }\n        InputBuilderAbstract.prototype.handle = function (data) {\n            if (this.nextEvent) {\n                this.nextEvent.handle(data);\n            }\n            this.coreBuild(data);\n            return data;\n        };\n        return InputBuilderAbstract;\n    }(BuilderAbstract_1.default));\n    exports.default = InputBuilderAbstract;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/InputBuilderAbstract.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.InputBuilderAbstract = void 0;
+var BuilderAbstract_1 = __webpack_require__(/*! ./BuilderAbstract */ "./src/BuilderAbstract.ts");
+var InputBuilderAbstract = /** @class */ (function (_super) {
+    __extends(InputBuilderAbstract, _super);
+    function InputBuilderAbstract() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    InputBuilderAbstract.prototype.handle = function (data) {
+        if (this.nextEvent) {
+            this.nextEvent.handle(data);
+        }
+        this.coreBuild(data);
+        return data;
+    };
+    return InputBuilderAbstract;
+}(BuilderAbstract_1.BuilderAbstract));
+exports.InputBuilderAbstract = InputBuilderAbstract;
+
 
 /***/ }),
 
@@ -404,9 +2703,86 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!**********************************!*\
   !*** ./src/Validation/Length.ts ***!
   \**********************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Validation sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../ValidationAbstract */ \"./src/ValidationAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var ValidationAbstract_1 = require(\"../ValidationAbstract\");\n    var Length = /** @class */ (function (_super) {\n        __extends(Length, _super);\n        function Length(config) {\n            var _this = _super.call(this, config) || this;\n            _this._min = 0;\n            _this._max = 0;\n            _this.configuring(config);\n            return _this;\n        }\n        Length.prototype.getDefaultConfig = function () {\n            return {\n                min: 0,\n                max: 0\n            };\n        };\n        Length.prototype.coreBuild = function (output) {\n            var attributes = __assign(__assign({}, this.min > 0 ? { minlength: this.min } : {}), this.max > 0 ? { maxlength: this.max } : {});\n            this.input.coreIds.forEach(function (element) {\n                element.setAttributes(attributes);\n                // element.onchange(this.onchange)\n            });\n        };\n        Length.prototype.onchange = function (event) {\n        };\n        Object.defineProperty(Length.prototype, \"min\", {\n            get: function () {\n                return this._min;\n            },\n            set: function (value) {\n                this._min = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        Object.defineProperty(Length.prototype, \"max\", {\n            get: function () {\n                return this._max;\n            },\n            set: function (value) {\n                this._max = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return Length;\n    }(ValidationAbstract_1.default));\n    exports.default = Length;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Validation/Length.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Length = void 0;
+var ValidationAbstract_1 = __webpack_require__(/*! ../ValidationAbstract */ "./src/ValidationAbstract.ts");
+var Length = /** @class */ (function (_super) {
+    __extends(Length, _super);
+    function Length(config) {
+        var _this = _super.call(this, config) || this;
+        _this._min = 0;
+        _this._max = 0;
+        _this.configuring(config);
+        return _this;
+    }
+    Length.prototype.getDefaultConfig = function () {
+        return {
+            min: 0,
+            max: 0
+        };
+    };
+    Length.prototype.coreBuild = function (output) {
+        var attributes = __assign(__assign({}, this.min > 0 ? { minlength: this.min } : {}), this.max > 0 ? { maxlength: this.max } : {});
+        this.input.coreIds.forEach(function (element) {
+            element.setAttributes(attributes);
+            // element.onchange(this.onchange)
+        });
+    };
+    Length.prototype.onchange = function (event) {
+    };
+    Object.defineProperty(Length.prototype, "min", {
+        get: function () {
+            return this._min;
+        },
+        set: function (value) {
+            this._min = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Length.prototype, "max", {
+        get: function () {
+            return this._max;
+        },
+        set: function (value) {
+            this._max = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return Length;
+}(ValidationAbstract_1.ValidationAbstract));
+exports.Length = Length;
+
 
 /***/ }),
 
@@ -414,9 +2790,49 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!************************************!*\
   !*** ./src/Validation/NotEmpty.ts ***!
   \************************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Validation sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../ValidationAbstract */ \"./src/ValidationAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var ValidationAbstract_1 = require(\"../ValidationAbstract\");\n    var NotEmpty = /** @class */ (function (_super) {\n        __extends(NotEmpty, _super);\n        function NotEmpty(config) {\n            var _this = _super.call(this, config) || this;\n            _this.configuring(config);\n            return _this;\n        }\n        NotEmpty.prototype.getDefaultConfig = function () {\n            return {};\n        };\n        NotEmpty.prototype.coreBuild = function (output) {\n            var attributes = {\n                required: ''\n            };\n            this.input.coreIds.forEach(function (element) {\n                element.setAttributes(attributes);\n            });\n        };\n        return NotEmpty;\n    }(ValidationAbstract_1.default));\n    exports.default = NotEmpty;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Validation/NotEmpty.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.NotEmpty = void 0;
+var ValidationAbstract_1 = __webpack_require__(/*! ../ValidationAbstract */ "./src/ValidationAbstract.ts");
+var NotEmpty = /** @class */ (function (_super) {
+    __extends(NotEmpty, _super);
+    function NotEmpty(config) {
+        var _this = _super.call(this, config) || this;
+        _this.configuring(config);
+        return _this;
+    }
+    NotEmpty.prototype.getDefaultConfig = function () {
+        return {};
+    };
+    NotEmpty.prototype.coreBuild = function (output) {
+        var attributes = {
+            required: ''
+        };
+        this.input.coreIds.forEach(function (element) {
+            element.setAttributes(attributes);
+        });
+    };
+    return NotEmpty;
+}(ValidationAbstract_1.ValidationAbstract));
+exports.NotEmpty = NotEmpty;
+
 
 /***/ }),
 
@@ -424,9 +2840,24 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!*********************************!*\
   !*** ./src/Validation/index.ts ***!
   \*********************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// created from 'create-ts-index'\nvar __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });\n}) : (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    o[k2] = m[k];\n}));\nvar __exportStar = (this && this.__exportStar) || function(m, exports) {\n    for (var p in m) if (p !== \"default\" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src/Validation sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./Length */ \"./src/Validation/Length.ts\"), __webpack_require__(/*! ./NotEmpty */ \"./src/Validation/NotEmpty.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    __exportStar(require(\"./Length\"), exports);\n    __exportStar(require(\"./NotEmpty\"), exports);\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/Validation/index.ts?");
+
+// created from 'create-ts-index'
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(/*! ./Length */ "./src/Validation/Length.ts"), exports);
+__exportStar(__webpack_require__(/*! ./NotEmpty */ "./src/Validation/NotEmpty.ts"), exports);
+
 
 /***/ }),
 
@@ -434,9 +2865,61 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!***********************************!*\
   !*** ./src/ValidationAbstract.ts ***!
   \***********************************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        if (typeof b !== \"function\" && b !== null)\n            throw new TypeError(\"Class extends value \" + String(b) + \" is not a constructor or null\");\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ \"./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    var ConfigurableAbstract_1 = require(\"../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract\");\n    var ValidationAbstract = /** @class */ (function (_super) {\n        __extends(ValidationAbstract, _super);\n        function ValidationAbstract(input) {\n            var _this = _super.call(this) || this;\n            _this._input = input;\n            return _this;\n        }\n        ValidationAbstract.prototype.setNext = function (event) {\n            this._nextEvent = event;\n            return event;\n        };\n        ValidationAbstract.prototype.handle = function (data) {\n            if (this._nextEvent) {\n                this._nextEvent.handle(data);\n            }\n            this.coreBuild(data);\n            return data;\n        };\n        Object.defineProperty(ValidationAbstract.prototype, \"input\", {\n            get: function () {\n                if (this._input === undefined)\n                    throw new Error('Input not set!');\n                return this._input;\n            },\n            set: function (value) {\n                this._input = value;\n            },\n            enumerable: false,\n            configurable: true\n        });\n        return ValidationAbstract;\n    }(ConfigurableAbstract_1.default));\n    exports.default = ValidationAbstract;\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/ValidationAbstract.ts?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ValidationAbstract = void 0;
+var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts");
+var ValidationAbstract = /** @class */ (function (_super) {
+    __extends(ValidationAbstract, _super);
+    function ValidationAbstract(input) {
+        var _this = _super.call(this) || this;
+        _this._input = input;
+        return _this;
+    }
+    ValidationAbstract.prototype.setNext = function (event) {
+        this._nextEvent = event;
+        return event;
+    };
+    ValidationAbstract.prototype.handle = function (data) {
+        if (this._nextEvent) {
+            this._nextEvent.handle(data);
+        }
+        this.coreBuild(data);
+        return data;
+    };
+    Object.defineProperty(ValidationAbstract.prototype, "input", {
+        get: function () {
+            if (this._input === undefined)
+                throw new Error('Input not set!');
+            return this._input;
+        },
+        set: function (value) {
+            this._input = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return ValidationAbstract;
+}(ConfigurableAbstract_1.ConfigurableAbstract));
+exports.ValidationAbstract = ValidationAbstract;
+
 
 /***/ }),
 
@@ -444,89 +2927,46 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// created from 'create-ts-index'\nvar __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });\n}) : (function(o, m, k, k2) {\n    if (k2 === undefined) k2 = k;\n    o[k2] = m[k];\n}));\nvar __exportStar = (this && this.__exportStar) || function(m, exports) {\n    for (var p in m) if (p !== \"default\" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);\n};\n(function (factory) {\n    if ( true && typeof module.exports === \"object\") {\n        var v = factory(__webpack_require__(\"./src sync recursive\"), exports);\n        if (v !== undefined) module.exports = v;\n    }\n    else if (true) {\n        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./Builder/index */ \"./src/Builder/index.ts\"), __webpack_require__(/*! ./Button/index */ \"./src/Button/index.ts\"), __webpack_require__(/*! ./Data/index */ \"./src/Data/index.ts\"), __webpack_require__(/*! ./Helper/index */ \"./src/Helper/index.ts\"), __webpack_require__(/*! ./Input/index */ \"./src/Input/index.ts\"), __webpack_require__(/*! ./Validation/index */ \"./src/Validation/index.ts\"), __webpack_require__(/*! ./BuilderAbstract */ \"./src/BuilderAbstract.ts\"), __webpack_require__(/*! ./ButtonAbstract */ \"./src/ButtonAbstract.ts\"), __webpack_require__(/*! ./CoreBuildInterface */ \"./src/CoreBuildInterface.ts\"), __webpack_require__(/*! ./DataAbstract */ \"./src/DataAbstract.ts\"), __webpack_require__(/*! ./DataEvent */ \"./src/DataEvent.ts\"), __webpack_require__(/*! ./Form */ \"./src/Form.ts\"), __webpack_require__(/*! ./FormBuilderAbstract */ \"./src/FormBuilderAbstract.ts\"), __webpack_require__(/*! ./GroupInputAbstract */ \"./src/GroupInputAbstract.ts\"), __webpack_require__(/*! ./InputAbstract */ \"./src/InputAbstract.ts\"), __webpack_require__(/*! ./InputBuilderAbstract */ \"./src/InputBuilderAbstract.ts\"), __webpack_require__(/*! ./ValidationAbstract */ \"./src/ValidationAbstract.ts\")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?\n\t\t(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),\n\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\n    }\n})(function (require, exports) {\n    \"use strict\";\n    Object.defineProperty(exports, \"__esModule\", { value: true });\n    __exportStar(require(\"./Builder/index\"), exports);\n    __exportStar(require(\"./Button/index\"), exports);\n    __exportStar(require(\"./Data/index\"), exports);\n    __exportStar(require(\"./Helper/index\"), exports);\n    __exportStar(require(\"./Input/index\"), exports);\n    __exportStar(require(\"./Validation/index\"), exports);\n    __exportStar(require(\"./BuilderAbstract\"), exports);\n    __exportStar(require(\"./ButtonAbstract\"), exports);\n    __exportStar(require(\"./CoreBuildInterface\"), exports);\n    __exportStar(require(\"./DataAbstract\"), exports);\n    __exportStar(require(\"./DataEvent\"), exports);\n    __exportStar(require(\"./Form\"), exports);\n    __exportStar(require(\"./FormBuilderAbstract\"), exports);\n    __exportStar(require(\"./GroupInputAbstract\"), exports);\n    __exportStar(require(\"./InputAbstract\"), exports);\n    __exportStar(require(\"./InputBuilderAbstract\"), exports);\n    __exportStar(require(\"./ValidationAbstract\"), exports);\n});\n\n\n//# sourceURL=webpack://MuddeFormgen/./src/index.ts?");
 
-/***/ }),
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Validation = exports.Input = exports.Helper = exports.Data = exports.Button = exports.Builder = void 0;
+// created from 'create-ts-index'
+var BuilderImport = __webpack_require__(/*! ./Builder */ "./src/Builder/index.ts");
+var ButtonImport = __webpack_require__(/*! ./Button */ "./src/Button/index.ts");
+var DataImport = __webpack_require__(/*! ./Data */ "./src/Data/index.ts");
+var HelperImport = __webpack_require__(/*! ./Helper */ "./src/Helper/index.ts");
+var InputImport = __webpack_require__(/*! ./Input */ "./src/Input/index.ts");
+var ValidationImport = __webpack_require__(/*! ./Validation */ "./src/Validation/index.ts");
+exports.Builder = BuilderImport;
+exports.Button = ButtonImport;
+exports.Data = DataImport;
+exports.Helper = HelperImport;
+exports.Input = InputImport;
+exports.Validation = ValidationImport;
+__exportStar(__webpack_require__(/*! ./BuilderAbstract */ "./src/BuilderAbstract.ts"), exports);
+__exportStar(__webpack_require__(/*! ./ButtonAbstract */ "./src/ButtonAbstract.ts"), exports);
+__exportStar(__webpack_require__(/*! ./CoreBuildInterface */ "./src/CoreBuildInterface.ts"), exports);
+__exportStar(__webpack_require__(/*! ./DataAbstract */ "./src/DataAbstract.ts"), exports);
+__exportStar(__webpack_require__(/*! ./DataEvent */ "./src/DataEvent.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Form */ "./src/Form.ts"), exports);
+__exportStar(__webpack_require__(/*! ./FormBuilderAbstract */ "./src/FormBuilderAbstract.ts"), exports);
+__exportStar(__webpack_require__(/*! ./GroupInputAbstract */ "./src/GroupInputAbstract.ts"), exports);
+__exportStar(__webpack_require__(/*! ./InputAbstract */ "./src/InputAbstract.ts"), exports);
+__exportStar(__webpack_require__(/*! ./InputBuilderAbstract */ "./src/InputBuilderAbstract.ts"), exports);
+__exportStar(__webpack_require__(/*! ./ValidationAbstract */ "./src/ValidationAbstract.ts"), exports);
 
-/***/ "./src/Builder sync recursive":
-/*!***************************!*\
-  !*** ./src/Builder/ sync ***!
-  \***************************/
-/***/ ((module) => {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = () => ([]);\nwebpackEmptyContext.resolve = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/Builder sync recursive\";\nmodule.exports = webpackEmptyContext;\n\n//# sourceURL=webpack://MuddeFormgen/./src/Builder/_sync?");
-
-/***/ }),
-
-/***/ "./src/Button sync recursive":
-/*!**************************!*\
-  !*** ./src/Button/ sync ***!
-  \**************************/
-/***/ ((module) => {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = () => ([]);\nwebpackEmptyContext.resolve = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/Button sync recursive\";\nmodule.exports = webpackEmptyContext;\n\n//# sourceURL=webpack://MuddeFormgen/./src/Button/_sync?");
-
-/***/ }),
-
-/***/ "./src/Data sync recursive":
-/*!************************!*\
-  !*** ./src/Data/ sync ***!
-  \************************/
-/***/ ((module) => {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = () => ([]);\nwebpackEmptyContext.resolve = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/Data sync recursive\";\nmodule.exports = webpackEmptyContext;\n\n//# sourceURL=webpack://MuddeFormgen/./src/Data/_sync?");
-
-/***/ }),
-
-/***/ "./src/Helper sync recursive":
-/*!**************************!*\
-  !*** ./src/Helper/ sync ***!
-  \**************************/
-/***/ ((module) => {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = () => ([]);\nwebpackEmptyContext.resolve = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/Helper sync recursive\";\nmodule.exports = webpackEmptyContext;\n\n//# sourceURL=webpack://MuddeFormgen/./src/Helper/_sync?");
-
-/***/ }),
-
-/***/ "./src/Input/Builder sync recursive":
-/*!*********************************!*\
-  !*** ./src/Input/Builder/ sync ***!
-  \*********************************/
-/***/ ((module) => {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = () => ([]);\nwebpackEmptyContext.resolve = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/Input/Builder sync recursive\";\nmodule.exports = webpackEmptyContext;\n\n//# sourceURL=webpack://MuddeFormgen/./src/Input/Builder/_sync?");
-
-/***/ }),
-
-/***/ "./src/Input sync recursive":
-/*!*************************!*\
-  !*** ./src/Input/ sync ***!
-  \*************************/
-/***/ ((module) => {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = () => ([]);\nwebpackEmptyContext.resolve = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/Input sync recursive\";\nmodule.exports = webpackEmptyContext;\n\n//# sourceURL=webpack://MuddeFormgen/./src/Input/_sync?");
-
-/***/ }),
-
-/***/ "./src/Validation sync recursive":
-/*!******************************!*\
-  !*** ./src/Validation/ sync ***!
-  \******************************/
-/***/ ((module) => {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = () => ([]);\nwebpackEmptyContext.resolve = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/Validation sync recursive\";\nmodule.exports = webpackEmptyContext;\n\n//# sourceURL=webpack://MuddeFormgen/./src/Validation/_sync?");
-
-/***/ }),
-
-/***/ "./src sync recursive":
-/*!*******************!*\
-  !*** ./src/ sync ***!
-  \*******************/
-/***/ ((module) => {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = () => ([]);\nwebpackEmptyContext.resolve = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src sync recursive\";\nmodule.exports = webpackEmptyContext;\n\n//# sourceURL=webpack://MuddeFormgen/./src/_sync?");
 
 /***/ })
 
@@ -557,18 +2997,14 @@ eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find mod
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/************************************************************************/
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
 /******/ 	var __webpack_exports__ = __webpack_require__("./src/index.ts");
-/******/ 	MuddeFormgen = __webpack_exports__;
 /******/ 	
+/******/ 	return __webpack_exports__;
 /******/ })()
 ;
+});
+//# sourceMappingURL=formgen.js.map
