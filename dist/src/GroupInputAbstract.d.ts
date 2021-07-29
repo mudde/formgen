@@ -1,4 +1,4 @@
-import NodeCore from "../node_modules/mudde-core/src/Mudde/Core/NodeCore";
+import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore";
 import { DataAbstract } from "./DataAbstract";
 import { Array } from "./Data/Array";
 import { InputAbstract } from "./InputAbstract";

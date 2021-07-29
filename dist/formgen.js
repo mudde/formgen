@@ -12,14 +12,15 @@ return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/mudde-core/src/Mudde/Core/BaseHandler.ts":
-/*!***************************************************************!*\
-  !*** ./node_modules/mudde-core/src/Mudde/Core/BaseHandler.ts ***!
-  \***************************************************************/
+/***/ "./node_modules/mudde-core/src/Core/BaseHandler.ts":
+/*!*********************************************************!*\
+  !*** ./node_modules/mudde-core/src/Core/BaseHandler.ts ***!
+  \*********************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BaseHandler = void 0;
 var BaseHandler = /** @class */ (function () {
     function BaseHandler() {
     }
@@ -42,28 +43,28 @@ var BaseHandler = /** @class */ (function () {
     });
     return BaseHandler;
 }());
-exports.default = BaseHandler;
+exports.BaseHandler = BaseHandler;
 
 
 /***/ }),
 
-/***/ "./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts":
-/*!************************************************************************!*\
-  !*** ./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts ***!
-  \************************************************************************/
+/***/ "./node_modules/mudde-core/src/Core/ConfigurableAbstract.ts":
+/*!******************************************************************!*\
+  !*** ./node_modules/mudde-core/src/Core/ConfigurableAbstract.ts ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ConfigurableAbstract = void 0;
-var StringHelper_1 = __webpack_require__(/*! ../Helper/StringHelper */ "./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts");
+var StringHelper_1 = __webpack_require__(/*! ../Helper/StringHelper */ "./node_modules/mudde-core/src/Helper/StringHelper.ts");
 var ConfigurableAbstract = /** @class */ (function () {
     function ConfigurableAbstract() {
     }
     ConfigurableAbstract.prototype.configuring = function (config) {
         var defaultConfig = this.getDefaultConfig();
         for (var key in defaultConfig) {
-            var methodName = 'configure' + StringHelper_1.default.ucfirst(key);
+            var methodName = 'configure' + StringHelper_1.StringHelper.ucfirst(key);
             var hasMethod = this[methodName] !== undefined;
             var value = config[key] ? config[key] : defaultConfig[key];
             if (hasMethod) {
@@ -81,14 +82,15 @@ exports.ConfigurableAbstract = ConfigurableAbstract;
 
 /***/ }),
 
-/***/ "./node_modules/mudde-core/src/Mudde/Core/Event.ts":
-/*!*********************************************************!*\
-  !*** ./node_modules/mudde-core/src/Mudde/Core/Event.ts ***!
-  \*********************************************************/
+/***/ "./node_modules/mudde-core/src/Core/Event.ts":
+/*!***************************************************!*\
+  !*** ./node_modules/mudde-core/src/Core/Event.ts ***!
+  \***************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Event = void 0;
 var Event = /** @class */ (function () {
     function Event(source, event) {
         this._source = source;
@@ -114,19 +116,20 @@ var Event = /** @class */ (function () {
     });
     return Event;
 }());
-exports.default = Event;
+exports.Event = Event;
 
 
 /***/ }),
 
-/***/ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts":
-/*!************************************************************!*\
-  !*** ./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts ***!
-  \************************************************************/
+/***/ "./node_modules/mudde-core/src/Core/NodeCore.ts":
+/*!******************************************************!*\
+  !*** ./node_modules/mudde-core/src/Core/NodeCore.ts ***!
+  \******************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.NodeCore = void 0;
 var NodeCore = /** @class */ (function () {
     function NodeCore(tagName, attributes, text, documentX) {
         this._idSearch = [];
@@ -395,19 +398,20 @@ var NodeCore = /** @class */ (function () {
     });
     return NodeCore;
 }());
-exports.default = NodeCore;
+exports.NodeCore = NodeCore;
 
 
 /***/ }),
 
-/***/ "./node_modules/mudde-core/src/Mudde/Helper/GuidHelper.ts":
-/*!****************************************************************!*\
-  !*** ./node_modules/mudde-core/src/Mudde/Helper/GuidHelper.ts ***!
-  \****************************************************************/
+/***/ "./node_modules/mudde-core/src/Helper/GuidHelper.ts":
+/*!**********************************************************!*\
+  !*** ./node_modules/mudde-core/src/Helper/GuidHelper.ts ***!
+  \**********************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GuidHelper = void 0;
 // https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts
 var GuidHelper = /** @class */ (function () {
     function GuidHelper(guid) {
@@ -460,19 +464,20 @@ var GuidHelper = /** @class */ (function () {
     GuidHelper.EMPTY = "00000000-0000-0000-0000-000000000000";
     return GuidHelper;
 }());
-exports.default = GuidHelper;
+exports.GuidHelper = GuidHelper;
 
 
 /***/ }),
 
-/***/ "./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts":
-/*!******************************************************************!*\
-  !*** ./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts ***!
-  \******************************************************************/
+/***/ "./node_modules/mudde-core/src/Helper/StringHelper.ts":
+/*!************************************************************!*\
+  !*** ./node_modules/mudde-core/src/Helper/StringHelper.ts ***!
+  \************************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.StringHelper = void 0;
 var StringHelper = /** @class */ (function () {
     function StringHelper() {
     }
@@ -483,7 +488,7 @@ var StringHelper = /** @class */ (function () {
     };
     return StringHelper;
 }());
-exports.default = StringHelper;
+exports.StringHelper = StringHelper;
 
 
 /***/ }),
@@ -551,7 +556,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TabsBuilder = void 0;
-var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var FormBuilderAbstract_1 = __webpack_require__(/*! ../FormBuilderAbstract */ "./src/FormBuilderAbstract.ts");
 var TabsBuilder = /** @class */ (function (_super) {
     __extends(TabsBuilder, _super);
@@ -561,13 +566,13 @@ var TabsBuilder = /** @class */ (function (_super) {
     TabsBuilder.prototype.coreBuild = function (output) {
         var htmlForm = output.root;
         var panels = htmlForm.getElementsByClassName('panel');
-        var tabs = new NodeCore_1.default('ul', { class: "nav nav-tabs" });
+        var tabs = new NodeCore_1.NodeCore('ul', { class: "nav nav-tabs" });
         for (var key = 0; key < panels.length; key++) {
             var panelLabel = panels.item(key).id;
             var javascript = "javascript:var panelName='" + panelLabel + "'; Array.from(document.getElementById('main').firstChild.getElementsByClassName('panel')).forEach(element=>{ if(element.id === panelName){ element.removeAttribute('hidden')} else { element.setAttribute('hidden', '') } });Array.from(document.getElementById('main').firstChild.getElementsByClassName('nav-link')).forEach(element=>{ if(element.innerText === panelName){ element.classList.add('active') } else { element.classList.remove('active')} })";
             tabs
-                .appendElement(new NodeCore_1.default('li', { class: 'nav-item' }))
-                .appendElement(new NodeCore_1.default('a', { class: 'nav-link ', href: javascript }, panelLabel));
+                .appendElement(new NodeCore_1.NodeCore('li', { class: 'nav-item' }))
+                .appendElement(new NodeCore_1.NodeCore('a', { class: 'nav-link ', href: javascript }, panelLabel));
             if (key === 0) {
                 tabs.addClass('active');
             }
@@ -635,7 +640,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.BuilderAbstract = void 0;
-var BaseHandler_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/BaseHandler */ "./node_modules/mudde-core/src/Mudde/Core/BaseHandler.ts");
+var BaseHandler_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Core/BaseHandler */ "./node_modules/mudde-core/src/Core/BaseHandler.ts");
 var BuilderAbstract = /** @class */ (function (_super) {
     __extends(BuilderAbstract, _super);
     function BuilderAbstract(input) {
@@ -656,7 +661,7 @@ var BuilderAbstract = /** @class */ (function (_super) {
         configurable: true
     });
     return BuilderAbstract;
-}(BaseHandler_1.default));
+}(BaseHandler_1.BaseHandler));
 exports.BuilderAbstract = BuilderAbstract;
 
 
@@ -697,7 +702,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Submit = void 0;
-var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var ButtonAbstract_1 = __webpack_require__(/*! ../ButtonAbstract */ "./src/ButtonAbstract.ts");
 var Submit = /** @class */ (function (_super) {
     __extends(Submit, _super);
@@ -717,7 +722,7 @@ var Submit = /** @class */ (function (_super) {
             onclick: "javascript:\n         var data = {};\n         Array.from(document.forms[0].elements).forEach(element => {\n             if (element.name) {\n                console.debug(element.type)\n                 if (element.type === 'file') {\n                     data[element.name] = Array.from(element.files).flatMap(x => { return x.name });\n                 } else if(element.type === 'select-multiple') {\n                     data[element.name] = Array.from(element.selectedOptions).flatMap(x=>{ return x.value  })\n                 } else {\n                     data[element.name] = element.value\n                 }\n             }\n         });\n         alert(JSON.stringify({valid: document.forms[0].checkValidity(),...data}, null, 4));\n         return false",
             value: this.label
         };
-        var element = new NodeCore_1.default('input', attributes);
+        var element = new NodeCore_1.NodeCore('input', attributes);
         return element;
     };
     return Submit;
@@ -775,8 +780,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ButtonAbstract = void 0;
-var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts");
-var GuidHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/GuidHelper */ "./node_modules/mudde-core/src/Mudde/Helper/GuidHelper.ts");
+var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Core/ConfigurableAbstract.ts");
+var GuidHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Helper/GuidHelper */ "./node_modules/mudde-core/src/Helper/GuidHelper.ts");
 var ButtonAbstract = /** @class */ (function (_super) {
     __extends(ButtonAbstract, _super);
     function ButtonAbstract() {
@@ -791,7 +796,7 @@ var ButtonAbstract = /** @class */ (function (_super) {
         };
     };
     ButtonAbstract.prototype.render = function () {
-        var output = this.coreHTMLInput(GuidHelper_1.default.create().toString(), 'x', 'nl');
+        var output = this.coreHTMLInput(GuidHelper_1.GuidHelper.create().toString(), 'x', 'nl');
         return output;
     };
     Object.defineProperty(ButtonAbstract.prototype, "_type", {
@@ -939,7 +944,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DataAbstract = void 0;
-var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts");
+var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Core/ConfigurableAbstract.ts");
 var DataEvent_1 = __webpack_require__(/*! ./DataEvent */ "./src/DataEvent.ts");
 var DataAbstract = /** @class */ (function (_super) {
     __extends(DataAbstract, _super);
@@ -1064,7 +1069,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DataEvent = void 0;
-var Event_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/Event */ "./node_modules/mudde-core/src/Mudde/Core/Event.ts");
+var Event_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Core/Event */ "./node_modules/mudde-core/src/Core/Event.ts");
 var DataEvent = /** @class */ (function (_super) {
     __extends(DataEvent, _super);
     function DataEvent(source, event, id) {
@@ -1082,7 +1087,7 @@ var DataEvent = /** @class */ (function (_super) {
         configurable: true
     });
     return DataEvent;
-}(Event_1.default));
+}(Event_1.Event));
 exports.DataEvent = DataEvent;
 
 
@@ -1112,10 +1117,10 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Form = void 0;
-var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts");
-var NodeCore_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
-var GuidHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/GuidHelper */ "./node_modules/mudde-core/src/Mudde/Helper/GuidHelper.ts");
-var StringHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/StringHelper */ "./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts");
+var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Core/ConfigurableAbstract.ts");
+var NodeCore_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
+var GuidHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Helper/GuidHelper */ "./node_modules/mudde-core/src/Helper/GuidHelper.ts");
+var StringHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Helper/StringHelper */ "./node_modules/mudde-core/src/Helper/StringHelper.ts");
 var Form = /** @class */ (function (_super) {
     __extends(Form, _super);
     function Form(config) {
@@ -1127,13 +1132,13 @@ var Form = /** @class */ (function (_super) {
         _this._count = 0;
         _this._loaded = false;
         _this.configuring(config);
-        _this.form = new NodeCore_1.default('form', { method: 'POST', action: '.', id: _this.id });
+        _this.form = new NodeCore_1.NodeCore('form', { method: 'POST', action: '.', id: _this.id });
         Form._forms.push(_this);
         return _this;
     }
     Form.prototype.getDefaultConfig = function () {
         return {
-            id: GuidHelper_1.default.raw(),
+            id: GuidHelper_1.GuidHelper.raw(),
             languages: ['nl'],
             fields: [],
             buttons: [],
@@ -1184,7 +1189,7 @@ var Form = /** @class */ (function (_super) {
     };
     Form.prototype.configureData = function (config) {
         var main = this;
-        var type = StringHelper_1.default.ucfirst(config['_type']);
+        var type = StringHelper_1.StringHelper.ucfirst(config['_type']);
         main.count++;
         // requirejs(['Mudde/Form/Data/' + type], (className) => {
         //    let object: DataAbstract = new className.default(config, main)
@@ -1389,8 +1394,8 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GroupInputAbstract = void 0;
-var NodeCore_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
-var StringHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/StringHelper */ "./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts");
+var NodeCore_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
+var StringHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Helper/StringHelper */ "./node_modules/mudde-core/src/Helper/StringHelper.ts");
 var Array_1 = __webpack_require__(/*! ./Data/Array */ "./src/Data/Array.ts");
 var InputAbstract_1 = __webpack_require__(/*! ./InputAbstract */ "./src/InputAbstract.ts");
 var GroupInputAbstract = /** @class */ (function (_super) {
@@ -1406,7 +1411,7 @@ var GroupInputAbstract = /** @class */ (function (_super) {
     };
     GroupInputAbstract.prototype.configureData = function (config) {
         var main = this;
-        var type = StringHelper_1.default.ucfirst(config['_type']);
+        var type = StringHelper_1.StringHelper.ucfirst(config['_type']);
         // requirejs(['Mudde/Form/Data/' + type], (className) => {
         //    let object: DataAbstract = new className.default(config, main)
         //    main._data = object
@@ -1418,7 +1423,7 @@ var GroupInputAbstract = /** @class */ (function (_super) {
         var mainId = this.id;
         var isMultilingual = this.isMultilingual;
         var languages = isMultilingual ? this.form.languages : [this.form.languages[0]];
-        var output = new NodeCore_1.default('div', {});
+        var output = new NodeCore_1.NodeCore('div', {});
         var ids = this.coreIds = [];
         output.appendElement(this.preCoreHTMLInput());
         this._data.forEach(function (data) {
@@ -1540,7 +1545,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.BootstrapInputBuilder = void 0;
-var NodeCore_1 = __webpack_require__(/*! ../../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var NodeCore_1 = __webpack_require__(/*! ../../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var InputBuilderAbstract_1 = __webpack_require__(/*! ../../InputBuilderAbstract */ "./src/InputBuilderAbstract.ts");
 var BootstrapInputBuilder = /** @class */ (function (_super) {
     __extends(BootstrapInputBuilder, _super);
@@ -1571,7 +1576,7 @@ var BootstrapInputBuilder = /** @class */ (function (_super) {
                 output
                     .getElementById(id)
                     .moveInNode(function (oldNode) {
-                    return new NodeCore_1.default('div', { class: 'input-group mb-1' })
+                    return new NodeCore_1.NodeCore('div', { class: 'input-group mb-1' })
                         .appendNode_('span', { class: 'input-group-text' })
                         .appendNode('i', { class: language + " flag mr-0" })
                         ._()
@@ -1611,7 +1616,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GeneralInputBuilder = void 0;
-var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var NodeCore_1 = __webpack_require__(/*! ../../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var IconHelper_1 = __webpack_require__(/*! ../../Helper/IconHelper */ "./src/Helper/IconHelper.ts");
 var InputBuilderAbstract_1 = __webpack_require__(/*! ../../InputBuilderAbstract */ "./src/InputBuilderAbstract.ts");
 var GeneralInputBuilder = /** @class */ (function (_super) {
@@ -1623,8 +1628,8 @@ var GeneralInputBuilder = /** @class */ (function (_super) {
         var input = this.input;
         var elements = input.coreIds;
         var labelText = input.label + (input.require ? IconHelper_1.IconHelper.starFill('9px') : '');
-        var label = new NodeCore_1.default('label', { for: elements[0].id, class: 'myLabel' });
-        var help = new NodeCore_1.default('span', { class: 'help', id: 'help_' + input.id });
+        var label = new NodeCore_1.NodeCore('label', { for: elements[0].id, class: 'myLabel' });
+        var help = new NodeCore_1.NodeCore('span', { class: 'help', id: 'help_' + input.id });
         label.innerHTML = labelText;
         output
             .gotoRoot()
@@ -1699,7 +1704,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Checkbox = void 0;
-var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var GroupInputAbstract_1 = __webpack_require__(/*! ../GroupInputAbstract */ "./src/GroupInputAbstract.ts");
 var Checkbox = /** @class */ (function (_super) {
     __extends(Checkbox, _super);
@@ -1713,7 +1718,7 @@ var Checkbox = /** @class */ (function (_super) {
     };
     Checkbox.prototype.coreHTMLInput = function (id, name, language) {
         var currentData = this.currentData;
-        var element = new NodeCore_1.default('div', { 'class': 'form-check', style: 'display: table-cell;' });
+        var element = new NodeCore_1.NodeCore('div', { 'class': 'form-check', style: 'display: table-cell;' });
         var newId = id + '_' + currentData.id;
         element
             .appendNode('input', {
@@ -1771,10 +1776,10 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Combobox = void 0;
-var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
 var Array_1 = __webpack_require__(/*! ../Data/Array */ "./src/Data/Array.ts");
-var StringHelper_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Helper/StringHelper */ "./node_modules/mudde-core/src/Mudde/Helper/StringHelper.ts");
+var StringHelper_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Helper/StringHelper */ "./node_modules/mudde-core/src/Helper/StringHelper.ts");
 var Combobox = /** @class */ (function (_super) {
     __extends(Combobox, _super);
     function Combobox(config, form) {
@@ -1789,14 +1794,14 @@ var Combobox = /** @class */ (function (_super) {
     };
     Combobox.prototype.configureData = function (config) {
         var main = this;
-        var type = StringHelper_1.default.ucfirst(config['_type']);
+        var type = StringHelper_1.StringHelper.ucfirst(config['_type']);
         // requirejs(['Mudde/Form/Data/' + type], (className) => {
         //    let object: DataAbstract = new className.default(config, main)
         //    main._data = object
         // });
     };
     Combobox.prototype.coreHTMLInput = function (id, name, language) {
-        var element = new NodeCore_1.default('select', __assign(__assign({ id: id, name: name }, this.placeholder ? { placeholder: this.placeholder } : {}), this.multiple === true ? { 'multiple': '' } : {}));
+        var element = new NodeCore_1.NodeCore('select', __assign(__assign({ id: id, name: name }, this.placeholder ? { placeholder: this.placeholder } : {}), this.multiple === true ? { 'multiple': '' } : {}));
         if (this.multiple !== true) {
             element.appendNode('option', { value: null }, '');
         }
@@ -1867,7 +1872,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Email = void 0;
-var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
 var Email = /** @class */ (function (_super) {
     __extends(Email, _super);
@@ -1880,7 +1885,7 @@ var Email = /** @class */ (function (_super) {
         return __assign({}, _super.prototype.getDefaultConfig.call(this));
     };
     Email.prototype.coreHTMLInput = function (id, name, language) {
-        var element = new NodeCore_1.default('input', {
+        var element = new NodeCore_1.NodeCore('input', {
             id: id,
             name: name,
             type: 'email',
@@ -1931,7 +1936,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Radio = void 0;
-var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var GroupInputAbstract_1 = __webpack_require__(/*! ../GroupInputAbstract */ "./src/GroupInputAbstract.ts");
 var Radio = /** @class */ (function (_super) {
     __extends(Radio, _super);
@@ -1945,7 +1950,7 @@ var Radio = /** @class */ (function (_super) {
     };
     Radio.prototype.coreHTMLInput = function (id, name, language) {
         var currentData = this.currentData;
-        var element = new NodeCore_1.default('div', { 'class': 'form-check', style: 'display: table-cell;' });
+        var element = new NodeCore_1.NodeCore('div', { 'class': 'form-check', style: 'display: table-cell;' });
         var newId = id + '_' + currentData.id;
         element
             .appendNode('input', {
@@ -2003,7 +2008,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Text = void 0;
-var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
 var Text = /** @class */ (function (_super) {
     __extends(Text, _super);
@@ -2023,7 +2028,7 @@ var Text = /** @class */ (function (_super) {
         return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { mask: '', format: '', prefix: '', suffix: '', multiple: false, spellcheck: false });
     };
     Text.prototype.coreHTMLInput = function (id, name, language) {
-        var element = new NodeCore_1.default('input', {
+        var element = new NodeCore_1.NodeCore('input', {
             id: id,
             name: name,
             type: 'text',
@@ -2134,7 +2139,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Textarea = void 0;
-var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
 var Textarea = /** @class */ (function (_super) {
     __extends(Textarea, _super);
@@ -2148,7 +2153,7 @@ var Textarea = /** @class */ (function (_super) {
         return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { spellcheck: false });
     };
     Textarea.prototype.coreHTMLInput = function (id, name, language) {
-        var element = new NodeCore_1.default('textarea', {
+        var element = new NodeCore_1.NodeCore('textarea', {
             id: id,
             name: name,
             spellcheck: this.spellcheck
@@ -2207,7 +2212,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UploadFile = void 0;
-var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
 var UploadFile = /** @class */ (function (_super) {
     __extends(UploadFile, _super);
@@ -2222,7 +2227,7 @@ var UploadFile = /** @class */ (function (_super) {
     };
     UploadFile.prototype.coreHTMLInput = function (id, name, language) {
         var attributes = __assign({ id: id, name: name, type: 'file' }, this.multiple ? { multiple: '' } : {});
-        var element = new NodeCore_1.default('input', attributes);
+        var element = new NodeCore_1.NodeCore('input', attributes);
         return element;
     };
     Object.defineProperty(UploadFile.prototype, "multiple", {
@@ -2277,7 +2282,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UploadImage = void 0;
-var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
 var UploadImage = /** @class */ (function (_super) {
     __extends(UploadImage, _super);
@@ -2292,7 +2297,7 @@ var UploadImage = /** @class */ (function (_super) {
         return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { accept: 'image/x-png, image/gif, image/jpeg', multiple: false });
     };
     UploadImage.prototype.postCoreHTMLInput = function () {
-        return new NodeCore_1.default('b', {}, 'Hello');
+        return new NodeCore_1.NodeCore('b', {}, 'Hello');
     };
     UploadImage.prototype.coreHTMLInput = function (id, name, language) {
         var attributes = __assign({ id: id, name: name, type: 'file', accept: this.accept }, this.multiple ? { multiple: '' } : {});
@@ -2300,7 +2305,7 @@ var UploadImage = /** @class */ (function (_super) {
         //  var img = document.createElement('img'); 
         //  img.setAttribute('src', URL.createObjectURL(temp1.files[0])); 
         //  document.getElementById('fileimage').parentNode.appendChild(img)
-        var element = new NodeCore_1.default('input', attributes);
+        var element = new NodeCore_1.NodeCore('input', attributes);
         return element;
     };
     Object.defineProperty(UploadImage.prototype, "multiple", {
@@ -2386,9 +2391,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.InputAbstract = void 0;
-var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts");
-var NodeCore_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/NodeCore */ "./node_modules/mudde-core/src/Mudde/Core/NodeCore.ts");
-var GuidHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Helper/GuidHelper */ "./node_modules/mudde-core/src/Mudde/Helper/GuidHelper.ts");
+var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Core/ConfigurableAbstract.ts");
+var NodeCore_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
+var GuidHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Helper/GuidHelper */ "./node_modules/mudde-core/src/Helper/GuidHelper.ts");
 var InputAbstract = /** @class */ (function (_super) {
     __extends(InputAbstract, _super);
     function InputAbstract(form) {
@@ -2418,7 +2423,7 @@ var InputAbstract = /** @class */ (function (_super) {
     InputAbstract.prototype.getDefaultConfig = function () {
         return {
             _type: 'Text',
-            id: GuidHelper_1.default.raw(),
+            id: GuidHelper_1.GuidHelper.raw(),
             input: true,
             label: '',
             help: '',
@@ -2469,7 +2474,7 @@ var InputAbstract = /** @class */ (function (_super) {
         var mainId = this.id;
         var isMultilingual = this.isMultilingual;
         var languages = isMultilingual ? this.form.languages : [this.form.languages[0]];
-        var output = new NodeCore_1.default('div', {});
+        var output = new NodeCore_1.NodeCore('div', {});
         var ids = this.coreIds = [];
         output.appendElement(this.preCoreHTMLInput());
         languages.forEach(function (language) {
@@ -2885,7 +2890,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ValidationAbstract = void 0;
-var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract.ts");
+var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Core/ConfigurableAbstract.ts");
 var ValidationAbstract = /** @class */ (function (_super) {
     __extends(ValidationAbstract, _super);
     function ValidationAbstract(input) {

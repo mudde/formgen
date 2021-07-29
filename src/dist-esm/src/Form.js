@@ -1,4 +1,4 @@
-System.register(["../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract", "../node_modules/mudde-core/src/Mudde/Core/NodeCore", "../node_modules/mudde-core/src/Mudde/Helper/GuidHelper", "../node_modules/mudde-core/src/Mudde/Helper/StringHelper"], function (exports_1, context_1) {
+System.register(["../node_modules/mudde-core/src/Core/ConfigurableAbstract", "../node_modules/mudde-core/src/Core/NodeCore", "../node_modules/mudde-core/src/Helper/GuidHelper", "../node_modules/mudde-core/src/Helper/StringHelper"], function (exports_1, context_1) {
     "use strict";
     var __extends = (this && this.__extends) || (function () {
         var extendStatics = function (d, b) {

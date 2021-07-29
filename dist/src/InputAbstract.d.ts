@@ -1,6 +1,6 @@
-import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract";
-import HandlerInterface from "../node_modules/mudde-core/src/Mudde/Core/HandlerInterface";
-import NodeCore from "../node_modules/mudde-core/src/Mudde/Core/NodeCore";
+import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
+import { HandlerInterface } from "../node_modules/mudde-core/src/Core/HandlerInterface";
+import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore";
 import { Form } from "./Form";
 export declare abstract class InputAbstract extends ConfigurableAbstract {
     private __type;

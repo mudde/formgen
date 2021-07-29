@@ -1,8 +1,8 @@
-import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract";
-import Event from "../node_modules/mudde-core/src/Mudde/Core/Event";
+import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
+import Event from "../node_modules/mudde-core/src/Core/Event";
 import Form from "./Form";
-import ObserverInterface from "../node_modules/mudde-core/src/Mudde/Core/ObserverInterface";
-import SubjectInterface from "../node_modules/mudde-core/src/Mudde/Core/SubjectInterface";
+import ObserverInterface from "../node_modules/mudde-core/src/Core/ObserverInterface";
+import SubjectInterface from "../node_modules/mudde-core/src/Core/SubjectInterface";
 export abstract class DataAbstract extends ConfigurableAbstract implements SubjectInterface {
     static readonly DATA_PRE_SET = 1;
     static readonly DATA_POST_SET = 2;

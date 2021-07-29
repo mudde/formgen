@@ -1,8 +1,8 @@
-import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract";
-import NodeCore from "../node_modules/mudde-core/src/Mudde/Core/NodeCore";
+import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
+import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore";
 import { ButtonAbstract } from "./ButtonAbstract";
 import { InputAbstract } from "./InputAbstract";
-import HandlerInterface from "../node_modules/mudde-core/src/Mudde/Core/HandlerInterface";
+import { HandlerInterface } from "../node_modules/mudde-core/src/Core/HandlerInterface";
 export declare class Form extends ConfigurableAbstract {
     private _id;
     private _languages;

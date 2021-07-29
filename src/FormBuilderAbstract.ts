@@ -1,6 +1,6 @@
-import NodeCore from "../node_modules/mudde-core/src/Mudde/Core/NodeCore"
+import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore"
 import {BuilderAbstract} from "./BuilderAbstract";
-import CoreBuildInterface from "./CoreBuildInterface";
+import {CoreBuildInterface} from "./CoreBuildInterface";
 
 export abstract class FormBuilderAbstract extends BuilderAbstract implements CoreBuildInterface {
 

@@ -1,4 +1,4 @@
-System.register(["../node_modules/mudde-core/src/Mudde/Core/BaseHandler"], function (exports_1, context_1) {
+System.register(["../node_modules/mudde-core/src/Core/BaseHandler"], function (exports_1, context_1) {
     "use strict";
     var __extends = (this && this.__extends) || (function () {
         var extendStatics = function (d, b) {

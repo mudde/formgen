@@ -1,4 +1,4 @@
-import NodeCore from "mudde-core/src/Mudde/Core/NodeCore"
+import { NodeCore } from "../../../node_modules/mudde-core/src/Core/NodeCore"
 import { IconHelper } from "../../Helper/IconHelper";
 import {InputBuilderAbstract} from "../../InputBuilderAbstract";
 

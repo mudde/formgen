@@ -1,4 +1,4 @@
-import NodeCore from "../../node_modules/mudde-core/src/Mudde/Core/NodeCore";
+import { NodeCore } from "../../node_modules/mudde-core/src/Core/NodeCore";
 import { ValidationAbstract } from "../ValidationAbstract";
 export declare class Length extends ValidationAbstract {
     private _min;

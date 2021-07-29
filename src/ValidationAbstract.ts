@@ -1,7 +1,7 @@
-import NodeCore from "../node_modules/mudde-core/src/Mudde/Core/NodeCore";
-import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract";
-import HandlerInterface from "../node_modules/mudde-core/src/Mudde/Core/HandlerInterface";
-import CoreBuildInterface from "./CoreBuildInterface";
+import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore";
+import {ConfigurableAbstract} from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
+import {HandlerInterface} from "../node_modules/mudde-core/src/Core/HandlerInterface";
+import {CoreBuildInterface} from "./CoreBuildInterface";
 import {InputAbstract} from "./InputAbstract";
 
 export abstract class ValidationAbstract extends ConfigurableAbstract implements HandlerInterface, CoreBuildInterface {

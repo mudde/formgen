@@ -1,9 +1,9 @@
-import NodeCore from "../../node_modules/mudde-core/src/Mudde/Core/NodeCore"
+import { NodeCore } from "../../node_modules/mudde-core/src/Core/NodeCore"
 import {Form} from "../Form"
 import {InputAbstract} from "../InputAbstract"
 import {DataAbstract} from "../DataAbstract"
 import { Array } from "../Data/Array"
-import StringHelper from "../../node_modules/mudde-core/src/Mudde/Helper/StringHelper"
+import {StringHelper} from "../../node_modules/mudde-core/src/Helper/StringHelper"
 
 export class Combobox extends InputAbstract {
 

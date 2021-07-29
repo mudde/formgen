@@ -1,6 +1,6 @@
-import NodeCore from "../node_modules/mudde-core/src/Mudde/Core/NodeCore"
+import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore"
 import {DataAbstract} from "./DataAbstract";
-import StringHelper from "../node_modules/mudde-core/src/Mudde/Helper/StringHelper"
+import {StringHelper} from "../node_modules/mudde-core/src/Helper/StringHelper"
 import {Array} from "./Data/Array";
 import {InputAbstract} from "./InputAbstract";
 

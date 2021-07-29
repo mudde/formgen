@@ -1,6 +1,6 @@
-import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Mudde/Core/ConfigurableAbstract";
-import NodeCore from "../node_modules/mudde-core/src/Mudde/Core/NodeCore"
-import GuidHelper from "../node_modules/mudde-core/src/Mudde/Helper/GuidHelper";
+import {ConfigurableAbstract} from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
+import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore"
+import {GuidHelper} from "../node_modules/mudde-core/src/Helper/GuidHelper";
 
 export abstract class ButtonAbstract extends ConfigurableAbstract {
 

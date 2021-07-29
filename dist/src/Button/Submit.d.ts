@@ -1,4 +1,4 @@
-import NodeCore from "../../node_modules/mudde-core/src/Mudde/Core/NodeCore";
+import { NodeCore } from "../../node_modules/mudde-core/src/Core/NodeCore";
 import { ButtonAbstract } from "../ButtonAbstract";
 export declare class Submit extends ButtonAbstract {
     constructor(config: any);
