@@ -19,14 +19,11 @@ export abstract class GroupInputAbstract extends InputAbstract {
    }
 
    configureData(config: Object[]): void {
-      let main = this
       let type = StringHelper.ucfirst(config['_type'])
+      let className = window['MuddeFormgen'].Data[type]
+      let object: DataAbstract = new className(config, this)
 
-      // requirejs(['Mudde/Form/Data/' + type], (className) => {
-      //    let object: DataAbstract = new className.default(config, main)
-
-      //    main._data = object
-      // });
+      this._data = object
    }
 
    render(): NodeCore {

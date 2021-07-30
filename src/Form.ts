@@ -1,11 +1,11 @@
-import {ConfigurableAbstract} from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
+import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
 import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore"
-import {GuidHelper} from "../node_modules/mudde-core/src/Helper/GuidHelper"
-import {StringHelper} from "../node_modules/mudde-core/src/Helper/StringHelper"
-import {ButtonAbstract} from "./ButtonAbstract"
-import {DataAbstract} from "./DataAbstract"
-import {InputAbstract} from "./InputAbstract"
-import {HandlerInterface} from "../node_modules/mudde-core/src/Core/HandlerInterface"
+import { GuidHelper } from "../node_modules/mudde-core/src/Helper/GuidHelper"
+import { StringHelper } from "../node_modules/mudde-core/src/Helper/StringHelper"
+import { ButtonAbstract } from "./ButtonAbstract"
+import { DataAbstract } from "./DataAbstract"
+import { InputAbstract } from "./InputAbstract"
+import { HandlerInterface } from "../node_modules/mudde-core/src/Core/HandlerInterface"
 
 export class Form extends ConfigurableAbstract {
 
@@ -48,13 +48,9 @@ export class Form extends ConfigurableAbstract {
 
       rawFields.forEach(config => {
          let type = config['_type']
-         main.count++
-         // requirejs(['Mudde/Form/Input/' + type], (className) => {
-         //    let object = new className.default(config, main)
-
-         //    fields.push(object)
-         //    main.count--
-         // });
+         let className = window['MuddeFormgen'].Input[type]
+         let object = new className(config, main)
+         fields.push(object)
       })
    }
 
@@ -64,45 +60,30 @@ export class Form extends ConfigurableAbstract {
 
       rawFields.forEach(config => {
          let type = config['_type']
-         main.count++
-
-         // requirejs(['Mudde/Form/Buttom/' + type], (className) => {
-         //    let object = new className.default(config, main)
-
-         //    buttons.push(object)
-         //    main.count--
-         // });
+         let className = window['MuddeFormgen'].Button[type]
+         let object = new className(config, main)
+         buttons.push(object)
       })
    }
 
    private configureBuilders(rawFields: Object[]): void {
-      let main = this
-
       rawFields.unshift('GeneralBuilder')
       rawFields.forEach(builder => {
-         // requirejs(['Mudde/Form/Builder/' + builder], (className) => {
-         //    let handler = new className.default(this)
-         //    if (!main._handler) {
-         //       main._handler = main._handlerCurrent = handler
-         //    } else {
-         //       main._handlerCurrent = main._handlerCurrent?.setNext(handler)
-         //    }
-
-         // });
+         let className = window['MuddeFormgen'].Builder[builder]
+         let handler = new className(this)
+         if (!this._handler) { //  todo  Move ro setNext??  Gr.O.M.
+            this._handler = this._handlerCurrent = handler
+         } else {
+            this._handlerCurrent = this._handlerCurrent?.setNext(handler)
+         }
       })
    }
 
    private configureData(config: Object[]): void {
-      let main = this
       let type = StringHelper.ucfirst(config['_type'])
-
-      main.count++
-      // requirejs(['Mudde/Form/Data/' + type], (className) => {
-      //    let object: DataAbstract = new className.default(config, main)
-
-      //    main._data = object
-      //    main.count--
-      // });
+      let className = window['MuddeFormgen'].Data[type]
+      let object: DataAbstract = new className(config, this)
+      this._data = object
    }
 
    static getFormById(id: string): Form | null {
@@ -125,7 +106,7 @@ export class Form extends ConfigurableAbstract {
          if (!form?.hasElementById(panelId)) {
             form
                ?.gotoRoot()
-               .appendNode_('div', { id: panelId , class:'panel'})
+               .appendNode_('div', { id: panelId, class: 'panel' })
          }
 
          form

@@ -1152,12 +1152,9 @@ var Form = /** @class */ (function (_super) {
         var fields = this.fields = [];
         rawFields.forEach(function (config) {
             var type = config['_type'];
-            main.count++;
-            // requirejs(['Mudde/Form/Input/' + type], (className) => {
-            //    let object = new className.default(config, main)
-            //    fields.push(object)
-            //    main.count--
-            // });
+            var className = window['MuddeFormgen'].Input[type];
+            var object = new className(config, main);
+            fields.push(object);
         });
     };
     Form.prototype.configureButtons = function (rawFields) {
@@ -1165,37 +1162,31 @@ var Form = /** @class */ (function (_super) {
         var buttons = this.buttons = [];
         rawFields.forEach(function (config) {
             var type = config['_type'];
-            main.count++;
-            // requirejs(['Mudde/Form/Buttom/' + type], (className) => {
-            //    let object = new className.default(config, main)
-            //    buttons.push(object)
-            //    main.count--
-            // });
+            var className = window['MuddeFormgen'].Button[type];
+            var object = new className(config, main);
+            buttons.push(object);
         });
     };
     Form.prototype.configureBuilders = function (rawFields) {
-        var main = this;
+        var _this = this;
         rawFields.unshift('GeneralBuilder');
         rawFields.forEach(function (builder) {
-            // requirejs(['Mudde/Form/Builder/' + builder], (className) => {
-            //    let handler = new className.default(this)
-            //    if (!main._handler) {
-            //       main._handler = main._handlerCurrent = handler
-            //    } else {
-            //       main._handlerCurrent = main._handlerCurrent?.setNext(handler)
-            //    }
-            // });
+            var _a;
+            var className = window['MuddeFormgen'].Builder[builder];
+            var handler = new className(_this);
+            if (!_this._handler) { //  todo  Move ro setNext??  Gr.O.M.
+                _this._handler = _this._handlerCurrent = handler;
+            }
+            else {
+                _this._handlerCurrent = (_a = _this._handlerCurrent) === null || _a === void 0 ? void 0 : _a.setNext(handler);
+            }
         });
     };
     Form.prototype.configureData = function (config) {
-        var main = this;
         var type = StringHelper_1.StringHelper.ucfirst(config['_type']);
-        main.count++;
-        // requirejs(['Mudde/Form/Data/' + type], (className) => {
-        //    let object: DataAbstract = new className.default(config, main)
-        //    main._data = object
-        //    main.count--
-        // });
+        var className = window['MuddeFormgen'].Data[type];
+        var object = new className(config, this);
+        this._data = object;
     };
     Form.getFormById = function (id) {
         var filterFunction = function (form) { return form.id === id; };
@@ -1410,12 +1401,10 @@ var GroupInputAbstract = /** @class */ (function (_super) {
         return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { data: new Array_1.Array({ data: [] }) });
     };
     GroupInputAbstract.prototype.configureData = function (config) {
-        var main = this;
         var type = StringHelper_1.StringHelper.ucfirst(config['_type']);
-        // requirejs(['Mudde/Form/Data/' + type], (className) => {
-        //    let object: DataAbstract = new className.default(config, main)
-        //    main._data = object
-        // });
+        var className = window['MuddeFormgen'].Data[type];
+        var object = new className(config, this);
+        this._data = object;
     };
     GroupInputAbstract.prototype.render = function () {
         var _this = this;
@@ -1521,10 +1510,10 @@ __exportStar(__webpack_require__(/*! ./IconHelper */ "./src/Helper/IconHelper.ts
 
 /***/ }),
 
-/***/ "./src/Input/Builder/BootstrapInputBuilder.ts":
-/*!****************************************************!*\
-  !*** ./src/Input/Builder/BootstrapInputBuilder.ts ***!
-  \****************************************************/
+/***/ "./src/Input/Builder/BootstrapBuilder.ts":
+/*!***********************************************!*\
+  !*** ./src/Input/Builder/BootstrapBuilder.ts ***!
+  \***********************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1544,15 +1533,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.BootstrapInputBuilder = void 0;
-var NodeCore_1 = __webpack_require__(/*! ../../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
+exports.BootstrapBuilder = void 0;
+var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var InputBuilderAbstract_1 = __webpack_require__(/*! ../../InputBuilderAbstract */ "./src/InputBuilderAbstract.ts");
-var BootstrapInputBuilder = /** @class */ (function (_super) {
-    __extends(BootstrapInputBuilder, _super);
-    function BootstrapInputBuilder() {
+var BootstrapBuilder = /** @class */ (function (_super) {
+    __extends(BootstrapBuilder, _super);
+    function BootstrapBuilder() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    BootstrapInputBuilder.prototype.coreBuild = function (output) {
+    BootstrapBuilder.prototype.coreBuild = function (output) {
         output
             .gotoRoot()
             .addClass('mb-1');
@@ -1585,17 +1574,17 @@ var BootstrapInputBuilder = /** @class */ (function (_super) {
             });
         }
     };
-    return BootstrapInputBuilder;
+    return BootstrapBuilder;
 }(InputBuilderAbstract_1.InputBuilderAbstract));
-exports.BootstrapInputBuilder = BootstrapInputBuilder;
+exports.BootstrapBuilder = BootstrapBuilder;
 
 
 /***/ }),
 
-/***/ "./src/Input/Builder/GeneralInputBuilder.ts":
-/*!**************************************************!*\
-  !*** ./src/Input/Builder/GeneralInputBuilder.ts ***!
-  \**************************************************/
+/***/ "./src/Input/Builder/GeneralBuilder.ts":
+/*!*********************************************!*\
+  !*** ./src/Input/Builder/GeneralBuilder.ts ***!
+  \*********************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1615,16 +1604,16 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.GeneralInputBuilder = void 0;
+exports.GeneralBuilder = void 0;
 var NodeCore_1 = __webpack_require__(/*! ../../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var IconHelper_1 = __webpack_require__(/*! ../../Helper/IconHelper */ "./src/Helper/IconHelper.ts");
 var InputBuilderAbstract_1 = __webpack_require__(/*! ../../InputBuilderAbstract */ "./src/InputBuilderAbstract.ts");
-var GeneralInputBuilder = /** @class */ (function (_super) {
-    __extends(GeneralInputBuilder, _super);
-    function GeneralInputBuilder() {
+var GeneralBuilder = /** @class */ (function (_super) {
+    __extends(GeneralBuilder, _super);
+    function GeneralBuilder() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    GeneralInputBuilder.prototype.coreBuild = function (output) {
+    GeneralBuilder.prototype.coreBuild = function (output) {
         var input = this.input;
         var elements = input.coreIds;
         var labelText = input.label + (input.require ? IconHelper_1.IconHelper.starFill('9px') : '');
@@ -1637,9 +1626,9 @@ var GeneralInputBuilder = /** @class */ (function (_super) {
             .prependElement_(label)
             .appendElement_(help);
     };
-    return GeneralInputBuilder;
+    return GeneralBuilder;
 }(InputBuilderAbstract_1.InputBuilderAbstract));
-exports.GeneralInputBuilder = GeneralInputBuilder;
+exports.GeneralBuilder = GeneralBuilder;
 
 
 /***/ }),
@@ -1663,8 +1652,8 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(/*! ./BootstrapInputBuilder */ "./src/Input/Builder/BootstrapInputBuilder.ts"), exports);
-__exportStar(__webpack_require__(/*! ./GeneralInputBuilder */ "./src/Input/Builder/GeneralInputBuilder.ts"), exports);
+__exportStar(__webpack_require__(/*! ./BootstrapBuilder */ "./src/Input/Builder/BootstrapBuilder.ts"), exports);
+__exportStar(__webpack_require__(/*! ./GeneralBuilder */ "./src/Input/Builder/GeneralBuilder.ts"), exports);
 
 
 /***/ }),
@@ -1793,12 +1782,10 @@ var Combobox = /** @class */ (function (_super) {
         return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { multiple: false, data: new Array_1.Array({ data: [] }) });
     };
     Combobox.prototype.configureData = function (config) {
-        var main = this;
         var type = StringHelper_1.StringHelper.ucfirst(config['_type']);
-        // requirejs(['Mudde/Form/Data/' + type], (className) => {
-        //    let object: DataAbstract = new className.default(config, main)
-        //    main._data = object
-        // });
+        var className = window['MuddeFormgen'].Data[type];
+        var object = new className(config, this);
+        this._data = object;
     };
     Combobox.prototype.coreHTMLInput = function (id, name, language) {
         var element = new NodeCore_1.NodeCore('select', __assign(__assign({ id: id, name: name }, this.placeholder ? { placeholder: this.placeholder } : {}), this.multiple === true ? { 'multiple': '' } : {}));
@@ -2342,7 +2329,6 @@ exports.UploadImage = UploadImage;
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
-// created from 'create-ts-index'
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -2354,7 +2340,10 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(/*! ./Builder */ "./src/Input/Builder/index.ts"), exports);
+exports.Builder = void 0;
+// created from 'create-ts-index'
+var BuilderImport = __webpack_require__(/*! ./Builder */ "./src/Input/Builder/index.ts");
+exports.Builder = BuilderImport;
 __exportStar(__webpack_require__(/*! ./Checkbox */ "./src/Input/Checkbox.ts"), exports);
 __exportStar(__webpack_require__(/*! ./Combobox */ "./src/Input/Combobox.ts"), exports);
 __exportStar(__webpack_require__(/*! ./Email */ "./src/Input/Email.ts"), exports);
@@ -2439,33 +2428,35 @@ var InputAbstract = /** @class */ (function (_super) {
         };
     };
     InputAbstract.prototype.configureBuilders = function (rawFields) {
-        var main = this;
+        var _this = this;
         rawFields.unshift('GeneralBuilder');
         rawFields.forEach(function (builder) {
-            // requirejs(['Mudde/Form/Input/Builder/' + builder], (className) => {
-            //    let handler = new className.default(this)
-            //    if (!main._handler) {
-            //       main._handler = main._handlerCurrent = handler
-            //    } else {
-            //       main._handlerCurrent?.setNext(handler)
-            //       main._handlerCurrent = handler
-            //    }
-            // });
+            var _a;
+            var className = window['MuddeFormgen'].Input.Builder[builder];
+            var handler = new className(_this);
+            if (!_this._handler) {
+                _this._handler = _this._handlerCurrent = handler;
+            }
+            else {
+                (_a = _this._handlerCurrent) === null || _a === void 0 ? void 0 : _a.setNext(handler);
+                _this._handlerCurrent = handler;
+            }
         });
     };
     InputAbstract.prototype.configureValidations = function (rawFields) {
-        var main = this;
+        var _this = this;
         rawFields.forEach(function (config) {
+            var _a;
             var type = config['_type'];
-            // requirejs(['Mudde/Form/Validation/' + type], (className) => {
-            //    let handler = new className.default(main, config)
-            //    if (!main._handler) {
-            //       main._handler = main._handlerCurrent = handler
-            //    } else {
-            //       main._handlerCurrent?.setNext(handler)
-            //       main._handlerCurrent = handler
-            //    }
-            // });
+            var className = window['MuddeFormgen'].Validation[type];
+            var handler = new className(_this, config);
+            if (!_this._handler) {
+                _this._handler = _this._handlerCurrent = handler;
+            }
+            else {
+                (_a = _this._handlerCurrent) === null || _a === void 0 ? void 0 : _a.setNext(handler);
+                _this._handlerCurrent = handler;
+            }
         });
     };
     InputAbstract.prototype.render = function () {

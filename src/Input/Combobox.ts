@@ -1,9 +1,9 @@
 import { NodeCore } from "../../node_modules/mudde-core/src/Core/NodeCore"
-import {Form} from "../Form"
-import {InputAbstract} from "../InputAbstract"
-import {DataAbstract} from "../DataAbstract"
+import { Form } from "../Form"
+import { InputAbstract } from "../InputAbstract"
+import { DataAbstract } from "../DataAbstract"
 import { Array } from "../Data/Array"
-import {StringHelper} from "../../node_modules/mudde-core/src/Helper/StringHelper"
+import { StringHelper } from "../../node_modules/mudde-core/src/Helper/StringHelper"
 
 export class Combobox extends InputAbstract {
 
@@ -24,14 +24,11 @@ export class Combobox extends InputAbstract {
    }
 
    configureData(config: Object[]): void {
-      let main = this
       let type = StringHelper.ucfirst(config['_type'])
+      let className = window['MuddeFormgen'].Data[type]
+      let object: DataAbstract = new className(config, this)
 
-      // requirejs(['Mudde/Form/Data/' + type], (className) => {
-      //    let object: DataAbstract = new className.default(config, main)
-
-      //    main._data = object
-      // });
+      this._data = object
    }
 
    coreHTMLInput(id: string, name: string, language: string): NodeCore {

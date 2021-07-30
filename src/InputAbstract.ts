@@ -1,8 +1,8 @@
-import {ConfigurableAbstract} from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
-import {HandlerInterface} from "../node_modules/mudde-core/src/Core/HandlerInterface";
+import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
+import { HandlerInterface } from "../node_modules/mudde-core/src/Core/HandlerInterface";
 import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore"
-import {GuidHelper} from "../node_modules/mudde-core/src/Helper/GuidHelper";
-import {Form} from "./Form";
+import { GuidHelper } from "../node_modules/mudde-core/src/Helper/GuidHelper";
+import { Form } from "./Form";
 
 export abstract class InputAbstract extends ConfigurableAbstract {
 
@@ -56,38 +56,32 @@ export abstract class InputAbstract extends ConfigurableAbstract {
    }
 
    private configureBuilders(rawFields: Object[]): void {
-      let main = this
-
       rawFields.unshift('GeneralBuilder')
       rawFields.forEach(builder => {
-         // requirejs(['Mudde/Form/Input/Builder/' + builder], (className) => {
-         //    let handler = new className.default(this)
+         let className = window['MuddeFormgen'].Input.Builder[builder]
+         let handler = new className(this)
 
-         //    if (!main._handler) {
-         //       main._handler = main._handlerCurrent = handler
-         //    } else {
-         //       main._handlerCurrent?.setNext(handler)
-         //       main._handlerCurrent = handler
-         //    }
-         // });
+         if (!this._handler) {
+            this._handler = this._handlerCurrent = handler
+         } else {
+            this._handlerCurrent?.setNext(handler)
+            this._handlerCurrent = handler
+         }
       })
    }
 
    private configureValidations(rawFields: Object[]): void {
-      let main = this
-
       rawFields.forEach(config => {
          let type = config['_type']
-         // requirejs(['Mudde/Form/Validation/' + type], (className) => {
-         //    let handler = new className.default(main, config)
+         let className = window['MuddeFormgen'].Validation[type]
+         let handler = new className(this, config)
 
-         //    if (!main._handler) {
-         //       main._handler = main._handlerCurrent = handler
-         //    } else {
-         //       main._handlerCurrent?.setNext(handler)
-         //       main._handlerCurrent = handler
-         //    }
-         // });
+         if (!this._handler) {
+            this._handler = this._handlerCurrent = handler
+         } else {
+            this._handlerCurrent?.setNext(handler)
+            this._handlerCurrent = handler
+         }
       })
    }
 

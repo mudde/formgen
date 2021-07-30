@@ -6,7 +6,6 @@ const isProduction = process.env.NODE_ENV == "production";
 const config = {
   entry: "./src/index.ts",
   devtool: 'source-map',
-  // devtool: false,
   output: {
     path: path.resolve(__dirname, "dist"),
     library: {
@@ -14,6 +13,13 @@ const config = {
       type: 'umd'
     },
     filename: 'formgen.js',
+  },
+  stats: {
+    assets: true,
+    colors: false,
+    errors: true,
+    errorDetails: true,
+    hash: true,
   },
   module: {
     rules: [

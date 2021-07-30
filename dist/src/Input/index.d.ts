@@ -1,4 +1,5 @@
-export * from './Builder';
+import * as BuilderImport from './Builder';
+export declare const Builder: typeof BuilderImport;
 export * from './Checkbox';
 export * from './Combobox';
 export * from './Email';
