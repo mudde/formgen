@@ -9,7 +9,7 @@ Some of the features are
   - Easily extendable
   - No more programming forms (each programmed form is a potential threat)
   - Validation of data
-  
+
 Gr.O.M.
 
 **JSON**
@@ -118,4 +118,4 @@ Gr.O.M.
 }
 ```
 *OUTPUTS*
-[Output image](readme.md/example-output.png?raw=true)
+![Output image](readme.md/example-output.png?raw=true)
