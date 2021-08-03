@@ -118,4 +118,5 @@ Gr.O.M.
 }
 ```
 *OUTPUTS*
+
 ![Output image](readme.md/example-output.png?raw=true)
