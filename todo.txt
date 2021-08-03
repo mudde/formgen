@@ -1,11 +1,10 @@
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃  ▒▒▒▒▒  ▒▒▒  ▒▒▒▒   ▒▒▒   ┃
-┃    ▒   ▒   ▒ ▒   ▒ ▒   ▒  ┃
-┃    ▒   ▒   ▒ ▒   ▒ ▒   ▒  ┃
-┃    ▒    ▒▒▒  ▒▒▒▒   ▒▒▒   ┃
+┃  █████  ███  ████   ███   ┃
+┃    █   █   █ █   █ █   █  ┃
+┃    █   █   █ █   █ █   █  ┃
+┃    █    ███  ████   ███   ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-ﻩ No jQuery???
 ﻩ InputAbstract add extraJS (textarea update)
 ﻩ Panel naming
 ﻩ Add relations between two entities (for example add x times a different address to a company)
@@ -17,3 +16,5 @@
 ﻩ Image upload with face recognition
 ﻩ More tests!
 ﻩ Readme update
+ﻩ Create a dist/formgen.min.js
+ﻩ relatedToOne component maken (combobox with an add button -> load the external form json and generate new form)

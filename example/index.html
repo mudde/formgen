@@ -42,11 +42,10 @@
         </div>
     </div>
 
+    <script>var exports = window;</script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./script/ckeditor.js"></script>
-    <script>var exports = window;</script>
     <script src="../dist/formgen.js"></script>
-
     <script id="config" type="application/json">
         {
             "id": "form01",
@@ -247,20 +246,19 @@
                 ]
             }]
           }
+    
     </script>
 
     <script>
         var config = JSON.parse(document.getElementById('config').innerText)
         var formgen = new MuddeFormgen.Form(config)
-
-        console.debug(formgen);
-
         document.getElementById('main').innerHTML = formgen.render().root.outerHTML
         //  todo  This must be done by the textarea input plugin!  Gr.O.M.
         Array.from(document.getElementsByTagName('textarea')).forEach(name => {
             ClassicEditor.create(name)
         })
     </script>
+
 </body>
 
 </html>
