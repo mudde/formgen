@@ -19,6 +19,7 @@ export declare abstract class InputAbstract extends ConfigurableAbstract {
     private _handlerCurrent?;
     private _form?;
     private _coreIds;
+    private _extraJs;
     constructor(form: Form);
     abstract coreHTMLInput(id: string, name: string, language: string): NodeCore;
     protected preCoreHTMLInput(): NodeCore | null;
@@ -47,6 +48,8 @@ export declare abstract class InputAbstract extends ConfigurableAbstract {
     private configureValidations;
     render(): NodeCore;
     get isMultilingual(): boolean;
+    get extraJs(): string;
+    set extraJs(value: string);
     set id(value: string);
     get id(): string;
     set input(value: boolean);

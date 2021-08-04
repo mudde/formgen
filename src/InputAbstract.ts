@@ -22,6 +22,7 @@ export abstract class InputAbstract extends ConfigurableAbstract {
    private _handlerCurrent?: HandlerInterface
    private _form?: Form
    private _coreIds: NodeCore[] = [];
+   private _extraJs: string = '';
 
    constructor(form: Form) {
       super()
@@ -117,6 +118,14 @@ export abstract class InputAbstract extends ConfigurableAbstract {
       let isMultilingualRequested = this.form.languages.length > 1 && this.multilingual
 
       return this.canBeMultilingual() && isMultilingualRequested
+   }
+
+   get extraJs(): string {
+      return this._extraJs;
+   }
+
+   set extraJs(value: string) {
+      this._extraJs = value;
    }
 
    set id(value: string) {

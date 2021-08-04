@@ -4,17 +4,13 @@
 ┃    █   █   █ █   █ █   █  ┃
 ┃    █    ███  ████   ███   ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-
-ﻩ InputAbstract add extraJS (textarea update)
-ﻩ Panel naming
+ﻩ Validators => jQuery.validator
 ﻩ Add relations between two entities (for example add x times a different address to a company)
-ﻩ tom-select for data selectors (like select2 but without jQuery)
-ﻩ Validators matching Symfony validators
-ﻩ Create an input for "Radio or else"/"Checkbox or else". ( ) Radio ( ) Radio ( ) Radio (ﻩ) Or else [Bla bla bla_____________________]
+ﻩ Fix test error - Cannot use import statement outside a module
+┏━━━━━━━━━┓
+┃  INPUT  ┃
+┗━━━━━━━━━┛
 ﻩ Date from till
 ﻩ DateTime from till
-ﻩ Image upload with face recognition
-ﻩ More tests!
-ﻩ Readme update
-ﻩ Create a dist/formgen.min.js
+ﻩ Create an input for "Radio or else"/"Checkbox or else". ( ) Radio ( ) Radio ( ) Radio (ﻩ) Or else [Bla bla bla_____________________]
 ﻩ relatedToOne component maken (combobox with an add button -> load the external form json and generate new form)

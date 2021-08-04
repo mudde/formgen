@@ -568,8 +568,10 @@ var TabsBuilder = /** @class */ (function (_super) {
         var panels = htmlForm.getElementsByClassName('panel');
         var tabs = new NodeCore_1.NodeCore('ul', { class: "nav nav-tabs" });
         for (var key = 0; key < panels.length; key++) {
-            var panelLabel = panels.item(key).id;
-            var javascript = "javascript:var panelName='" + panelLabel + "'; Array.from(document.getElementById('main').firstChild.getElementsByClassName('panel')).forEach(element=>{ if(element.id === panelName){ element.removeAttribute('hidden')} else { element.setAttribute('hidden', '') } });Array.from(document.getElementById('main').firstChild.getElementsByClassName('nav-link')).forEach(element=>{ if(element.innerText === panelName){ element.classList.add('active') } else { element.classList.remove('active')} })";
+            var x = panels.item(key);
+            var panelId = x.id;
+            var panelLabel = x.getAttribute('data-formgen-name');
+            var javascript = "javascript:var panelName='" + panelId + "'; Array.from(document.getElementById('main').firstChild.getElementsByClassName('panel')).forEach(element=>{ if(element.id === panelName){ element.removeAttribute('hidden')} else { element.setAttribute('hidden', '') } });Array.from(document.getElementById('main').firstChild.getElementsByClassName('nav-link')).forEach(element=>{ if(element.innerText === panelName){ element.classList.add('active') } else { element.classList.remove('active')} })";
             tabs
                 .appendElement(new NodeCore_1.NodeCore('li', { class: 'nav-item' }))
                 .appendElement(new NodeCore_1.NodeCore('a', { class: 'nav-link ', href: javascript }, panelLabel));
@@ -1131,6 +1133,7 @@ var Form = /** @class */ (function (_super) {
         _this._buttons = [];
         _this._count = 0;
         _this._loaded = false;
+        _this._panels = {};
         _this.configuring(config);
         _this.form = new NodeCore_1.NodeCore('form', { method: 'POST', action: '.', id: _this.id });
         Form._forms.push(_this);
@@ -1144,7 +1147,8 @@ var Form = /** @class */ (function (_super) {
             buttons: [],
             layout: [],
             builders: [],
-            data: {}
+            data: {},
+            panels: {}
         };
     };
     Form.prototype.configureFields = function (rawFields) {
@@ -1194,16 +1198,25 @@ var Form = /** @class */ (function (_super) {
         return form.length === 0 ? null : form[0];
     };
     Form.prototype.render = function () {
+        var _this = this;
         var _a;
+        var main = this;
         var form = this._form;
         if (form === undefined)
             throw new Error('Form not set!');
         form.clear();
+        var extraJs = [];
         this.fields.forEach(function (field) {
+            var _a;
             var renderedElement = field.render();
             var panelId = 'panel_' + field.panel;
+            var panelLabel = (_a = _this._panels[field.panel]) !== null && _a !== void 0 ? _a : panelId;
+            console.debug(main._panels);
             if (!(form === null || form === void 0 ? void 0 : form.hasElementById(panelId))) {
-                form === null || form === void 0 ? void 0 : form.gotoRoot().appendNode_('div', { id: panelId, class: 'panel' });
+                form === null || form === void 0 ? void 0 : form.gotoRoot().appendNode_('div', { id: panelId, class: 'panel', 'data-formgen-name': panelLabel });
+            }
+            if (field.extraJs) {
+                extraJs.push(field.extraJs);
             }
             form === null || form === void 0 ? void 0 : form.getElementById(panelId).appendElement_(renderedElement);
         });
@@ -1212,6 +1225,11 @@ var Form = /** @class */ (function (_super) {
         this.buttons.forEach(function (element) {
             form === null || form === void 0 ? void 0 : form.appendElement_(element.render());
         });
+        window.onload = function () {
+            var s = document.createElement('script');
+            s.text = extraJs.join(';');
+            document.body.appendChild(s);
+        };
         return form;
     };
     Object.defineProperty(Form.prototype, "id", {
@@ -1233,6 +1251,16 @@ var Form = /** @class */ (function (_super) {
             if (this._count === 0) {
                 this._loaded = true;
             }
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Form.prototype, "panels", {
+        get: function () {
+            return this._panels;
+        },
+        set: function (value) {
+            this._panels = value;
         },
         enumerable: false,
         configurable: true
@@ -1619,6 +1647,7 @@ var GeneralBuilder = /** @class */ (function (_super) {
         var labelText = input.label + (input.require ? IconHelper_1.IconHelper.starFill('9px') : '');
         var label = new NodeCore_1.NodeCore('label', { for: elements[0].id, class: 'myLabel' });
         var help = new NodeCore_1.NodeCore('span', { class: 'help', id: 'help_' + input.id });
+        var extraJs = input.extraJs;
         label.innerHTML = labelText;
         output
             .gotoRoot()
@@ -1726,6 +1755,48 @@ var Checkbox = /** @class */ (function (_super) {
     return Checkbox;
 }(GroupInputAbstract_1.GroupInputAbstract));
 exports.Checkbox = Checkbox;
+
+
+/***/ }),
+
+/***/ "./src/Input/Ckeditor.ts":
+/*!*******************************!*\
+  !*** ./src/Input/Ckeditor.ts ***!
+  \*******************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Ckeditor = void 0;
+var Textarea_1 = __webpack_require__(/*! ./Textarea */ "./src/Input/Textarea.ts");
+var Ckeditor = /** @class */ (function (_super) {
+    __extends(Ckeditor, _super);
+    function Ckeditor() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Ckeditor.prototype.coreHTMLInput = function (id, name, language) {
+        var element = _super.prototype.coreHTMLInput.call(this, id, name, language);
+        this.extraJs = "ClassicEditor.create(" + name + ")";
+        return element;
+    };
+    return Ckeditor;
+}(Textarea_1.Textarea));
+exports.Ckeditor = Ckeditor;
 
 
 /***/ }),
@@ -1956,6 +2027,48 @@ var Radio = /** @class */ (function (_super) {
     return Radio;
 }(GroupInputAbstract_1.GroupInputAbstract));
 exports.Radio = Radio;
+
+
+/***/ }),
+
+/***/ "./src/Input/Select2.ts":
+/*!******************************!*\
+  !*** ./src/Input/Select2.ts ***!
+  \******************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Select2 = void 0;
+var Combobox_1 = __webpack_require__(/*! ./Combobox */ "./src/Input/Combobox.ts");
+var Select2 = /** @class */ (function (_super) {
+    __extends(Select2, _super);
+    function Select2() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Select2.prototype.coreHTMLInput = function (id, name, language) {
+        var element = _super.prototype.coreHTMLInput.call(this, id, name, language);
+        this.extraJs = "$('#" + id + "').select2();";
+        return element;
+    };
+    return Select2;
+}(Combobox_1.Combobox));
+exports.Select2 = Select2;
 
 
 /***/ }),
@@ -2352,6 +2465,8 @@ __exportStar(__webpack_require__(/*! ./Text */ "./src/Input/Text.ts"), exports);
 __exportStar(__webpack_require__(/*! ./Textarea */ "./src/Input/Textarea.ts"), exports);
 __exportStar(__webpack_require__(/*! ./UploadFile */ "./src/Input/UploadFile.ts"), exports);
 __exportStar(__webpack_require__(/*! ./UploadImage */ "./src/Input/UploadImage.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Select2 */ "./src/Input/Select2.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Ckeditor */ "./src/Input/Ckeditor.ts"), exports);
 
 
 /***/ }),
@@ -2400,6 +2515,7 @@ var InputAbstract = /** @class */ (function (_super) {
         _this._require = false;
         _this._multilingual = false;
         _this._coreIds = [];
+        _this._extraJs = '';
         _this._form = form;
         return _this;
     }
@@ -2486,6 +2602,16 @@ var InputAbstract = /** @class */ (function (_super) {
         get: function () {
             var isMultilingualRequested = this.form.languages.length > 1 && this.multilingual;
             return this.canBeMultilingual() && isMultilingualRequested;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "extraJs", {
+        get: function () {
+            return this._extraJs;
+        },
+        set: function (value) {
+            this._extraJs = value;
         },
         enumerable: false,
         configurable: true

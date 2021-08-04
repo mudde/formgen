@@ -19,6 +19,7 @@ export class Form extends ConfigurableAbstract {
    private _handler?: HandlerInterface
    private _handlerCurrent?: HandlerInterface
    private _loaded: boolean = false
+   private _panels: any = {};
    static _forms: Form[] = []
 
    constructor(config: any) {
@@ -38,7 +39,8 @@ export class Form extends ConfigurableAbstract {
          buttons: [],
          layout: [],
          builders: [],
-         data: {}
+         data: {},
+         panels: {}
       }
    }
 
@@ -94,19 +96,29 @@ export class Form extends ConfigurableAbstract {
    }
 
    render(): NodeCore {
+      let main=this
       let form = this._form
       if (form === undefined) throw new Error('Form not set!')
 
       form.clear()
 
+      var extraJs: string[] = []
+
       this.fields.forEach(field => {
          let renderedElement: NodeCore = field.render();
          let panelId = 'panel_' + field.panel
+         let panelLabel = this._panels[field.panel] ?? panelId
+
+         console.debug(main._panels)
 
          if (!form?.hasElementById(panelId)) {
             form
                ?.gotoRoot()
-               .appendNode_('div', { id: panelId, class: 'panel' })
+               .appendNode_('div', { id: panelId, class: 'panel', 'data-formgen-name': panelLabel })
+         }
+
+         if (field.extraJs) {
+            extraJs.push(field.extraJs)
          }
 
          form
@@ -122,6 +134,12 @@ export class Form extends ConfigurableAbstract {
          form?.appendElement_(element.render())
       });
 
+      window.onload = () => {
+         var s = document.createElement('script');
+         s.text = extraJs.join(';')
+         document.body.appendChild(s)
+      }
+      
       return form
    }
 
@@ -142,6 +160,13 @@ export class Form extends ConfigurableAbstract {
 
    private get count(): number {
       return this._count
+   }
+
+   get panels(): any {
+      return this._panels;
+   }
+   set panels(value: any) {
+      this._panels = value;
    }
 
    get loaded(): boolean {

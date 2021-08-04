@@ -8,3 +8,5 @@ export * from './Text';
 export * from './Textarea';
 export * from './UploadFile';
 export * from './UploadImage';
+export * from './Select2';
+export * from './Ckeditor';

@@ -14,6 +14,7 @@ export declare class Form extends ConfigurableAbstract {
     private _handler?;
     private _handlerCurrent?;
     private _loaded;
+    private _panels;
     static _forms: Form[];
     constructor(config: any);
     getDefaultConfig(): any;
@@ -27,6 +28,8 @@ export declare class Form extends ConfigurableAbstract {
     get id(): string;
     private set count(value);
     private get count();
+    get panels(): any;
+    set panels(value: any);
     get loaded(): boolean;
     set languages(value: string[]);
     get languages(): string[];

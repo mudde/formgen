@@ -7,6 +7,7 @@
     <title>FormGen Base example</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../node_modules/semantic-ui-flag/flag.min.css">
+    <link rel="stylesheet" href="../node_modules/select2/dist/css/select2.min.css">
     <style>
         body {
             overflow-y: scroll;
@@ -44,6 +45,8 @@
 
     <script>var exports = window;</script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="../node_modules/select2/dist/js/select2.min.js"></script>
     <script src="./script/ckeditor.js"></script>
     <script src="../dist/formgen.js"></script>
     <script id="config" type="application/json">
@@ -68,11 +71,24 @@
                     "file": []
                 }
             },
+            "panels": {
+                "a": "Panel A",
+                "b": "Panel !A"
+            },
             "fields": [
             {
                 "_type": "Textarea",
                 "id": "dataconn",
-                "label": "WP test",
+                "label": "Textarea",
+                "help": "Your bla blie bla",
+                "panel": "a",
+                "builders": [
+                    "BootstrapBuilder"
+                ]
+            },{
+                "_type": "Ckeditor",
+                "id": "dataconnrr",
+                "label": "Editor",
                 "help": "Your bla blie bla",
                 "panel": "a",
                 "builders": [
@@ -145,7 +161,7 @@
                     ]
                 }
             },{
-                "_type": "Combobox",
+                "_type": "Select2",
                 "id": "cboxx",
                 "label": "Combobox test",
                 "help": "Your bla bla bla",
@@ -253,10 +269,6 @@
         var config = JSON.parse(document.getElementById('config').innerText)
         var formgen = new MuddeFormgen.Form(config)
         document.getElementById('main').innerHTML = formgen.render().root.outerHTML
-        //  todo  This must be done by the textarea input plugin!  Gr.O.M.
-        Array.from(document.getElementsByTagName('textarea')).forEach(name => {
-            ClassicEditor.create(name)
-        })
     </script>
 
 </body>
