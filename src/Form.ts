@@ -14,12 +14,12 @@ export class Form extends ConfigurableAbstract {
    private _fields: InputAbstract[] = []
    private _buttons: ButtonAbstract[] = []
    private _form?: NodeCore
-   private _data?: DataAbstract
-   private _count: number = 0
+   private _data?: DataAbstract;
    private _handler?: HandlerInterface
-   private _handlerCurrent?: HandlerInterface
    private _loaded: boolean = false
-   private _panels: any = {};
+   private _panels: any = {}
+   private _additionalJs: string[] = []
+   private _rules: {} = {}
    static _forms: Form[] = []
 
    constructor(config: any) {
@@ -73,18 +73,24 @@ export class Form extends ConfigurableAbstract {
       rawFields.forEach(builder => {
          let className = window['MuddeFormgen'].Builder[builder]
          let handler = new className(this)
-         if (!this._handler) { //  todo  Move ro setNext??  Gr.O.M.
-            this._handler = this._handlerCurrent = handler
+
+         if (!this._handler) {
+            this._handler = handler
          } else {
-            this._handlerCurrent = this._handlerCurrent?.setNext(handler)
+            this._handler.setNext(handler)
          }
       })
    }
 
    private configureData(config: Object[]): void {
+      var object = null
       let type = StringHelper.ucfirst(config['_type'])
-      let className = window['MuddeFormgen'].Data[type]
-      let object: DataAbstract = new className(config, this)
+
+      if (type) {
+         let className = window['MuddeFormgen'].Data[type]
+         object = new className(config, this)
+      }
+
       this._data = object
    }
 
@@ -96,51 +102,66 @@ export class Form extends ConfigurableAbstract {
    }
 
    render(): NodeCore {
-      let main=this
+      if (this._form === undefined) throw new Error('Form not set!')
+
+      let main = this;
       let form = this._form
-      if (form === undefined) throw new Error('Form not set!')
 
       form.clear()
 
-      var extraJs: string[] = []
+      this.addFields()
+      this.addButtons()
+
+      this._handler?.handle(form)
+
+      window.onload = () => {
+         let jsCode = '$.validator.setDefaults({ ignore: ".ck-hidden, .ck, .select2-search__field, .btn", debug: true }); var formgenValidator = $( "#' + this.id + '" ).validate({ rules: ' + JSON.stringify(this._rules) + '});formgenValidator.checkForm();formgenValidator.showErrors()'
+         let s = document.createElement('script');
+
+         main._additionalJs.push(jsCode)
+         s.text = main._additionalJs.join(';')
+         document.body.appendChild(s)
+      }
+
+      return form
+   }
+
+   private initPanel(panelId: string, panelLabel: string) {
+      let form = this._form
+
+      if (!form?.hasElementById(panelId)) {
+         form
+            ?.gotoRoot()
+            .appendNode_('div', { id: panelId, class: 'panel', 'data-formgen-name': panelLabel })
+      }
+   }
+
+   private addButtons() {
+      let form = this._form
+
+      form.gotoRoot()
+      this.buttons.forEach(element => {
+         form?.appendElement_(element.render())
+      });
+   }
+
+   private addFields() {
+      let form = this._form
+      var main = this
 
       this.fields.forEach(field => {
-         let renderedElement: NodeCore = field.render();
          let panelId = 'panel_' + field.panel
          let panelLabel = this._panels[field.panel] ?? panelId
+         let renderedElement: NodeCore = field.render()
 
-         console.debug(main._panels)
-
-         if (!form?.hasElementById(panelId)) {
-            form
-               ?.gotoRoot()
-               .appendNode_('div', { id: panelId, class: 'panel', 'data-formgen-name': panelLabel })
-         }
-
-         if (field.extraJs) {
-            extraJs.push(field.extraJs)
-         }
+         this.initPanel(panelId, panelLabel)
+         !field.extraJs || this._additionalJs.push(field.extraJs)
+         !field.hasRules || (main._rules = { ...main._rules, ...field.rulesComplete })
 
          form
             ?.getElementById(panelId)
             .appendElement_(renderedElement)
       });
-
-      this._handler?.handle(form)
-
-      form.gotoRoot()
-
-      this.buttons.forEach(element => {
-         form?.appendElement_(element.render())
-      });
-
-      window.onload = () => {
-         var s = document.createElement('script');
-         s.text = extraJs.join(';')
-         document.body.appendChild(s)
-      }
-      
-      return form
    }
 
    set id(value: string) {
@@ -149,17 +170,6 @@ export class Form extends ConfigurableAbstract {
 
    get id(): string {
       return this._id
-   }
-
-   private set count(value: number) {
-      this._count = value
-      if (this._count === 0) {
-         this._loaded = true
-      }
-   }
-
-   private get count(): number {
-      return this._count
    }
 
    get panels(): any {
@@ -215,5 +225,21 @@ export class Form extends ConfigurableAbstract {
       if (this._handler === undefined) throw new Error('Handler not set!');
 
       return this._handler
+   }
+
+   get additionalJs(): string[] {
+      return this._additionalJs;
+   }
+
+   set additionalJs(value: string[]) {
+      this._additionalJs = value;
+   }
+
+   get data(): DataAbstract {
+      return this._data;
+   }
+
+   set data(value: DataAbstract) {
+      this._data = value;
    }
 }

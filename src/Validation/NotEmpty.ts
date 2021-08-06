@@ -1,5 +1,5 @@
 import { NodeCore } from "../../node_modules/mudde-core/src/Core/NodeCore"
-import {ValidationAbstract} from "../ValidationAbstract";
+import { ValidationAbstract } from "../ValidationAbstract";
 
 export class NotEmpty extends ValidationAbstract {
 
@@ -14,11 +14,12 @@ export class NotEmpty extends ValidationAbstract {
 
    coreBuild(output: NodeCore): void {
       let attributes: any = {
-         required: ''
+         required: true
       }
 
-      this.input.coreIds.forEach(element => {
-         element.setAttributes(attributes)
-      })
+      this.input.rules = {
+         ...this.input.rules,
+         ...attributes
+      }
    }
 }

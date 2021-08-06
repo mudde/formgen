@@ -11,7 +11,11 @@ export abstract class ValidationAbstract extends ConfigurableAbstract implements
   abstract coreBuild(output: NodeCore): void
 
   setNext(event: HandlerInterface): HandlerInterface {
-    this._nextEvent = event
+    if (this, this._nextEvent) {
+      this._nextEvent.setNext(event)
+    }else{
+      this._nextEvent = event
+    }
 
     return event
   }

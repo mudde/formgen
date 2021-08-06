@@ -18,11 +18,12 @@ export abstract class InputAbstract extends ConfigurableAbstract {
    private _hidden: boolean = false
    private _require: boolean = false
    private _multilingual: boolean = false
-   private _handler?: HandlerInterface
-   private _handlerCurrent?: HandlerInterface
+   private _handlerBuilders?: HandlerInterface
+   private _handlerValidations?: HandlerInterface
    private _form?: Form
    private _coreIds: NodeCore[] = [];
    private _extraJs: string = '';
+   protected _rules: {};
 
    constructor(form: Form) {
       super()
@@ -62,11 +63,10 @@ export abstract class InputAbstract extends ConfigurableAbstract {
          let className = window['MuddeFormgen'].Input.Builder[builder]
          let handler = new className(this)
 
-         if (!this._handler) {
-            this._handler = this._handlerCurrent = handler
+         if (!this._handlerBuilders) {
+            this._handlerBuilders = handler
          } else {
-            this._handlerCurrent?.setNext(handler)
-            this._handlerCurrent = handler
+            this._handlerBuilders.setNext(handler)
          }
       })
    }
@@ -77,11 +77,11 @@ export abstract class InputAbstract extends ConfigurableAbstract {
          let className = window['MuddeFormgen'].Validation[type]
          let handler = new className(this, config)
 
-         if (!this._handler) {
-            this._handler = this._handlerCurrent = handler
+         if (!this._handlerValidations) {
+            this._handlerValidations = handler
          } else {
-            this._handlerCurrent?.setNext(handler)
-            this._handlerCurrent = handler
+            handler.setNext(this._handlerValidations);
+            this._handlerValidations = handler;
          }
       })
    }
@@ -109,7 +109,8 @@ export abstract class InputAbstract extends ConfigurableAbstract {
          .prependElement_(this.preHTMLInput())
          .appendElement_(this.postHTMLInput())
 
-      this.handler?.handle(output)
+         this._handlerValidations?.handle(output)
+         this._handlerBuilders?.handle(output)
 
       return output
    }
@@ -177,13 +178,13 @@ export abstract class InputAbstract extends ConfigurableAbstract {
    }
 
    set handler(value: HandlerInterface) {
-      this._handler = value
+      this._handlerBuilders = value
    }
 
    get handler(): HandlerInterface {
-      if (this._handler === undefined) throw new Error('Handler not set!');
+      if (this._handlerBuilders === undefined) throw new Error('Handler not set!');
 
-      return this._handler
+      return this._handlerBuilders
    }
 
    set autofocus(value: boolean) {
@@ -250,5 +251,28 @@ export abstract class InputAbstract extends ConfigurableAbstract {
 
    set coreIds(value: NodeCore[]) {
       this._coreIds = value;
+   }
+
+   get hasRules(): boolean{
+      return this._rules && Object.values(this._rules).length > 0
+   }
+
+   get rulesComplete(): {} {
+      var main=this
+      var completeRules = {}
+
+      this.coreIds.forEach((item) => {
+         completeRules[item.getAttribute('name')] = main.rules
+      })
+
+      return completeRules;
+   }
+   
+   get rules(): {} {
+      return this._rules;
+   }
+
+   set rules(value: {}) {
+      this._rules = value;
    }
 }

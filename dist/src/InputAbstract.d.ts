@@ -15,11 +15,12 @@ export declare abstract class InputAbstract extends ConfigurableAbstract {
     private _hidden;
     private _require;
     private _multilingual;
-    private _handler?;
-    private _handlerCurrent?;
+    private _handlerBuilders?;
+    private _handlerValidations?;
     private _form?;
     private _coreIds;
     private _extraJs;
+    protected _rules: {};
     constructor(form: Form);
     abstract coreHTMLInput(id: string, name: string, language: string): NodeCore;
     protected preCoreHTMLInput(): NodeCore | null;
@@ -80,4 +81,8 @@ export declare abstract class InputAbstract extends ConfigurableAbstract {
     get panel(): string;
     get coreIds(): NodeCore[];
     set coreIds(value: NodeCore[]);
+    get hasRules(): boolean;
+    get rulesComplete(): {};
+    get rules(): {};
+    set rules(value: {});
 }

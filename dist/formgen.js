@@ -25,7 +25,12 @@ var BaseHandler = /** @class */ (function () {
     function BaseHandler() {
     }
     BaseHandler.prototype.setNext = function (event) {
-        this._nextEvent = event;
+        if (this._nextEvent) {
+            this._nextEvent.setNext(event);
+        }
+        else {
+            this._nextEvent = event;
+        }
         return event;
     };
     BaseHandler.prototype.handle = function (data) {
@@ -1117,6 +1122,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Form = void 0;
 var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Core/ConfigurableAbstract.ts");
@@ -1131,9 +1147,10 @@ var Form = /** @class */ (function (_super) {
         _this._languages = [];
         _this._fields = [];
         _this._buttons = [];
-        _this._count = 0;
         _this._loaded = false;
         _this._panels = {};
+        _this._additionalJs = [];
+        _this._rules = {};
         _this.configuring(config);
         _this.form = new NodeCore_1.NodeCore('form', { method: 'POST', action: '.', id: _this.id });
         Form._forms.push(_this);
@@ -1175,21 +1192,23 @@ var Form = /** @class */ (function (_super) {
         var _this = this;
         rawFields.unshift('GeneralBuilder');
         rawFields.forEach(function (builder) {
-            var _a;
             var className = window['MuddeFormgen'].Builder[builder];
             var handler = new className(_this);
-            if (!_this._handler) { //  todo  Move ro setNext??  Gr.O.M.
-                _this._handler = _this._handlerCurrent = handler;
+            if (!_this._handler) {
+                _this._handler = handler;
             }
             else {
-                _this._handlerCurrent = (_a = _this._handlerCurrent) === null || _a === void 0 ? void 0 : _a.setNext(handler);
+                _this._handler.setNext(handler);
             }
         });
     };
     Form.prototype.configureData = function (config) {
+        var object = null;
         var type = StringHelper_1.StringHelper.ucfirst(config['_type']);
-        var className = window['MuddeFormgen'].Data[type];
-        var object = new className(config, this);
+        if (type) {
+            var className = window['MuddeFormgen'].Data[type];
+            object = new className(config, this);
+        }
         this._data = object;
     };
     Form.getFormById = function (id) {
@@ -1200,37 +1219,50 @@ var Form = /** @class */ (function (_super) {
     Form.prototype.render = function () {
         var _this = this;
         var _a;
+        if (this._form === undefined)
+            throw new Error('Form not set!');
         var main = this;
         var form = this._form;
-        if (form === undefined)
-            throw new Error('Form not set!');
         form.clear();
-        var extraJs = [];
-        this.fields.forEach(function (field) {
-            var _a;
-            var renderedElement = field.render();
-            var panelId = 'panel_' + field.panel;
-            var panelLabel = (_a = _this._panels[field.panel]) !== null && _a !== void 0 ? _a : panelId;
-            console.debug(main._panels);
-            if (!(form === null || form === void 0 ? void 0 : form.hasElementById(panelId))) {
-                form === null || form === void 0 ? void 0 : form.gotoRoot().appendNode_('div', { id: panelId, class: 'panel', 'data-formgen-name': panelLabel });
-            }
-            if (field.extraJs) {
-                extraJs.push(field.extraJs);
-            }
-            form === null || form === void 0 ? void 0 : form.getElementById(panelId).appendElement_(renderedElement);
-        });
+        this.addFields();
+        this.addButtons();
         (_a = this._handler) === null || _a === void 0 ? void 0 : _a.handle(form);
+        window.onload = function () {
+            var jsCode = '$.validator.setDefaults({ ignore: ".ck-hidden, .ck, .select2-search__field, .btn", debug: true }); var formgenValidator = $( "#' + _this.id + '" ).validate({ rules: ' + JSON.stringify(_this._rules) + '});formgenValidator.checkForm();formgenValidator.showErrors()';
+            var s = document.createElement('script');
+            main._additionalJs.push(jsCode);
+            s.text = main._additionalJs.join(';');
+            document.body.appendChild(s);
+        };
+        return form;
+    };
+    Form.prototype.initPanel = function (panelId, panelLabel) {
+        var form = this._form;
+        if (!(form === null || form === void 0 ? void 0 : form.hasElementById(panelId))) {
+            form === null || form === void 0 ? void 0 : form.gotoRoot().appendNode_('div', { id: panelId, class: 'panel', 'data-formgen-name': panelLabel });
+        }
+    };
+    Form.prototype.addButtons = function () {
+        var form = this._form;
         form.gotoRoot();
         this.buttons.forEach(function (element) {
             form === null || form === void 0 ? void 0 : form.appendElement_(element.render());
         });
-        window.onload = function () {
-            var s = document.createElement('script');
-            s.text = extraJs.join(';');
-            document.body.appendChild(s);
-        };
-        return form;
+    };
+    Form.prototype.addFields = function () {
+        var _this = this;
+        var form = this._form;
+        var main = this;
+        this.fields.forEach(function (field) {
+            var _a;
+            var panelId = 'panel_' + field.panel;
+            var panelLabel = (_a = _this._panels[field.panel]) !== null && _a !== void 0 ? _a : panelId;
+            var renderedElement = field.render();
+            _this.initPanel(panelId, panelLabel);
+            !field.extraJs || _this._additionalJs.push(field.extraJs);
+            !field.hasRules || (main._rules = __assign(__assign({}, main._rules), field.rulesComplete));
+            form === null || form === void 0 ? void 0 : form.getElementById(panelId).appendElement_(renderedElement);
+        });
     };
     Object.defineProperty(Form.prototype, "id", {
         get: function () {
@@ -1238,19 +1270,6 @@ var Form = /** @class */ (function (_super) {
         },
         set: function (value) {
             this._id = value;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Form.prototype, "count", {
-        get: function () {
-            return this._count;
-        },
-        set: function (value) {
-            this._count = value;
-            if (this._count === 0) {
-                this._loaded = true;
-            }
         },
         enumerable: false,
         configurable: true
@@ -1322,6 +1341,26 @@ var Form = /** @class */ (function (_super) {
         },
         set: function (value) {
             this._handler = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Form.prototype, "additionalJs", {
+        get: function () {
+            return this._additionalJs;
+        },
+        set: function (value) {
+            this._additionalJs = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Form.prototype, "data", {
+        get: function () {
+            return this._data;
+        },
+        set: function (value) {
+            this._data = value;
         },
         enumerable: false,
         configurable: true
@@ -1647,7 +1686,6 @@ var GeneralBuilder = /** @class */ (function (_super) {
         var labelText = input.label + (input.require ? IconHelper_1.IconHelper.starFill('9px') : '');
         var label = new NodeCore_1.NodeCore('label', { for: elements[0].id, class: 'myLabel' });
         var help = new NodeCore_1.NodeCore('span', { class: 'help', id: 'help_' + input.id });
-        var extraJs = input.extraJs;
         label.innerHTML = labelText;
         output
             .gotoRoot()
@@ -2063,6 +2101,7 @@ var Select2 = /** @class */ (function (_super) {
     }
     Select2.prototype.coreHTMLInput = function (id, name, language) {
         var element = _super.prototype.coreHTMLInput.call(this, id, name, language);
+        element.gotoRoot().setAttributes({ 'style': 'opacity: 0;' });
         this.extraJs = "$('#" + id + "').select2();";
         return element;
     };
@@ -2547,37 +2586,34 @@ var InputAbstract = /** @class */ (function (_super) {
         var _this = this;
         rawFields.unshift('GeneralBuilder');
         rawFields.forEach(function (builder) {
-            var _a;
             var className = window['MuddeFormgen'].Input.Builder[builder];
             var handler = new className(_this);
-            if (!_this._handler) {
-                _this._handler = _this._handlerCurrent = handler;
+            if (!_this._handlerBuilders) {
+                _this._handlerBuilders = handler;
             }
             else {
-                (_a = _this._handlerCurrent) === null || _a === void 0 ? void 0 : _a.setNext(handler);
-                _this._handlerCurrent = handler;
+                _this._handlerBuilders.setNext(handler);
             }
         });
     };
     InputAbstract.prototype.configureValidations = function (rawFields) {
         var _this = this;
         rawFields.forEach(function (config) {
-            var _a;
             var type = config['_type'];
             var className = window['MuddeFormgen'].Validation[type];
             var handler = new className(_this, config);
-            if (!_this._handler) {
-                _this._handler = _this._handlerCurrent = handler;
+            if (!_this._handlerValidations) {
+                _this._handlerValidations = handler;
             }
             else {
-                (_a = _this._handlerCurrent) === null || _a === void 0 ? void 0 : _a.setNext(handler);
-                _this._handlerCurrent = handler;
+                handler.setNext(_this._handlerValidations);
+                _this._handlerValidations = handler;
             }
         });
     };
     InputAbstract.prototype.render = function () {
         var _this = this;
-        var _a;
+        var _a, _b;
         var mainId = this.id;
         var isMultilingual = this.isMultilingual;
         var languages = isMultilingual ? this.form.languages : [this.form.languages[0]];
@@ -2595,7 +2631,8 @@ var InputAbstract = /** @class */ (function (_super) {
             .appendElement_(this.postCoreHTMLInput())
             .prependElement_(this.preHTMLInput())
             .appendElement_(this.postHTMLInput());
-        (_a = this.handler) === null || _a === void 0 ? void 0 : _a.handle(output);
+        (_a = this._handlerValidations) === null || _a === void 0 ? void 0 : _a.handle(output);
+        (_b = this._handlerBuilders) === null || _b === void 0 ? void 0 : _b.handle(output);
         return output;
     };
     Object.defineProperty(InputAbstract.prototype, "isMultilingual", {
@@ -2678,12 +2715,12 @@ var InputAbstract = /** @class */ (function (_super) {
     });
     Object.defineProperty(InputAbstract.prototype, "handler", {
         get: function () {
-            if (this._handler === undefined)
+            if (this._handlerBuilders === undefined)
                 throw new Error('Handler not set!');
-            return this._handler;
+            return this._handlerBuilders;
         },
         set: function (value) {
-            this._handler = value;
+            this._handlerBuilders = value;
         },
         enumerable: false,
         configurable: true
@@ -2766,6 +2803,35 @@ var InputAbstract = /** @class */ (function (_super) {
         },
         set: function (value) {
             this._coreIds = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "hasRules", {
+        get: function () {
+            return this._rules && Object.values(this._rules).length > 0;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "rulesComplete", {
+        get: function () {
+            var main = this;
+            var completeRules = {};
+            this.coreIds.forEach(function (item) {
+                completeRules[item.getAttribute('name')] = main.rules;
+            });
+            return completeRules;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(InputAbstract.prototype, "rules", {
+        get: function () {
+            return this._rules;
+        },
+        set: function (value) {
+            this._rules = value;
         },
         enumerable: false,
         configurable: true
@@ -2874,10 +2940,7 @@ var Length = /** @class */ (function (_super) {
     };
     Length.prototype.coreBuild = function (output) {
         var attributes = __assign(__assign({}, this.min > 0 ? { minlength: this.min } : {}), this.max > 0 ? { maxlength: this.max } : {});
-        this.input.coreIds.forEach(function (element) {
-            element.setAttributes(attributes);
-            // element.onchange(this.onchange)
-        });
+        this.input.rules = __assign(__assign({}, this.input.rules), attributes);
     };
     Length.prototype.onchange = function (event) {
     };
@@ -2930,6 +2993,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.NotEmpty = void 0;
 var ValidationAbstract_1 = __webpack_require__(/*! ../ValidationAbstract */ "./src/ValidationAbstract.ts");
@@ -2945,11 +3019,9 @@ var NotEmpty = /** @class */ (function (_super) {
     };
     NotEmpty.prototype.coreBuild = function (output) {
         var attributes = {
-            required: ''
+            required: true
         };
-        this.input.coreIds.forEach(function (element) {
-            element.setAttributes(attributes);
-        });
+        this.input.rules = __assign(__assign({}, this.input.rules), attributes);
     };
     return NotEmpty;
 }(ValidationAbstract_1.ValidationAbstract));
@@ -3016,7 +3088,12 @@ var ValidationAbstract = /** @class */ (function (_super) {
         return _this;
     }
     ValidationAbstract.prototype.setNext = function (event) {
-        this._nextEvent = event;
+        if (this, this._nextEvent) {
+            this._nextEvent.setNext(event);
+        }
+        else {
+            this._nextEvent = event;
+        }
         return event;
     };
     ValidationAbstract.prototype.handle = function (data) {

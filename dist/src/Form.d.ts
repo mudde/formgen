@@ -1,6 +1,7 @@
 import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
 import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore";
 import { ButtonAbstract } from "./ButtonAbstract";
+import { DataAbstract } from "./DataAbstract";
 import { InputAbstract } from "./InputAbstract";
 import { HandlerInterface } from "../node_modules/mudde-core/src/Core/HandlerInterface";
 export declare class Form extends ConfigurableAbstract {
@@ -10,11 +11,11 @@ export declare class Form extends ConfigurableAbstract {
     private _buttons;
     private _form?;
     private _data?;
-    private _count;
     private _handler?;
-    private _handlerCurrent?;
     private _loaded;
     private _panels;
+    private _additionalJs;
+    private _rules;
     static _forms: Form[];
     constructor(config: any);
     getDefaultConfig(): any;
@@ -24,10 +25,11 @@ export declare class Form extends ConfigurableAbstract {
     private configureData;
     static getFormById(id: string): Form | null;
     render(): NodeCore;
+    private initPanel;
+    private addButtons;
+    private addFields;
     set id(value: string);
     get id(): string;
-    private set count(value);
-    private get count();
     get panels(): any;
     set panels(value: any);
     get loaded(): boolean;
@@ -41,4 +43,8 @@ export declare class Form extends ConfigurableAbstract {
     get form(): NodeCore;
     set handler(value: HandlerInterface);
     get handler(): HandlerInterface;
+    get additionalJs(): string[];
+    set additionalJs(value: string[]);
+    get data(): DataAbstract;
+    set data(value: DataAbstract);
 }

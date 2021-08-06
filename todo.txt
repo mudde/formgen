@@ -4,9 +4,9 @@
 ┃    █   █   █ █   █ █   █  ┃
 ┃    █    ███  ████   ███   ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-ﻩ Validators => jQuery.validator
 ﻩ Add relations between two entities (for example add x times a different address to a company)
 ﻩ Fix test error - Cannot use import statement outside a module
+ﻩ Create automatically the default empty error label for positioning
 ┏━━━━━━━━━┓
 ┃  INPUT  ┃
 ┗━━━━━━━━━┛

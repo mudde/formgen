@@ -33,6 +33,43 @@
         label>svg {
             margin-left: 5px;
         }
+
+        label.error {
+            color: white;
+            font-size: 12px;
+            background-color: rgba(255, 0, 0, 0.6);
+            border-radius: 7px;
+            left: 0;
+            right: 0;
+            position: relative;
+            text-align: center;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .ck-focus,
+        span.select2-container--focus {
+            color: #212529 !important;
+            background-color: #fff !important;
+            border-color: #86b7fe !important;
+            outline: 0 !important;
+            box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%) !important;
+            border-radius: .25rem !important;
+        }
+
+        .ck-editor:focus-within{
+            color: #212529 !important;
+            background-color: #fff !important;
+            border-color: #86b7fe !important;
+            outline: 0 !important;
+            box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%) !important;
+            border-radius: .25rem !important;
+        }
+
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border: 1px solid #86b7fe !important;
+            border-radius: .25rem;
+        }
     </style>
 </head>
 
@@ -46,6 +83,7 @@
     <script>var exports = window;</script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="../node_modules/jquery-validation/dist/jquery.validate.min.js"></script>"
     <script src="../node_modules/select2/dist/js/select2.min.js"></script>
     <script src="./script/ckeditor.js"></script>
     <script src="../dist/formgen.js"></script>
@@ -67,6 +105,7 @@
                         "nl": "Olaf",
                         "uk": "Olaf"
                     },
+
                     "email": "olaf@xs4all.nl",
                     "file": []
                 }

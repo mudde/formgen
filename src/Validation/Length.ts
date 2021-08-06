@@ -24,10 +24,10 @@ export class Length extends ValidationAbstract {
          ... this.max > 0 ? { maxlength: this.max } : {}
       }
 
-      this.input.coreIds.forEach(element => {
-         element.setAttributes(attributes)
-         // element.onchange(this.onchange)
-      })
+      this.input.rules = {
+         ...this.input.rules,
+         ...attributes
+      }
    }
 
    onchange(event: Event) {

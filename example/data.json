@@ -1,0 +1,17 @@
+ClassicEditor.create(dataconnrr);
+$('#cboxx').select2();
+$( "#form01" ).validate({rules: {
+    "file": {
+      "required": ""
+    },
+    "name": {
+      "required": ""
+    },
+    "email": {
+      "required": ""
+    },
+    "fileimage": {
+      "required": ""
+    }
+  }
+});
