@@ -9,4 +9,5 @@ export * from './Textarea';
 export * from './UploadFile';
 export * from './UploadImage';
 export * from './Select2';
+export * from './Select2Relation';
 export * from './Ckeditor';

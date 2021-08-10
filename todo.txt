@@ -4,9 +4,11 @@
 ┃    █   █   █ █   █ █   █  ┃
 ┃    █    ███  ████   ███   ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-ﻩ Add relations between two entities (for example add x times a different address to a company)
+ﻩ Add relations between two entities (for example add x times a different address to a company) (use jQuery.validation)
 ﻩ Fix test error - Cannot use import statement outside a module
-ﻩ Create automatically the default empty error label for positioning
+ﻩ Create automatically the default empty error label for positioning (just the right position!)
+ﻩ Readonly!
+ﻩ Field type decimal
 ┏━━━━━━━━━┓
 ┃  INPUT  ┃
 ┗━━━━━━━━━┛

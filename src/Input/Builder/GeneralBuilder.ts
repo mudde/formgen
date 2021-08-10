@@ -10,7 +10,8 @@ export class GeneralBuilder extends InputBuilderAbstract {
       let labelText = input.label + (input.require ? IconHelper.starFill('9px') : '')
       let label: NodeCore = new NodeCore('label', { for: elements[0].id, class: 'myLabel' })
       let help: NodeCore = new NodeCore('span', { class: 'help', id: 'help_' + input.id })
-
+      let error: NodeCore = new NodeCore('label', { class: 'error', id: input.id + '-error', for: input.id })
+      
       label.innerHTML = labelText
 
       output
@@ -18,5 +19,6 @@ export class GeneralBuilder extends InputBuilderAbstract {
          .setAttributes({ 'style': 'margin-bottom: 10px;' })
          .prependElement_(label)
          .appendElement_(help)
+         .appendElement_(error)
    }
 }

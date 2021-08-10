@@ -13,6 +13,7 @@ const config = {
       type: 'umd'
     },
     filename: 'formgen.js',
+    clean: true,
   },
   stats: {
     assets: true,

@@ -7,12 +7,12 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --reporter spec --require node_modules/ts-node/register --require node_modules/amd-loader/  test/**/*.ts",
-    "build": "webpack --mode=production --node-env=production",
-    "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production --node-env=production",
-    "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "test": "./node_modules/mocha/bin/mocha --reporter spec --require node_modules/ts-node/register --require node_modules/amd-loader/ test/**/*.ts",
+    "build": "npx webpack --mode=production --node-env=production && cp dist/formgen.* ../formgen-demo-with-symfony/public/example/script/",
+    "build:dev": "npx webpack --mode=development && cp dist/formgen.* ../formgen-demo-with-symfony/public/example/script/",
+    "build:prod": "npx webpack --mode=production --node-env=production && cp dist/formgen.* ../formgen-demo-with-symfony/public/example/script/",
+    "watch": "npx webpack --watch",
+    "serve": "npx webpack serve"
   },
   "repository": {
     "type": "git",
@@ -51,6 +51,7 @@
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
     "@types/chai": "^4.2.17",
+    "@types/jquery": "^3.5.6",
     "@types/mocha": "^8.2.2",
     "@webpack-cli/generators": "^2.2.0",
     "amd-loader": "^0.0.8",

@@ -15,8 +15,7 @@ export class Form extends ConfigurableAbstract {
    private _buttons: ButtonAbstract[] = []
    private _form?: NodeCore
    private _data?: DataAbstract;
-   private _handler?: HandlerInterface
-   private _loaded: boolean = false
+   private _builder?: HandlerInterface
    private _panels: any = {}
    private _additionalJs: string[] = []
    private _rules: {} = {}
@@ -38,7 +37,7 @@ export class Form extends ConfigurableAbstract {
          fields: [],
          buttons: [],
          layout: [],
-         builders: [],
+         builder: [],
          data: {},
          panels: {}
       }
@@ -68,16 +67,17 @@ export class Form extends ConfigurableAbstract {
       })
    }
 
-   private configureBuilders(rawFields: Object[]): void {
-      rawFields.unshift('GeneralBuilder')
+   private configureBuilder(rawFields: Object[]): void {
+      !(rawFields.indexOf('GeneralBuilder') === -1) || rawFields.unshift('GeneralBuilder')
+
       rawFields.forEach(builder => {
          let className = window['MuddeFormgen'].Builder[builder]
          let handler = new className(this)
 
-         if (!this._handler) {
-            this._handler = handler
+         if (!this._builder) {
+            this._builder = handler
          } else {
-            this._handler.setNext(handler)
+            this._builder.setNext(handler)
          }
       })
    }
@@ -112,7 +112,7 @@ export class Form extends ConfigurableAbstract {
       this.addFields()
       this.addButtons()
 
-      this._handler?.handle(form)
+      this._builder?.handle(form)
 
       window.onload = () => {
          let jsCode = '$.validator.setDefaults({ ignore: ".ck-hidden, .ck, .select2-search__field, .btn", debug: true }); var formgenValidator = $( "#' + this.id + '" ).validate({ rules: ' + JSON.stringify(this._rules) + '});formgenValidator.checkForm();formgenValidator.showErrors()'
@@ -155,6 +155,7 @@ export class Form extends ConfigurableAbstract {
          let renderedElement: NodeCore = field.render()
 
          this.initPanel(panelId, panelLabel)
+
          !field.extraJs || this._additionalJs.push(field.extraJs)
          !field.hasRules || (main._rules = { ...main._rules, ...field.rulesComplete })
 
@@ -177,10 +178,6 @@ export class Form extends ConfigurableAbstract {
    }
    set panels(value: any) {
       this._panels = value;
-   }
-
-   get loaded(): boolean {
-      return this._loaded
    }
 
    set languages(value: string[]) {
@@ -217,14 +214,14 @@ export class Form extends ConfigurableAbstract {
       return this._form
    }
 
-   set handler(value: HandlerInterface) {
-      this._handler = value
+   set builder(value: HandlerInterface) {
+      this._builder = value
    }
 
-   get handler(): HandlerInterface {
-      if (this._handler === undefined) throw new Error('Handler not set!');
+   get builder(): HandlerInterface {
+      if (this._builder === undefined) throw new Error('Handler not set!');
 
-      return this._handler
+      return this._builder
    }
 
    get additionalJs(): string[] {

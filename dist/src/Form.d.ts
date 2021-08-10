@@ -11,8 +11,7 @@ export declare class Form extends ConfigurableAbstract {
     private _buttons;
     private _form?;
     private _data?;
-    private _handler?;
-    private _loaded;
+    private _builder?;
     private _panels;
     private _additionalJs;
     private _rules;
@@ -21,7 +20,7 @@ export declare class Form extends ConfigurableAbstract {
     getDefaultConfig(): any;
     private configureFields;
     private configureButtons;
-    private configureBuilders;
+    private configureBuilder;
     private configureData;
     static getFormById(id: string): Form | null;
     render(): NodeCore;
@@ -32,7 +31,6 @@ export declare class Form extends ConfigurableAbstract {
     get id(): string;
     get panels(): any;
     set panels(value: any);
-    get loaded(): boolean;
     set languages(value: string[]);
     get languages(): string[];
     set fields(value: InputAbstract[]);
@@ -41,8 +39,8 @@ export declare class Form extends ConfigurableAbstract {
     get buttons(): ButtonAbstract[];
     set form(value: NodeCore);
     get form(): NodeCore;
-    set handler(value: HandlerInterface);
-    get handler(): HandlerInterface;
+    set builder(value: HandlerInterface);
+    get builder(): HandlerInterface;
     get additionalJs(): string[];
     set additionalJs(value: string[]);
     get data(): DataAbstract;

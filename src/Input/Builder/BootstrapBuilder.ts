@@ -4,14 +4,12 @@ import {InputBuilderAbstract} from "../../InputBuilderAbstract";
 export class BootstrapBuilder extends InputBuilderAbstract {
 
    coreBuild(output: NodeCore): void {
-      output
-         .gotoRoot()
-         .addClass('mb-1')
+      let input = this.input
+      output.gotoRoot().addClass('mb-1')
 
       let label = output.getElementByTagName('label').item(0)
       label?.classList.add('form-label')
 
-      let input = this.input
       let help = output.getElementByClass('help').item(0)
       if (help) {
          help.classList.add('form-text')
