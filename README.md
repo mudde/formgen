@@ -1,3 +1,5 @@
+☠ ⅅΞVΞLΘPṀΞΠŦ UΠⅅΞR ℃ΘNSŦRUCŦIΘΠ ☠
+============================
 # TypeScript Formgen
 
 A form generator written in Typescript. It converts a JSON into a HTML-form.
