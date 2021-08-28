@@ -16,16 +16,18 @@ export class Form extends ConfigurableAbstract {
    private _form?: NodeCore
    private _data?: DataAbstract;
    private _builder?: HandlerInterface
-   private _panels: any = {}
+   private _panels: any = { }
    private _additionalJs: string[] = []
-   private _rules: {} = {}
+   private _rules: {} = { }
+   private _method: string = '';
+   private _action: string = '';
    static _forms: Form[] = []
 
    constructor(config: any) {
       super()
 
       this.configuring(config)
-      this.form = new NodeCore('form', { method: 'POST', action: '.', id: this.id })
+      this.form = new NodeCore('form', { method: this.method, action: this.action, id: this.id })
 
       Form._forms.push(this)
    }
@@ -38,8 +40,10 @@ export class Form extends ConfigurableAbstract {
          buttons: [],
          layout: [],
          builder: [],
-         data: {},
-         panels: {}
+         data: { },
+         panels: { },
+         method: 'POST',
+         action: '.'
       }
    }
 
@@ -82,13 +86,15 @@ export class Form extends ConfigurableAbstract {
       })
    }
 
-   private configureData(config: Object[]): void {
+   private configureData(config: Object[]) {
       var object = null
       let type = StringHelper.ucfirst(config['_type'])
 
       if (type) {
          let className = window['MuddeFormgen'].Data[type]
+
          object = new className(config, this)
+         !object.init() || object.process()
       }
 
       this._data = object
@@ -104,7 +110,7 @@ export class Form extends ConfigurableAbstract {
    render(): NodeCore {
       if (this._form === undefined) throw new Error('Form not set!')
 
-      let main = this;
+      let additionalJs = this._additionalJs;
       let form = this._form
 
       form.clear()
@@ -115,12 +121,15 @@ export class Form extends ConfigurableAbstract {
       this._builder?.handle(form)
 
       window.onload = () => {
-         let jsCode = '$.validator.setDefaults({ ignore: ".ck-hidden, .ck, .select2-search__field, .btn", debug: true }); var formgenValidator = $( "#' + this.id + '" ).validate({ rules: ' + JSON.stringify(this._rules) + '});formgenValidator.checkForm();formgenValidator.showErrors()'
-         let s = document.createElement('script');
-
-         main._additionalJs.push(jsCode)
-         s.text = main._additionalJs.join(';')
-         document.body.appendChild(s)
+         let script = document.createElement('script')
+         //  todo  js solution  Gr.O.M.
+         additionalJs.push('$.validator.setDefaults({ ignore: ".ck-hidden, .ck, .select2-search__field, .btn", debug: true });\
+          var formgenValidator = $( "#' + this.id + '" ).validate({ rules: ' + JSON.stringify(this._rules) + '});\
+          formgenValidator.checkForm();\
+          formgenValidator.showErrors()\
+         ')
+         script.text = additionalJs.join(';')
+         document.body.appendChild(script)
       }
 
       return form
@@ -238,5 +247,21 @@ export class Form extends ConfigurableAbstract {
 
    set data(value: DataAbstract) {
       this._data = value;
+   }
+
+   get method(): string {
+      return this._method;
+   }
+
+   set method(value: string) {
+      this._method = value;
+   }
+
+   get action(): string {
+      return this._action;
+   }
+
+   set action(value: string) {
+      this._action = value;
    }
 }

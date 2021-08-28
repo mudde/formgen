@@ -1,6 +1,6 @@
-import {ConfigurableAbstract} from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
+import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
 import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore"
-import {GuidHelper} from "../node_modules/mudde-core/src/Helper/GuidHelper";
+import { GuidHelper } from "../node_modules/mudde-core/src/Helper/GuidHelper";
 
 export abstract class ButtonAbstract extends ConfigurableAbstract {
 
@@ -17,7 +17,7 @@ export abstract class ButtonAbstract extends ConfigurableAbstract {
 
    render(): NodeCore {
       let output = this.coreHTMLInput(GuidHelper.create().toString(), 'x', 'nl')
-      
+
       return output
    }
 

@@ -27,7 +27,8 @@ export class Combobox extends InputAbstract {
       let type = StringHelper.ucfirst(config['_type'])
       let className = window['MuddeFormgen'].Data[type]
       let object: DataAbstract = new className(config, this)
-
+      //  todo  attach DATA_LOADED observer to set actual form data  Gr.O.M.
+      //object.attach()
       this._data = object
    }
 

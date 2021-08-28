@@ -15,8 +15,8 @@ export abstract class DataAbstract extends ConfigurableAbstract implements Subje
 
    private _form?: Form
    private _observers: any = {}
-   protected _data: [] = []
-   protected _originalData: [] = []
+   protected _data: any[] = []
+   protected _originalData: any[] = []
 
    constructor(form?: Form) {
       super()
@@ -108,11 +108,11 @@ export abstract class DataAbstract extends ConfigurableAbstract implements Subje
       return this._form
    }
 
-   set data(value: []) {
+   set data(value: any[]) {
       this._data = this._originalData = value
    }
 
-   get data(): [] {
+   get data(): any[] {
       if (this._data === undefined) throw new Error('Data not set!')
 
       return this._data
