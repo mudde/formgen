@@ -12175,8 +12175,10 @@ var Form = /** @class */ (function (_super) {
         _this._panels = {};
         _this._additionalJs = [];
         _this._rules = {};
+        _this._method = '';
+        _this._action = '';
         _this.configuring(config);
-        _this.form = new NodeCore_1.NodeCore('form', { method: 'POST', action: '.', id: _this.id });
+        _this.form = new NodeCore_1.NodeCore('form', { method: _this.method, action: _this.action, id: _this.id });
         Form._forms.push(_this);
         return _this;
     }
@@ -12189,7 +12191,9 @@ var Form = /** @class */ (function (_super) {
             layout: [],
             builder: [],
             data: {},
-            panels: {}
+            panels: {},
+            method: 'POST',
+            action: '.'
         };
     };
     Form.prototype.configureFields = function (rawFields) {
@@ -12378,6 +12382,26 @@ var Form = /** @class */ (function (_super) {
         },
         set: function (value) {
             this._data = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Form.prototype, "method", {
+        get: function () {
+            return this._method;
+        },
+        set: function (value) {
+            this._method = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Form.prototype, "action", {
+        get: function () {
+            return this._action;
+        },
+        set: function (value) {
+            this._action = value;
         },
         enumerable: false,
         configurable: true
@@ -13098,6 +13122,139 @@ exports.Radio = Radio;
 
 /***/ }),
 
+/***/ "./src/Input/Readonly.ts":
+/*!*******************************!*\
+  !*** ./src/Input/Readonly.ts ***!
+  \*******************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Readonly = void 0;
+var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
+var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
+var Readonly = /** @class */ (function (_super) {
+    __extends(Readonly, _super);
+    function Readonly(config, form) {
+        var _this = _super.call(this, form) || this;
+        _this._mask = '';
+        _this._format = '';
+        _this._prefix = '';
+        _this._suffix = '';
+        _this._multiple = false;
+        _this._spellcheck = false;
+        _this.configuring(config);
+        return _this;
+    }
+    Readonly.prototype.canBeMultilingual = function () { return true; };
+    Readonly.prototype.getDefaultConfig = function () {
+        return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { mask: '', format: '', prefix: '', suffix: '', multiple: false, spellcheck: false });
+    };
+    Readonly.prototype.coreHTMLInput = function (id, name, language) {
+        var element = new NodeCore_1.NodeCore('input', {
+            id: id,
+            name: name,
+            type: 'text',
+            placeholder: this.placeholder,
+            spellcheck: this.spellcheck,
+            readonly: ''
+        });
+        return element;
+    };
+    Object.defineProperty(Readonly.prototype, "mask", {
+        get: function () {
+            return this._mask;
+        },
+        set: function (value) {
+            this._mask = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Readonly.prototype, "format", {
+        get: function () {
+            return this._format;
+        },
+        set: function (value) {
+            this._format = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Readonly.prototype, "prefix", {
+        get: function () {
+            return this._prefix;
+        },
+        set: function (value) {
+            this._prefix = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Readonly.prototype, "suffix", {
+        get: function () {
+            return this._suffix;
+        },
+        set: function (value) {
+            this._suffix = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Readonly.prototype, "multiple", {
+        get: function () {
+            return this._multiple;
+        },
+        set: function (value) {
+            this._multiple = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Readonly.prototype, "spellcheck", {
+        get: function () {
+            return this._spellcheck;
+        },
+        set: function (value) {
+            this._spellcheck = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return Readonly;
+}(InputAbstract_1.InputAbstract));
+exports.Readonly = Readonly;
+
+
+/***/ }),
+
 /***/ "./src/Input/Select2.ts":
 /*!******************************!*\
   !*** ./src/Input/Select2.ts ***!
@@ -13603,6 +13760,7 @@ __exportStar(__webpack_require__(/*! ./UploadImage */ "./src/Input/UploadImage.t
 __exportStar(__webpack_require__(/*! ./Select2 */ "./src/Input/Select2.ts"), exports);
 __exportStar(__webpack_require__(/*! ./Select2Relation */ "./src/Input/Select2Relation.ts"), exports);
 __exportStar(__webpack_require__(/*! ./Ckeditor */ "./src/Input/Ckeditor.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Readonly */ "./src/Input/Readonly.ts"), exports);
 
 
 /***/ }),

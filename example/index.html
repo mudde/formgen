@@ -79,7 +79,7 @@
     </div>
 
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/jquery-validation/dist/jquery.validate.min.js"></script>"
     <script src="../node_modules/select2/dist/js/select2.min.js"></script>
     <script src="./script/ckeditor.js"></script>
@@ -293,13 +293,17 @@
                 ]
             }]
           }
-    
     </script>
 
     <script>
-        var config = JSON.parse(document.getElementById('config').innerText)
-        var formgen = new MuddeFormgen.Form(config)
-        document.getElementById('main').innerHTML = formgen.render().root.outerHTML
+        async function init() {
+            var config = await $.ajax({ url: './api/form/product.json', })
+            var formgen = new MuddeFormgen.Form(config)
+
+            document.getElementById('main').innerHTML = formgen.render().root.outerHTML
+        }
+
+        init()
     </script>
 
 </body>

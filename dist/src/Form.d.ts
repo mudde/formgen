@@ -15,6 +15,8 @@ export declare class Form extends ConfigurableAbstract {
     private _panels;
     private _additionalJs;
     private _rules;
+    private _method;
+    private _action;
     static _forms: Form[];
     constructor(config: any);
     getDefaultConfig(): any;
@@ -45,4 +47,8 @@ export declare class Form extends ConfigurableAbstract {
     set additionalJs(value: string[]);
     get data(): DataAbstract;
     set data(value: DataAbstract);
+    get method(): string;
+    set method(value: string);
+    get action(): string;
+    set action(value: string);
 }
