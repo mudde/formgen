@@ -4,9 +4,13 @@
   "type": "library",
   "license": "MIT",
   "authors": [
-      {
-          "name": "Olaf Mudde",
-          "email": "olaf.mudde@xs4all.nl"
-      }
-  ]
+    {
+      "name": "Olaf Mudde",
+      "email": "olaf.mudde@xs4all.nl"
+    }
+  ],
+  "require": {
+    "php": ">=8.0.0",
+    "mudde/core": "dev-main"
+  }
 }
