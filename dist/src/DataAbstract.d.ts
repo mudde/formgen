@@ -10,8 +10,8 @@ export declare abstract class DataAbstract extends ConfigurableAbstract implemen
     static readonly DATA_POST_GET = 8;
     private _form?;
     private _observers;
-    protected _data: [];
-    protected _originalData: [];
+    protected _data: any[];
+    protected _originalData: any[];
     constructor(form?: Form);
     getDefaultConfig(): {};
     abstract init(): any;
@@ -25,6 +25,6 @@ export declare abstract class DataAbstract extends ConfigurableAbstract implemen
     forEach(callable: any): DataAbstract;
     set form(value: Form);
     get form(): Form;
-    set data(value: []);
-    get data(): [];
+    set data(value: any[]);
+    get data(): any[];
 }

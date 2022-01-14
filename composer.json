@@ -9,6 +9,12 @@
       "email": "olaf.mudde@xs4all.nl"
     }
   ],
+  "repositories": [
+    {
+        "type": "git",
+        "url":  "git@github.com:mudde/core.git"
+    }
+  ],
   "require": {
     "php": ">=8.0.0",
     "mudde/core": "dev-main"

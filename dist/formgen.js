@@ -11796,26 +11796,33 @@ var Api = /** @class */ (function (_super) {
         _this._type = '';
         _this._contentType = '';
         _this._charset = '';
+        _this._id = '';
         _this.configuring(config);
         return _this;
     }
     Api.prototype.getDefaultConfig = function () {
-        return __assign({ url: '', type: 'get', contentType: 'application/json', charset: 'utf-8' }, _super.prototype.getDefaultConfig.call(this));
+        var _this = this;
+        return __assign({ url: '', type: 'get', contentType: 'application/json', charset: 'utf-8', done: function (data) {
+                _this._originalData = data;
+                _this.process();
+            }, fail: function (error) {
+                throw new Error(error.statusText);
+            }, processItem: function (item) { return item; } }, _super.prototype.getDefaultConfig.call(this));
     };
     Api.prototype.init = function () {
         jquery_1.default.ajax({
             url: this.url,
             type: this.type,
-            contentType: this.contentType + '; charset=' + this.charset,
-        }).then(function fulfillHandler(data) {
-            alert(data);
-        }, function rejectHandler(jqXHR, textStatus, errorThrown) {
-            alert(textStatus);
-        }).catch(function errorHandler(error) {
-            alert(error);
-        });
+            contentType: this.contentType + this.charset ? '; charset=' + this.charset : '',
+        }).then(this.done, this.fail);
+        return false;
     };
     Api.prototype.process = function () {
+        var _this = this;
+        var data = this._data;
+        this._originalData.forEach(function (item) {
+            data.push(_this.processItem(item));
+        });
     };
     Object.defineProperty(Api.prototype, "url", {
         get: function () {
@@ -11853,6 +11860,46 @@ var Api = /** @class */ (function (_super) {
         },
         set: function (value) {
             this._type = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Api.prototype, "id", {
+        get: function () {
+            return this._id;
+        },
+        set: function (value) {
+            this._id = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Api.prototype, "processItem", {
+        get: function () {
+            return this._processItem;
+        },
+        set: function (value) {
+            this._processItem = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Api.prototype, "fail", {
+        get: function () {
+            return this._fail;
+        },
+        set: function (value) {
+            this._fail = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Api.prototype, "done", {
+        get: function () {
+            return this._done;
+        },
+        set: function (value) {
+            this._done = value;
         },
         enumerable: false,
         configurable: true
@@ -12236,6 +12283,7 @@ var Form = /** @class */ (function (_super) {
         if (type) {
             var className = window['MuddeFormgen'].Data[type];
             object = new className(config, this);
+            !object.init() || object.process();
         }
         this._data = object;
     };
@@ -12249,18 +12297,22 @@ var Form = /** @class */ (function (_super) {
         var _a;
         if (this._form === undefined)
             throw new Error('Form not set!');
-        var main = this;
+        var additionalJs = this._additionalJs;
         var form = this._form;
         form.clear();
         this.addFields();
         this.addButtons();
         (_a = this._builder) === null || _a === void 0 ? void 0 : _a.handle(form);
         window.onload = function () {
-            var jsCode = '$.validator.setDefaults({ ignore: ".ck-hidden, .ck, .select2-search__field, .btn", debug: true }); var formgenValidator = $( "#' + _this.id + '" ).validate({ rules: ' + JSON.stringify(_this._rules) + '});formgenValidator.checkForm();formgenValidator.showErrors()';
-            var s = document.createElement('script');
-            main._additionalJs.push(jsCode);
-            s.text = main._additionalJs.join(';');
-            document.body.appendChild(s);
+            var script = document.createElement('script');
+            //  todo  js solution  Gr.O.M.
+            additionalJs.push('$.validator.setDefaults({ ignore: ".ck-hidden, .ck, .select2-search__field, .btn", debug: true });\
+          var formgenValidator = $( "#' + _this.id + '" ).validate({ rules: ' + JSON.stringify(_this._rules) + '});\
+          formgenValidator.checkForm();\
+          formgenValidator.showErrors()\
+         ');
+            script.text = additionalJs.join(';');
+            document.body.appendChild(script);
         };
         return form;
     };
@@ -12945,6 +12997,8 @@ var Combobox = /** @class */ (function (_super) {
         var type = StringHelper_1.StringHelper.ucfirst(config['_type']);
         var className = window['MuddeFormgen'].Data[type];
         var object = new className(config, this);
+        //  todo  attach DATA_LOADED observer to set actual form data  Gr.O.M.
+        //object.attach()
         this._data = object;
     };
     Combobox.prototype.coreHTMLInput = function (id, name, language) {
