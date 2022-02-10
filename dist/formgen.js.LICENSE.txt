@@ -1,0 +1,116 @@
+/*!
+ * Sizzle CSS Selector Engine v2.3.6
+ * https://sizzlejs.com/
+ *
+ * Copyright JS Foundation and other contributors
+ * Released under the MIT license
+ * https://js.foundation/
+ *
+ * Date: 2021-02-16
+ */
+
+/*!
+ * jQuery JavaScript Library v3.6.0
+ * https://jquery.com/
+ *
+ * Includes Sizzle.js
+ * https://sizzlejs.com/
+ *
+ * Copyright OpenJS Foundation and other contributors
+ * Released under the MIT license
+ * https://jquery.org/license
+ *
+ * Date: 2021-03-02T17:08Z
+ */
+
+/**
+ * Event for Observer pattern
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) 2021
+ * @license       MIT
+ */
+
+/**
+ * Generate and maniputate HTMLElements more easy
+ *
+ * example
+ * ---------------
+ * let node = new NodeCore('div', {class:'container'})
+ * node.appendElement_('div', {class:'row'})
+ *        .appendElement_('div', {class:'col'})
+ *           .appendElement('a', {href:'#', class:'btn btn-default'}, 'Click Me!')
+ *        ._()
+ *        .appendElement_('div', {class:'col'})
+ *           .appendElement('img', {src:'#', class:'photo'})
+ *        ._()
+ * -------
+ * OUTPUTS
+ * -------
+ * <div class='container'>
+ *    <div class='row'>
+ *       <div class='col'>
+ *          <a href='#' class='btn btn-default'>
+ *       </div>
+ *       <div class='col'>
+ *          <img src='#' class='photo'>
+ *       </div>
+ *    </div>
+ * </div>
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) copyright 2021 - Olaf Mudde
+ * @license       MIT
+ */
+
+/**
+ * StringHelper for common string mainpulations
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) 2021
+ * @license       MIT
+ */
+
+/**
+ * Subject for Observer pattern
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) 2021
+ * @license       MIT
+ */
+
+/**
+ * This will automatically configure your object
+ *
+ * example
+ * ---------------
+ * import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
+ *
+ * export class Form extends ConfigurableAbstract {
+ *
+ *    private _id: string = ''                   //  <-- empty init
+ *    private _languages: string[] = []
+ *
+ *    constructor(config: any) {
+ *       super()
+ *
+ *       this.configuring(config)
+ *    }
+ *
+ *    getDefaultConfig(): any {                 //  <-- set the default values of all
+ *       return {                               //      the fields you want to configure
+ *          id: GuidHelper.raw(),
+ *          languages: ['nl'],
+ *       }
+ *    }
+ *
+ *    private configureLanguages(rawFields: Object[]): void {     //  <-- if you want some extra checks
+ *       .. your code here                                        //      or create a new object create
+ *    }                                                           //      a method with the following signature
+ *                                                                //      configure<property name>(rawFields: Object[]): void
+ *  }
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) 2021
+ * @license       MIT
+ */
