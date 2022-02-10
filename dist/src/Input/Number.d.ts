@@ -1,13 +1,11 @@
-import { NodeCore } from "mudde-core/src/Core/NodeCore";
+import { NodeCore } from "../../node_modules/mudde-core/src/Core/NodeCore";
 import { Form } from "../Form";
 import { InputAbstract } from "../InputAbstract";
-export declare class Readonly extends InputAbstract {
+export declare class Number extends InputAbstract {
     private _mask;
     private _format;
     private _prefix;
     private _suffix;
-    private _multiple;
-    private _spellcheck;
     constructor(config: any, form: Form);
     protected canBeMultilingual(): boolean;
     getDefaultConfig(): {
@@ -15,8 +13,6 @@ export declare class Readonly extends InputAbstract {
         format: string;
         prefix: string;
         suffix: string;
-        multiple: boolean;
-        spellcheck: boolean;
         _type: string;
         id: string;
         input: boolean;
@@ -28,6 +24,7 @@ export declare class Readonly extends InputAbstract {
         panel: any;
         autofocus: boolean;
         require: boolean;
+        readonly: boolean;
         hidden: boolean;
         multilingual: boolean;
         builders: any[];
@@ -41,8 +38,4 @@ export declare class Readonly extends InputAbstract {
     get prefix(): string;
     set suffix(value: string);
     get suffix(): string;
-    set multiple(value: boolean);
-    get multiple(): boolean;
-    set spellcheck(value: boolean);
-    get spellcheck(): boolean;
 }

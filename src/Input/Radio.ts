@@ -17,7 +17,7 @@ export class Radio extends GroupInputAbstract {
 
    coreHTMLInput(id: string, name: string, language: string): NodeCore {
       let currentData = this.currentData
-      let element: NodeCore = new NodeCore('div', { 'class': 'form-check', style: 'display: table-cell;' })
+      let element: NodeCore = new NodeCore('div', { 'class': 'form-check table-cell' })
       let newId = id + '_' + currentData.id
 
       element

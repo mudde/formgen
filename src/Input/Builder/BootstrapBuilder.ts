@@ -5,8 +5,6 @@ export class BootstrapBuilder extends InputBuilderAbstract {
 
    coreBuild(output: NodeCore): void {
       let input = this.input
-      output.gotoRoot().addClass('mb-1')
-
       let label = output.getElementByTagName('label').item(0)
       label?.classList.add('form-label')
 

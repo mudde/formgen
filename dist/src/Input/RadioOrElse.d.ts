@@ -1,7 +1,7 @@
-import { NodeCore } from "../../node_modules/mudde-core/src/Core/NodeCore";
+import { NodeCore } from "mudde-core/src/Core/NodeCore";
 import { Form } from "../Form";
 import { GroupInputAbstract } from "../GroupInputAbstract";
-export declare class Checkbox extends GroupInputAbstract {
+export declare class RadioOrElse extends GroupInputAbstract {
     constructor(config: any, form: Form);
     getDefaultConfig(): {
         data: import("../Data").Array;

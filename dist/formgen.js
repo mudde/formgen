@@ -10917,12 +10917,7 @@ var BaseHandler = /** @class */ (function () {
     function BaseHandler() {
     }
     BaseHandler.prototype.setNext = function (event) {
-        if (this._nextEvent) {
-            this._nextEvent.setNext(event);
-        }
-        else {
-            this._nextEvent = event;
-        }
+        this._nextEvent = event;
         return event;
     };
     BaseHandler.prototype.handle = function (data) {
@@ -10955,6 +10950,41 @@ exports.BaseHandler = BaseHandler;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ConfigurableAbstract = void 0;
+/**
+ * This will automatically configure your object
+ *
+ * example
+ * ---------------
+ * import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
+ *
+ * export class Form extends ConfigurableAbstract {
+ *
+ *    private _id: string = ''                   //  <-- empty init
+ *    private _languages: string[] = []
+ *
+ *    constructor(config: any) {
+ *       super()
+ *
+ *       this.configuring(config)
+ *    }
+ *
+ *    getDefaultConfig(): any {                 //  <-- set the default values of all
+ *       return {                               //      the fields you want to configure
+ *          id: GuidHelper.raw(),
+ *          languages: ['nl'],
+ *       }
+ *    }
+ *
+ *    private configureLanguages(rawFields: Object[]): void {     //  <-- if you want some extra checks
+ *       .. your code here                                        //      or create a new object create
+ *    }                                                           //      a method with the following signature
+ *                                                                //      configure<property name>(rawFields: Object[]): void
+ *  }
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) 2021
+ * @license       MIT
+ */
 var StringHelper_1 = __webpack_require__(/*! ../Helper/StringHelper */ "./node_modules/mudde-core/src/Helper/StringHelper.ts");
 var ConfigurableAbstract = /** @class */ (function () {
     function ConfigurableAbstract() {
@@ -10990,10 +11020,17 @@ exports.ConfigurableAbstract = ConfigurableAbstract;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Event = void 0;
+/**
+ * Event for Observer pattern
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) 2021
+ * @license       MIT
+ */
 var Event = /** @class */ (function () {
-    function Event(source, event) {
+    function Event(source, eventNumber) {
         this._source = source;
-        this._eventNumber = event;
+        this._eventNumber = eventNumber;
     }
     Object.defineProperty(Event.prototype, "source", {
         get: function () {
@@ -11030,9 +11067,42 @@ exports.Event = Event;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.NodeCore = void 0;
+/**
+ * Generate and maniputate HTMLElements more easy
+ *
+ * example
+ * ---------------
+ * let node = new NodeCore('div', {class:'container'})
+ * node.appendElement_('div', {class:'row'})
+ *        .appendElement_('div', {class:'col'})
+ *           .appendElement('a', {href:'#', class:'btn btn-default'}, 'Click Me!')
+ *        ._()
+ *        .appendElement_('div', {class:'col'})
+ *           .appendElement('img', {src:'#', class:'photo'})
+ *        ._()
+ * -------
+ * OUTPUTS
+ * -------
+ * <div class='container'>
+ *    <div class='row'>
+ *       <div class='col'>
+ *          <a href='#' class='btn btn-default'>
+ *       </div>
+ *       <div class='col'>
+ *          <img src='#' class='photo'>
+ *       </div>
+ *    </div>
+ * </div>
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) copyright 2021 - Olaf Mudde
+ * @license       MIT
+ */
 var NodeCore = /** @class */ (function () {
     function NodeCore(tagName, attributes, text, documentX) {
         this._idSearch = [];
+        this._click = ['click'];
+        this._change = ['keydown', 'keypress', 'keyup', 'mousedown', 'mouseup', 'change'];
         this._document = documentX !== null && documentX !== void 0 ? documentX : document;
         this._root = this._current = tagName[0] === '#'
             ? this.getNodeById(tagName.substr(1))
@@ -11061,6 +11131,20 @@ var NodeCore = /** @class */ (function () {
             node.innerText = text;
         }
         return node;
+    };
+    NodeCore.prototype.click = function (callable) {
+        var current = this.current;
+        this._click.forEach(function (name) {
+            current.addEventListener(name, callable);
+        });
+        return this;
+    };
+    NodeCore.prototype.change = function (callable) {
+        var current = this.current;
+        this._change.forEach(function (name) {
+            current.addEventListener(name, callable);
+        });
+        return this;
     };
     NodeCore.prototype.moveInNode = function (callable) {
         var current = this.current;
@@ -11105,7 +11189,7 @@ var NodeCore = /** @class */ (function () {
     };
     NodeCore.prototype.addClass = function (className) {
         var currentClass = this.current.className;
-        this.current.setAttribute('class', (currentClass + " " + className).trimLeft());
+        this.current.setAttribute('class', "".concat(currentClass, " ").concat(className).trimLeft());
         return this;
     };
     NodeCore.prototype.removeClass = function (className) {
@@ -11303,6 +11387,60 @@ exports.NodeCore = NodeCore;
 
 /***/ }),
 
+/***/ "./node_modules/mudde-core/src/Core/SubjectAbstract.ts":
+/*!*************************************************************!*\
+  !*** ./node_modules/mudde-core/src/Core/SubjectAbstract.ts ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.SubjectAbstract = void 0;
+var Event_1 = __webpack_require__(/*! ./Event */ "./node_modules/mudde-core/src/Core/Event.ts");
+/**
+ * Subject for Observer pattern
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) 2021
+ * @license       MIT
+ */
+var SubjectAbstract = /** @class */ (function () {
+    function SubjectAbstract() {
+        this._observers = [];
+    }
+    SubjectAbstract.prototype.attach = function (observer) {
+        var _a;
+        var eventNumber = observer.eventNumber || null;
+        if (!eventNumber)
+            return;
+        this._observers[eventNumber] = (_a = this._observers[eventNumber]) !== null && _a !== void 0 ? _a : [];
+        this._observers[eventNumber].push(observer);
+    };
+    SubjectAbstract.prototype.detach = function (observer) {
+        var eventNumber = observer.eventNumber || null;
+        if (!eventNumber)
+            return;
+        if (this._observers[eventNumber]) {
+            this._observers[eventNumber].flatten(function (item) { return item !== observer; });
+        }
+    };
+    SubjectAbstract.prototype.notify = function (source, eventNumber) {
+        if (eventNumber === void 0) { eventNumber = null; }
+        var event = source instanceof Event_1.Event ? source : new Event_1.Event(source, eventNumber);
+        if (this._observers[eventNumber]) {
+            this._observers[eventNumber].forEach(function (element) {
+                element.update(event);
+            });
+        }
+    };
+    return SubjectAbstract;
+}());
+exports.SubjectAbstract = SubjectAbstract;
+
+
+/***/ }),
+
 /***/ "./node_modules/mudde-core/src/Helper/GuidHelper.ts":
 /*!**********************************************************!*\
   !*** ./node_modules/mudde-core/src/Helper/GuidHelper.ts ***!
@@ -11313,7 +11451,12 @@ exports.NodeCore = NodeCore;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GuidHelper = void 0;
-// https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts
+/**
+ * GuidHelper
+ *
+ * @source        https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts
+ */
+// 
 var GuidHelper = /** @class */ (function () {
     function GuidHelper(guid) {
         if (!guid) {
@@ -11361,7 +11504,7 @@ var GuidHelper = /** @class */ (function () {
             value: this.value,
         };
     };
-    GuidHelper.validator = new RegExp("^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$", "i");
+    GuidHelper.validator = new RegExp("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$", "i");
     GuidHelper.EMPTY = "00000000-0000-0000-0000-000000000000";
     return GuidHelper;
 }());
@@ -11380,6 +11523,13 @@ exports.GuidHelper = GuidHelper;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.StringHelper = void 0;
+/**
+ * StringHelper for common string mainpulations
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) 2021
+ * @license       MIT
+ */
 var StringHelper = /** @class */ (function () {
     function StringHelper() {
     }
@@ -11475,7 +11625,7 @@ var TabsBuilder = /** @class */ (function (_super) {
             var x = panels.item(key);
             var panelId = x.id;
             var panelLabel = x.getAttribute('data-formgen-name');
-            var javascript = "javascript:var panelName='" + panelId + "'; Array.from(document.getElementById('main').firstChild.getElementsByClassName('panel')).forEach(element=>{ if(element.id === panelName){ element.removeAttribute('hidden')} else { element.setAttribute('hidden', '') } });Array.from(document.getElementById('main').firstChild.getElementsByClassName('nav-link')).forEach(element=>{ if(element.innerText === panelName){ element.classList.add('active') } else { element.classList.remove('active')} })";
+            var javascript = "javascript:var panelName='".concat(panelId, "'; Array.from(document.getElementById('main').firstChild.getElementsByClassName('panel')).forEach(element=>{ if(element.id === panelName){ element.removeAttribute('hidden')} else { element.setAttribute('hidden', '') } });Array.from(document.getElementById('main').firstChild.getElementsByClassName('nav-link')).forEach(element=>{ if(element.innerText === panelName){ element.classList.add('active') } else { element.classList.remove('active')} })");
             tabs
                 .appendElement(new NodeCore_1.NodeCore('li', { class: 'nav-item' }))
                 .appendElement(new NodeCore_1.NodeCore('a', { class: 'nav-link ', href: javascript }, panelLabel));
@@ -11615,8 +11765,8 @@ var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Core/
 var ButtonAbstract_1 = __webpack_require__(/*! ../ButtonAbstract */ "./src/ButtonAbstract.ts");
 var Submit = /** @class */ (function (_super) {
     __extends(Submit, _super);
-    function Submit(config) {
-        var _this = _super.call(this) || this;
+    function Submit(config, form) {
+        var _this = _super.call(this, form) || this;
         _this.configuring(config);
         return _this;
     }
@@ -11624,11 +11774,12 @@ var Submit = /** @class */ (function (_super) {
         return __assign({}, _super.prototype.getDefaultConfig.call(this));
     };
     Submit.prototype.coreHTMLInput = function (id, name, language) {
+        var formId = this.form.id;
         //  todo  Onclick naar andere functie!  Gr.O.M.
         var attributes = {
             type: 'button',
             class: 'btn btn-primary',
-            onclick: "javascript:\n         var data = {};\n         Array.from(document.forms[0].elements).forEach(element => {\n             if (element.name) {\n                console.debug(element.type)\n                 if (element.type === 'file') {\n                     data[element.name] = Array.from(element.files).flatMap(x => { return x.name });\n                 } else if(element.type === 'select-multiple') {\n                     data[element.name] = Array.from(element.selectedOptions).flatMap(x=>{ return x.value  })\n                 } else {\n                     data[element.name] = element.value\n                 }\n             }\n         });\n         alert(JSON.stringify({valid: document.forms[0].checkValidity(),...data}, null, 4));\n         return false",
+            onclick: "javascript:\n         var data = {};\n         var form = document.forms['".concat(formId, "'];\n         Array.from(form.elements).forEach(element => {\n             if (element.name && element.name !== \"id\") {\n                console.debug(element.type)\n                 if (element.type === 'file') {\n                     data[element.name] = Array.from(element.files).flatMap(x => { return x.name });\n                 } else if(element.type === 'select-multiple') {\n                     data[element.name] = Array.from(element.selectedOptions).flatMap(x=>{ return x.value  })\n                 } else {\n                     data[element.name] = element.value\n                 }\n             }\n         });\n         $.ajax({\n            url:'./api/taxes',\n            type:\"POST\",\n            data: JSON.stringify(data),\n            contentType:\"application/json; charset=utf-8\",\n            dataType:\"json\",\n            success: function(data){\n               console.debug(data); \n            },\n            fail: function (error) {\n               console.debug(error); \n            }\n          })\n         return false"),
             value: this.label
         };
         var element = new NodeCore_1.NodeCore('input', attributes);
@@ -11695,10 +11846,11 @@ var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/
 var GuidHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Helper/GuidHelper */ "./node_modules/mudde-core/src/Helper/GuidHelper.ts");
 var ButtonAbstract = /** @class */ (function (_super) {
     __extends(ButtonAbstract, _super);
-    function ButtonAbstract() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
+    function ButtonAbstract(form) {
+        var _this = _super.call(this) || this;
         _this.__type = '';
         _this._label = '';
+        _this._form = form;
         return _this;
     }
     ButtonAbstract.prototype.getDefaultConfig = function () {
@@ -11726,6 +11878,18 @@ var ButtonAbstract = /** @class */ (function (_super) {
         },
         set: function (value) {
             this._label = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(ButtonAbstract.prototype, "form", {
+        get: function () {
+            if (this._form === undefined)
+                throw new Error('Input not properly initialized!');
+            return this._form;
+        },
+        set: function (value) {
+            this._form = value;
         },
         enumerable: false,
         configurable: true
@@ -12021,13 +12185,13 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DataAbstract = void 0;
-var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Core/ConfigurableAbstract.ts");
-var DataEvent_1 = __webpack_require__(/*! ./DataEvent */ "./src/DataEvent.ts");
+var ts_mixer_1 = __webpack_require__(/*! ts-mixer */ "./node_modules/ts-mixer/dist/esm/index.js");
+var ConfigurableAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Core/ConfigurableAbstract.ts");
+var SubjectAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/SubjectAbstract */ "./node_modules/mudde-core/src/Core/SubjectAbstract.ts");
 var DataAbstract = /** @class */ (function (_super) {
     __extends(DataAbstract, _super);
     function DataAbstract(form) {
         var _this = _super.call(this) || this;
-        _this._observers = {};
         _this._data = [];
         _this._originalData = [];
         if (form) {
@@ -12042,46 +12206,18 @@ var DataAbstract = /** @class */ (function (_super) {
         };
     };
     DataAbstract.prototype.get = function (id) {
-        var event = new DataEvent_1.DataEvent(this, DataAbstract.DATA_PRE_GET, id);
-        this.notify(event);
+        this.notify(this, DataAbstract.DATA_PRE_GET);
         var value = this._data[id];
-        var event = new DataEvent_1.DataEvent(this, DataAbstract.DATA_POST_GET, id);
-        this.notify(event);
+        this.notify(this, DataAbstract.DATA_POST_GET);
         return value;
     };
     DataAbstract.prototype.set = function (id, value) {
-        var event = new DataEvent_1.DataEvent(this, DataAbstract.DATA_PRE_SET, id);
-        this.notify(event);
+        this.notify(this, DataAbstract.DATA_PRE_SET);
         this._data[id] = value;
-        var event = new DataEvent_1.DataEvent(this, DataAbstract.DATA_POST_SET, id);
-        this.notify(event);
+        this.notify(this, DataAbstract.DATA_POST_SET);
     };
     DataAbstract.prototype.restore = function (id) {
         this._data[id] = this._originalData[id];
-    };
-    DataAbstract.prototype.attach = function (observer) {
-        var observerList = this._observers;
-        if (observerList[observer.eventNumber] === undefined) {
-            observerList[observer.eventNumber] = [];
-        }
-        observerList[observer.eventNumber].push(observer);
-    };
-    DataAbstract.prototype.detach = function (observer) {
-        var observerList = this._observers[observer.eventNumber];
-        if (observerList) {
-            observerList.filter(function (ownObserver) {
-                return ownObserver === observer;
-            });
-        }
-    };
-    DataAbstract.prototype.notify = function (event) {
-        var eventNumber = event.eventNumber;
-        var observerList = this._observers[eventNumber];
-        if (observerList) {
-            observerList.forEach(function (observer) {
-                observer.update(event);
-            });
-        }
     };
     DataAbstract.prototype.forEach = function (callable) {
         this._data.forEach(callable);
@@ -12116,7 +12252,7 @@ var DataAbstract = /** @class */ (function (_super) {
     DataAbstract.DATA_PRE_GET = 4;
     DataAbstract.DATA_POST_GET = 8;
     return DataAbstract;
-}(ConfigurableAbstract_1.ConfigurableAbstract));
+}((0, ts_mixer_1.Mixin)(ConfigurableAbstract_1.ConfigurableAbstract, SubjectAbstract_1.SubjectAbstract)));
 exports.DataAbstract = DataAbstract;
 
 
@@ -12224,9 +12360,9 @@ var Form = /** @class */ (function (_super) {
         _this._rules = {};
         _this._method = '';
         _this._action = '';
-        _this.configuring(config);
-        _this.form = new NodeCore_1.NodeCore('form', { method: _this.method, action: _this.action, id: _this.id });
         Form._forms.push(_this);
+        _this.form = new NodeCore_1.NodeCore('form', { method: _this.method, action: _this.action, id: _this.id });
+        _this.configuring(config);
         return _this;
     }
     Form.prototype.getDefaultConfig = function () {
@@ -12290,31 +12426,26 @@ var Form = /** @class */ (function (_super) {
     Form.getFormById = function (id) {
         var filterFunction = function (form) { return form.id === id; };
         var form = Form._forms.filter(filterFunction);
-        return form.length === 0 ? null : form[0];
+        return form && form.length === 0 ? null : form[0];
     };
     Form.prototype.render = function () {
-        var _this = this;
         var _a;
         if (this._form === undefined)
             throw new Error('Form not set!');
-        var additionalJs = this._additionalJs;
         var form = this._form;
-        form.clear();
         this.addFields();
         this.addButtons();
         (_a = this._builder) === null || _a === void 0 ? void 0 : _a.handle(form);
-        window.onload = function () {
-            var script = document.createElement('script');
-            //  todo  js solution  Gr.O.M.
-            additionalJs.push('$.validator.setDefaults({ ignore: ".ck-hidden, .ck, .select2-search__field, .btn", debug: true });\
-          var formgenValidator = $( "#' + _this.id + '" ).validate({ rules: ' + JSON.stringify(_this._rules) + '});\
-          formgenValidator.checkForm();\
-          formgenValidator.showErrors()\
-         ');
-            script.text = additionalJs.join(';');
-            document.body.appendChild(script);
-        };
+        this.handleXtraJs();
         return form;
+    };
+    Form.prototype.handleXtraJs = function () {
+        var additionalJs = this._additionalJs;
+        //  todo  more descent js solution  Gr.O.M.
+        additionalJs.push("var formgenValidator;\n            $.validator.setDefaults({ ignore: \".ck-hidden, .ck, .select2-search__field, .btn\", debug: true });\n            formgenValidator = $( \"#".concat(this.id, "\" ).validate({ rules: ").concat(JSON.stringify(this._rules), "});\n            formgenValidator.checkForm();\n            formgenValidator.showErrors();"));
+        var script = document.createElement('script');
+        script.text = "function additionalScript() { ".concat(additionalJs.join(';'), " };\n      $(document).ready( () => { additionalScript() } );");
+        document.body.appendChild(script);
     };
     Form.prototype.initPanel = function (panelId, panelLabel) {
         var form = this._form;
@@ -12333,6 +12464,7 @@ var Form = /** @class */ (function (_super) {
         var _this = this;
         var form = this._form;
         var main = this;
+        form.clear();
         this.fields.forEach(function (field) {
             var _a;
             var panelId = 'panel_' + field.panel;
@@ -12458,6 +12590,9 @@ var Form = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+    Form.EVENT_FORM_PRE_CONFIGURE = 1;
+    Form.EVENT_FORM_POST_CONFIGURE = 2;
+    Form.EVENT_FORM_FINISHED = 3;
     Form._forms = [];
     return Form;
 }(ConfigurableAbstract_1.ConfigurableAbstract));
@@ -12580,8 +12715,8 @@ var GroupInputAbstract = /** @class */ (function (_super) {
         this._data.forEach(function (data) {
             _this.currentData = data;
             languages.forEach(function (language) {
-                var id = isMultilingual ? mainId + "_" + language : mainId;
-                var name = isMultilingual ? mainId + "[" + language + "]" : mainId;
+                var id = isMultilingual ? "".concat(mainId, "_").concat(language) : mainId;
+                var name = isMultilingual ? "".concat(mainId, "[").concat(language, "]") : mainId;
                 var object = _this.coreHTMLInput(id, name, language);
                 ids.push(object);
                 output.appendElement_(object);
@@ -12636,11 +12771,11 @@ var IconHelper = /** @class */ (function () {
     }
     IconHelper.suitHeart = function (size) {
         if (size === void 0) { size = '1em'; }
-        return "<svg width=\"" + size + "\" height=\"" + size + "\" viewBox=\"0 0 16 16\" class=\"bi bi-suit-heart ml-1\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n      <path fill-rule=\"evenodd\" d=\"M8 6.236l.894-1.789c.222-.443.607-1.08 1.152-1.595C10.582 2.345 11.224 2 12 2c1.676 0 3 1.326 3 2.92 0 1.211-.554 2.066-1.868 3.37-.337.334-.721.695-1.146 1.093C10.878 10.423 9.5 11.717 8 13.447c-1.5-1.73-2.878-3.024-3.986-4.064-.425-.398-.81-.76-1.146-1.093C1.554 6.986 1 6.131 1 4.92 1 3.326 2.324 2 4 2c.776 0 1.418.345 1.954.852.545.515.93 1.152 1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z\"/>\n      </svg>";
+        return "<svg width=\"".concat(size, "\" height=\"").concat(size, "\" viewBox=\"0 0 16 16\" class=\"bi bi-suit-heart ml-1\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n      <path fill-rule=\"evenodd\" d=\"M8 6.236l.894-1.789c.222-.443.607-1.08 1.152-1.595C10.582 2.345 11.224 2 12 2c1.676 0 3 1.326 3 2.92 0 1.211-.554 2.066-1.868 3.37-.337.334-.721.695-1.146 1.093C10.878 10.423 9.5 11.717 8 13.447c-1.5-1.73-2.878-3.024-3.986-4.064-.425-.398-.81-.76-1.146-1.093C1.554 6.986 1 6.131 1 4.92 1 3.326 2.324 2 4 2c.776 0 1.418.345 1.954.852.545.515.93 1.152 1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z\"/>\n      </svg>");
     };
     IconHelper.starFill = function (size) {
         if (size === void 0) { size = '1em'; }
-        return "<svg width=\"" + size + "\" height=\"" + size + "\" viewBox=\"0 0 16 16\" class=\"bi bi-star-fill ml-1 mb-2\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n      <path d=\"M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z\"/>\n    </svg>";
+        return "<svg width=\"".concat(size, "\" height=\"").concat(size, "\" viewBox=\"0 0 16 16\" class=\"bi bi-star-fill ml-1 mb-2\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n      <path d=\"M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z\"/>\n    </svg>");
     };
     return IconHelper;
 }());
@@ -12708,7 +12843,6 @@ var BootstrapBuilder = /** @class */ (function (_super) {
     }
     BootstrapBuilder.prototype.coreBuild = function (output) {
         var input = this.input;
-        output.gotoRoot().addClass('mb-1');
         var label = output.getElementByTagName('label').item(0);
         label === null || label === void 0 ? void 0 : label.classList.add('form-label');
         var help = output.getElementByClass('help').item(0);
@@ -12730,7 +12864,7 @@ var BootstrapBuilder = /** @class */ (function (_super) {
                     .moveInNode(function (oldNode) {
                     return new NodeCore_1.NodeCore('div', { class: 'input-group mb-1' })
                         .appendNode_('span', { class: 'input-group-text' })
-                        .appendNode('i', { class: language + " flag mr-0" })
+                        .appendNode('i', { class: "".concat(language, " flag mr-0") })
                         ._()
                         .appendElement_(oldNode);
                 });
@@ -12787,7 +12921,6 @@ var GeneralBuilder = /** @class */ (function (_super) {
         label.innerHTML = labelText;
         output
             .gotoRoot()
-            .setAttributes({ 'style': 'margin-bottom: 10px;' })
             .prependElement_(label)
             .appendElement_(help)
             .appendElement_(error);
@@ -12875,7 +13008,7 @@ var Checkbox = /** @class */ (function (_super) {
     };
     Checkbox.prototype.coreHTMLInput = function (id, name, language) {
         var currentData = this.currentData;
-        var element = new NodeCore_1.NodeCore('div', { 'class': 'form-check', style: 'display: table-cell;' });
+        var element = new NodeCore_1.NodeCore('div', { 'class': 'form-check table-cell' });
         var newId = id + '_' + currentData.id;
         element
             .appendNode('input', {
@@ -13103,6 +13236,118 @@ exports.Email = Email;
 
 /***/ }),
 
+/***/ "./src/Input/Number.ts":
+/*!*****************************!*\
+  !*** ./src/Input/Number.ts ***!
+  \*****************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Number = void 0;
+var NodeCore_1 = __webpack_require__(/*! ../../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
+var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
+var Number = /** @class */ (function (_super) {
+    __extends(Number, _super);
+    function Number(config, form) {
+        var _this = _super.call(this, form) || this;
+        _this._mask = '';
+        _this._format = '';
+        _this._prefix = '';
+        _this._suffix = '';
+        _this.configuring(config);
+        return _this;
+    }
+    Number.prototype.canBeMultilingual = function () { return true; };
+    Number.prototype.getDefaultConfig = function () {
+        return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { mask: '', format: '', prefix: '', suffix: '' });
+    };
+    Number.prototype.coreHTMLInput = function (id, name, language) {
+        var element = new NodeCore_1.NodeCore('input', {
+            id: id,
+            name: name,
+            type: 'number',
+            placeholder: this.placeholder,
+        });
+        if (this.readonly) {
+            element.setAttributes({ readonly: true });
+        }
+        return element;
+    };
+    Object.defineProperty(Number.prototype, "mask", {
+        get: function () {
+            return this._mask;
+        },
+        set: function (value) {
+            this._mask = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Number.prototype, "format", {
+        get: function () {
+            return this._format;
+        },
+        set: function (value) {
+            this._format = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Number.prototype, "prefix", {
+        get: function () {
+            return this._prefix;
+        },
+        set: function (value) {
+            this._prefix = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Number.prototype, "suffix", {
+        get: function () {
+            return this._suffix;
+        },
+        set: function (value) {
+            this._suffix = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return Number;
+}(InputAbstract_1.InputAbstract));
+exports.Number = Number;
+
+
+/***/ }),
+
 /***/ "./src/Input/Radio.ts":
 /*!****************************!*\
   !*** ./src/Input/Radio.ts ***!
@@ -13153,7 +13398,7 @@ var Radio = /** @class */ (function (_super) {
     };
     Radio.prototype.coreHTMLInput = function (id, name, language) {
         var currentData = this.currentData;
-        var element = new NodeCore_1.NodeCore('div', { 'class': 'form-check', style: 'display: table-cell;' });
+        var element = new NodeCore_1.NodeCore('div', { 'class': 'form-check table-cell' });
         var newId = id + '_' + currentData.id;
         element
             .appendNode('input', {
@@ -13176,10 +13421,10 @@ exports.Radio = Radio;
 
 /***/ }),
 
-/***/ "./src/Input/Readonly.ts":
-/*!*******************************!*\
-  !*** ./src/Input/Readonly.ts ***!
-  \*******************************/
+/***/ "./src/Input/RadioOrElse.ts":
+/*!**********************************!*\
+  !*** ./src/Input/RadioOrElse.ts ***!
+  \**********************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13211,100 +13456,40 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Readonly = void 0;
+exports.RadioOrElse = void 0;
 var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
-var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
-var Readonly = /** @class */ (function (_super) {
-    __extends(Readonly, _super);
-    function Readonly(config, form) {
+var GroupInputAbstract_1 = __webpack_require__(/*! ../GroupInputAbstract */ "./src/GroupInputAbstract.ts");
+var RadioOrElse = /** @class */ (function (_super) {
+    __extends(RadioOrElse, _super);
+    function RadioOrElse(config, form) {
         var _this = _super.call(this, form) || this;
-        _this._mask = '';
-        _this._format = '';
-        _this._prefix = '';
-        _this._suffix = '';
-        _this._multiple = false;
-        _this._spellcheck = false;
         _this.configuring(config);
         return _this;
     }
-    Readonly.prototype.canBeMultilingual = function () { return true; };
-    Readonly.prototype.getDefaultConfig = function () {
-        return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { mask: '', format: '', prefix: '', suffix: '', multiple: false, spellcheck: false });
+    RadioOrElse.prototype.getDefaultConfig = function () {
+        return __assign({}, _super.prototype.getDefaultConfig.call(this));
     };
-    Readonly.prototype.coreHTMLInput = function (id, name, language) {
-        var element = new NodeCore_1.NodeCore('input', {
-            id: id,
+    RadioOrElse.prototype.coreHTMLInput = function (id, name, language) {
+        var currentData = this.currentData;
+        var element = new NodeCore_1.NodeCore('div', { 'class': 'form-check table-cell' });
+        var newId = id + '_' + currentData.id;
+        element
+            .appendNode('input', {
+            id: newId,
             name: name,
-            type: 'text',
-            placeholder: this.placeholder,
-            spellcheck: this.spellcheck,
-            readonly: ''
-        });
+            class: 'form-check-input',
+            type: 'radio',
+            value: currentData.id
+        })
+            .appendNode('label', {
+            'for': newId,
+            'class': 'form-check-label'
+        }, currentData.value);
         return element;
     };
-    Object.defineProperty(Readonly.prototype, "mask", {
-        get: function () {
-            return this._mask;
-        },
-        set: function (value) {
-            this._mask = value;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Readonly.prototype, "format", {
-        get: function () {
-            return this._format;
-        },
-        set: function (value) {
-            this._format = value;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Readonly.prototype, "prefix", {
-        get: function () {
-            return this._prefix;
-        },
-        set: function (value) {
-            this._prefix = value;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Readonly.prototype, "suffix", {
-        get: function () {
-            return this._suffix;
-        },
-        set: function (value) {
-            this._suffix = value;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Readonly.prototype, "multiple", {
-        get: function () {
-            return this._multiple;
-        },
-        set: function (value) {
-            this._multiple = value;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Readonly.prototype, "spellcheck", {
-        get: function () {
-            return this._spellcheck;
-        },
-        set: function (value) {
-            this._spellcheck = value;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    return Readonly;
-}(InputAbstract_1.InputAbstract));
-exports.Readonly = Readonly;
+    return RadioOrElse;
+}(GroupInputAbstract_1.GroupInputAbstract));
+exports.RadioOrElse = RadioOrElse;
 
 
 /***/ }),
@@ -13342,7 +13527,7 @@ var Select2 = /** @class */ (function (_super) {
     }
     Select2.prototype.coreHTMLInput = function (id, name, language) {
         var element = _super.prototype.coreHTMLInput.call(this, id, name, language);
-        element.gotoRoot().setAttributes({ 'style': 'opacity: 0;' });
+        //element.gotoRoot().setAttributes({'style':'opacity: 0;'})
         this.extraJs = "$('#" + id + "').select2();";
         return element;
     };
@@ -13387,14 +13572,14 @@ var Select2Relation = /** @class */ (function (_super) {
     }
     Select2Relation.prototype.coreHTMLInput = function (id, name, language) {
         var element = _super.prototype.coreHTMLInput.call(this, id, name, language);
+        element.setAttributes({ 'style': 'width: 97%;' });
         var modelId = 'model_' + id;
         var modelLabelId = 'model_label_' + id;
         var modelFormId = 'model_form_' + id;
-        element
-            .gotoRoot()
-            .setAttributes({ 'style': 'opacity: 0; max-width:97%;' });
-        var x = new NodeCore_1.NodeCore('div', { style: 'width:100%' })
-            .appendNode('button', { type: "button", class: "btn btn-primary", style: "padding: 3px 9px; float:right", "data-bs-toggle": "modal", "data-bs-target": "#" + modelId }, '+')
+        var uri = './api/taxes';
+        var formId = this.form.id;
+        var x = new NodeCore_1.NodeCore('div', { class: 'width-100' })
+            //  todo  move out of the form (postFormHtml)
             .appendNode_('div', { class: "modal fade", id: modelId, tabindex: "-1", "aria-labelledby": modelLabelId, "aria-hidden": "true" })
             .appendNode_('div', { class: "modal-dialog" })
             .appendNode_('div', { class: "modal-content" })
@@ -13404,7 +13589,8 @@ var Select2Relation = /** @class */ (function (_super) {
             ._()
             .appendNode_('div', { class: "modal-body" })
             .appendNode('div', { id: modelFormId });
-        this.extraJs = "$('#" + id + "').select2();$(`" + x.toHTML() + "`).insertAfter('#" + id + "')";
+        var y = new NodeCore_1.NodeCore('button', { type: "button", class: "btn btn-primary btn-self", "data-bs-toggle": "modal", "data-bs-target": "#" + modelId }, '+');
+        this.extraJs = "$(document).ready(()=>{\n         $('#".concat(id, "').select2();         $('").concat(y.toHTML(), "').insertAfter('#").concat(id, "');         $('").concat(x.toHTML(), "').insertAfter('#").concat(formId, "');         \n         $.ajax({ url: '").concat(uri, "' }).then((config) => {            let form = new MuddeFormgen.Form(config);            document.getElementById('").concat(modelFormId, "').innerHTML = form.render().root.outerHTML;         });\n      })");
         return element;
     };
     return Select2Relation;
@@ -13477,6 +13663,9 @@ var Text = /** @class */ (function (_super) {
             placeholder: this.placeholder,
             spellcheck: this.spellcheck
         });
+        if (this.readonly) {
+            element.setAttributes({ readonly: true });
+        }
         return element;
     };
     Object.defineProperty(Text.prototype, "mask", {
@@ -13542,6 +13731,139 @@ var Text = /** @class */ (function (_super) {
     return Text;
 }(InputAbstract_1.InputAbstract));
 exports.Text = Text;
+
+
+/***/ }),
+
+/***/ "./src/Input/TextRead.ts":
+/*!*******************************!*\
+  !*** ./src/Input/TextRead.ts ***!
+  \*******************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.TextRead = void 0;
+var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
+var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
+var TextRead = /** @class */ (function (_super) {
+    __extends(TextRead, _super);
+    function TextRead(config, form) {
+        var _this = _super.call(this, form) || this;
+        _this._mask = '';
+        _this._format = '';
+        _this._prefix = '';
+        _this._suffix = '';
+        _this._multiple = false;
+        _this._spellcheck = false;
+        _this.configuring(config);
+        return _this;
+    }
+    TextRead.prototype.canBeMultilingual = function () { return true; };
+    TextRead.prototype.getDefaultConfig = function () {
+        return __assign(__assign({}, _super.prototype.getDefaultConfig.call(this)), { mask: '', format: '', prefix: '', suffix: '', multiple: false, spellcheck: false });
+    };
+    TextRead.prototype.coreHTMLInput = function (id, name, language) {
+        var element = new NodeCore_1.NodeCore('input', {
+            id: id,
+            name: name,
+            type: 'text',
+            placeholder: this.placeholder,
+            spellcheck: this.spellcheck,
+            readonly: ''
+        });
+        return element;
+    };
+    Object.defineProperty(TextRead.prototype, "mask", {
+        get: function () {
+            return this._mask;
+        },
+        set: function (value) {
+            this._mask = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TextRead.prototype, "format", {
+        get: function () {
+            return this._format;
+        },
+        set: function (value) {
+            this._format = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TextRead.prototype, "prefix", {
+        get: function () {
+            return this._prefix;
+        },
+        set: function (value) {
+            this._prefix = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TextRead.prototype, "suffix", {
+        get: function () {
+            return this._suffix;
+        },
+        set: function (value) {
+            this._suffix = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TextRead.prototype, "multiple", {
+        get: function () {
+            return this._multiple;
+        },
+        set: function (value) {
+            this._multiple = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(TextRead.prototype, "spellcheck", {
+        get: function () {
+            return this._spellcheck;
+        },
+        set: function (value) {
+            this._spellcheck = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return TextRead;
+}(InputAbstract_1.InputAbstract));
+exports.TextRead = TextRead;
 
 
 /***/ }),
@@ -13804,17 +14126,19 @@ exports.Builder = void 0;
 var BuilderImport = __webpack_require__(/*! ./Builder */ "./src/Input/Builder/index.ts");
 exports.Builder = BuilderImport;
 __exportStar(__webpack_require__(/*! ./Checkbox */ "./src/Input/Checkbox.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Ckeditor */ "./src/Input/Ckeditor.ts"), exports);
 __exportStar(__webpack_require__(/*! ./Combobox */ "./src/Input/Combobox.ts"), exports);
 __exportStar(__webpack_require__(/*! ./Email */ "./src/Input/Email.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Number */ "./src/Input/Number.ts"), exports);
 __exportStar(__webpack_require__(/*! ./Radio */ "./src/Input/Radio.ts"), exports);
-__exportStar(__webpack_require__(/*! ./Text */ "./src/Input/Text.ts"), exports);
-__exportStar(__webpack_require__(/*! ./Textarea */ "./src/Input/Textarea.ts"), exports);
-__exportStar(__webpack_require__(/*! ./UploadFile */ "./src/Input/UploadFile.ts"), exports);
-__exportStar(__webpack_require__(/*! ./UploadImage */ "./src/Input/UploadImage.ts"), exports);
+__exportStar(__webpack_require__(/*! ./RadioOrElse */ "./src/Input/RadioOrElse.ts"), exports);
 __exportStar(__webpack_require__(/*! ./Select2 */ "./src/Input/Select2.ts"), exports);
 __exportStar(__webpack_require__(/*! ./Select2Relation */ "./src/Input/Select2Relation.ts"), exports);
-__exportStar(__webpack_require__(/*! ./Ckeditor */ "./src/Input/Ckeditor.ts"), exports);
-__exportStar(__webpack_require__(/*! ./Readonly */ "./src/Input/Readonly.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Text */ "./src/Input/Text.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Textarea */ "./src/Input/Textarea.ts"), exports);
+__exportStar(__webpack_require__(/*! ./TextRead */ "./src/Input/TextRead.ts"), exports);
+__exportStar(__webpack_require__(/*! ./UploadFile */ "./src/Input/UploadFile.ts"), exports);
+__exportStar(__webpack_require__(/*! ./UploadImage */ "./src/Input/UploadImage.ts"), exports);
 
 
 /***/ }),
@@ -13844,13 +14168,18 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.InputAbstract = void 0;
-var ConfigurableAbstract_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Core/ConfigurableAbstract.ts");
-var NodeCore_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
-var GuidHelper_1 = __webpack_require__(/*! ../node_modules/mudde-core/src/Helper/GuidHelper */ "./node_modules/mudde-core/src/Helper/GuidHelper.ts");
+var ts_mixer_1 = __webpack_require__(/*! ts-mixer */ "./node_modules/ts-mixer/dist/esm/index.js");
+var ConfigurableAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Core/ConfigurableAbstract.ts");
+var SubjectAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/SubjectAbstract */ "./node_modules/mudde-core/src/Core/SubjectAbstract.ts");
+var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
+var GuidHelper_1 = __webpack_require__(/*! mudde-core/src/Helper/GuidHelper */ "./node_modules/mudde-core/src/Helper/GuidHelper.ts");
 var InputAbstract = /** @class */ (function (_super) {
     __extends(InputAbstract, _super);
     function InputAbstract(form) {
         var _this = _super.call(this) || this;
+        _this.EVENT_INPUT_PRE_CONFIGURE = 1;
+        _this.EVENT_INPUT_POST_CONFIGURE = 2;
+        _this.EVENT_INPUT_FINISHED = 3;
         _this.__type = '';
         _this._id = '';
         _this._label = '';
@@ -13862,9 +14191,11 @@ var InputAbstract = /** @class */ (function (_super) {
         _this._autofocus = false;
         _this._hidden = false;
         _this._require = false;
+        _this._readonly = false;
         _this._multilingual = false;
         _this._coreIds = [];
         _this._extraJs = '';
+        _this.notify(_this, _this.EVENT_INPUT_PRE_CONFIGURE);
         _this._form = form;
         return _this;
     }
@@ -13887,6 +14218,7 @@ var InputAbstract = /** @class */ (function (_super) {
             panel: null,
             autofocus: false,
             require: false,
+            readonly: false,
             hidden: false,
             multilingual: false,
             builders: []
@@ -13931,8 +14263,8 @@ var InputAbstract = /** @class */ (function (_super) {
         var ids = this.coreIds = [];
         output.appendElement(this.preCoreHTMLInput());
         languages.forEach(function (language) {
-            var id = isMultilingual ? mainId + "_" + language : mainId;
-            var name = isMultilingual ? mainId + "[" + language + "]" : mainId;
+            var id = isMultilingual ? "".concat(mainId, "_").concat(language) : mainId;
+            var name = isMultilingual ? "".concat(mainId, "[").concat(language, "]") : mainId;
             var object = _this.coreHTMLInput(id, name, language);
             ids.push(object);
             output.appendElement_(object);
@@ -13947,7 +14279,7 @@ var InputAbstract = /** @class */ (function (_super) {
     };
     Object.defineProperty(InputAbstract.prototype, "isMultilingual", {
         get: function () {
-            var isMultilingualRequested = this.form.languages.length > 1 && this.multilingual;
+            var isMultilingualRequested = this.form && this.form.languages && this.form.languages.length > 1 && this.multilingual;
             return this.canBeMultilingual() && isMultilingualRequested;
         },
         enumerable: false,
@@ -14065,6 +14397,16 @@ var InputAbstract = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(InputAbstract.prototype, "readonly", {
+        get: function () {
+            return this._readonly;
+        },
+        set: function (value) {
+            this._readonly = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(InputAbstract.prototype, "multilingual", {
         get: function () {
             return this._multilingual;
@@ -14147,7 +14489,7 @@ var InputAbstract = /** @class */ (function (_super) {
         configurable: true
     });
     return InputAbstract;
-}(ConfigurableAbstract_1.ConfigurableAbstract));
+}((0, ts_mixer_1.Mixin)(ConfigurableAbstract_1.ConfigurableAbstract, SubjectAbstract_1.SubjectAbstract)));
 exports.InputAbstract = InputAbstract;
 
 
@@ -14483,6 +14825,392 @@ __exportStar(__webpack_require__(/*! ./InputBuilderAbstract */ "./src/InputBuild
 __exportStar(__webpack_require__(/*! ./ValidationAbstract */ "./src/ValidationAbstract.ts"), exports);
 
 
+/***/ }),
+
+/***/ "./node_modules/ts-mixer/dist/esm/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/ts-mixer/dist/esm/index.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Mixin": () => (/* binding */ Mixin),
+/* harmony export */   "decorate": () => (/* binding */ decorate),
+/* harmony export */   "hasMixin": () => (/* binding */ hasMixin),
+/* harmony export */   "mix": () => (/* binding */ mix),
+/* harmony export */   "settings": () => (/* binding */ settings)
+/* harmony export */ });
+/**
+ * Utility function that works like `Object.apply`, but copies getters and setters properly as well.  Additionally gives
+ * the option to exclude properties by name.
+ */
+const copyProps = (dest, src, exclude = []) => {
+    const props = Object.getOwnPropertyDescriptors(src);
+    for (let prop of exclude)
+        delete props[prop];
+    Object.defineProperties(dest, props);
+};
+/**
+ * Returns the full chain of prototypes up until Object.prototype given a starting object.  The order of prototypes will
+ * be closest to farthest in the chain.
+ */
+const protoChain = (obj, currentChain = [obj]) => {
+    const proto = Object.getPrototypeOf(obj);
+    if (proto === null)
+        return currentChain;
+    return protoChain(proto, [...currentChain, proto]);
+};
+/**
+ * Identifies the nearest ancestor common to all the given objects in their prototype chains.  For most unrelated
+ * objects, this function should return Object.prototype.
+ */
+const nearestCommonProto = (...objs) => {
+    if (objs.length === 0)
+        return undefined;
+    let commonProto = undefined;
+    const protoChains = objs.map(obj => protoChain(obj));
+    while (protoChains.every(protoChain => protoChain.length > 0)) {
+        const protos = protoChains.map(protoChain => protoChain.pop());
+        const potentialCommonProto = protos[0];
+        if (protos.every(proto => proto === potentialCommonProto))
+            commonProto = potentialCommonProto;
+        else
+            break;
+    }
+    return commonProto;
+};
+/**
+ * Creates a new prototype object that is a mixture of the given prototypes.  The mixing is achieved by first
+ * identifying the nearest common ancestor and using it as the prototype for a new object.  Then all properties/methods
+ * downstream of this prototype (ONLY downstream) are copied into the new object.
+ *
+ * The resulting prototype is more performant than softMixProtos(...), as well as ES5 compatible.  However, it's not as
+ * flexible as updates to the source prototypes aren't captured by the mixed result.  See softMixProtos for why you may
+ * want to use that instead.
+ */
+const hardMixProtos = (ingredients, constructor, exclude = []) => {
+    var _a;
+    const base = (_a = nearestCommonProto(...ingredients)) !== null && _a !== void 0 ? _a : Object.prototype;
+    const mixedProto = Object.create(base);
+    // Keeps track of prototypes we've already visited to avoid copying the same properties multiple times.  We init the
+    // list with the proto chain below the nearest common ancestor because we don't want any of those methods mixed in
+    // when they will already be accessible via prototype access.
+    const visitedProtos = protoChain(base);
+    for (let prototype of ingredients) {
+        let protos = protoChain(prototype);
+        // Apply the prototype chain in reverse order so that old methods don't override newer ones.
+        for (let i = protos.length - 1; i >= 0; i--) {
+            let newProto = protos[i];
+            if (visitedProtos.indexOf(newProto) === -1) {
+                copyProps(mixedProto, newProto, ['constructor', ...exclude]);
+                visitedProtos.push(newProto);
+            }
+        }
+    }
+    mixedProto.constructor = constructor;
+    return mixedProto;
+};
+const unique = (arr) => arr.filter((e, i) => arr.indexOf(e) == i);
+
+/**
+ * Finds the ingredient with the given prop, searching in reverse order and breadth-first if searching ingredient
+ * prototypes is required.
+ */
+const getIngredientWithProp = (prop, ingredients) => {
+    const protoChains = ingredients.map(ingredient => protoChain(ingredient));
+    // since we search breadth-first, we need to keep track of our depth in the prototype chains
+    let protoDepth = 0;
+    // not all prototype chains are the same depth, so this remains true as long as at least one of the ingredients'
+    // prototype chains has an object at this depth
+    let protosAreLeftToSearch = true;
+    while (protosAreLeftToSearch) {
+        // with the start of each horizontal slice, we assume this is the one that's deeper than any of the proto chains
+        protosAreLeftToSearch = false;
+        // scan through the ingredients right to left
+        for (let i = ingredients.length - 1; i >= 0; i--) {
+            const searchTarget = protoChains[i][protoDepth];
+            if (searchTarget !== undefined && searchTarget !== null) {
+                // if we find something, this is proof that this horizontal slice potentially more objects to search
+                protosAreLeftToSearch = true;
+                // eureka, we found it
+                if (Object.getOwnPropertyDescriptor(searchTarget, prop) != undefined) {
+                    return protoChains[i][0];
+                }
+            }
+        }
+        protoDepth++;
+    }
+    return undefined;
+};
+/**
+ * "Mixes" ingredients by wrapping them in a Proxy.  The optional prototype argument allows the mixed object to sit
+ * downstream of an existing prototype chain.  Note that "properties" cannot be added, deleted, or modified.
+ */
+const proxyMix = (ingredients, prototype = Object.prototype) => new Proxy({}, {
+    getPrototypeOf() {
+        return prototype;
+    },
+    setPrototypeOf() {
+        throw Error('Cannot set prototype of Proxies created by ts-mixer');
+    },
+    getOwnPropertyDescriptor(_, prop) {
+        return Object.getOwnPropertyDescriptor(getIngredientWithProp(prop, ingredients) || {}, prop);
+    },
+    defineProperty() {
+        throw new Error('Cannot define new properties on Proxies created by ts-mixer');
+    },
+    has(_, prop) {
+        return getIngredientWithProp(prop, ingredients) !== undefined || prototype[prop] !== undefined;
+    },
+    get(_, prop) {
+        return (getIngredientWithProp(prop, ingredients) || prototype)[prop];
+    },
+    set(_, prop, val) {
+        const ingredientWithProp = getIngredientWithProp(prop, ingredients);
+        if (ingredientWithProp === undefined)
+            throw new Error('Cannot set new properties on Proxies created by ts-mixer');
+        ingredientWithProp[prop] = val;
+        return true;
+    },
+    deleteProperty() {
+        throw new Error('Cannot delete properties on Proxies created by ts-mixer');
+    },
+    ownKeys() {
+        return ingredients
+            .map(Object.getOwnPropertyNames)
+            .reduce((prev, curr) => curr.concat(prev.filter(key => curr.indexOf(key) < 0)));
+    },
+});
+/**
+ * Creates a new proxy-prototype object that is a "soft" mixture of the given prototypes.  The mixing is achieved by
+ * proxying all property access to the ingredients.  This is not ES5 compatible and less performant.  However, any
+ * changes made to the source prototypes will be reflected in the proxy-prototype, which may be desirable.
+ */
+const softMixProtos = (ingredients, constructor) => proxyMix([...ingredients, { constructor }]);
+
+const settings = {
+    initFunction: null,
+    staticsStrategy: 'copy',
+    prototypeStrategy: 'copy',
+    decoratorInheritance: 'deep',
+};
+
+// Keeps track of constituent classes for every mixin class created by ts-mixer.
+const mixins = new Map();
+const getMixinsForClass = (clazz) => mixins.get(clazz);
+const registerMixins = (mixedClass, constituents) => mixins.set(mixedClass, constituents);
+const hasMixin = (instance, mixin) => {
+    if (instance instanceof mixin)
+        return true;
+    const constructor = instance.constructor;
+    const visited = new Set();
+    let frontier = new Set();
+    frontier.add(constructor);
+    while (frontier.size > 0) {
+        // check if the frontier has the mixin we're looking for.  if not, we can say we visited every item in the frontier
+        if (frontier.has(mixin))
+            return true;
+        frontier.forEach(item => visited.add(item));
+        // build a new frontier based on the associated mixin classes and prototype chains of each frontier item
+        const newFrontier = new Set();
+        frontier.forEach(item => {
+            var _a;
+            const itemConstituents = (_a = mixins.get(item)) !== null && _a !== void 0 ? _a : protoChain(item.prototype).map(proto => proto.constructor).filter(item => item !== null);
+            if (itemConstituents)
+                itemConstituents.forEach(constituent => {
+                    if (!visited.has(constituent) && !frontier.has(constituent))
+                        newFrontier.add(constituent);
+                });
+        });
+        // we have a new frontier, now search again
+        frontier = newFrontier;
+    }
+    // if we get here, we couldn't find the mixin anywhere in the prototype chain or associated mixin classes
+    return false;
+};
+
+const mergeObjectsOfDecorators = (o1, o2) => {
+    var _a, _b;
+    const allKeys = unique([...Object.getOwnPropertyNames(o1), ...Object.getOwnPropertyNames(o2)]);
+    const mergedObject = {};
+    for (let key of allKeys)
+        mergedObject[key] = unique([...((_a = o1 === null || o1 === void 0 ? void 0 : o1[key]) !== null && _a !== void 0 ? _a : []), ...((_b = o2 === null || o2 === void 0 ? void 0 : o2[key]) !== null && _b !== void 0 ? _b : [])]);
+    return mergedObject;
+};
+const mergePropertyAndMethodDecorators = (d1, d2) => {
+    var _a, _b, _c, _d;
+    return ({
+        property: mergeObjectsOfDecorators((_a = d1 === null || d1 === void 0 ? void 0 : d1.property) !== null && _a !== void 0 ? _a : {}, (_b = d2 === null || d2 === void 0 ? void 0 : d2.property) !== null && _b !== void 0 ? _b : {}),
+        method: mergeObjectsOfDecorators((_c = d1 === null || d1 === void 0 ? void 0 : d1.method) !== null && _c !== void 0 ? _c : {}, (_d = d2 === null || d2 === void 0 ? void 0 : d2.method) !== null && _d !== void 0 ? _d : {}),
+    });
+};
+const mergeDecorators = (d1, d2) => {
+    var _a, _b, _c, _d, _e, _f;
+    return ({
+        class: unique([...(_a = d1 === null || d1 === void 0 ? void 0 : d1.class) !== null && _a !== void 0 ? _a : [], ...(_b = d2 === null || d2 === void 0 ? void 0 : d2.class) !== null && _b !== void 0 ? _b : []]),
+        static: mergePropertyAndMethodDecorators((_c = d1 === null || d1 === void 0 ? void 0 : d1.static) !== null && _c !== void 0 ? _c : {}, (_d = d2 === null || d2 === void 0 ? void 0 : d2.static) !== null && _d !== void 0 ? _d : {}),
+        instance: mergePropertyAndMethodDecorators((_e = d1 === null || d1 === void 0 ? void 0 : d1.instance) !== null && _e !== void 0 ? _e : {}, (_f = d2 === null || d2 === void 0 ? void 0 : d2.instance) !== null && _f !== void 0 ? _f : {}),
+    });
+};
+const decorators = new Map();
+const findAllConstituentClasses = (...classes) => {
+    var _a;
+    const allClasses = new Set();
+    const frontier = new Set([...classes]);
+    while (frontier.size > 0) {
+        for (let clazz of frontier) {
+            const protoChainClasses = protoChain(clazz.prototype).map(proto => proto.constructor);
+            const mixinClasses = (_a = getMixinsForClass(clazz)) !== null && _a !== void 0 ? _a : [];
+            const potentiallyNewClasses = [...protoChainClasses, ...mixinClasses];
+            const newClasses = potentiallyNewClasses.filter(c => !allClasses.has(c));
+            for (let newClass of newClasses)
+                frontier.add(newClass);
+            allClasses.add(clazz);
+            frontier.delete(clazz);
+        }
+    }
+    return [...allClasses];
+};
+const deepDecoratorSearch = (...classes) => {
+    const decoratorsForClassChain = findAllConstituentClasses(...classes)
+        .map(clazz => decorators.get(clazz))
+        .filter(decorators => !!decorators);
+    if (decoratorsForClassChain.length == 0)
+        return {};
+    if (decoratorsForClassChain.length == 1)
+        return decoratorsForClassChain[0];
+    return decoratorsForClassChain.reduce((d1, d2) => mergeDecorators(d1, d2));
+};
+const directDecoratorSearch = (...classes) => {
+    const classDecorators = classes.map(clazz => getDecoratorsForClass(clazz));
+    if (classDecorators.length === 0)
+        return {};
+    if (classDecorators.length === 1)
+        return classDecorators[1];
+    return classDecorators.reduce((d1, d2) => mergeDecorators(d1, d2));
+};
+const getDecoratorsForClass = (clazz) => {
+    let decoratorsForClass = decorators.get(clazz);
+    if (!decoratorsForClass) {
+        decoratorsForClass = {};
+        decorators.set(clazz, decoratorsForClass);
+    }
+    return decoratorsForClass;
+};
+const decorateClass = (decorator) => ((clazz) => {
+    const decoratorsForClass = getDecoratorsForClass(clazz);
+    let classDecorators = decoratorsForClass.class;
+    if (!classDecorators) {
+        classDecorators = [];
+        decoratorsForClass.class = classDecorators;
+    }
+    classDecorators.push(decorator);
+    return decorator(clazz);
+});
+const decorateMember = (decorator) => ((object, key, ...otherArgs) => {
+    const decoratorTargetType = typeof object === 'function' ? 'static' : 'instance';
+    const decoratorType = typeof object[key] === 'function' ? 'method' : 'property';
+    const clazz = decoratorTargetType === 'static' ? object : object.constructor;
+    const decoratorsForClass = getDecoratorsForClass(clazz);
+    let decoratorsForTargetType = decoratorsForClass === null || decoratorsForClass === void 0 ? void 0 : decoratorsForClass[decoratorTargetType];
+    if (!decoratorsForTargetType) {
+        decoratorsForTargetType = {};
+        decoratorsForClass[decoratorTargetType] = decoratorsForTargetType;
+    }
+    let decoratorsForType = decoratorsForTargetType === null || decoratorsForTargetType === void 0 ? void 0 : decoratorsForTargetType[decoratorType];
+    if (!decoratorsForType) {
+        decoratorsForType = {};
+        decoratorsForTargetType[decoratorType] = decoratorsForType;
+    }
+    let decoratorsForKey = decoratorsForType === null || decoratorsForType === void 0 ? void 0 : decoratorsForType[key];
+    if (!decoratorsForKey) {
+        decoratorsForKey = [];
+        decoratorsForType[key] = decoratorsForKey;
+    }
+    decoratorsForKey.push(decorator);
+    // @ts-ignore
+    return decorator(object, key, ...otherArgs);
+});
+const decorate = (decorator) => ((...args) => {
+    if (args.length === 1)
+        return decorateClass(decorator)(args[0]);
+    return decorateMember(decorator)(...args);
+});
+
+function Mixin(...constructors) {
+    var _a, _b, _c;
+    const prototypes = constructors.map(constructor => constructor.prototype);
+    // Here we gather up the init functions of the ingredient prototypes, combine them into one init function, and
+    // attach it to the mixed class prototype.  The reason we do this is because we want the init functions to mix
+    // similarly to constructors -- not methods, which simply override each other.
+    const initFunctionName = settings.initFunction;
+    if (initFunctionName !== null) {
+        const initFunctions = prototypes
+            .map(proto => proto[initFunctionName])
+            .filter(func => typeof func === 'function');
+        const combinedInitFunction = function (...args) {
+            for (let initFunction of initFunctions)
+                initFunction.apply(this, args);
+        };
+        const extraProto = { [initFunctionName]: combinedInitFunction };
+        prototypes.push(extraProto);
+    }
+    function MixedClass(...args) {
+        for (const constructor of constructors)
+            // @ts-ignore: potentially abstract class
+            copyProps(this, new constructor(...args));
+        if (initFunctionName !== null && typeof this[initFunctionName] === 'function')
+            this[initFunctionName].apply(this, args);
+    }
+    MixedClass.prototype = settings.prototypeStrategy === 'copy'
+        ? hardMixProtos(prototypes, MixedClass)
+        : softMixProtos(prototypes, MixedClass);
+    Object.setPrototypeOf(MixedClass, settings.staticsStrategy === 'copy'
+        ? hardMixProtos(constructors, null, ['prototype'])
+        : proxyMix(constructors, Function.prototype));
+    let DecoratedMixedClass = MixedClass;
+    if (settings.decoratorInheritance !== 'none') {
+        const classDecorators = settings.decoratorInheritance === 'deep'
+            ? deepDecoratorSearch(...constructors)
+            : directDecoratorSearch(...constructors);
+        for (let decorator of (_a = classDecorators === null || classDecorators === void 0 ? void 0 : classDecorators.class) !== null && _a !== void 0 ? _a : [])
+            DecoratedMixedClass = decorator(DecoratedMixedClass);
+        applyPropAndMethodDecorators((_b = classDecorators === null || classDecorators === void 0 ? void 0 : classDecorators.static) !== null && _b !== void 0 ? _b : {}, DecoratedMixedClass);
+        applyPropAndMethodDecorators((_c = classDecorators === null || classDecorators === void 0 ? void 0 : classDecorators.instance) !== null && _c !== void 0 ? _c : {}, DecoratedMixedClass.prototype);
+    }
+    registerMixins(DecoratedMixedClass, constructors);
+    return DecoratedMixedClass;
+}
+const applyPropAndMethodDecorators = (propAndMethodDecorators, target) => {
+    const propDecorators = propAndMethodDecorators.property;
+    const methodDecorators = propAndMethodDecorators.method;
+    if (propDecorators)
+        for (let key in propDecorators)
+            for (let decorator of propDecorators[key])
+                decorator(target, key);
+    if (methodDecorators)
+        for (let key in methodDecorators)
+            for (let decorator of methodDecorators[key])
+                decorator(target, key, Object.getOwnPropertyDescriptor(target, key));
+};
+/**
+ * A decorator version of the `Mixin` function.  You'll want to use this instead of `Mixin` for mixing generic classes.
+ */
+const mix = (...ingredients) => decoratedClass => {
+    // @ts-ignore
+    const mixedClass = Mixin(...ingredients.concat([decoratedClass]));
+    Object.defineProperty(mixedClass, 'name', {
+        value: decoratedClass.name,
+        writable: false,
+    });
+    return mixedClass;
+};
+
+
+
+
 /***/ })
 
 /******/ 	});
@@ -14510,6 +15238,35 @@ __exportStar(__webpack_require__(/*! ./ValidationAbstract */ "./src/ValidationAb
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
 /******/ 	
 /************************************************************************/
 /******/ 	

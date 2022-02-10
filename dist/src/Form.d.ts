@@ -5,6 +5,9 @@ import { DataAbstract } from "./DataAbstract";
 import { InputAbstract } from "./InputAbstract";
 import { HandlerInterface } from "../node_modules/mudde-core/src/Core/HandlerInterface";
 export declare class Form extends ConfigurableAbstract {
+    static readonly EVENT_FORM_PRE_CONFIGURE = 1;
+    static readonly EVENT_FORM_POST_CONFIGURE = 2;
+    static readonly EVENT_FORM_FINISHED = 3;
     private _id;
     private _languages;
     private _fields;
@@ -26,6 +29,7 @@ export declare class Form extends ConfigurableAbstract {
     private configureData;
     static getFormById(id: string): Form | null;
     render(): NodeCore;
+    private handleXtraJs;
     private initPanel;
     private addButtons;
     private addFields;

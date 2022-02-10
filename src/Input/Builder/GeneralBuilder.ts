@@ -16,7 +16,6 @@ export class GeneralBuilder extends InputBuilderAbstract {
 
       output
          .gotoRoot()
-         .setAttributes({ 'style': 'margin-bottom: 10px;' })
          .prependElement_(label)
          .appendElement_(help)
          .appendElement_(error)

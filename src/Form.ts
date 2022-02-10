@@ -9,27 +9,33 @@ import { HandlerInterface } from "../node_modules/mudde-core/src/Core/HandlerInt
 
 export class Form extends ConfigurableAbstract {
 
+   static readonly EVENT_FORM_PRE_CONFIGURE = 1
+   static readonly EVENT_FORM_POST_CONFIGURE = 2
+   static readonly EVENT_FORM_FINISHED = 3
+
    private _id: string = ''
    private _languages: string[] = []
    private _fields: InputAbstract[] = []
    private _buttons: ButtonAbstract[] = []
    private _form?: NodeCore
-   private _data?: DataAbstract;
+   private _data?: DataAbstract
    private _builder?: HandlerInterface
-   private _panels: any = { }
+   private _panels: any = {}
    private _additionalJs: string[] = []
-   private _rules: {} = { }
-   private _method: string = '';
-   private _action: string = '';
+   private _rules: {} = {}
+   private _method: string = ''
+   private _action: string = ''
+
    static _forms: Form[] = []
 
    constructor(config: any) {
       super()
 
-      this.configuring(config)
+      Form._forms.push(this)
+
       this.form = new NodeCore('form', { method: this.method, action: this.action, id: this.id })
 
-      Form._forms.push(this)
+      this.configuring(config)
    }
 
    getDefaultConfig(): any {
@@ -40,8 +46,8 @@ export class Form extends ConfigurableAbstract {
          buttons: [],
          layout: [],
          builder: [],
-         data: { },
-         panels: { },
+         data: {},
+         panels: {},
          method: 'POST',
          action: '.'
       }
@@ -104,35 +110,37 @@ export class Form extends ConfigurableAbstract {
       let filterFunction = form => { return form.id === id }
       let form = Form._forms.filter(filterFunction)
 
-      return form.length === 0 ? null : form[0]
+      return form && form.length === 0 ? null : form[0]
    }
 
    render(): NodeCore {
       if (this._form === undefined) throw new Error('Form not set!')
 
-      let additionalJs = this._additionalJs;
       let form = this._form
-
-      form.clear()
 
       this.addFields()
       this.addButtons()
-
       this._builder?.handle(form)
-
-      window.onload = () => {
-         let script = document.createElement('script')
-         //  todo  js solution  Gr.O.M.
-         additionalJs.push('$.validator.setDefaults({ ignore: ".ck-hidden, .ck, .select2-search__field, .btn", debug: true });\
-          var formgenValidator = $( "#' + this.id + '" ).validate({ rules: ' + JSON.stringify(this._rules) + '});\
-          formgenValidator.checkForm();\
-          formgenValidator.showErrors()\
-         ')
-         script.text = additionalJs.join(';')
-         document.body.appendChild(script)
-      }
+      this.handleXtraJs()
 
       return form
+   }
+
+   private handleXtraJs() {
+      let additionalJs = this._additionalJs;
+
+      //  todo  more descent js solution  Gr.O.M.
+      additionalJs.push(`var formgenValidator;
+            $.validator.setDefaults({ ignore: ".ck-hidden, .ck, .select2-search__field, .btn", debug: true });
+            formgenValidator = $( "#${this.id}" ).validate({ rules: ${JSON.stringify(this._rules)}});
+            formgenValidator.checkForm();
+            formgenValidator.showErrors();`)
+
+      let script: any = document.createElement('script')
+      script.text = `function additionalScript() { ${additionalJs.join(';')} };
+      $(document).ready( () => { additionalScript() } );`;
+
+      document.body.appendChild(script);
    }
 
    private initPanel(panelId: string, panelLabel: string) {
@@ -157,6 +165,8 @@ export class Form extends ConfigurableAbstract {
    private addFields() {
       let form = this._form
       var main = this
+
+      form.clear()
 
       this.fields.forEach(field => {
          let panelId = 'panel_' + field.panel

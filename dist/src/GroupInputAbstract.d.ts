@@ -19,6 +19,7 @@ export declare abstract class GroupInputAbstract extends InputAbstract {
         panel: any;
         autofocus: boolean;
         require: boolean;
+        readonly: boolean;
         hidden: boolean;
         multilingual: boolean;
         builders: any[];

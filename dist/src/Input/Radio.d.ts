@@ -16,6 +16,7 @@ export declare class Radio extends GroupInputAbstract {
         panel: any;
         autofocus: boolean;
         require: boolean;
+        readonly: boolean;
         hidden: boolean;
         multilingual: boolean;
         builders: any[];

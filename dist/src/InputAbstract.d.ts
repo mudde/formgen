@@ -1,8 +1,13 @@
-import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
-import { HandlerInterface } from "../node_modules/mudde-core/src/Core/HandlerInterface";
-import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore";
+import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
+import { SubjectAbstract } from "mudde-core/src/Core/SubjectAbstract";
+import { HandlerInterface } from "mudde-core/src/Core/HandlerInterface";
+import { NodeCore } from "mudde-core/src/Core/NodeCore";
 import { Form } from "./Form";
-export declare abstract class InputAbstract extends ConfigurableAbstract {
+declare const InputAbstract_base: import("ts-mixer/dist/types/types").Class<any[], ConfigurableAbstract & SubjectAbstract, typeof ConfigurableAbstract & typeof SubjectAbstract, false>;
+export declare abstract class InputAbstract extends InputAbstract_base {
+    EVENT_INPUT_PRE_CONFIGURE: number;
+    EVENT_INPUT_POST_CONFIGURE: number;
+    EVENT_INPUT_FINISHED: number;
     private __type;
     private _id;
     private _label;
@@ -14,6 +19,7 @@ export declare abstract class InputAbstract extends ConfigurableAbstract {
     private _autofocus;
     private _hidden;
     private _require;
+    private _readonly;
     private _multilingual;
     private _handlerBuilders?;
     private _handlerValidations?;
@@ -41,6 +47,7 @@ export declare abstract class InputAbstract extends ConfigurableAbstract {
         panel: any;
         autofocus: boolean;
         require: boolean;
+        readonly: boolean;
         hidden: boolean;
         multilingual: boolean;
         builders: any[];
@@ -71,6 +78,8 @@ export declare abstract class InputAbstract extends ConfigurableAbstract {
     get hidden(): boolean;
     set require(value: boolean);
     get require(): boolean;
+    set readonly(value: boolean);
+    get readonly(): boolean;
     set multilingual(value: boolean);
     get multilingual(): boolean;
     set form(value: Form);
@@ -86,3 +95,4 @@ export declare abstract class InputAbstract extends ConfigurableAbstract {
     get rules(): {};
     set rules(value: {});
 }
+export {};

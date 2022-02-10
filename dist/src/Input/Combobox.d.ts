@@ -21,6 +21,7 @@ export declare class Combobox extends InputAbstract {
         panel: any;
         autofocus: boolean;
         require: boolean;
+        readonly: boolean;
         hidden: boolean;
         multilingual: boolean;
         builders: any[];

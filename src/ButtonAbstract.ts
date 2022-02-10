@@ -1,13 +1,20 @@
 import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
 import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore"
 import { GuidHelper } from "../node_modules/mudde-core/src/Helper/GuidHelper";
+import { Form } from "./Form";
 
 export abstract class ButtonAbstract extends ConfigurableAbstract {
 
    private __type: string = ''
    private _label: string = ''
+   private _form?: Form
 
    abstract coreHTMLInput(id: string, name: string, language: string): NodeCore
+
+   constructor(form: Form) {
+      super()
+      this._form=form
+   }
 
    getDefaultConfig() {
       return {
@@ -35,6 +42,16 @@ export abstract class ButtonAbstract extends ConfigurableAbstract {
 
    get label(): string {
       return this._label
+   }
+
+   set form(value: Form) {
+      this._form = value
+   }
+
+   get form(): Form {
+      if (this._form === undefined) throw new Error('Input not properly initialized!')
+
+      return this._form
    }
 
 }

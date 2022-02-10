@@ -1,15 +1,13 @@
-import { NodeCore } from "mudde-core/src/Core/NodeCore"
+import { NodeCore } from "../../node_modules/mudde-core/src/Core/NodeCore"
 import {Form} from "../Form"
 import {InputAbstract} from "../InputAbstract"
 
-export class Readonly extends InputAbstract {
+export class Number extends InputAbstract {
 
    private _mask: string = ''
    private _format: string = ''
    private _prefix: string = ''
    private _suffix: string = ''
-   private _multiple: boolean = false
-   private _spellcheck: boolean = false
 
    constructor(config: any, form: Form) {
       super(form)
@@ -24,9 +22,7 @@ export class Readonly extends InputAbstract {
          mask: '',
          format: '',
          prefix: '',
-         suffix: '',
-         multiple: false,
-         spellcheck: false
+         suffix: ''
       }
    }
 
@@ -34,11 +30,13 @@ export class Readonly extends InputAbstract {
       let element: NodeCore = new NodeCore('input', {
          id: id,
          name: name,
-         type: 'text',
+         type: 'number',
          placeholder: this.placeholder,
-         spellcheck: this.spellcheck,
-         readonly: ''
       })
+
+      if(this.readonly){
+         element.setAttributes({readonly:true})
+      }
 
       return element
    }
@@ -75,19 +73,4 @@ export class Readonly extends InputAbstract {
       return this._suffix
    }
 
-   set multiple(value: boolean) {
-      this._multiple = value
-   }
-
-   get multiple(): boolean {
-      return this._multiple
-   }
-
-   set spellcheck(value: boolean) {
-      this._spellcheck = value
-   }
-
-   get spellcheck(): boolean {
-      return this._spellcheck
-   }
 }

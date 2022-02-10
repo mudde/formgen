@@ -1,10 +1,11 @@
-import  {NodeCore} from "../../node_modules/mudde-core/src/Core/NodeCore"
-import {ButtonAbstract} from "../ButtonAbstract"
+import { NodeCore } from "../../node_modules/mudde-core/src/Core/NodeCore"
+import { ButtonAbstract } from "../ButtonAbstract"
+import { Form } from "../Form"
 
 export class Submit extends ButtonAbstract {
 
-   constructor(config: any) {
-      super()
+   constructor(config: any, form: Form) {
+      super(form)
       this.configuring(config)
    }
 
@@ -15,14 +16,16 @@ export class Submit extends ButtonAbstract {
    }
 
    coreHTMLInput(id: string, name: string, language: string): NodeCore {
+      let formId = this.form.id
       //  todo  Onclick naar andere functie!  Gr.O.M.
       let attributes: any = {
          type: 'button',
          class: 'btn btn-primary',
          onclick: `javascript:
          var data = {};
-         Array.from(document.forms[0].elements).forEach(element => {
-             if (element.name) {
+         var form = document.forms['${formId}'];
+         Array.from(form.elements).forEach(element => {
+             if (element.name && element.name !== "id") {
                 console.debug(element.type)
                  if (element.type === 'file') {
                      data[element.name] = Array.from(element.files).flatMap(x => { return x.name });
@@ -33,7 +36,19 @@ export class Submit extends ButtonAbstract {
                  }
              }
          });
-         alert(JSON.stringify({valid: document.forms[0].checkValidity(),...data}, null, 4));
+         $.ajax({
+            url:'./api/taxes',
+            type:"POST",
+            data: JSON.stringify(data),
+            contentType:"application/json; charset=utf-8",
+            dataType:"json",
+            success: function(data){
+               console.debug(data); 
+            },
+            fail: function (error) {
+               console.debug(error); 
+            }
+          })
          return false`,
          value: this.label
       }

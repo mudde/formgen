@@ -1,8 +1,8 @@
-import { NodeCore } from "../../node_modules/mudde-core/src/Core/NodeCore"
+import { NodeCore } from "mudde-core/src/Core/NodeCore"
 import {Form} from "../Form"
 import {InputAbstract} from "../InputAbstract"
 
-export class Text extends InputAbstract {
+export class TextRead extends InputAbstract {
 
    private _mask: string = ''
    private _format: string = ''
@@ -36,12 +36,9 @@ export class Text extends InputAbstract {
          name: name,
          type: 'text',
          placeholder: this.placeholder,
-         spellcheck: this.spellcheck
+         spellcheck: this.spellcheck,
+         readonly: ''
       })
-
-      if(this.readonly){
-         element.setAttributes({readonly:true})
-      }
 
       return element
    }

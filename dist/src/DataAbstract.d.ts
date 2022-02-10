@@ -1,15 +1,13 @@
-import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
-import { Event } from "../node_modules/mudde-core/src/Core/Event";
+import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
+import { SubjectAbstract } from "mudde-core/src/Core/SubjectAbstract";
 import { Form } from "./Form";
-import { ObserverInterface } from "../node_modules/mudde-core/src/Core/ObserverInterface";
-import { SubjectInterface } from "../node_modules/mudde-core/src/Core/SubjectInterface";
-export declare abstract class DataAbstract extends ConfigurableAbstract implements SubjectInterface {
+declare const DataAbstract_base: import("ts-mixer/dist/types/types").Class<any[], ConfigurableAbstract & SubjectAbstract, typeof ConfigurableAbstract & typeof SubjectAbstract, false>;
+export declare abstract class DataAbstract extends DataAbstract_base {
     static readonly DATA_PRE_SET = 1;
     static readonly DATA_POST_SET = 2;
     static readonly DATA_PRE_GET = 4;
     static readonly DATA_POST_GET = 8;
     private _form?;
-    private _observers;
     protected _data: any[];
     protected _originalData: any[];
     constructor(form?: Form);
@@ -19,12 +17,10 @@ export declare abstract class DataAbstract extends ConfigurableAbstract implemen
     get(id: string): any;
     set(id: string, value: any): void;
     restore(id: string): any;
-    attach(observer: ObserverInterface): void;
-    detach(observer: ObserverInterface): void;
-    notify(event: Event): void;
     forEach(callable: any): DataAbstract;
     set form(value: Form);
     get form(): Form;
     set data(value: any[]);
     get data(): any[];
 }
+export {};

@@ -1,10 +1,16 @@
-import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
-import { HandlerInterface } from "../node_modules/mudde-core/src/Core/HandlerInterface";
-import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore"
-import { GuidHelper } from "../node_modules/mudde-core/src/Helper/GuidHelper";
+import { Mixin } from 'ts-mixer';
+import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
+import { SubjectAbstract } from "mudde-core/src/Core/SubjectAbstract";
+import { HandlerInterface } from "mudde-core/src/Core/HandlerInterface";
+import { NodeCore } from "mudde-core/src/Core/NodeCore"
+import { GuidHelper } from "mudde-core/src/Helper/GuidHelper";
 import { Form } from "./Form";
 
-export abstract class InputAbstract extends ConfigurableAbstract {
+export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectAbstract) {
+
+   public EVENT_INPUT_PRE_CONFIGURE = 1
+   public EVENT_INPUT_POST_CONFIGURE = 2
+   public EVENT_INPUT_FINISHED = 3
 
    private __type: string = ''
    private _id: string = ''
@@ -17,6 +23,7 @@ export abstract class InputAbstract extends ConfigurableAbstract {
    private _autofocus: boolean = false
    private _hidden: boolean = false
    private _require: boolean = false
+   private _readonly: boolean = false
    private _multilingual: boolean = false
    private _handlerBuilders?: HandlerInterface
    private _handlerValidations?: HandlerInterface
@@ -27,6 +34,9 @@ export abstract class InputAbstract extends ConfigurableAbstract {
 
    constructor(form: Form) {
       super()
+      
+      this.notify(this, this.EVENT_INPUT_PRE_CONFIGURE)
+
       this._form = form
    }
 
@@ -51,6 +61,7 @@ export abstract class InputAbstract extends ConfigurableAbstract {
          panel: null,
          autofocus: false,
          require: false,
+         readonly: false,
          hidden: false,
          multilingual: false,
          builders: []
@@ -116,7 +127,7 @@ export abstract class InputAbstract extends ConfigurableAbstract {
    }
 
    get isMultilingual(): boolean {
-      let isMultilingualRequested = this.form.languages.length > 1 && this.multilingual
+      let isMultilingualRequested = this.form && this.form.languages && this.form.languages.length > 1 && this.multilingual
 
       return this.canBeMultilingual() && isMultilingualRequested
    }
@@ -209,6 +220,14 @@ export abstract class InputAbstract extends ConfigurableAbstract {
 
    get require(): boolean {
       return this._require
+   }
+
+   set readonly(value: boolean) {
+      this._readonly = value
+   }
+
+   get readonly(): boolean {
+      return this._readonly
    }
 
    set multilingual(value: boolean) {
