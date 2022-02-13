@@ -16,7 +16,6 @@
     }
   ],
   "require": {
-    "php": ">=8.0.0",
-    "mudde/core": "dev-master"
+    "mudde/core": "dev-main"
   }
 }
