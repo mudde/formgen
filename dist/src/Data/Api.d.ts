@@ -12,7 +12,7 @@ export declare class Api extends DataAbstract {
     constructor(config: any, form?: Form);
     getDefaultConfig(): {};
     init(): boolean;
-    process(): void;
+    process(data: any): void;
     get url(): string;
     set url(value: string);
     get contentType(): string;

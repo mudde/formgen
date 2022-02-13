@@ -1,9 +1,9 @@
-import { NodeCore } from "../../node_modules/mudde-core/src/Core/NodeCore"
+import { NodeCore } from "mudde-core/src/Core/NodeCore"
 import { Form } from "../Form"
 import { InputAbstract } from "../InputAbstract"
 import { DataAbstract } from "../DataAbstract"
 import { Array } from "../Data/Array"
-import { StringHelper } from "../../node_modules/mudde-core/src/Helper/StringHelper"
+import { StringHelper } from "mudde-core/src/Helper/StringHelper"
 
 export class Combobox extends InputAbstract {
 
@@ -28,7 +28,7 @@ export class Combobox extends InputAbstract {
       let className = window['MuddeFormgen'].Data[type]
       let object: DataAbstract = new className(config, this)
       //  todo  attach DATA_LOADED observer to set actual form data  Gr.O.M.
-      //object.attach()
+      object.attach(DataAbstract.DATA_FINALLY,this);
       this._data = object
    }
 

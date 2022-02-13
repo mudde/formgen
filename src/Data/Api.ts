@@ -25,13 +25,11 @@ export class Api extends DataAbstract {
          contentType: 'application/json',
          charset: 'utf-8',
          done: (data) => {
-            this._originalData = data;
-            this.process();
+            this._originalData = this._data = data
          },
          fail: (error) => {
             throw new Error(error.statusText);
          },
-         processItem: item => { return item; },
          ...super.getDefaultConfig()
       }
    }
@@ -42,16 +40,13 @@ export class Api extends DataAbstract {
          type: this.type,
          contentType: this.contentType + this.charset ? '; charset=' + this.charset : '',
       }).then(this.done, this.fail)
-
+      console.debug('ascsadvklubnedftrblkinadfb')
+      
       return false;
    }
 
-   process() {
-      var data = this._data
-
-      this._originalData.forEach(item => {
-         data.push(this.processItem(item))
-      })
+   process(data) {
+      
    }
 
    get url(): string {

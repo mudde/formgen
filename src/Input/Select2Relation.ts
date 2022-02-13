@@ -1,3 +1,4 @@
+import { Event } from "mudde-core/src/Core/Event";
 import { NodeCore } from "mudde-core/src/Core/NodeCore"
 import { Combobox } from "./Combobox"
 
@@ -5,7 +6,17 @@ export class Select2Relation extends Combobox {
 
    coreHTMLInput(id: string, name: string, language: string): NodeCore {
       let element: NodeCore = super.coreHTMLInput(id, name, language)
-      element.setAttributes({ 'style': 'width: 97%;' });
+
+      element.setAttributes({ 'style': 'width: 90%;' });
+
+      return element
+   }
+
+   update(event: Event) {
+      console.debug(event);
+      let source: Select2Relation = event.source;
+      let id = source.id
+
       let modelId = 'model_' + id
       let modelLabelId = 'model_label_' + id
       let modelFormId = 'model_form_' + id
@@ -36,7 +47,6 @@ export class Select2Relation extends Combobox {
             document.getElementById('${modelFormId}').innerHTML = form.render().root.outerHTML;\
          });
       })`;
-
-      return element
    }
+
 }

@@ -1,4 +1,4 @@
-import {NodeCore} from "../../node_modules/mudde-core/src/Core/NodeCore"
+import {NodeCore} from "mudde-core/src/Core/NodeCore"
 import {FormBuilderAbstract} from "../FormBuilderAbstract";
 
 export class TabsBuilder extends FormBuilderAbstract {

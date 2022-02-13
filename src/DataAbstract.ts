@@ -1,15 +1,18 @@
 import { Mixin } from 'ts-mixer';
 import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
 import { SubjectAbstract } from "mudde-core/src/Core/SubjectAbstract";
+import { ObserverAbstract } from "mudde-core/src/Core/ObserverAbstract";
 import { Form } from "./Form";
+import { Event } from 'mudde-core/src/Core/Event';
 
-export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAbstract) {
+export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverAbstract) {
 
    static readonly DATA_PRE_SET = 1;
    static readonly DATA_POST_SET = 2;
 
    static readonly DATA_PRE_GET = 4;
    static readonly DATA_POST_GET = 8;
+   static readonly DATA_FINALLY = 16;
 
    private _form?: Form
    protected _data: any[] = []
@@ -30,7 +33,12 @@ export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAb
    }
 
    abstract init()
-   abstract process()
+   abstract process(data)
+   
+   /** @override */
+   update(event: Event) {
+      
+   }
 
    get(id: string): any {
       this.notify(this, DataAbstract.DATA_PRE_GET)
@@ -48,6 +56,7 @@ export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAb
       this._data[id] = value
 
       this.notify(this, DataAbstract.DATA_POST_SET)
+      this.notify(this, DataAbstract.DATA_FINALLY)
    }
 
    restore(id: string): any {

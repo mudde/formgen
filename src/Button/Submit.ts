@@ -1,4 +1,4 @@
-import { NodeCore } from "../../node_modules/mudde-core/src/Core/NodeCore"
+import { NodeCore } from "mudde-core/src/Core/NodeCore"
 import { ButtonAbstract } from "../ButtonAbstract"
 import { Form } from "../Form"
 
@@ -36,6 +36,7 @@ export class Submit extends ButtonAbstract {
                  }
              }
          });
+         console.debug(data);
          $.ajax({
             url:'./api/taxes',
             type:"POST",

@@ -1,9 +1,11 @@
 import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
 import { SubjectAbstract } from "mudde-core/src/Core/SubjectAbstract";
+import { ObserverAbstract } from "mudde-core/src/Core/ObserverAbstract";
 import { HandlerInterface } from "mudde-core/src/Core/HandlerInterface";
 import { NodeCore } from "mudde-core/src/Core/NodeCore";
 import { Form } from "./Form";
-declare const InputAbstract_base: import("ts-mixer/dist/types/types").Class<any[], ConfigurableAbstract & SubjectAbstract, typeof ConfigurableAbstract & typeof SubjectAbstract, false>;
+import { Event } from 'mudde-core/src/Core/Event';
+declare const InputAbstract_base: import("ts-mixer/dist/types/types").Class<any[], ConfigurableAbstract & SubjectAbstract & ObserverAbstract, typeof ConfigurableAbstract & typeof SubjectAbstract & typeof ObserverAbstract, false>;
 export declare abstract class InputAbstract extends InputAbstract_base {
     EVENT_INPUT_PRE_CONFIGURE: number;
     EVENT_INPUT_POST_CONFIGURE: number;
@@ -52,6 +54,8 @@ export declare abstract class InputAbstract extends InputAbstract_base {
         multilingual: boolean;
         builders: any[];
     };
+    /** @override */
+    update(event: Event): void;
     private configureBuilders;
     private configureValidations;
     render(): NodeCore;

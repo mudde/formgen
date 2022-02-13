@@ -17,6 +17,6 @@ export class Array extends DataAbstract {
    init() {
    }
 
-   process() {
+   process(data) {
    }
 }

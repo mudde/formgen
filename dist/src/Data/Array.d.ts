@@ -4,5 +4,5 @@ export declare class Array extends DataAbstract {
     constructor(config: any, form?: Form);
     getDefaultConfig(): {};
     init(): void;
-    process(): void;
+    process(data: any): void;
 }

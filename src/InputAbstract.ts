@@ -1,12 +1,14 @@
 import { Mixin } from 'ts-mixer';
 import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
 import { SubjectAbstract } from "mudde-core/src/Core/SubjectAbstract";
+import { ObserverAbstract } from "mudde-core/src/Core/ObserverAbstract";
 import { HandlerInterface } from "mudde-core/src/Core/HandlerInterface";
 import { NodeCore } from "mudde-core/src/Core/NodeCore"
 import { GuidHelper } from "mudde-core/src/Helper/GuidHelper";
 import { Form } from "./Form";
+import { Event } from 'mudde-core/src/Core/Event';
 
-export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectAbstract) {
+export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverAbstract) {
 
    public EVENT_INPUT_PRE_CONFIGURE = 1
    public EVENT_INPUT_POST_CONFIGURE = 2
@@ -34,7 +36,7 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
 
    constructor(form: Form) {
       super()
-      
+
       this.notify(this, this.EVENT_INPUT_PRE_CONFIGURE)
 
       this._form = form
@@ -67,6 +69,9 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
          builders: []
       }
    }
+
+   /** @override */
+   update(event: Event) { }
 
    private configureBuilders(rawFields: Object[]): void {
       rawFields.unshift('GeneralBuilder')
@@ -120,8 +125,8 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
          .prependElement_(this.preHTMLInput())
          .appendElement_(this.postHTMLInput())
 
-         this._handlerValidations?.handle(output)
-         this._handlerBuilders?.handle(output)
+      this._handlerValidations?.handle(output)
+      this._handlerBuilders?.handle(output)
 
       return output
    }
@@ -272,12 +277,12 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
       this._coreIds = value;
    }
 
-   get hasRules(): boolean{
+   get hasRules(): boolean {
       return this._rules && Object.values(this._rules).length > 0
    }
 
    get rulesComplete(): {} {
-      var main=this
+      var main = this
       var completeRules = {}
 
       this.coreIds.forEach((item) => {
@@ -286,7 +291,7 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
 
       return completeRules;
    }
-   
+
    get rules(): {} {
       return this._rules;
    }

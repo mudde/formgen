@@ -130,11 +130,13 @@ export class Form extends ConfigurableAbstract {
       let additionalJs = this._additionalJs;
 
       //  todo  more descent js solution  Gr.O.M.
-      additionalJs.push(`var formgenValidator;
+      additionalJs.push(`
             $.validator.setDefaults({ ignore: ".ck-hidden, .ck, .select2-search__field, .btn", debug: true });
-            formgenValidator = $( "#${this.id}" ).validate({ rules: ${JSON.stringify(this._rules)}});
-            formgenValidator.checkForm();
-            formgenValidator.showErrors();`)
+            var formgenValidator = $( "#${this.id}" ).validate({ rules: ${JSON.stringify(this._rules)}});
+            if(formgenValidator){
+               formgenValidator.checkForm();
+               formgenValidator.showErrors();
+            }`)
 
       let script: any = document.createElement('script')
       script.text = `function additionalScript() { ${additionalJs.join(';')} };

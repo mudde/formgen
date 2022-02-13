@@ -1,6 +1,6 @@
-import { NodeCore } from "../../node_modules/mudde-core/src/Core/NodeCore"
-import {Form} from "../Form"
-import {GroupInputAbstract} from "../GroupInputAbstract"
+import { NodeCore } from "mudde-core/src/Core/NodeCore"
+import { Form } from "../Form"
+import { GroupInputAbstract } from "../GroupInputAbstract"
 
 export class Checkbox extends GroupInputAbstract {
 
@@ -32,7 +32,7 @@ export class Checkbox extends GroupInputAbstract {
             'for': newId,
             'class': 'form-check-label'
          }, currentData.value)
-         
+
 
       return element
    }
