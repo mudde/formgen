@@ -22,4 +22,7 @@ export declare class Radio extends GroupInputAbstract {
         builders: any[];
     };
     coreHTMLInput(id: string, name: string, language: string): NodeCore;
+    setValue(value: any): void;
+    getValue(): any;
+    addValue(key: string, value: any): void;
 }

@@ -1,51 +1,37 @@
-import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore";
-import {ConfigurableAbstract} from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
-import {HandlerInterface} from "../node_modules/mudde-core/src/Core/HandlerInterface";
-import {CoreBuildInterface} from "./CoreBuildInterface";
-import {InputAbstract} from "./InputAbstract";
+import { HandlerInterface } from "mudde-core/src/Core/HandlerInterface";
+import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
+import { InputAbstract } from "./InputAbstract";
 
-export abstract class ValidationAbstract extends ConfigurableAbstract implements HandlerInterface, CoreBuildInterface {
+export abstract class ValidationAbstract extends ConfigurableAbstract implements HandlerInterface {
 
-  private _nextEvent?: HandlerInterface
+  protected _input: InputAbstract
+  private _handler: HandlerInterface
 
-  abstract coreBuild(output: NodeCore): void
-
-  setNext(event: HandlerInterface): HandlerInterface {
-    if (this, this._nextEvent) {
-      this._nextEvent.setNext(event)
-    }else{
-      this._nextEvent = event
-    }
-
-    return event
-  }
-
-  handle(data: any) {
-    if (this._nextEvent) {
-      this._nextEvent.handle(data)
-    }
-
-    this.coreBuild(data)
-
-    return data
-  }
-
-  //  todo  mixin from BuilderAbstract  Gr.O.M.
-  private _input?: InputAbstract
-
-  constructor(input: InputAbstract) {
+  constructor(input: InputAbstract, config: any) {
     super()
     this._input = input
   }
 
-  set input(value: InputAbstract) {
-    this._input = value
+  abstract handler(data: any)
+
+  setNext(event: HandlerInterface): HandlerInterface {
+    if (this._handler) {
+      this._handler.setNext(event)
+    } else {
+      this._handler = event
+    }
+
+    return this._handler
   }
 
-  get input(): InputAbstract {
-    if (this._input === undefined) throw new Error('Input not set!');
+  handle(data: any = {}) {
+    this.handler(data)
 
-    return this._input
+    if (this._handler) {
+      this._handler.handle(data)
+    }
+    
+    return data
   }
-  //  todo  end mixin from BuilderAbstract  Gr.O.M.
+
 }

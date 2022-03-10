@@ -1,8 +1,8 @@
-import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore"
-import {DataAbstract} from "./DataAbstract";
-import {StringHelper} from "../node_modules/mudde-core/src/Helper/StringHelper"
-import {Array} from "./Data/Array";
-import {InputAbstract} from "./InputAbstract";
+import { NodeCore } from "mudde-core/src/Core/NodeCore"
+import { DataAbstract } from "./DataAbstract";
+import { StringHelper } from "mudde-core/src/Helper/StringHelper"
+import { Array } from "./Data/Array";
+import { InputAbstract } from "./InputAbstract";
 
 export abstract class GroupInputAbstract extends InputAbstract {
 
@@ -19,7 +19,7 @@ export abstract class GroupInputAbstract extends InputAbstract {
    }
 
    configureData(config: Object[]): void {
-      let type = StringHelper.ucfirst(config['_type'])
+      let type = StringHelper.ucFirst(config['_type'])
       let className = window['MuddeFormgen'].Data[type]
       let object: DataAbstract = new className(config, this)
 
@@ -31,7 +31,7 @@ export abstract class GroupInputAbstract extends InputAbstract {
       let isMultilingual: boolean = this.isMultilingual
       let languages: string[] = isMultilingual ? this.form.languages : [this.form.languages[0]]
       let output = new NodeCore('div', {})
-      let ids: NodeCore[] = this.coreIds = []
+      let ids: NodeCore[] = this.coreHTMLElements = []
 
       output.appendElement(this.preCoreHTMLInput())
 

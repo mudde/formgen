@@ -1,4 +1,4 @@
-import { BaseHandler } from "../node_modules/mudde-core/src/Core/BaseHandler";
+import { BaseHandler } from "mudde-core/src/Core/BaseHandler";
 import { InputAbstract } from "./InputAbstract";
 export declare abstract class BuilderAbstract extends BaseHandler {
     private _input?;

@@ -1,10 +1,10 @@
-import { NodeCore } from "mudde-core/src/Core/NodeCore"
+import { InputAbstract } from "../InputAbstract";
 import { ValidationAbstract } from "../ValidationAbstract";
 
 export class NotEmpty extends ValidationAbstract {
 
-   constructor(config: any) {
-      super(config)
+   constructor(input:InputAbstract, config: any) {
+      super(input, config)
       this.configuring(config)
    }
 
@@ -12,14 +12,17 @@ export class NotEmpty extends ValidationAbstract {
       return {}
    }
 
-   coreBuild(output: NodeCore): void {
+   handler(output:any): {} {
+      let id = this._input.id
       let attributes: any = {
          required: true
       }
 
-      this.input.rules = {
-         ...this.input.rules,
+      output[id] = {
+         ...output[id],
          ...attributes
       }
+
+      return output;
    }
 }

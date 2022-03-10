@@ -3,6 +3,7 @@ import { Form } from "../Form";
 import { InputAbstract } from "../InputAbstract";
 import { DataAbstract } from "../DataAbstract";
 import { Array } from "../Data/Array";
+import { Event } from "mudde-core/src/Core/Event";
 export declare class Combobox extends InputAbstract {
     private _multiple;
     private _data;
@@ -27,7 +28,11 @@ export declare class Combobox extends InputAbstract {
         builders: any[];
     };
     configureData(config: Object[]): void;
+    update(event: Event): void;
     coreHTMLInput(id: string, name: string, language: string): NodeCore;
+    setValue(values: any): void;
+    getValue(): any;
+    addValue(key: string, value: any): void;
     set multiple(value: boolean);
     get multiple(): boolean;
     set data(value: DataAbstract);

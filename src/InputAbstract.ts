@@ -7,6 +7,7 @@ import { NodeCore } from "mudde-core/src/Core/NodeCore"
 import { GuidHelper } from "mudde-core/src/Helper/GuidHelper";
 import { Form } from "./Form";
 import { Event } from 'mudde-core/src/Core/Event';
+import { ValidationAbstract } from './ValidationAbstract';
 
 export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverAbstract) {
 
@@ -28,11 +29,10 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
    private _readonly: boolean = false
    private _multilingual: boolean = false
    private _handlerBuilders?: HandlerInterface
-   private _handlerValidations?: HandlerInterface
+   private _handlerValidations?: ValidationAbstract
    private _form?: Form
-   private _coreIds: NodeCore[] = [];
-   private _extraJs: string = '';
-   protected _rules: {};
+   private _coreHTMLElements: NodeCore[] = []
+   private _extraJs: CallableFunction
 
    constructor(form: Form) {
       super()
@@ -42,13 +42,38 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
       this._form = form
    }
 
+   configuring(config: any): void {
+      super.configuring(config)
+      this.init()
+   }
+
+   private init() {
+      let mainId = this.id
+      let isMultilingual: boolean = this.isMultilingual
+      let languages: string[] = isMultilingual ? this.form.languages : [this.form.languages[0]]
+      let coreHTMLElements: NodeCore[] = this.coreHTMLElements = []
+
+      languages.forEach(language => {
+         let id: string = isMultilingual ? `${mainId}_${language}` : mainId
+         let name: string = isMultilingual ? `${mainId}[${language}]` : mainId
+         let object: NodeCore = this.coreHTMLInput(id, name, language)
+
+         coreHTMLElements.push(object)
+      })
+   }
+
    abstract coreHTMLInput(id: string, name: string, language: string): NodeCore
+   abstract setValue(value: any): void
+   abstract getValue(): any
+   abstract addValue(key: string, value: any): void
+
    protected preCoreHTMLInput(): NodeCore | null { return null }
    protected preHTMLInput(): NodeCore | null { return null }
    protected postCoreHTMLInput(): NodeCore | null { return null }
    protected postHTMLInput(): NodeCore | null { return null }
    protected javascript(): string { return '' }
    protected canBeMultilingual(): boolean { return false }
+   update(event: Event) { }
 
    getDefaultConfig() {
       return {
@@ -70,62 +95,53 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
       }
    }
 
-   /** @override */
-   update(event: Event) { }
-
    private configureBuilders(rawFields: Object[]): void {
+      let main = this
+
       rawFields.unshift('GeneralBuilder')
       rawFields.forEach(builder => {
          let className = window['MuddeFormgen'].Input.Builder[builder]
-         let handler = new className(this)
+         let handler = new className(main)
 
-         if (!this._handlerBuilders) {
-            this._handlerBuilders = handler
+         if (!main._handlerBuilders) {
+            main._handlerBuilders = handler
          } else {
-            this._handlerBuilders.setNext(handler)
+            main._handlerBuilders.setNext(handler)
          }
       })
    }
 
    private configureValidations(rawFields: Object[]): void {
+      let main = this
+
       rawFields.forEach(config => {
          let type = config['_type']
          let className = window['MuddeFormgen'].Validation[type]
-         let handler = new className(this, config)
+         let handler = new className(main, config)
 
          if (!this._handlerValidations) {
-            this._handlerValidations = handler
+            main._handlerValidations = handler
          } else {
-            handler.setNext(this._handlerValidations);
-            this._handlerValidations = handler;
+            main._handlerValidations.setNext(handler);
          }
       })
    }
 
    render(): NodeCore {
-      let mainId = this.id
-      let isMultilingual: boolean = this.isMultilingual
-      let languages: string[] = isMultilingual ? this.form.languages : [this.form.languages[0]]
+      let coreElements = this.coreHTMLElements
       let output = new NodeCore('div', {})
-      let ids: NodeCore[] = this.coreIds = []
 
       output.appendElement(this.preCoreHTMLInput())
 
-      languages.forEach(language => {
-         let id: string = isMultilingual ? `${mainId}_${language}` : mainId
-         let name: string = isMultilingual ? `${mainId}[${language}]` : mainId
-         let object: NodeCore = this.coreHTMLInput(id, name, language)
-
-         ids.push(object)
-         output.appendElement_(object)
-      })
+      for (const key in coreElements) {
+         output.appendElement_(coreElements[key])
+      } 
 
       output
          .appendElement_(this.postCoreHTMLInput())
          .prependElement_(this.preHTMLInput())
          .appendElement_(this.postHTMLInput())
 
-      this._handlerValidations?.handle(output)
       this._handlerBuilders?.handle(output)
 
       return output
@@ -137,12 +153,16 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
       return this.canBeMultilingual() && isMultilingualRequested
    }
 
-   get extraJs(): string {
+   get extraJs(): CallableFunction {
       return this._extraJs;
    }
 
-   set extraJs(value: string) {
-      this._extraJs = value;
+   set extraJs(extraJs: CallableFunction) {
+      let currentJs = this._extraJs
+      this._extraJs = () => {
+         !currentJs || currentJs()
+         extraJs()
+      }
    }
 
    set id(value: string) {
@@ -269,34 +289,20 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
       return this._panel
    }
 
-   get coreIds(): NodeCore[] {
-      return this._coreIds;
+   get coreHTMLElements(): NodeCore[] {
+      return this._coreHTMLElements;
    }
 
-   set coreIds(value: NodeCore[]) {
-      this._coreIds = value;
+   set coreHTMLElements(value: NodeCore[]) {
+      this._coreHTMLElements = value;
    }
 
-   get hasRules(): boolean {
-      return this._rules && Object.values(this._rules).length > 0
+   get hasValidations(): boolean {
+      return this._handlerValidations !== undefined
    }
 
-   get rulesComplete(): {} {
-      var main = this
-      var completeRules = {}
-
-      this.coreIds.forEach((item) => {
-         completeRules[item.getAttribute('name')] = main.rules
-      })
-
-      return completeRules;
+   get validations(): ValidationAbstract {
+      return this._handlerValidations;
    }
 
-   get rules(): {} {
-      return this._rules;
-   }
-
-   set rules(value: {}) {
-      this._rules = value;
-   }
 }

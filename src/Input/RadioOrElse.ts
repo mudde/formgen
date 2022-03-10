@@ -35,5 +35,14 @@ export class RadioOrElse extends GroupInputAbstract {
 
       return element
    }
+   setValue(value:any): void {
+      throw new Error('No value to manipulate!')
+   }
+   getValue(): any{
+      throw new Error('No value to manipulate!')
+   }
+   addValue(key: string, value: any): void {
+      throw new Error('No value to manipulate!')
+   }
 
 }

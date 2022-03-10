@@ -2,28 +2,19 @@ import { Mixin } from 'ts-mixer';
 import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
 import { SubjectAbstract } from "mudde-core/src/Core/SubjectAbstract";
 import { ObserverAbstract } from "mudde-core/src/Core/ObserverAbstract";
-import { Form } from "./Form";
 import { Event } from 'mudde-core/src/Core/Event';
 
 export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverAbstract) {
 
    static readonly DATA_PRE_SET = 1;
    static readonly DATA_POST_SET = 2;
-
    static readonly DATA_PRE_GET = 4;
    static readonly DATA_POST_GET = 8;
    static readonly DATA_FINALLY = 16;
+   static readonly DATA_ERROR = 32;
 
-   private _form?: Form
    protected _data: any[] = []
    protected _originalData: any[] = []
-
-   constructor(form?: Form) {
-      super()
-      if (form) {
-         this._form = form
-      }
-   }
 
    getDefaultConfig(): {} {
       return {
@@ -32,12 +23,45 @@ export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAb
       };
    }
 
-   abstract init()
-   abstract process(data)
-   
+   configuring(config: any): void {
+      super.configuring(config)
+      this.init().then((data) => {
+         this.notify(this, DataAbstract.DATA_POST_GET)
+         this.process(data)
+         this.notify(this, DataAbstract.DATA_POST_SET)
+      }).catch((error)=>{
+         this.notify(this, DataAbstract.DATA_ERROR)
+         this.error(error)
+      }).finally(() => {
+         this.notify(this, DataAbstract.DATA_FINALLY)
+         this.finished()
+      })
+   }
+
+   /** @override */
+   init(): Promise<any> {
+      return new Promise((resolve, reject) => {
+         resolve
+      });
+   }
+
+   /** @override */
+   process(data: any) {
+      this._originalData = data
+   }
+
+   /** @override */
+   error(error) {
+      this._originalData = null
+      throw new Error(error)
+   }
+
+   /** @override */
+   finished() {
+   }
+
    /** @override */
    update(event: Event) {
-      
    }
 
    get(id: string): any {
@@ -60,6 +84,8 @@ export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAb
    }
 
    restore(id: string): any {
+      if (!this._originalData[id]) throw new Error('Id not found to restore!')
+
       this._data[id] = this._originalData[id]
    }
 
@@ -67,16 +93,6 @@ export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAb
       this._data.forEach(callable)
 
       return this
-   }
-
-   set form(value: Form) {
-      this._form = value
-   }
-
-   get form(): Form {
-      if (this._form === undefined) throw new Error('Form not set!')
-
-      return this._form
    }
 
    set data(value: any[]) {
@@ -87,6 +103,16 @@ export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAb
       if (this._data === undefined) throw new Error('Data not set!')
 
       return this._data
+   }
+
+   set originalData(value: any[]) {
+      this._originalData = value
+   }
+
+   get originalData(): any[] {
+      if (this._originalData === undefined) throw new Error('Original data not set!')
+
+      return this._originalData
    }
 
 }

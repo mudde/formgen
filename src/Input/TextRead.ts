@@ -42,6 +42,25 @@ export class TextRead extends InputAbstract {
 
       return element
    }
+   setValue(value:any): void {
+      this.coreHTMLElements.forEach(item => {
+         item.innerHTML = value
+      })
+   }
+
+   getValue(): any{
+      return this.coreHTMLElements.every(item => {
+         return item.innerHTML
+      })
+   }
+
+   addValue(key: string, value: any): void {
+      this.coreHTMLElements.forEach(item => {
+         var newValue = item.innerHTML + value
+         
+         item.setAttributes({value: newValue })
+      })
+   }
 
    set mask(value: string) {
       this._mask = value

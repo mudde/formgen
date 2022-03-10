@@ -3,7 +3,7 @@ import {FormBuilderAbstract} from "../FormBuilderAbstract";
 
 export class TabsBuilder extends FormBuilderAbstract {
 
-   coreBuild(output: NodeCore): void {
+   handler(output: NodeCore): void {
       let htmlForm: HTMLElement = output.root
       let panels: HTMLCollectionOf<Element> = htmlForm.getElementsByClassName('panel')
       let tabs: NodeCore = new NodeCore('ul', { class: "nav nav-tabs" })

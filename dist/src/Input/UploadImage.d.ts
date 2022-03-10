@@ -26,6 +26,9 @@ export declare class UploadImage extends InputAbstract {
     };
     protected postCoreHTMLInput(): NodeCore;
     coreHTMLInput(id: string, name: string, language: string): NodeCore;
+    setValue(value: any): void;
+    getValue(): any;
+    addValue(key: string, value: any): void;
     set multiple(value: boolean);
     get multiple(): boolean;
     set accept(value: string);

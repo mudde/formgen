@@ -1,22 +1,10 @@
-import {DataAbstract} from "../DataAbstract";
-import {Form} from "../Form";
+import { DataAbstract } from "../DataAbstract";
 
 export class Array extends DataAbstract {
 
-   constructor(config: any, form?: Form) {
-      form ? super(form) : super()
+   constructor(config: any) {
+      super()
       this.configuring(config)
    }
 
-   getDefaultConfig(): {} {
-      return {
-         ...super.getDefaultConfig()
-      }
-   }
-
-   init() {
-   }
-
-   process(data) {
-   }
 }

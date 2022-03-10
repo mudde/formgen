@@ -1,7 +1,7 @@
-import {NodeCore} from "mudde-core/src/Core/NodeCore"
+import { NodeCore } from "mudde-core/src/Core/NodeCore"
 import { BuilderAbstract } from "../BuilderAbstract"
 
 export class GeneralBuilder extends BuilderAbstract {
-   coreBuild(output: NodeCore): void {
+   handler(output: NodeCore) {
    }
 }

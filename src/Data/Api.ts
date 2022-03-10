@@ -1,6 +1,4 @@
 import { DataAbstract } from "../DataAbstract";
-import { Form } from "../Form";
-import $ from "jquery";
 
 export class Api extends DataAbstract {
 
@@ -10,11 +8,11 @@ export class Api extends DataAbstract {
    private _charset: string = ''
    private _id: string = ''
    private _processItem: CallableFunction
-   private _done: any
-   private _fail: any
+   private _errorItem: CallableFunction
+   private _finishedItem: CallableFunction
 
-   constructor(config: any, form?: Form) {
-      super(form)
+   constructor(config: any) {
+      super()
       this.configuring(config)
    }
 
@@ -24,29 +22,38 @@ export class Api extends DataAbstract {
          type: 'get',
          contentType: 'application/json',
          charset: 'utf-8',
-         done: (data) => {
-            this._originalData = this._data = data
-         },
-         fail: (error) => {
-            throw new Error(error.statusText);
-         },
+         processItem: (data) => { this._data = data },
+         errorItem: (error) => { throw new Error(error.statusText); },
+         finishedItem: () => { },
          ...super.getDefaultConfig()
       }
    }
 
-   init(): boolean {
-      $.ajax({
-         url: this.url,
-         type: this.type,
-         contentType: this.contentType + this.charset ? '; charset=' + this.charset : '',
-      }).then(this.done, this.fail)
-      console.debug('ascsadvklubnedftrblkinadfb')
-      
-      return false;
+   init(): Promise<any> {
+      var main = this;
+      var settings = {
+         url: main.url,
+         type: main.type,
+         contentType: main.contentType + (main.charset ? '; charset=' + main.charset : ''),
+      }
+
+      return new Promise(function (resolve, reject) {
+         jQuery.ajax(settings).done(resolve).fail(reject);
+      });
    }
 
    process(data) {
-      
+      this._originalData = data
+      !this.processItem || this.processItem(data)
+   }
+
+   error(error: any) {
+      this._originalData = null
+      !this.errorItem || this.errorItem(error)
+   }
+
+   finished() {
+      !this.finishedItem || this.finishedItem()
    }
 
    get url(): string {
@@ -89,27 +96,28 @@ export class Api extends DataAbstract {
       this._id = value;
    }
 
-   get processItem(): any {
+   get processItem(): CallableFunction {
       return this._processItem;
    }
 
-   set processItem(value: any) {
+   set processItem(value: CallableFunction) {
       this._processItem = value;
    }
 
-   get fail(): any {
-      return this._fail;
+   get errorItem(): CallableFunction {
+      return this._errorItem;
    }
 
-   set fail(value: any) {
-      this._fail = value;
+   set errorItem(value: CallableFunction) {
+      this._errorItem = value;
    }
 
-   get done(): any {
-      return this._done;
+   get finishedItem(): CallableFunction {
+      return this._finishedItem;
    }
 
-   set done(value: any) {
-      this._done = value;
+   set finishedItem(value: CallableFunction) {
+      this._finishedItem = value;
    }
+
 }

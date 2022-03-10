@@ -1,5 +1,5 @@
-import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
-import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore";
+import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
+import { NodeCore } from "mudde-core/src/Core/NodeCore";
 import { Form } from "./Form";
 export declare abstract class ButtonAbstract extends ConfigurableAbstract {
     private __type;

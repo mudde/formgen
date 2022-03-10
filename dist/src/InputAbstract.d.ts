@@ -5,6 +5,7 @@ import { HandlerInterface } from "mudde-core/src/Core/HandlerInterface";
 import { NodeCore } from "mudde-core/src/Core/NodeCore";
 import { Form } from "./Form";
 import { Event } from 'mudde-core/src/Core/Event';
+import { ValidationAbstract } from './ValidationAbstract';
 declare const InputAbstract_base: import("ts-mixer/dist/types/types").Class<any[], ConfigurableAbstract & SubjectAbstract & ObserverAbstract, typeof ConfigurableAbstract & typeof SubjectAbstract & typeof ObserverAbstract, false>;
 export declare abstract class InputAbstract extends InputAbstract_base {
     EVENT_INPUT_PRE_CONFIGURE: number;
@@ -26,17 +27,22 @@ export declare abstract class InputAbstract extends InputAbstract_base {
     private _handlerBuilders?;
     private _handlerValidations?;
     private _form?;
-    private _coreIds;
+    private _coreHTMLElements;
     private _extraJs;
-    protected _rules: {};
     constructor(form: Form);
+    configuring(config: any): void;
+    private init;
     abstract coreHTMLInput(id: string, name: string, language: string): NodeCore;
+    abstract setValue(value: any): void;
+    abstract getValue(): any;
+    abstract addValue(key: string, value: any): void;
     protected preCoreHTMLInput(): NodeCore | null;
     protected preHTMLInput(): NodeCore | null;
     protected postCoreHTMLInput(): NodeCore | null;
     protected postHTMLInput(): NodeCore | null;
     protected javascript(): string;
     protected canBeMultilingual(): boolean;
+    update(event: Event): void;
     getDefaultConfig(): {
         _type: string;
         id: string;
@@ -54,14 +60,12 @@ export declare abstract class InputAbstract extends InputAbstract_base {
         multilingual: boolean;
         builders: any[];
     };
-    /** @override */
-    update(event: Event): void;
     private configureBuilders;
     private configureValidations;
     render(): NodeCore;
     get isMultilingual(): boolean;
-    get extraJs(): string;
-    set extraJs(value: string);
+    get extraJs(): CallableFunction;
+    set extraJs(extraJs: CallableFunction);
     set id(value: string);
     get id(): string;
     set input(value: boolean);
@@ -92,11 +96,9 @@ export declare abstract class InputAbstract extends InputAbstract_base {
     get placeholder(): string;
     set panel(value: string);
     get panel(): string;
-    get coreIds(): NodeCore[];
-    set coreIds(value: NodeCore[]);
-    get hasRules(): boolean;
-    get rulesComplete(): {};
-    get rules(): {};
-    set rules(value: {});
+    get coreHTMLElements(): NodeCore[];
+    set coreHTMLElements(value: NodeCore[]);
+    get hasValidations(): boolean;
+    get validations(): ValidationAbstract;
 }
 export {};

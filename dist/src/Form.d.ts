@@ -1,25 +1,34 @@
-import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
-import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore";
+import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
+import { NodeCore } from "mudde-core/src/Core/NodeCore";
+import { HandlerInterface } from "mudde-core/src/Core/HandlerInterface";
+import { ObserverAbstract } from "mudde-core/src/Core/ObserverAbstract";
+import { SubjectAbstract } from "mudde-core/src/Core/SubjectAbstract";
+import { Event } from "mudde-core/src/Core/Event";
 import { ButtonAbstract } from "./ButtonAbstract";
 import { DataAbstract } from "./DataAbstract";
 import { InputAbstract } from "./InputAbstract";
-import { HandlerInterface } from "../node_modules/mudde-core/src/Core/HandlerInterface";
-export declare class Form extends ConfigurableAbstract {
+declare const Form_base: import("ts-mixer/dist/types/types").Class<any[], ConfigurableAbstract & SubjectAbstract & ObserverAbstract, typeof ConfigurableAbstract & typeof SubjectAbstract & typeof ObserverAbstract, false>;
+export declare class Form extends Form_base {
     static readonly EVENT_FORM_PRE_CONFIGURE = 1;
     static readonly EVENT_FORM_POST_CONFIGURE = 2;
-    static readonly EVENT_FORM_FINISHED = 3;
+    static readonly EVENT_FORM_PRE_RENDER = 4;
+    static readonly EVENT_FORM_POST_RENDER = 8;
+    static readonly EVENT_FORM_FINISHED = 16;
     private _id;
     private _languages;
     private _fields;
     private _buttons;
     private _form?;
+    private _rootForm?;
     private _data?;
     private _builder?;
     private _panels;
     private _additionalJs;
-    private _rules;
+    private _validations;
     private _method;
     private _action;
+    static _validatorDefaults: any;
+    private _formValidation;
     static _forms: Form[];
     constructor(config: any);
     getDefaultConfig(): any;
@@ -28,11 +37,13 @@ export declare class Form extends ConfigurableAbstract {
     private configureBuilder;
     private configureData;
     static getFormById(id: string): Form | null;
-    render(): NodeCore;
+    render(): Promise<NodeCore>;
     private handleXtraJs;
+    private formExtraJS;
     private initPanel;
     private addButtons;
     private addFields;
+    update(event: Event): void;
     set id(value: string);
     get id(): string;
     get panels(): any;
@@ -45,10 +56,12 @@ export declare class Form extends ConfigurableAbstract {
     get buttons(): ButtonAbstract[];
     set form(value: NodeCore);
     get form(): NodeCore;
+    set rootForm(value: Form);
+    get rootForm(): Form;
     set builder(value: HandlerInterface);
     get builder(): HandlerInterface;
-    get additionalJs(): string[];
-    set additionalJs(value: string[]);
+    get additionalJs(): Promise<void>[];
+    set additionalJs(value: Promise<void>[]);
     get data(): DataAbstract;
     set data(value: DataAbstract);
     get method(): string;
@@ -56,3 +69,4 @@ export declare class Form extends ConfigurableAbstract {
     get action(): string;
     set action(value: string);
 }
+export {};

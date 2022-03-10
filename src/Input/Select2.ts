@@ -11,9 +11,10 @@ export class Select2 extends Combobox {
    }
 
    update(event: Event) {
-      let source: Select2 = event.source;
+      let source: Select2 = event.source
       let id = source.id
-
-      this.extraJs = "$('#" + id + "').select2();"
+      this.extraJs = () => {
+         $('#'+ id).select2();
+      }
    }
 }

@@ -23,6 +23,9 @@ export declare class UploadFile extends InputAbstract {
         builders: any[];
     };
     coreHTMLInput(id: string, name: string, language: string): NodeCore;
+    setValue(value: any): void;
+    getValue(): any;
+    addValue(key: string, value: any): void;
     set multiple(value: boolean);
     get multiple(): boolean;
 }

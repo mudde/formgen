@@ -27,6 +27,21 @@ export class Textarea extends InputAbstract {
 
       return element
    }
+   setValue(value:any): void {
+      this.coreHTMLElements.forEach(item => {
+         item.innerHTML = value
+      })
+   }
+   getValue(): any{
+      return this.coreHTMLElements.every(item => {
+         return item.innerHTML
+      })
+   }
+   addValue(key: string, value: any): void {
+      this.coreHTMLElements.forEach(item => {
+         item.root.append(value)
+      })
+   }
 
    set spellcheck(value: boolean) {
       this._spellcheck = value

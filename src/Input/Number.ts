@@ -40,6 +40,25 @@ export class Number extends InputAbstract {
 
       return element
    }
+   setValue(value:any): void {
+      this.coreHTMLElements.forEach(item => {
+         item.setAttributes({value: value})
+      })
+   }
+
+   getValue(): any{
+      return this.coreHTMLElements.every(item => {
+         return item.getAttribute('value')
+      })
+   }
+
+   addValue(key: string, value: any): void {
+      this.coreHTMLElements.forEach(item => {
+         var newValue = item.getAttribute('value') + value
+         
+         item.setAttributes({value: newValue })
+      })
+   }
 
    set mask(value: string) {
       this._mask = value

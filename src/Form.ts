@@ -1,41 +1,81 @@
-import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
-import { NodeCore } from "../node_modules/mudde-core/src/Core/NodeCore"
-import { GuidHelper } from "../node_modules/mudde-core/src/Helper/GuidHelper"
-import { StringHelper } from "../node_modules/mudde-core/src/Helper/StringHelper"
+import { Mixin } from "ts-mixer";
+
+import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
+import { NodeCore } from "mudde-core/src/Core/NodeCore"
+import { GuidHelper } from "mudde-core/src/Helper/GuidHelper"
+import { StringHelper } from "mudde-core/src/Helper/StringHelper"
+import { HandlerInterface } from "mudde-core/src/Core/HandlerInterface"
+import { ObserverAbstract } from "mudde-core/src/Core/ObserverAbstract";
+import { SubjectAbstract } from "mudde-core/src/Core/SubjectAbstract";
+import { Event } from "mudde-core/src/Core/Event";
+
 import { ButtonAbstract } from "./ButtonAbstract"
 import { DataAbstract } from "./DataAbstract"
 import { InputAbstract } from "./InputAbstract"
-import { HandlerInterface } from "../node_modules/mudde-core/src/Core/HandlerInterface"
 
-export class Form extends ConfigurableAbstract {
+export class Form extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverAbstract) {
 
    static readonly EVENT_FORM_PRE_CONFIGURE = 1
    static readonly EVENT_FORM_POST_CONFIGURE = 2
-   static readonly EVENT_FORM_FINISHED = 3
+   static readonly EVENT_FORM_PRE_RENDER = 4
+   static readonly EVENT_FORM_POST_RENDER = 8
+   static readonly EVENT_FORM_FINISHED = 16
 
    private _id: string = ''
    private _languages: string[] = []
    private _fields: InputAbstract[] = []
    private _buttons: ButtonAbstract[] = []
    private _form?: NodeCore
+   private _rootForm?: Form = null        //  For pop-up forms  Gr.O.M.
    private _data?: DataAbstract
    private _builder?: HandlerInterface
    private _panels: any = {}
-   private _additionalJs: string[] = []
-   private _rules: {} = {}
+   private _additionalJs: Promise<void>[] = []
+   private _validations: any = {}
    private _method: string = ''
    private _action: string = ''
+   static _validatorDefaults: any = {
+      dynamic: {
+         settings: {
+            trigger: [
+               "focusout", "keydown",
+               "keypress", "keyup"
+            ]
+         }
+      },
+      showErrors: function (errorMap) {
+         let invalid = this.invalid
+
+         for (const key in invalid) {
+            let item = $(`#${key}-error`)
+            let currentText = item.text()
+
+            item.text(invalid[key] ? errorMap[key] ? errorMap[key] : currentText : '')
+         }
+      },
+      debug: true,
+      ignore: [".ck-hidden", ".ck, .select2-search__field", ".btn"]
+   }
+   private _formValidation: JQueryValidation.Validator
 
    static _forms: Form[] = []
 
    constructor(config: any) {
+      //  todo  var a='olaf'; var b='test ${a}'; let tpl = eval('`'+b+'`'); console.debug(tpl)  Gr.O.M.
       super()
 
+      this.notify(this, Form.EVENT_FORM_PRE_CONFIGURE)
+
+      let form = this.form = new NodeCore('form')
+      Form._forms.length != 0 || $.validator.setDefaults(Form._validatorDefaults)
       Form._forms.push(this)
 
-      this.form = new NodeCore('form', { method: this.method, action: this.action, id: this.id })
-
       this.configuring(config)
+
+      form.setAttributes({ method: this.method, action: this.action, id: this.id })
+
+      this.notify(this, Form.EVENT_FORM_POST_CONFIGURE)
+
    }
 
    getDefaultConfig(): any {
@@ -61,7 +101,9 @@ export class Form extends ConfigurableAbstract {
          let type = config['_type']
          let className = window['MuddeFormgen'].Input[type]
          let object = new className(config, main)
+
          fields.push(object)
+
       })
    }
 
@@ -73,6 +115,7 @@ export class Form extends ConfigurableAbstract {
          let type = config['_type']
          let className = window['MuddeFormgen'].Button[type]
          let object = new className(config, main)
+
          buttons.push(object)
       })
    }
@@ -94,7 +137,7 @@ export class Form extends ConfigurableAbstract {
 
    private configureData(config: Object[]) {
       var object = null
-      let type = StringHelper.ucfirst(config['_type'])
+      let type = StringHelper.ucFirst(config['_type'])
 
       if (type) {
          let className = window['MuddeFormgen'].Data[type]
@@ -113,36 +156,63 @@ export class Form extends ConfigurableAbstract {
       return form && form.length === 0 ? null : form[0]
    }
 
-   render(): NodeCore {
+   render(): Promise<NodeCore> {
       if (this._form === undefined) throw new Error('Form not set!')
 
-      let form = this._form
+      this.notify(this, Form.EVENT_FORM_PRE_RENDER)
 
-      this.addFields()
-      this.addButtons()
-      this._builder?.handle(form)
-      this.handleXtraJs()
+      let main: Form = this
+      let form: NodeCore = this._form
 
-      return form
+      return new Promise((resolve, reject) => {
+         let promises: any = main.addFields()
+
+         form.clear()
+
+         Promise
+            .all(promises)
+            .then(inputs => {
+               inputs.forEach(input => {
+                  form.appendElement_(input)
+               })
+               main._builder?.handle(form)
+            })
+            .catch((error) => {
+               reject(error)
+            })
+            .finally(() => {
+               main.addButtons()
+               main.handleXtraJs()
+            })
+
+         main.notify(main, Form.EVENT_FORM_POST_RENDER)
+         resolve(form)
+         main.notify(main, Form.EVENT_FORM_FINISHED)
+      })
    }
 
    private handleXtraJs() {
-      let additionalJs = this._additionalJs;
+      let additionalJs: Promise<void>[] = this._additionalJs
 
-      //  todo  more descent js solution  Gr.O.M.
-      additionalJs.push(`
-            $.validator.setDefaults({ ignore: ".ck-hidden, .ck, .select2-search__field, .btn", debug: true });
-            var formgenValidator = $( "#${this.id}" ).validate({ rules: ${JSON.stringify(this._rules)}});
-            if(formgenValidator){
-               formgenValidator.checkForm();
-               formgenValidator.showErrors();
-            }`)
+      additionalJs.push(this.formExtraJS())
 
-      let script: any = document.createElement('script')
-      script.text = `function additionalScript() { ${additionalJs.join(';')} };
-      $(document).ready( () => { additionalScript() } );`;
+      Promise.all(additionalJs)
+   }
 
-      document.body.appendChild(script);
+   private formExtraJS(): Promise<void> {
+      let main = this
+      let rules = main._validations
+
+      return new Promise((resolve, reject) => {
+         var formgenValidator = $('#' + main.id).validate({ rules: rules })
+         if (!formgenValidator) {
+            return reject
+         }
+
+         main._formValidation = formgenValidator
+         formgenValidator.checkForm()
+         resolve
+      })
    }
 
    private initPanel(panelId: string, panelLabel: string) {
@@ -150,7 +220,7 @@ export class Form extends ConfigurableAbstract {
 
       if (!form?.hasElementById(panelId)) {
          form
-            ?.gotoRoot()
+            .gotoRoot()
             .appendNode_('div', { id: panelId, class: 'panel', 'data-formgen-name': panelLabel })
       }
    }
@@ -159,31 +229,37 @@ export class Form extends ConfigurableAbstract {
       let form = this._form
 
       form.gotoRoot()
+
       this.buttons.forEach(element => {
          form?.appendElement_(element.render())
       });
    }
 
-   private addFields() {
-      let form = this._form
-      var main = this
-
-      form.clear()
+   private addFields(): Promise<NodeCore>[] {
+      let main = this
+      let promises: Promise<NodeCore>[] = []
 
       this.fields.forEach(field => {
-         let panelId = 'panel_' + field.panel
-         let panelLabel = this._panels[field.panel] ?? panelId
-         let renderedElement: NodeCore = field.render()
+         promises.push(new Promise((resolve, reject) => {
+            let panelId = 'panel_' + field.panel
+            let panelLabel = main._panels[field.panel] ?? panelId
+            let renderedElement: NodeCore = field.render()
+            let rules = field.validations?.handle()
 
-         this.initPanel(panelId, panelLabel)
+            main.initPanel(panelId, panelLabel)
 
-         !field.extraJs || this._additionalJs.push(field.extraJs)
-         !field.hasRules || (main._rules = { ...main._rules, ...field.rulesComplete })
+            !field.extraJs || main._additionalJs.push(new Promise((resolve, reject) => { field.extraJs(); resolve }))
+            !field.hasValidations || (main._validations = { ...main._validations, ...rules })
 
-         form
-            ?.getElementById(panelId)
-            .appendElement_(renderedElement)
-      });
+            resolve(renderedElement)
+         }))
+      })
+
+      return promises
+   }
+
+   update(event: Event) {
+      throw new Error("Method not implemented.");
    }
 
    set id(value: string) {
@@ -235,6 +311,16 @@ export class Form extends ConfigurableAbstract {
       return this._form
    }
 
+   set rootForm(value: Form) {
+      this._rootForm = value
+   }
+
+   get rootForm(): Form {
+      if (this._rootForm === undefined) throw new Error('Form not set!')
+
+      return this._rootForm
+   }
+
    set builder(value: HandlerInterface) {
       this._builder = value
    }
@@ -245,11 +331,11 @@ export class Form extends ConfigurableAbstract {
       return this._builder
    }
 
-   get additionalJs(): string[] {
+   get additionalJs(): Promise<void>[] {
       return this._additionalJs;
    }
 
-   set additionalJs(value: string[]) {
+   set additionalJs(value: Promise<void>[]) {
       this._additionalJs = value;
    }
 

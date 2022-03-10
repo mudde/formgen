@@ -17,24 +17,26 @@ export class Submit extends ButtonAbstract {
 
    coreHTMLInput(id: string, name: string, language: string): NodeCore {
       let formId = this.form.id
-      //  todo  Onclick naar andere functie!  Gr.O.M.
+      //  todo  Onclick to just a submit button onclick="Form.save()"  Gr.O.M.
       let attributes: any = {
          type: 'button',
+         name: `submit-${formId}`,
          class: 'btn btn-primary',
          onclick: `javascript:
          var data = {};
          var form = document.forms['${formId}'];
          Array.from(form.elements).forEach(element => {
-             if (element.name && element.name !== "id") {
-                console.debug(element.type)
-                 if (element.type === 'file') {
-                     data[element.name] = Array.from(element.files).flatMap(x => { return x.name });
-                 } else if(element.type === 'select-multiple') {
-                     data[element.name] = Array.from(element.selectedOptions).flatMap(x=>{ return x.value  })
-                 } else {
-                     data[element.name] = element.value
-                 }
-             }
+            if (element.name && element.name == "id") return;
+            if (element.type && element.type == "button") return;
+
+            console.debug(element.type)
+            if (element.type === 'file') {
+               data[element.name] = Array.from(element.files).flatMap(x => { return x.name });
+            } else if(element.type === 'select-multiple') {
+               data[element.name] = Array.from(element.selectedOptions).flatMap(x=>{ return x.value  })
+            } else {
+               data[element.name] = element.value
+            }
          });
          console.debug(data);
          $.ajax({
@@ -44,7 +46,7 @@ export class Submit extends ButtonAbstract {
             contentType:"application/json; charset=utf-8",
             dataType:"json",
             success: function(data){
-               console.debug(data); 
+               console.debug(event); 
             },
             fail: function (error) {
                console.debug(error); 

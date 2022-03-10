@@ -4,6 +4,7 @@ import { InputAbstract } from "../InputAbstract"
 import { DataAbstract } from "../DataAbstract"
 import { Array } from "../Data/Array"
 import { StringHelper } from "mudde-core/src/Helper/StringHelper"
+import { Event } from "mudde-core/src/Core/Event"
 
 export class Combobox extends InputAbstract {
 
@@ -24,12 +25,16 @@ export class Combobox extends InputAbstract {
    }
 
    configureData(config: Object[]): void {
-      let type = StringHelper.ucfirst(config['_type'])
+      let type: string = StringHelper.ucFirst(config['_type'])
       let className = window['MuddeFormgen'].Data[type]
-      let object: DataAbstract = new className(config, this)
-      //  todo  attach DATA_LOADED observer to set actual form data  Gr.O.M.
-      object.attach(DataAbstract.DATA_FINALLY,this);
-      this._data = object
+      let object = this._data = new className(config, this)
+
+      object.attach(DataAbstract.DATA_FINALLY, this)
+      object.init()
+   }
+
+   update(event: Event): void {
+       console.debug(event)
    }
 
    coreHTMLInput(id: string, name: string, language: string): NodeCore {
@@ -44,11 +49,39 @@ export class Combobox extends InputAbstract {
          element.appendNode('option', { value: null }, '')
       }
 
-      this._data.forEach(dataitem => {
-         element.appendNode('option', { value: dataitem.id }, dataitem.value)
-      });
-
       return element
+   }
+
+   setValue(values: any): void {
+      let setValueFunction = (typeof values == 'string' || typeof values == 'number')
+         ? (element: NodeCore) => {
+            $('#' + element.id).val(values)
+         }
+         : (element: NodeCore) => {
+            element.removeChildren()
+            for (let [key, value] of values) {
+               element.appendNode('option', { value: key }, value)
+            }
+         }
+
+      this.coreHTMLElements.forEach(setValueFunction)
+   }
+
+   getValue(): any {
+      let values = {}
+      let lastValue = null
+
+      this.coreHTMLElements.forEach((value: NodeCore) => {
+         lastValue = values[value.id] = value
+      })
+
+      return this.multiple ? values : lastValue
+   }
+
+   addValue(key: string, value: any): void {
+      this.coreHTMLElements.forEach((element: NodeCore) => {
+         element.appendNode('option', { value: key }, value)
+      })
    }
 
    set multiple(value: boolean) {

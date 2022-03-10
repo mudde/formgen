@@ -1,9 +1,9 @@
 import { NodeCore } from "mudde-core/src/Core/NodeCore"
-import {InputBuilderAbstract} from "../../InputBuilderAbstract";
+import { InputBuilderAbstract } from "../../InputBuilderAbstract";
 
 export class BootstrapBuilder extends InputBuilderAbstract {
 
-   coreBuild(output: NodeCore): void {
+   handler(output: NodeCore): void {
       let input = this.input
       let label = output.getElementByTagName('label').item(0)
       label?.classList.add('form-label')
@@ -14,7 +14,7 @@ export class BootstrapBuilder extends InputBuilderAbstract {
          help.innerHTML = input.help
       }
 
-      input.coreIds.forEach(item => {
+      input.coreHTMLElements.forEach(item => {
          let classes = '' + item.getAttribute('class')
          if (classes.indexOf('form-check') === - 1) {
             item.gotoRoot().addClass('form-control')

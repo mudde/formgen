@@ -30,6 +30,15 @@ export class UploadFile extends InputAbstract {
 
       return element
    }
+   setValue(value:any): void {
+
+   }
+   getValue(): any{
+      
+   }
+   addValue(key: string, value: any): void {
+      
+   }
 
    set multiple(value: boolean) {
       this._multiple = value

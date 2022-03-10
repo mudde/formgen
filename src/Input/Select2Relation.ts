@@ -1,52 +1,59 @@
+import * as MuddeFormgen from '../index';
 import { Event } from "mudde-core/src/Core/Event";
 import { NodeCore } from "mudde-core/src/Core/NodeCore"
 import { Combobox } from "./Combobox"
+import { BootstrapHelper } from '../Helper';
+import { Form } from '../Form';
 
 export class Select2Relation extends Combobox {
 
    coreHTMLInput(id: string, name: string, language: string): NodeCore {
       let element: NodeCore = super.coreHTMLInput(id, name, language)
 
-      element.setAttributes({ 'style': 'width: 90%;' });
+      element.setAttributes({ 'style': 'width: 90%;' })
 
       return element
    }
 
    update(event: Event) {
-      console.debug(event);
-      let source: Select2Relation = event.source;
-      let id = source.id
-
-      let modelId = 'model_' + id
-      let modelLabelId = 'model_label_' + id
-      let modelFormId = 'model_form_' + id
-      let uri = './api/taxes'
+      let main = this;
+      let id = this.coreHTMLElements[0].id
       let formId = this.form.id
+      let element = document.getElementById(id)
+      let source = event.source;
+      let data = source.data
+      let uri = source.url + '/form'
+      let modal = BootstrapHelper.modal(id);
+      let addButton = new NodeCore('button', { type: "button", class: "btn btn-primary btn-self", "data-bs-toggle": "modal", "data-bs-target": "#model_" + id }, '+')
 
-      var x = new NodeCore('div', { class: 'width-100' })
-         //  todo  move out of the form (postFormHtml)
-         .appendNode_('div', { class: "modal fade", id: modelId, tabindex: "-1", "aria-labelledby": modelLabelId, "aria-hidden": "true" })
-         .appendNode_('div', { class: "modal-dialog" })
-         .appendNode_('div', { class: "modal-content"})
-         .appendNode_('div', { class: "modal-header" })
-         .appendNode('h5', { id: modelLabelId, class: "modal-title" }, 'Form')
-         .appendNode('button', { type: "button", class: "btn-close", "data-bs-dismiss": "modal", "aria-label": "Close" })
-         ._()
-         .appendNode_('div', { class: "modal-body" })
-         .appendNode('div', { id: modelFormId })
+      data.forEach((item) => {
+         let itemNode = new NodeCore('option', { value: item.id }, item.name);
+         element.appendChild(itemNode.root);
+      })
 
-      var y = new NodeCore('button', { type: "button", class: "btn btn-primary btn-self", "data-bs-toggle": "modal", "data-bs-target": "#" + modelId }, '+')
-      
-      this.extraJs = `$(document).ready(()=>{
-         $('#${id}').select2();\
-         $('${y.toHTML()}').insertAfter('#${id}');\
-         $('${x.toHTML()}').insertAfter('#${formId}');\
-         
-         $.ajax({ url: '${uri}' }).then((config) => {\
-            let form = new MuddeFormgen.Form(config);\
-            document.getElementById('${modelFormId}').innerHTML = form.render().root.outerHTML;\
-         });
-      })`;
+      $("#" + id).select2();
+      $(addButton.root).insertBefore('#' + id + '-error')
+      $(modal.root).insertAfter('#' + formId)
+
+      jQuery
+         .ajax({ url: uri })
+         .then(
+            (config) => {
+               let replaceButton = config.buttons[0]
+               replaceButton._type = 'SubmitModal'
+               replaceButton.originalForm = main.form
+               replaceButton.uri = source.url
+               replaceButton.fieldId = id
+
+               var form:Form = new MuddeFormgen.Form(config)
+               form.render().then(value => {
+                  $(value.root).appendTo('#model_body_' + id)
+               })
+            },
+            (error) => {
+               throw new Error(error.statusText)
+            }
+         )
    }
 
 }

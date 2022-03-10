@@ -1,4 +1,4 @@
-import {Event} from "../node_modules/mudde-core/src/Core/Event";
+import {Event} from "mudde-core/src/Core/Event";
 
 export class DataEvent extends Event {
    

@@ -34,6 +34,9 @@ export declare class TextRead extends InputAbstract {
         builders: any[];
     };
     coreHTMLInput(id: string, name: string, language: string): NodeCore;
+    setValue(value: any): void;
+    getValue(): any;
+    addValue(key: string, value: any): void;
     set mask(value: string);
     get mask(): string;
     set format(value: string);
