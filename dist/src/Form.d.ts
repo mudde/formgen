@@ -1,14 +1,15 @@
+/// <reference types="jquery.validation" />
 import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
 import { NodeCore } from "mudde-core/src/Core/NodeCore";
-import { HandlerInterface } from "mudde-core/src/Core/HandlerInterface";
-import { ObserverAbstract } from "mudde-core/src/Core/ObserverAbstract";
-import { SubjectAbstract } from "mudde-core/src/Core/SubjectAbstract";
-import { Event } from "mudde-core/src/Core/Event";
+import { HandlerInterface } from "mudde-core/src/Core/ChainOfResponsibility/HandlerInterface";
+import { ObserverAbstract } from "mudde-core/src/Core/ObserverPattern/ObserverAbstract";
+import { SubjectAbstract } from "mudde-core/src/Core/ObserverPattern/SubjectAbstract";
+import { Event } from "mudde-core/src/Core/ObserverPattern/Event";
 import { ButtonAbstract } from "./ButtonAbstract";
 import { DataAbstract } from "./DataAbstract";
-import { InputAbstract } from "./InputAbstract";
+import { StorableInterface } from "./StorableInterface";
 declare const Form_base: import("ts-mixer/dist/types/types").Class<any[], ConfigurableAbstract & SubjectAbstract & ObserverAbstract, typeof ConfigurableAbstract & typeof SubjectAbstract & typeof ObserverAbstract, false>;
-export declare class Form extends Form_base {
+export declare class Form extends Form_base implements StorableInterface {
     static readonly EVENT_FORM_PRE_CONFIGURE = 1;
     static readonly EVENT_FORM_POST_CONFIGURE = 2;
     static readonly EVENT_FORM_PRE_RENDER = 4;
@@ -29,14 +30,21 @@ export declare class Form extends Form_base {
     private _action;
     static _validatorDefaults: any;
     private _formValidation;
-    static _forms: Form[];
+    static _forms: {};
     constructor(config: any);
+    private updateForm;
     getDefaultConfig(): any;
     private configureFields;
     private configureButtons;
     private configureBuilder;
     private configureData;
     static getFormById(id: string): Form | null;
+    getFieldById(id: string): any;
+    showValidationErrors(): JQueryValidation.ErrorDictionary;
+    validate(): boolean;
+    post(): Promise<any>;
+    put(): Promise<any>;
+    delete(): Promise<any>;
     render(): Promise<NodeCore>;
     private handleXtraJs;
     private formExtraJS;
@@ -50,8 +58,8 @@ export declare class Form extends Form_base {
     set panels(value: any);
     set languages(value: string[]);
     get languages(): string[];
-    set fields(value: InputAbstract[]);
-    get fields(): InputAbstract[];
+    set fields(value: {});
+    get fields(): {};
     set buttons(value: ButtonAbstract[]);
     get buttons(): ButtonAbstract[];
     set form(value: NodeCore);

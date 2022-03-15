@@ -1,4 +1,4 @@
-import { Event } from "mudde-core/src/Core/Event";
+import { Event } from "mudde-core/src/Core/ObserverPattern/Event";
 import { NodeCore } from "mudde-core/src/Core/NodeCore";
 import { Combobox } from "./Combobox";
 export declare class Select2 extends Combobox {

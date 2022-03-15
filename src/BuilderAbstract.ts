@@ -1,11 +1,11 @@
-import {BaseHandler} from "mudde-core/src/Core/BaseHandler"
-import {InputAbstract} from "./InputAbstract"
+import { BaseHandler } from "mudde-core/src/Core/ChainOfResponsibility/BaseHandler"
+import { InputAbstract } from "./InputAbstract"
 
 export abstract class BuilderAbstract extends BaseHandler {
 
   private _input?: InputAbstract
 
-  constructor(input:InputAbstract) {
+  constructor(input: InputAbstract) {
     super()
     this._input = input
   }
@@ -15,8 +15,8 @@ export abstract class BuilderAbstract extends BaseHandler {
   }
 
   get input(): InputAbstract {
-    if(this._input === undefined) throw new Error('Input not set!');
-    
+    if (this._input === undefined) throw new Error('Input not set!');
+
     return this._input
   }
 

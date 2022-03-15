@@ -1,10 +1,11 @@
 import { NodeCore } from "mudde-core/src/Core/NodeCore";
+import { DataAbstract } from "../DataAbstract";
 import { Form } from "../Form";
 import { InputAbstract } from "../InputAbstract";
 export declare class UploadImage extends InputAbstract {
     private _multiple;
     private _accept;
-    constructor(config: any, form: Form);
+    constructor(config: any, form: Form, data: DataAbstract);
     getDefaultConfig(): {
         accept: string;
         multiple: boolean;

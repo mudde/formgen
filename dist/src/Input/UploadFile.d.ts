@@ -1,9 +1,10 @@
 import { NodeCore } from "mudde-core/src/Core/NodeCore";
+import { DataAbstract } from "../DataAbstract";
 import { Form } from "../Form";
 import { InputAbstract } from "../InputAbstract";
 export declare class UploadFile extends InputAbstract {
     private _multiple;
-    constructor(config: any, form: Form);
+    constructor(config: any, form: Form, data: DataAbstract);
     getDefaultConfig(): {
         multiple: boolean;
         _type: string;

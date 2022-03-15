@@ -6,7 +6,7 @@ import { InputAbstract } from "./InputAbstract";
 
 export abstract class GroupInputAbstract extends InputAbstract {
 
-   private _data: DataAbstract = new Array({ data: [] })
+   private _buildData: DataAbstract = new Array({ data: [] })
    private _currentData: any = {}
 
    abstract coreHTMLInput(id: string, name: string, language: string): NodeCore
@@ -23,7 +23,7 @@ export abstract class GroupInputAbstract extends InputAbstract {
       let className = window['MuddeFormgen'].Data[type]
       let object: DataAbstract = new className(config, this)
 
-      this._data = object
+      this._buildData = object
    }
 
    render(): NodeCore {
@@ -35,7 +35,7 @@ export abstract class GroupInputAbstract extends InputAbstract {
 
       output.appendElement(this.preCoreHTMLInput())
 
-      this._data.forEach(data => {
+      this._buildData.forEach(data => {
          this.currentData = data
 
          languages.forEach(language => {
@@ -59,12 +59,12 @@ export abstract class GroupInputAbstract extends InputAbstract {
       return output
    }
 
-   set data(value: DataAbstract) {
-      this._data = value
+   set buildData(value: DataAbstract) {
+      this._buildData = value
    }
 
-   get data(): DataAbstract {
-      return this._data
+   get buildData(): DataAbstract {
+      return this._buildData
    }
 
    set currentData(value: any) {

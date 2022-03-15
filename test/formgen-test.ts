@@ -5,11 +5,12 @@ const expect = chai.expect;
 
 describe('My Formgen element', () => {
   it('can create an empty form', () => {
-    let form = new Form({id:'form01'})
-    
-    expect(form.render().toHTML())
-      .to
-      .equal('<form method="POST" action="." id="form01"></form>');
-  });
+    let form = new Form({ id: 'form01' })
 
-});
+    form.render().then(data => {
+      expect(data)
+        .to
+        .equal('<form method="POST" action="." id="form01"></form>');
+    })
+  })
+})

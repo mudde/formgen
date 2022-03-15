@@ -1,4 +1,5 @@
 import { NodeCore } from "mudde-core/src/Core/NodeCore"
+import { DataAbstract } from "../DataAbstract"
 import {Form} from "../Form"
 import {InputAbstract} from "../InputAbstract"
 
@@ -11,8 +12,8 @@ export class Text extends InputAbstract {
    private _multiple: boolean = false
    private _spellcheck: boolean = false
 
-   constructor(config: any, form: Form) {
-      super(form)
+   constructor(config: any, form: Form, data: DataAbstract) {
+      super(form,data)
       this.configuring(config)
    }
 

@@ -2,7 +2,7 @@ import { NodeCore } from "mudde-core/src/Core/NodeCore";
 import { ButtonAbstract } from "../ButtonAbstract";
 import { Form } from "../Form";
 export declare class SubmitModal extends ButtonAbstract {
-    originalForm: Form;
+    parentForm: Form;
     uri: string;
     fieldId: string;
     constructor(config: any, form: Form);
@@ -12,6 +12,7 @@ export declare class SubmitModal extends ButtonAbstract {
         uri: string;
         fieldId: string;
     };
-    click(event: any): boolean;
+    click(event: any): void;
+    x(event: any): boolean;
     coreHTMLInput(id: string, name: string, language: string): NodeCore;
 }

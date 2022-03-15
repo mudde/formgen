@@ -1,4 +1,4 @@
-import {Event} from "mudde-core/src/Core/Event";
+import {Event} from "mudde-core/src/Core/ObserverPattern/Event";
 
 export class DataEvent extends Event {
    

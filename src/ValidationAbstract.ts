@@ -1,4 +1,4 @@
-import { HandlerInterface } from "mudde-core/src/Core/HandlerInterface";
+import { HandlerInterface } from "mudde-core/src/Core/ChainOfResponsibility/HandlerInterface";
 import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
 import { InputAbstract } from "./InputAbstract";
 

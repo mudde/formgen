@@ -6,8 +6,6 @@
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ﻩ Add relations between two entities (for example add x times a different address to a company) (use jQuery.validation)
 ﻩ Fix test error - Cannot use import statement outside a module
-ﻩ Create automatically the default empty error label for positioning (just the right position!)
-ﻩ Readonly!
 ﻩ Field type decimal
 ┏━━━━━━━━━┓
 ┃  INPUT  ┃
@@ -15,4 +13,3 @@
 ﻩ Date from till
 ﻩ DateTime from till
 ﻩ Create an input for "Radio or else"/"Checkbox or else". ( ) Radio ( ) Radio ( ) Radio (ﻩ) Or else [Bla bla bla_____________________]
-ﻩ relatedToOne component maken (combobox with an add button -> load the external form json and generate new form)

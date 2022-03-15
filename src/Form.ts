@@ -4,16 +4,18 @@ import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
 import { NodeCore } from "mudde-core/src/Core/NodeCore"
 import { GuidHelper } from "mudde-core/src/Helper/GuidHelper"
 import { StringHelper } from "mudde-core/src/Helper/StringHelper"
-import { HandlerInterface } from "mudde-core/src/Core/HandlerInterface"
-import { ObserverAbstract } from "mudde-core/src/Core/ObserverAbstract";
-import { SubjectAbstract } from "mudde-core/src/Core/SubjectAbstract";
-import { Event } from "mudde-core/src/Core/Event";
+import { HandlerInterface } from "mudde-core/src/Core/ChainOfResponsibility/HandlerInterface"
+import { ObserverAbstract } from "mudde-core/src/Core/ObserverPattern/ObserverAbstract";
+import { SubjectAbstract } from "mudde-core/src/Core/ObserverPattern/SubjectAbstract";
+import { Event } from "mudde-core/src/Core/ObserverPattern/Event";
 
 import { ButtonAbstract } from "./ButtonAbstract"
 import { DataAbstract } from "./DataAbstract"
-import { InputAbstract } from "./InputAbstract"
+import { StorableInterface } from "./StorableInterface";
 
-export class Form extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverAbstract) {
+export class Form
+   extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverAbstract)
+   implements StorableInterface {
 
    static readonly EVENT_FORM_PRE_CONFIGURE = 1
    static readonly EVENT_FORM_POST_CONFIGURE = 2
@@ -23,7 +25,7 @@ export class Form extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverA
 
    private _id: string = ''
    private _languages: string[] = []
-   private _fields: InputAbstract[] = []
+   private _fields: {} = {}
    private _buttons: ButtonAbstract[] = []
    private _form?: NodeCore
    private _rootForm?: Form = null        //  For pop-up forms  Gr.O.M.
@@ -44,21 +46,19 @@ export class Form extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverA
          }
       },
       showErrors: function (errorMap) {
-         let invalid = this.invalid
-
-         for (const key in invalid) {
+         for (const key in errorMap) {
             let item = $(`#${key}-error`)
             let currentText = item.text()
+            let errorText = errorMap[key] ? (errorMap[key] ? errorMap[key] : currentText) : ''
 
-            item.text(invalid[key] ? errorMap[key] ? errorMap[key] : currentText : '')
+            item.text(errorText)
          }
       },
       debug: true,
       ignore: [".ck-hidden", ".ck, .select2-search__field", ".btn"]
    }
    private _formValidation: JQueryValidation.Validator
-
-   static _forms: Form[] = []
+   static _forms: {} = {}
 
    constructor(config: any) {
       //  todo  var a='olaf'; var b='test ${a}'; let tpl = eval('`'+b+'`'); console.debug(tpl)  Gr.O.M.
@@ -66,27 +66,31 @@ export class Form extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverA
 
       this.notify(this, Form.EVENT_FORM_PRE_CONFIGURE)
 
-      let form = this.form = new NodeCore('form')
-      Form._forms.length != 0 || $.validator.setDefaults(Form._validatorDefaults)
-      Form._forms.push(this)
+      this.form = new NodeCore('form')
+      !jQuery.isEmptyObject(Form._forms) || $.validator.setDefaults(Form._validatorDefaults)
 
       this.configuring(config)
-
-      form.setAttributes({ method: this.method, action: this.action, id: this.id })
-
+      this.updateForm()
       this.notify(this, Form.EVENT_FORM_POST_CONFIGURE)
+   }
 
+   private updateForm() {
+      let form = this.form
+
+      Form._forms[this.id] = this
+      form.setAttributes({ method: this.method, action: this.action, id: this.id })
+      jQuery(form.root).data('creator', this)
    }
 
    getDefaultConfig(): any {
       return {
          id: GuidHelper.raw(),
+         data: {},
          languages: ['nl'],
-         fields: [],
+         fields: {},
          buttons: [],
          layout: [],
          builder: [],
-         data: {},
          panels: {},
          method: 'POST',
          action: '.'
@@ -95,15 +99,14 @@ export class Form extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverA
 
    private configureFields(rawFields: Object[]): void {
       let main = this
-      let fields: InputAbstract[] = this.fields = []
+      let fields: {} = this.fields = {}
 
       rawFields.forEach(config => {
          let type = config['_type']
          let className = window['MuddeFormgen'].Input[type]
          let object = new className(config, main)
 
-         fields.push(object)
-
+         fields[object.id] = object
       })
    }
 
@@ -150,10 +153,38 @@ export class Form extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverA
    }
 
    static getFormById(id: string): Form | null {
-      let filterFunction = form => { return form.id === id }
-      let form = Form._forms.filter(filterFunction)
+      let form = Form._forms[id]
 
-      return form && form.length === 0 ? null : form[0]
+      return form
+   }
+
+   getFieldById(id: string) {
+      return this.fields[id]
+   }
+
+   showValidationErrors() {
+      let formValidation: JQueryValidation.Validator = this._formValidation
+
+      formValidation.checkForm()
+      formValidation.showErrors(formValidation.errorMap)
+
+      return formValidation.errorMap
+   }
+
+   validate() {
+      return this._formValidation.checkForm()
+   }
+
+   post() {
+      return this.data.post()
+   }
+
+   put() {
+      return this.data.put()
+   }
+
+   delete() {
+      return this.data.delete()
    }
 
    render(): Promise<NodeCore> {
@@ -238,9 +269,11 @@ export class Form extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverA
    private addFields(): Promise<NodeCore>[] {
       let main = this
       let promises: Promise<NodeCore>[] = []
+      let fields = this.fields
 
-      this.fields.forEach(field => {
-         promises.push(new Promise((resolve, reject) => {
+      for (const key in fields) {
+         const field = fields[key];
+         let promise = new Promise<NodeCore>((resolve, reject) => {
             let panelId = 'panel_' + field.panel
             let panelLabel = main._panels[field.panel] ?? panelId
             let renderedElement: NodeCore = field.render()
@@ -252,8 +285,10 @@ export class Form extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverA
             !field.hasValidations || (main._validations = { ...main._validations, ...rules })
 
             resolve(renderedElement)
-         }))
-      })
+         })
+
+         promises.push(promise)
+      }
 
       return promises
    }
@@ -285,11 +320,11 @@ export class Form extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverA
       return this._languages
    }
 
-   set fields(value: InputAbstract[]) {
+   set fields(value: {}) {
       this._fields = value
    }
 
-   get fields(): InputAbstract[] {
+   get fields(): {} {
       return this._fields
    }
 

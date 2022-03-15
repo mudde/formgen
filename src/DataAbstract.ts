@@ -1,8 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
-import { SubjectAbstract } from "mudde-core/src/Core/SubjectAbstract";
-import { ObserverAbstract } from "mudde-core/src/Core/ObserverAbstract";
-import { Event } from 'mudde-core/src/Core/Event';
+import { SubjectAbstract } from "mudde-core/src/Core/ObserverPattern/SubjectAbstract";
+import { ObserverAbstract } from "mudde-core/src/Core/ObserverPattern/ObserverAbstract";
+import { Event } from 'mudde-core/src/Core/ObserverPattern/Event';
+import { DataEvent } from './DataEvent';
 
 export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverAbstract) {
 
@@ -16,6 +17,10 @@ export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAb
    protected _data: any[] = []
    protected _originalData: any[] = []
 
+   abstract post():Promise<any>
+   abstract put():Promise<any>
+   abstract delete():Promise<any>
+
    getDefaultConfig(): {} {
       return {
          data: [],
@@ -26,14 +31,14 @@ export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAb
    configuring(config: any): void {
       super.configuring(config)
       this.init().then((data) => {
-         this.notify(this, DataAbstract.DATA_POST_GET)
+         this.notify(new DataEvent(this,DataAbstract.DATA_POST_GET,null))
          this.process(data)
-         this.notify(this, DataAbstract.DATA_POST_SET)
+         this.notify(new DataEvent(this,DataAbstract.DATA_POST_SET,null))
       }).catch((error)=>{
-         this.notify(this, DataAbstract.DATA_ERROR)
+         this.notify(new DataEvent(this,DataAbstract.DATA_ERROR,null))
          this.error(error)
       }).finally(() => {
-         this.notify(this, DataAbstract.DATA_FINALLY)
+         this.notify(new DataEvent(this,DataAbstract.DATA_FINALLY,null))
          this.finished()
       })
    }
@@ -65,22 +70,22 @@ export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAb
    }
 
    get(id: string): any {
-      this.notify(this, DataAbstract.DATA_PRE_GET)
+      this.notify(new DataEvent(this,DataAbstract.DATA_PRE_GET,id))
 
       let value = this._data[id]
 
-      this.notify(this, DataAbstract.DATA_POST_GET)
+      this.notify(new DataEvent(this,DataAbstract.DATA_POST_GET,id))
 
       return value;
    }
 
    set(id: string, value: any): void {
-      this.notify(this, DataAbstract.DATA_PRE_SET)
+      this.notify(new DataEvent(this,DataAbstract.DATA_PRE_SET,id))
 
       this._data[id] = value
-
-      this.notify(this, DataAbstract.DATA_POST_SET)
-      this.notify(this, DataAbstract.DATA_FINALLY)
+      
+      this.notify(new DataEvent(this,DataAbstract.DATA_POST_SET,id))
+      this.notify(new DataEvent(this,DataAbstract.DATA_FINALLY,id))
    }
 
    restore(id: string): any {

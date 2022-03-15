@@ -20,4 +20,5 @@ export * from './FormBuilderAbstract';
 export * from './GroupInputAbstract';
 export * from './InputAbstract';
 export * from './InputBuilderAbstract';
+export * from './StorableInterface';
 export * from './ValidationAbstract';

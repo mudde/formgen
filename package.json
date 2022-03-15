@@ -1,13 +1,14 @@
 {
   "name": "@mudde/formgen",
+  "type": "commonjs",
   "version": "1.0.0",
-  "description": "Create a HTML form with a JSON as input",
+  "description": "Create a HTML form with a JSON configuration",
   "main": "dist/index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --reporter spec --require node_modules/ts-node/register --require node_modules/amd-loader/ test/**/*.ts -v",
+    "test": "./node_modules/mocha/bin/mocha test/**/*.ts",
     "build": "npx webpack --mode=production --node-env=production",
     "build:dev": "npx webpack --mode=development",
     "build:prod": "npx webpack --mode=production --node-env=production",
@@ -50,8 +51,10 @@
     "ts-mixer": "^6.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.4",
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
+    "@babel/register": "^7.17.0",
     "@types/bootstrap": "^5.1.9",
     "@types/chai": "^4.2.17",
     "@types/jquery": "^3.5.6",

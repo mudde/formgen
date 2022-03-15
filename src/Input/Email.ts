@@ -1,11 +1,12 @@
 import { NodeCore } from "mudde-core/src/Core/NodeCore"
+import { DataAbstract } from "../DataAbstract";
 import {Form} from "../Form";
 import {InputAbstract} from "../InputAbstract";
 
 export class Email extends InputAbstract {
 
-   constructor(config: any, form: Form) {
-      super(form)
+   constructor(config: any, form: Form, data: DataAbstract) {
+      super(form,data)
       this.configuring(config)
    }
 

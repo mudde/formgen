@@ -1,8 +1,9 @@
 import { NodeCore } from "mudde-core/src/Core/NodeCore";
+import { DataAbstract } from "../DataAbstract";
 import { Form } from "../Form";
 import { InputAbstract } from "../InputAbstract";
 export declare class Email extends InputAbstract {
-    constructor(config: any, form: Form);
+    constructor(config: any, form: Form, data: DataAbstract);
     getDefaultConfig(): {
         _type: string;
         id: string;

@@ -1,0 +1,14 @@
+{
+  "extension": ["ts"],
+  "timeout": 5000,
+  "exit": true,
+  "require": ["@babel/register", "ts-node/register"],
+  "schema": "https://json.schemastore.org/tsconfig",
+  "reporter": "spec",
+  "diff": true,
+  "package": "./package.json",
+  "slow": "75",
+  "ui": "bdd",
+  "watch-files": ["src/**/*.ts", "test/**/*.ts"],
+  "watch-ignore": ["vendor"]
+}

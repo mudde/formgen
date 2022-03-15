@@ -1,19 +1,24 @@
 import { Mixin } from 'ts-mixer';
 import { ConfigurableAbstract } from "mudde-core/src/Core/ConfigurableAbstract";
-import { SubjectAbstract } from "mudde-core/src/Core/SubjectAbstract";
-import { ObserverAbstract } from "mudde-core/src/Core/ObserverAbstract";
-import { HandlerInterface } from "mudde-core/src/Core/HandlerInterface";
+import { SubjectAbstract } from "mudde-core/src/Core/ObserverPattern/SubjectAbstract";
+import { ObserverAbstract } from "mudde-core/src/Core/ObserverPattern/ObserverAbstract";
+import { HandlerInterface } from "mudde-core/src/Core/ChainOfResponsibility/HandlerInterface";
 import { NodeCore } from "mudde-core/src/Core/NodeCore"
 import { GuidHelper } from "mudde-core/src/Helper/GuidHelper";
 import { Form } from "./Form";
-import { Event } from 'mudde-core/src/Core/Event';
+import { Event } from 'mudde-core/src/Core/ObserverPattern/Event';
 import { ValidationAbstract } from './ValidationAbstract';
+import { DataAbstract } from './DataAbstract';
+import { DataEvent } from './DataEvent';
 
-export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverAbstract) {
+export abstract class InputAbstract
+   extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverAbstract) {
 
-   public EVENT_INPUT_PRE_CONFIGURE = 1
-   public EVENT_INPUT_POST_CONFIGURE = 2
-   public EVENT_INPUT_FINISHED = 3
+   public static EVENT_INPUT_PRE_CONFIGURE = 1
+   public static EVENT_INPUT_POST_CONFIGURE = 2
+   public static EVENT_INPUT_FINISHED = 3
+   public static EVENT_INPUT_PRE_CHANGE = 4
+   public static EVENT_INPUT_POST_CHANGE = 5
 
    private __type: string = ''
    private _id: string = ''
@@ -31,15 +36,17 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
    private _handlerBuilders?: HandlerInterface
    private _handlerValidations?: ValidationAbstract
    private _form?: Form
+   private _data?: DataAbstract
    private _coreHTMLElements: NodeCore[] = []
    private _extraJs: CallableFunction
 
-   constructor(form: Form) {
+   constructor(form: Form, data: DataAbstract) {
       super()
 
-      this.notify(this, this.EVENT_INPUT_PRE_CONFIGURE)
+      this.notify(this, InputAbstract.EVENT_INPUT_PRE_CONFIGURE)
 
       this._form = form
+      this._data = data
    }
 
    configuring(config: any): void {
@@ -47,22 +54,50 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
       this.init()
    }
 
+   handleDataEvent(event: DataEvent) {
+      let id = this.id
+
+      if (event.id !== id) return
+
+      let dataSource: DataAbstract = event.source
+
+      this.setValue(dataSource.get(id))
+   }
+
+   updateDataEvent(event: Event) {
+      let input: InputAbstract = event.source
+      let dataSource: DataAbstract = input._data
+
+      dataSource.pauseAttach(this.handleDataEvent)
+      dataSource.set(input.id, input.getValue())
+      dataSource.pauseDetach(this.handleDataEvent)
+   }
+
    private init() {
+      let main = this
       let mainId = this.id
       let isMultilingual: boolean = this.isMultilingual
       let languages: string[] = isMultilingual ? this.form.languages : [this.form.languages[0]]
       let coreHTMLElements: NodeCore[] = this.coreHTMLElements = []
+      let formData = this._data
+      let data = formData.get(mainId)
+      
+      formData.attach(DataAbstract.DATA_POST_SET, main.handleDataEvent)
+      main.attach(InputAbstract.EVENT_INPUT_POST_CHANGE, main.updateDataEvent)
 
-      languages.forEach(language => {
+      for (const key in languages) {
+         let language = languages[key];
          let id: string = isMultilingual ? `${mainId}_${language}` : mainId
          let name: string = isMultilingual ? `${mainId}[${language}]` : mainId
-         let object: NodeCore = this.coreHTMLInput(id, name, language)
+         let object: NodeCore<HTMLInputElement> = this.coreHTMLInput(id, name, language)
 
          coreHTMLElements.push(object)
-      })
+      }
+
+      this.setValue(data)
    }
 
-   abstract coreHTMLInput(id: string, name: string, language: string): NodeCore
+   abstract coreHTMLInput(id: string, name: string, language: string): NodeCore<HTMLInputElement>
    abstract setValue(value: any): void
    abstract getValue(): any
    abstract addValue(key: string, value: any): void
@@ -93,6 +128,13 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
          multilingual: false,
          builders: []
       }
+   }
+
+   private configureId(rawFields: Object[]): void {
+      let formId = this.form.id
+      let id = formId + '_' + rawFields;
+
+      this.id = id
    }
 
    private configureBuilders(rawFields: Object[]): void {
@@ -134,8 +176,10 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
       output.appendElement(this.preCoreHTMLInput())
 
       for (const key in coreElements) {
-         output.appendElement_(coreElements[key])
-      } 
+         let element = coreElements[key]
+
+         output.appendElement_(element)
+      }
 
       output
          .appendElement_(this.postCoreHTMLInput())
@@ -148,7 +192,7 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
    }
 
    get isMultilingual(): boolean {
-      let isMultilingualRequested = this.form && this.form.languages && this.form.languages.length > 1 && this.multilingual
+      let isMultilingualRequested = this.form?.languages?.length > 1 && this.multilingual
 
       return this.canBeMultilingual() && isMultilingualRequested
    }
@@ -159,6 +203,7 @@ export abstract class InputAbstract extends Mixin(ConfigurableAbstract, SubjectA
 
    set extraJs(extraJs: CallableFunction) {
       let currentJs = this._extraJs
+
       this._extraJs = () => {
          !currentJs || currentJs()
          extraJs()

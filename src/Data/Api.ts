@@ -29,6 +29,42 @@ export class Api extends DataAbstract {
       }
    }
 
+   private ajaxSettings(method: string = 'get'): any {
+      var settings = {
+         url: this.url,
+         method: method,
+         type: this.type,
+         contentType: this.contentType + (this.charset ? '; charset=' + this.charset : ''),
+         data: method !== 'get' ? this.data : null
+      }
+
+      return settings
+   }
+
+   post(): Promise<any> {
+      let settings = this.ajaxSettings('post')
+
+      return new Promise(function (resolve, reject) {
+         jQuery.ajax(settings).done(resolve).fail(reject);
+      });
+   }
+
+   put(): Promise<any> {
+      let settings = this.ajaxSettings('put')
+
+      return new Promise(function (resolve, reject) {
+         jQuery.ajax(settings).done(resolve).fail(reject);
+      });
+   }
+
+   delete(): Promise<any> {
+      let settings = this.ajaxSettings('delete')
+
+      return new Promise(function (resolve, reject) {
+         jQuery.ajax(settings).done(resolve).fail(reject);
+      });
+   }
+
    init(): Promise<any> {
       var main = this;
       var settings = {

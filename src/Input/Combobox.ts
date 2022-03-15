@@ -4,15 +4,15 @@ import { InputAbstract } from "../InputAbstract"
 import { DataAbstract } from "../DataAbstract"
 import { Array } from "../Data/Array"
 import { StringHelper } from "mudde-core/src/Helper/StringHelper"
-import { Event } from "mudde-core/src/Core/Event"
+import { Event } from "mudde-core/src/Core/ObserverPattern/Event"
 
 export class Combobox extends InputAbstract {
 
    private _multiple: boolean = false
-   private _data: DataAbstract = new Array({ data: [] })
+   private _buildData: DataAbstract = new Array({ data: [] })
 
-   constructor(config: any, form: Form) {
-      super(form)
+   constructor(config: any, form: Form, data: DataAbstract) {
+      super(form,data)
       this.configuring(config)
    }
 
@@ -27,10 +27,9 @@ export class Combobox extends InputAbstract {
    configureData(config: Object[]): void {
       let type: string = StringHelper.ucFirst(config['_type'])
       let className = window['MuddeFormgen'].Data[type]
-      let object = this._data = new className(config, this)
+      let object = this._buildData = new className(config, this)
 
       object.attach(DataAbstract.DATA_FINALLY, this)
-      object.init()
    }
 
    update(event: Event): void {
@@ -46,7 +45,7 @@ export class Combobox extends InputAbstract {
       })
 
       if (this.multiple !== true) {
-         element.appendNode('option', { value: null }, '')
+         element.appendNode('option', { value: '' }, '')
       }
 
       return element
@@ -92,11 +91,11 @@ export class Combobox extends InputAbstract {
       return this._multiple
    }
 
-   set data(value: DataAbstract) {
-      this._data = value
+   set buildData(value: DataAbstract) {
+      this._buildData = value
    }
 
-   get data(): DataAbstract {
-      return this._data
+   get buildData(): DataAbstract {
+      return this._buildData
    }
 }

@@ -1,11 +1,12 @@
 import { NodeCore } from "mudde-core/src/Core/NodeCore"
+import { DataAbstract } from "../DataAbstract"
 import { Form } from "../Form"
 import { GroupInputAbstract } from "../GroupInputAbstract"
 
 export class Checkbox extends GroupInputAbstract {
 
-   constructor(config: any, form: Form) {
-      super(form)
+   constructor(config: any, form: Form, data: DataAbstract) {
+      super(form,data)
       this.configuring(config)
    }
 

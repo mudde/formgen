@@ -3,11 +3,11 @@ import { Form } from "../Form";
 import { InputAbstract } from "../InputAbstract";
 import { DataAbstract } from "../DataAbstract";
 import { Array } from "../Data/Array";
-import { Event } from "mudde-core/src/Core/Event";
+import { Event } from "mudde-core/src/Core/ObserverPattern/Event";
 export declare class Combobox extends InputAbstract {
     private _multiple;
-    private _data;
-    constructor(config: any, form: Form);
+    private _buildData;
+    constructor(config: any, form: Form, data: DataAbstract);
     getDefaultConfig(): {
         multiple: boolean;
         data: Array;
@@ -35,6 +35,6 @@ export declare class Combobox extends InputAbstract {
     addValue(key: string, value: any): void;
     set multiple(value: boolean);
     get multiple(): boolean;
-    set data(value: DataAbstract);
-    get data(): DataAbstract;
+    set buildData(value: DataAbstract);
+    get buildData(): DataAbstract;
 }

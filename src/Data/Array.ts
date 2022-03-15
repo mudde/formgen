@@ -7,4 +7,24 @@ export class Array extends DataAbstract {
       this.configuring(config)
    }
 
+   post(): Promise<any> {
+      return new Promise((resolve, reject) => {
+         resolve
+      })
+   }
+
+   put(): Promise<any> {
+      return new Promise((resolve, reject) => {
+         resolve
+      })
+   }
+
+   delete(): Promise<any> {
+      let main = this
+      return new Promise((resolve, reject) => {
+         main.data = []
+         resolve
+      })
+   }
+
 }

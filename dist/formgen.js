@@ -26,10 +26,10 @@ return /******/ (() => { // webpackBootstrap
 
 /***/ }),
 
-/***/ "./node_modules/mudde-core/src/Core/BaseHandler.ts":
-/*!*********************************************************!*\
-  !*** ./node_modules/mudde-core/src/Core/BaseHandler.ts ***!
-  \*********************************************************/
+/***/ "./node_modules/mudde-core/src/Core/ChainOfResponsibility/BaseHandler.ts":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/mudde-core/src/Core/ChainOfResponsibility/BaseHandler.ts ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -130,53 +130,6 @@ var ConfigurableAbstract = /** @class */ (function () {
     return ConfigurableAbstract;
 }());
 exports.ConfigurableAbstract = ConfigurableAbstract;
-
-
-/***/ }),
-
-/***/ "./node_modules/mudde-core/src/Core/Event.ts":
-/*!***************************************************!*\
-  !*** ./node_modules/mudde-core/src/Core/Event.ts ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Event = void 0;
-/**
- * Event for Observer pattern
- *
- * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
- * @copyright     (c) 2021
- * @license       MIT
- */
-var Event = /** @class */ (function () {
-    function Event(source, eventNumber) {
-        this._source = source;
-        this._eventNumber = eventNumber;
-    }
-    Object.defineProperty(Event.prototype, "source", {
-        get: function () {
-            if (this._source === undefined)
-                throw new Error('Source not set!');
-            return this._source;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Event.prototype, "eventNumber", {
-        get: function () {
-            if (this._eventNumber === undefined)
-                throw new Error('Event number not set!');
-            return this._eventNumber;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    return Event;
-}());
-exports.Event = Event;
 
 
 /***/ }),
@@ -518,10 +471,57 @@ exports.NodeCore = NodeCore;
 
 /***/ }),
 
-/***/ "./node_modules/mudde-core/src/Core/ObserverAbstract.ts":
-/*!**************************************************************!*\
-  !*** ./node_modules/mudde-core/src/Core/ObserverAbstract.ts ***!
-  \**************************************************************/
+/***/ "./node_modules/mudde-core/src/Core/ObserverPattern/Event.ts":
+/*!*******************************************************************!*\
+  !*** ./node_modules/mudde-core/src/Core/ObserverPattern/Event.ts ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Event = void 0;
+/**
+ * Event for Observer pattern
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) 2021
+ * @license       MIT
+ */
+var Event = /** @class */ (function () {
+    function Event(source, eventNumber) {
+        this._source = source;
+        this._eventNumber = eventNumber;
+    }
+    Object.defineProperty(Event.prototype, "source", {
+        get: function () {
+            if (this._source === undefined)
+                throw new Error('Source not set!');
+            return this._source;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Event.prototype, "eventNumber", {
+        get: function () {
+            if (this._eventNumber === undefined)
+                throw new Error('Event number not set!');
+            return this._eventNumber;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return Event;
+}());
+exports.Event = Event;
+
+
+/***/ }),
+
+/***/ "./node_modules/mudde-core/src/Core/ObserverPattern/ObserverAbstract.ts":
+/*!******************************************************************************!*\
+  !*** ./node_modules/mudde-core/src/Core/ObserverPattern/ObserverAbstract.ts ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -538,17 +538,26 @@ exports.ObserverAbstract = ObserverAbstract;
 
 /***/ }),
 
-/***/ "./node_modules/mudde-core/src/Core/SubjectAbstract.ts":
-/*!*************************************************************!*\
-  !*** ./node_modules/mudde-core/src/Core/SubjectAbstract.ts ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ "./node_modules/mudde-core/src/Core/ObserverPattern/SubjectAbstract.ts":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/mudde-core/src/Core/ObserverPattern/SubjectAbstract.ts ***!
+  \*****************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SubjectAbstract = void 0;
-var Event_1 = __webpack_require__(/*! ./Event */ "./node_modules/mudde-core/src/Core/Event.ts");
+var Event_1 = __webpack_require__(/*! ./Event */ "./node_modules/mudde-core/src/Core/ObserverPattern/Event.ts");
 /**
  * Subject for Observer pattern
  *
@@ -559,6 +568,7 @@ var Event_1 = __webpack_require__(/*! ./Event */ "./node_modules/mudde-core/src/
 var SubjectAbstract = /** @class */ (function () {
     function SubjectAbstract() {
         this._observers = [];
+        this._pause = [];
     }
     SubjectAbstract.prototype.attach = function (eventNumber, observer) {
         var _a;
@@ -573,10 +583,26 @@ var SubjectAbstract = /** @class */ (function () {
     SubjectAbstract.prototype.notify = function (source, eventNumber) {
         if (eventNumber === void 0) { eventNumber = null; }
         var event = source instanceof Event_1.Event ? source : new Event_1.Event(source, eventNumber);
+        var pause = this._pause;
         if (this._observers[eventNumber]) {
             this._observers[eventNumber].forEach(function (element) {
-                element.update(event);
+                pause.indexOf(element) != -1 || typeof element === 'function'
+                    ? element(event)
+                    : element.update(event);
             });
+        }
+    };
+    SubjectAbstract.prototype.pauseAttach = function (observer) {
+        var pause = this._pause;
+        if (pause.indexOf(observer) == -1) {
+            this._pause.push(observer);
+        }
+    };
+    SubjectAbstract.prototype.pauseDetach = function (observer) {
+        var pause = this._pause;
+        var indexOf = pause.indexOf(observer);
+        if (indexOf !== -1) {
+            this._pause = __spreadArray(__spreadArray([], pause.slice(0, indexOf), true), pause.slice(indexOf + 1), true);
         }
     };
     return SubjectAbstract;
@@ -843,7 +869,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.BuilderAbstract = void 0;
-var BaseHandler_1 = __webpack_require__(/*! mudde-core/src/Core/BaseHandler */ "./node_modules/mudde-core/src/Core/BaseHandler.ts");
+var BaseHandler_1 = __webpack_require__(/*! mudde-core/src/Core/ChainOfResponsibility/BaseHandler */ "./node_modules/mudde-core/src/Core/ChainOfResponsibility/BaseHandler.ts");
 var BuilderAbstract = /** @class */ (function (_super) {
     __extends(BuilderAbstract, _super);
     function BuilderAbstract(input) {
@@ -918,6 +944,23 @@ var Submit = /** @class */ (function (_super) {
     Submit.prototype.getDefaultConfig = function () {
         return __assign({}, _super.prototype.getDefaultConfig.call(this));
     };
+    Submit.prototype.click = function (event) {
+        event.preventDefault();
+        var form = jQuery(this.form).data('creator');
+        if (!form.validate()) {
+            form.showValidationErrors();
+            return;
+        }
+        form
+            .post()
+            .then(function (data) {
+            alert('saved!');
+        })
+            .catch(function (error) {
+            console.debug(error);
+            alert('error');
+        });
+    };
     Submit.prototype.coreHTMLInput = function (id, name, language) {
         var formId = this.form.id;
         //  todo  Onclick to just a submit button onclick="Form.save()"  Gr.O.M.
@@ -925,10 +968,10 @@ var Submit = /** @class */ (function (_super) {
             type: 'button',
             name: "submit-".concat(formId),
             class: 'btn btn-primary',
-            onclick: "javascript:\n         var data = {};\n         var form = document.forms['".concat(formId, "'];\n         Array.from(form.elements).forEach(element => {\n            if (element.name && element.name == \"id\") return;\n            if (element.type && element.type == \"button\") return;\n\n            console.debug(element.type)\n            if (element.type === 'file') {\n               data[element.name] = Array.from(element.files).flatMap(x => { return x.name });\n            } else if(element.type === 'select-multiple') {\n               data[element.name] = Array.from(element.selectedOptions).flatMap(x=>{ return x.value  })\n            } else {\n               data[element.name] = element.value\n            }\n         });\n         console.debug(data);\n         $.ajax({\n            url:'./api/taxes',\n            type:\"POST\",\n            data: JSON.stringify(data),\n            contentType:\"application/json; charset=utf-8\",\n            dataType:\"json\",\n            success: function(data){\n               console.debug(event); \n            },\n            fail: function (error) {\n               console.debug(error); \n            }\n          })\n         return false"),
             value: this.label
         };
         var element = new NodeCore_1.NodeCore('input', attributes);
+        element.root.addEventListener('click', this.click);
         return element;
     };
     return Submit;
@@ -987,23 +1030,37 @@ var SubmitModal = /** @class */ (function (_super) {
         return __assign({ originalForm: null, uri: '', fieldId: '' }, _super.prototype.getDefaultConfig.call(this));
     };
     SubmitModal.prototype.click = function (event) {
+        event.preventDefault();
+        var form = this.form;
+        var parentForm = this.parentForm;
+        var parentFieldId = this.fieldId;
+        if (form.validate()) {
+            form.showValidationErrors();
+            return;
+        }
+        form.post().then(function (data) {
+            parentForm.getFieldById(parentFieldId).addValue(data['id'], data['name']);
+        });
+    };
+    SubmitModal.prototype.x = function (event) {
         //  todo  Form.save  Gr.O.M.
         var form = this.form;
         var htmlForm = document.forms[form.id];
         var data = {};
         Array.from(htmlForm.elements).forEach(function (element) {
-            if (element.name && element.name == "id")
+            var elementName = element.name.substring(element.name.lastIndexOf('_') + 1);
+            if (elementName && elementName == "id")
                 return;
             if (element.type && element.type == "button")
                 return;
-            data[element.name] = element.type === 'file'
+            data[elementName] = element.type === 'file'
                 ? Array.from(element.files).flatMap(function (file) { return file.name; })
                 : element.type === 'select-multiple'
                     ? Array.from(element.selectedOptions).flatMap(function (x) { return x.value; })
-                    : data[element.name] = element.value;
+                    : data[elementName] = element.value;
         });
         var fieldId = this.fieldId;
-        var mainForm = this.originalForm;
+        var mainForm = this.parentForm;
         var uri = this.uri;
         //  todo  Form.save()  Gr.O.M.
         jQuery
@@ -1014,31 +1071,32 @@ var SubmitModal = /** @class */ (function (_super) {
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         })
-            .then(function (data) {
+            .then(function (data2) {
             $('#model_' + fieldId).modal("hide");
             $('form#' + fieldId).trigger('reset');
-            var id = form.id;
-            var mainField = mainForm.fields.filter(function (field) { return field.id === id; })[0];
+            var mainField = mainForm.fields[fieldId];
             if (!mainField)
                 throw new Error('Original field not found!');
-            mainField.addValue(data['id'], data['name']);
-            mainField.setValue(data['id']);
+            mainField.addValue(data2['id'], data2['name']);
+            mainField.setValue(data2['id']);
         }, function (error) {
             throw new Error(error.statusText);
         });
         return false;
     };
     SubmitModal.prototype.coreHTMLInput = function (id, name, language) {
-        var formId = this.form.id;
+        var main = this;
+        var form = this.form;
+        var formId = form.id;
         var attributes = {
+            id: id,
             type: 'button',
             class: 'btn btn-default',
             name: "submit-".concat(formId),
             value: this.label
         };
-        var main = this;
         var element = new NodeCore_1.NodeCore('input', attributes);
-        element.click(function (event) { return main.click(event); });
+        element.click(function (event) { event.preventDefault(); main.click(event); });
         return element;
     };
     return SubmitModal;
@@ -1224,6 +1282,35 @@ var Api = /** @class */ (function (_super) {
         var _this = this;
         return __assign({ url: '', type: 'get', contentType: 'application/json', charset: 'utf-8', processItem: function (data) { _this._data = data; }, errorItem: function (error) { throw new Error(error.statusText); }, finishedItem: function () { } }, _super.prototype.getDefaultConfig.call(this));
     };
+    Api.prototype.ajaxSettings = function (method) {
+        if (method === void 0) { method = 'get'; }
+        var settings = {
+            url: this.url,
+            method: method,
+            type: this.type,
+            contentType: this.contentType + (this.charset ? '; charset=' + this.charset : ''),
+            data: method !== 'get' ? this.data : null
+        };
+        return settings;
+    };
+    Api.prototype.post = function () {
+        var settings = this.ajaxSettings('post');
+        return new Promise(function (resolve, reject) {
+            jQuery.ajax(settings).done(resolve).fail(reject);
+        });
+    };
+    Api.prototype.put = function () {
+        var settings = this.ajaxSettings('put');
+        return new Promise(function (resolve, reject) {
+            jQuery.ajax(settings).done(resolve).fail(reject);
+        });
+    };
+    Api.prototype.delete = function () {
+        var settings = this.ajaxSettings('delete');
+        return new Promise(function (resolve, reject) {
+            jQuery.ajax(settings).done(resolve).fail(reject);
+        });
+    };
     Api.prototype.init = function () {
         var main = this;
         var settings = {
@@ -1366,6 +1453,23 @@ var Array = /** @class */ (function (_super) {
         _this.configuring(config);
         return _this;
     }
+    Array.prototype.post = function () {
+        return new Promise(function (resolve, reject) {
+            resolve;
+        });
+    };
+    Array.prototype.put = function () {
+        return new Promise(function (resolve, reject) {
+            resolve;
+        });
+    };
+    Array.prototype.delete = function () {
+        var main = this;
+        return new Promise(function (resolve, reject) {
+            main.data = [];
+            resolve;
+        });
+    };
     return Array;
 }(DataAbstract_1.DataAbstract));
 exports.Array = Array;
@@ -1426,8 +1530,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DataAbstract = void 0;
 var ts_mixer_1 = __webpack_require__(/*! ts-mixer */ "./node_modules/ts-mixer/dist/esm/index.js");
 var ConfigurableAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Core/ConfigurableAbstract.ts");
-var SubjectAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/SubjectAbstract */ "./node_modules/mudde-core/src/Core/SubjectAbstract.ts");
-var ObserverAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/ObserverAbstract */ "./node_modules/mudde-core/src/Core/ObserverAbstract.ts");
+var SubjectAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/ObserverPattern/SubjectAbstract */ "./node_modules/mudde-core/src/Core/ObserverPattern/SubjectAbstract.ts");
+var ObserverAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/ObserverPattern/ObserverAbstract */ "./node_modules/mudde-core/src/Core/ObserverPattern/ObserverAbstract.ts");
+var DataEvent_1 = __webpack_require__(/*! ./DataEvent */ "./src/DataEvent.ts");
 var DataAbstract = /** @class */ (function (_super) {
     __extends(DataAbstract, _super);
     function DataAbstract() {
@@ -1446,14 +1551,14 @@ var DataAbstract = /** @class */ (function (_super) {
         var _this = this;
         _super.prototype.configuring.call(this, config);
         this.init().then(function (data) {
-            _this.notify(_this, DataAbstract.DATA_POST_GET);
+            _this.notify(new DataEvent_1.DataEvent(_this, DataAbstract.DATA_POST_GET, null));
             _this.process(data);
-            _this.notify(_this, DataAbstract.DATA_POST_SET);
+            _this.notify(new DataEvent_1.DataEvent(_this, DataAbstract.DATA_POST_SET, null));
         }).catch(function (error) {
-            _this.notify(_this, DataAbstract.DATA_ERROR);
+            _this.notify(new DataEvent_1.DataEvent(_this, DataAbstract.DATA_ERROR, null));
             _this.error(error);
         }).finally(function () {
-            _this.notify(_this, DataAbstract.DATA_FINALLY);
+            _this.notify(new DataEvent_1.DataEvent(_this, DataAbstract.DATA_FINALLY, null));
             _this.finished();
         });
     };
@@ -1479,16 +1584,16 @@ var DataAbstract = /** @class */ (function (_super) {
     DataAbstract.prototype.update = function (event) {
     };
     DataAbstract.prototype.get = function (id) {
-        this.notify(this, DataAbstract.DATA_PRE_GET);
+        this.notify(new DataEvent_1.DataEvent(this, DataAbstract.DATA_PRE_GET, id));
         var value = this._data[id];
-        this.notify(this, DataAbstract.DATA_POST_GET);
+        this.notify(new DataEvent_1.DataEvent(this, DataAbstract.DATA_POST_GET, id));
         return value;
     };
     DataAbstract.prototype.set = function (id, value) {
-        this.notify(this, DataAbstract.DATA_PRE_SET);
+        this.notify(new DataEvent_1.DataEvent(this, DataAbstract.DATA_PRE_SET, id));
         this._data[id] = value;
-        this.notify(this, DataAbstract.DATA_POST_SET);
-        this.notify(this, DataAbstract.DATA_FINALLY);
+        this.notify(new DataEvent_1.DataEvent(this, DataAbstract.DATA_POST_SET, id));
+        this.notify(new DataEvent_1.DataEvent(this, DataAbstract.DATA_FINALLY, id));
     };
     DataAbstract.prototype.restore = function (id) {
         if (!this._originalData[id])
@@ -1561,7 +1666,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DataEvent = void 0;
-var Event_1 = __webpack_require__(/*! mudde-core/src/Core/Event */ "./node_modules/mudde-core/src/Core/Event.ts");
+var Event_1 = __webpack_require__(/*! mudde-core/src/Core/ObserverPattern/Event */ "./node_modules/mudde-core/src/Core/ObserverPattern/Event.ts");
 var DataEvent = /** @class */ (function (_super) {
     __extends(DataEvent, _super);
     function DataEvent(source, event, id) {
@@ -1626,8 +1731,8 @@ var ConfigurableAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/Configu
 var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var GuidHelper_1 = __webpack_require__(/*! mudde-core/src/Helper/GuidHelper */ "./node_modules/mudde-core/src/Helper/GuidHelper.ts");
 var StringHelper_1 = __webpack_require__(/*! mudde-core/src/Helper/StringHelper */ "./node_modules/mudde-core/src/Helper/StringHelper.ts");
-var ObserverAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/ObserverAbstract */ "./node_modules/mudde-core/src/Core/ObserverAbstract.ts");
-var SubjectAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/SubjectAbstract */ "./node_modules/mudde-core/src/Core/SubjectAbstract.ts");
+var ObserverAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/ObserverPattern/ObserverAbstract */ "./node_modules/mudde-core/src/Core/ObserverPattern/ObserverAbstract.ts");
+var SubjectAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/ObserverPattern/SubjectAbstract */ "./node_modules/mudde-core/src/Core/ObserverPattern/SubjectAbstract.ts");
 var Form = /** @class */ (function (_super) {
     __extends(Form, _super);
     function Form(config) {
@@ -1636,7 +1741,7 @@ var Form = /** @class */ (function (_super) {
         _super.call(this) || this;
         _this._id = '';
         _this._languages = [];
-        _this._fields = [];
+        _this._fields = {};
         _this._buttons = [];
         _this._rootForm = null; //  For pop-up forms  Gr.O.M.
         _this._panels = {};
@@ -1645,23 +1750,28 @@ var Form = /** @class */ (function (_super) {
         _this._method = '';
         _this._action = '';
         _this.notify(_this, Form.EVENT_FORM_PRE_CONFIGURE);
-        var form = _this.form = new NodeCore_1.NodeCore('form');
-        Form._forms.length != 0 || $.validator.setDefaults(Form._validatorDefaults);
-        Form._forms.push(_this);
+        _this.form = new NodeCore_1.NodeCore('form');
+        !jQuery.isEmptyObject(Form._forms) || $.validator.setDefaults(Form._validatorDefaults);
         _this.configuring(config);
-        form.setAttributes({ method: _this.method, action: _this.action, id: _this.id });
+        _this.updateForm();
         _this.notify(_this, Form.EVENT_FORM_POST_CONFIGURE);
         return _this;
     }
+    Form.prototype.updateForm = function () {
+        var form = this.form;
+        Form._forms[this.id] = this;
+        form.setAttributes({ method: this.method, action: this.action, id: this.id });
+        jQuery(form.root).data('creator', this);
+    };
     Form.prototype.getDefaultConfig = function () {
         return {
             id: GuidHelper_1.GuidHelper.raw(),
+            data: {},
             languages: ['nl'],
-            fields: [],
+            fields: {},
             buttons: [],
             layout: [],
             builder: [],
-            data: {},
             panels: {},
             method: 'POST',
             action: '.'
@@ -1669,12 +1779,12 @@ var Form = /** @class */ (function (_super) {
     };
     Form.prototype.configureFields = function (rawFields) {
         var main = this;
-        var fields = this.fields = [];
+        var fields = this.fields = {};
         rawFields.forEach(function (config) {
             var type = config['_type'];
             var className = window['MuddeFormgen'].Input[type];
             var object = new className(config, main);
-            fields.push(object);
+            fields[object.id] = object;
         });
     };
     Form.prototype.configureButtons = function (rawFields) {
@@ -1712,9 +1822,29 @@ var Form = /** @class */ (function (_super) {
         this._data = object;
     };
     Form.getFormById = function (id) {
-        var filterFunction = function (form) { return form.id === id; };
-        var form = Form._forms.filter(filterFunction);
-        return form && form.length === 0 ? null : form[0];
+        var form = Form._forms[id];
+        return form;
+    };
+    Form.prototype.getFieldById = function (id) {
+        return this.fields[id];
+    };
+    Form.prototype.showValidationErrors = function () {
+        var formValidation = this._formValidation;
+        formValidation.checkForm();
+        formValidation.showErrors(formValidation.errorMap);
+        return formValidation.errorMap;
+    };
+    Form.prototype.validate = function () {
+        return this._formValidation.checkForm();
+    };
+    Form.prototype.post = function () {
+        return this.data.post();
+    };
+    Form.prototype.put = function () {
+        return this.data.put();
+    };
+    Form.prototype.delete = function () {
+        return this.data.delete();
     };
     Form.prototype.render = function () {
         if (this._form === undefined)
@@ -1782,8 +1912,10 @@ var Form = /** @class */ (function (_super) {
     Form.prototype.addFields = function () {
         var main = this;
         var promises = [];
-        this.fields.forEach(function (field) {
-            promises.push(new Promise(function (resolve, reject) {
+        var fields = this.fields;
+        var _loop_1 = function (key) {
+            var field = fields[key];
+            var promise = new Promise(function (resolve, reject) {
                 var _a, _b;
                 var panelId = 'panel_' + field.panel;
                 var panelLabel = (_a = main._panels[field.panel]) !== null && _a !== void 0 ? _a : panelId;
@@ -1793,8 +1925,12 @@ var Form = /** @class */ (function (_super) {
                 !field.extraJs || main._additionalJs.push(new Promise(function (resolve, reject) { field.extraJs(); resolve; }));
                 !field.hasValidations || (main._validations = __assign(__assign({}, main._validations), rules));
                 resolve(renderedElement);
-            }));
-        });
+            });
+            promises.push(promise);
+        };
+        for (var key in fields) {
+            _loop_1(key);
+        }
         return promises;
     };
     Form.prototype.update = function (event) {
@@ -1941,17 +2077,17 @@ var Form = /** @class */ (function (_super) {
             }
         },
         showErrors: function (errorMap) {
-            var invalid = this.invalid;
-            for (var key in invalid) {
+            for (var key in errorMap) {
                 var item = $("#".concat(key, "-error"));
                 var currentText = item.text();
-                item.text(invalid[key] ? errorMap[key] ? errorMap[key] : currentText : '');
+                var errorText = errorMap[key] ? (errorMap[key] ? errorMap[key] : currentText) : '';
+                item.text(errorText);
             }
         },
         debug: true,
         ignore: [".ck-hidden", ".ck, .select2-search__field", ".btn"]
     };
-    Form._forms = [];
+    Form._forms = {};
     return Form;
 }((0, ts_mixer_1.Mixin)(ConfigurableAbstract_1.ConfigurableAbstract, SubjectAbstract_1.SubjectAbstract, ObserverAbstract_1.ObserverAbstract)));
 exports.Form = Form;
@@ -2041,7 +2177,7 @@ var GroupInputAbstract = /** @class */ (function (_super) {
     __extends(GroupInputAbstract, _super);
     function GroupInputAbstract() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this._data = new Array_1.Array({ data: [] });
+        _this._buildData = new Array_1.Array({ data: [] });
         _this._currentData = {};
         return _this;
     }
@@ -2052,7 +2188,7 @@ var GroupInputAbstract = /** @class */ (function (_super) {
         var type = StringHelper_1.StringHelper.ucFirst(config['_type']);
         var className = window['MuddeFormgen'].Data[type];
         var object = new className(config, this);
-        this._data = object;
+        this._buildData = object;
     };
     GroupInputAbstract.prototype.render = function () {
         var _this = this;
@@ -2063,7 +2199,7 @@ var GroupInputAbstract = /** @class */ (function (_super) {
         var output = new NodeCore_1.NodeCore('div', {});
         var ids = this.coreHTMLElements = [];
         output.appendElement(this.preCoreHTMLInput());
-        this._data.forEach(function (data) {
+        this._buildData.forEach(function (data) {
             _this.currentData = data;
             languages.forEach(function (language) {
                 var id = isMultilingual ? "".concat(mainId, "_").concat(language) : mainId;
@@ -2080,12 +2216,12 @@ var GroupInputAbstract = /** @class */ (function (_super) {
         (_a = this.handler) === null || _a === void 0 ? void 0 : _a.handle(output);
         return output;
     };
-    Object.defineProperty(GroupInputAbstract.prototype, "data", {
+    Object.defineProperty(GroupInputAbstract.prototype, "buildData", {
         get: function () {
-            return this._data;
+            return this._buildData;
         },
         set: function (value) {
-            this._data = value;
+            this._buildData = value;
         },
         enumerable: false,
         configurable: true
@@ -2391,8 +2527,8 @@ var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node
 var GroupInputAbstract_1 = __webpack_require__(/*! ../GroupInputAbstract */ "./src/GroupInputAbstract.ts");
 var Checkbox = /** @class */ (function (_super) {
     __extends(Checkbox, _super);
-    function Checkbox(config, form) {
-        var _this = _super.call(this, form) || this;
+    function Checkbox(config, form, data) {
+        var _this = _super.call(this, form, data) || this;
         _this.configuring(config);
         return _this;
     }
@@ -2520,10 +2656,10 @@ var Array_1 = __webpack_require__(/*! ../Data/Array */ "./src/Data/Array.ts");
 var StringHelper_1 = __webpack_require__(/*! mudde-core/src/Helper/StringHelper */ "./node_modules/mudde-core/src/Helper/StringHelper.ts");
 var Combobox = /** @class */ (function (_super) {
     __extends(Combobox, _super);
-    function Combobox(config, form) {
-        var _this = _super.call(this, form) || this;
+    function Combobox(config, form, data) {
+        var _this = _super.call(this, form, data) || this;
         _this._multiple = false;
-        _this._data = new Array_1.Array({ data: [] });
+        _this._buildData = new Array_1.Array({ data: [] });
         _this.configuring(config);
         return _this;
     }
@@ -2533,9 +2669,8 @@ var Combobox = /** @class */ (function (_super) {
     Combobox.prototype.configureData = function (config) {
         var type = StringHelper_1.StringHelper.ucFirst(config['_type']);
         var className = window['MuddeFormgen'].Data[type];
-        var object = this._data = new className(config, this);
+        var object = this._buildData = new className(config, this);
         object.attach(DataAbstract_1.DataAbstract.DATA_FINALLY, this);
-        object.init();
     };
     Combobox.prototype.update = function (event) {
         console.debug(event);
@@ -2543,7 +2678,7 @@ var Combobox = /** @class */ (function (_super) {
     Combobox.prototype.coreHTMLInput = function (id, name, language) {
         var element = new NodeCore_1.NodeCore('select', __assign(__assign({ id: id, name: name }, this.placeholder ? { placeholder: this.placeholder } : {}), this.multiple === true ? { 'multiple': '' } : {}));
         if (this.multiple !== true) {
-            element.appendNode('option', { value: null }, '');
+            element.appendNode('option', { value: '' }, '');
         }
         return element;
     };
@@ -2584,12 +2719,12 @@ var Combobox = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Combobox.prototype, "data", {
+    Object.defineProperty(Combobox.prototype, "buildData", {
         get: function () {
-            return this._data;
+            return this._buildData;
         },
         set: function (value) {
-            this._data = value;
+            this._buildData = value;
         },
         enumerable: false,
         configurable: true
@@ -2641,8 +2776,8 @@ var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node
 var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
 var Email = /** @class */ (function (_super) {
     __extends(Email, _super);
-    function Email(config, form) {
-        var _this = _super.call(this, form) || this;
+    function Email(config, form, data) {
+        var _this = _super.call(this, form, data) || this;
         _this.configuring(config);
         return _this;
     }
@@ -2722,8 +2857,8 @@ var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node
 var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
 var Number = /** @class */ (function (_super) {
     __extends(Number, _super);
-    function Number(config, form) {
-        var _this = _super.call(this, form) || this;
+    function Number(config, form, data) {
+        var _this = _super.call(this, form, data) || this;
         _this._mask = '';
         _this._format = '';
         _this._prefix = '';
@@ -2850,8 +2985,8 @@ var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node
 var GroupInputAbstract_1 = __webpack_require__(/*! ../GroupInputAbstract */ "./src/GroupInputAbstract.ts");
 var Radio = /** @class */ (function (_super) {
     __extends(Radio, _super);
-    function Radio(config, form) {
-        var _this = _super.call(this, form) || this;
+    function Radio(config, form, data) {
+        var _this = _super.call(this, form, data) || this;
         _this.configuring(config);
         return _this;
     }
@@ -2877,13 +3012,47 @@ var Radio = /** @class */ (function (_super) {
         return element;
     };
     Radio.prototype.setValue = function (value) {
-        throw new Error('No value to manipulate!');
+        this.coreHTMLElements.forEach(function (element) {
+            var root = element.root; //  todo  HTMLInputElement  Gr.O.M.
+            if (root.value != value) {
+                element.root.childNodes.forEach(function (item) {
+                    if (item.value == value) {
+                        item.setAttribute('selected', null);
+                    }
+                    else {
+                        item.removeAttribute('selected');
+                    }
+                });
+            }
+        });
     };
     Radio.prototype.getValue = function () {
-        throw new Error('No value to manipulate!');
+        var output = {};
+        var coreHTMLElements = this.coreHTMLElements;
+        var lastRootValue = null;
+        coreHTMLElements.forEach(function (element) {
+            var root = element.root; //  todo  HTMLInputElement  Gr.O.M.
+            var value = root.value;
+            output[root.id] = lastRootValue = value;
+        });
+        return coreHTMLElements.length == 1 ? lastRootValue : output;
     };
     Radio.prototype.addValue = function (key, value) {
-        throw new Error('No value to manipulate!');
+        var id = this.id;
+        var newId = id + '_' + key;
+        this.coreHTMLElements.forEach(function (element) {
+            element.appendNode('input', {
+                id: newId,
+                name: id,
+                class: 'form-check-input',
+                type: 'radio',
+                value: key
+            })
+                .appendNode('label', {
+                'for': newId,
+                'class': 'form-check-label'
+            }, value);
+        });
     };
     return Radio;
 }(GroupInputAbstract_1.GroupInputAbstract));
@@ -2932,8 +3101,8 @@ var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node
 var GroupInputAbstract_1 = __webpack_require__(/*! ../GroupInputAbstract */ "./src/GroupInputAbstract.ts");
 var RadioOrElse = /** @class */ (function (_super) {
     __extends(RadioOrElse, _super);
-    function RadioOrElse(config, form) {
-        var _this = _super.call(this, form) || this;
+    function RadioOrElse(config, form, data) {
+        var _this = _super.call(this, form, data) || this;
         _this.configuring(config);
         return _this;
     }
@@ -2943,29 +3112,51 @@ var RadioOrElse = /** @class */ (function (_super) {
     RadioOrElse.prototype.coreHTMLInput = function (id, name, language) {
         var currentData = this.currentData;
         var element = new NodeCore_1.NodeCore('div', { 'class': 'form-check table-cell' });
-        var newId = id + '_' + currentData.id;
-        element
-            .appendNode('input', {
-            id: newId,
-            name: name,
-            class: 'form-check-input',
-            type: 'radio',
-            value: currentData.id
-        })
-            .appendNode('label', {
-            'for': newId,
-            'class': 'form-check-label'
-        }, currentData.value);
+        this.addValue(currentData.id, currentData.value);
         return element;
     };
     RadioOrElse.prototype.setValue = function (value) {
-        throw new Error('No value to manipulate!');
+        this.coreHTMLElements.forEach(function (element) {
+            var root = element.root; //  todo  HTMLInputElement  Gr.O.M.
+            if (root.value != value) {
+                element.root.childNodes.forEach(function (item) {
+                    if (item.value == value) {
+                        item.setAttribute('selected', null);
+                    }
+                    else {
+                        item.removeAttribute('selected');
+                    }
+                });
+            }
+        });
     };
     RadioOrElse.prototype.getValue = function () {
-        throw new Error('No value to manipulate!');
+        var output = {};
+        var coreHTMLElements = this.coreHTMLElements;
+        var lastRootValue = null;
+        coreHTMLElements.forEach(function (element) {
+            var root = element.root; //  todo  HTMLInputElement  Gr.O.M.
+            var value = root.value;
+            output[root.id] = lastRootValue = value;
+        });
+        return coreHTMLElements.length == 1 ? lastRootValue : output;
     };
     RadioOrElse.prototype.addValue = function (key, value) {
-        throw new Error('No value to manipulate!');
+        var id = this.id;
+        var newId = id + '_' + key;
+        this.coreHTMLElements.forEach(function (element) {
+            element.appendNode('input', {
+                id: newId,
+                name: id,
+                class: 'form-check-input',
+                type: 'radio',
+                value: key
+            })
+                .appendNode('label', {
+                'for': newId,
+                'class': 'form-check-label'
+            }, value);
+        });
     };
     return RadioOrElse;
 }(GroupInputAbstract_1.GroupInputAbstract));
@@ -3142,8 +3333,8 @@ var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node
 var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
 var Text = /** @class */ (function (_super) {
     __extends(Text, _super);
-    function Text(config, form) {
-        var _this = _super.call(this, form) || this;
+    function Text(config, form, data) {
+        var _this = _super.call(this, form, data) || this;
         _this._mask = '';
         _this._format = '';
         _this._prefix = '';
@@ -3291,8 +3482,8 @@ var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node
 var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
 var TextRead = /** @class */ (function (_super) {
     __extends(TextRead, _super);
-    function TextRead(config, form) {
-        var _this = _super.call(this, form) || this;
+    function TextRead(config, form, data) {
+        var _this = _super.call(this, form, data) || this;
         _this._mask = '';
         _this._format = '';
         _this._prefix = '';
@@ -3440,8 +3631,8 @@ var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node
 var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
 var Textarea = /** @class */ (function (_super) {
     __extends(Textarea, _super);
-    function Textarea(config, form) {
-        var _this = _super.call(this, form) || this;
+    function Textarea(config, form, data) {
+        var _this = _super.call(this, form, data) || this;
         _this._spellcheck = false;
         _this.configuring(config);
         return _this;
@@ -3529,8 +3720,8 @@ var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node
 var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
 var UploadFile = /** @class */ (function (_super) {
     __extends(UploadFile, _super);
-    function UploadFile(config, form) {
-        var _this = _super.call(this, form) || this;
+    function UploadFile(config, form, data) {
+        var _this = _super.call(this, form, data) || this;
         _this._multiple = false;
         _this.configuring(config);
         return _this;
@@ -3606,8 +3797,8 @@ var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node
 var InputAbstract_1 = __webpack_require__(/*! ../InputAbstract */ "./src/InputAbstract.ts");
 var UploadImage = /** @class */ (function (_super) {
     __extends(UploadImage, _super);
-    function UploadImage(config, form) {
-        var _this = _super.call(this, form) || this;
+    function UploadImage(config, form, data) {
+        var _this = _super.call(this, form, data) || this;
         _this._multiple = false;
         _this._accept = '';
         _this.configuring(config);
@@ -3729,17 +3920,15 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.InputAbstract = void 0;
 var ts_mixer_1 = __webpack_require__(/*! ts-mixer */ "./node_modules/ts-mixer/dist/esm/index.js");
 var ConfigurableAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/ConfigurableAbstract */ "./node_modules/mudde-core/src/Core/ConfigurableAbstract.ts");
-var SubjectAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/SubjectAbstract */ "./node_modules/mudde-core/src/Core/SubjectAbstract.ts");
-var ObserverAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/ObserverAbstract */ "./node_modules/mudde-core/src/Core/ObserverAbstract.ts");
+var SubjectAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/ObserverPattern/SubjectAbstract */ "./node_modules/mudde-core/src/Core/ObserverPattern/SubjectAbstract.ts");
+var ObserverAbstract_1 = __webpack_require__(/*! mudde-core/src/Core/ObserverPattern/ObserverAbstract */ "./node_modules/mudde-core/src/Core/ObserverPattern/ObserverAbstract.ts");
 var NodeCore_1 = __webpack_require__(/*! mudde-core/src/Core/NodeCore */ "./node_modules/mudde-core/src/Core/NodeCore.ts");
 var GuidHelper_1 = __webpack_require__(/*! mudde-core/src/Helper/GuidHelper */ "./node_modules/mudde-core/src/Helper/GuidHelper.ts");
+var DataAbstract_1 = __webpack_require__(/*! ./DataAbstract */ "./src/DataAbstract.ts");
 var InputAbstract = /** @class */ (function (_super) {
     __extends(InputAbstract, _super);
-    function InputAbstract(form) {
+    function InputAbstract(form, data) {
         var _this = _super.call(this) || this;
-        _this.EVENT_INPUT_PRE_CONFIGURE = 1;
-        _this.EVENT_INPUT_POST_CONFIGURE = 2;
-        _this.EVENT_INPUT_FINISHED = 3;
         _this.__type = '';
         _this._id = '';
         _this._label = '';
@@ -3754,26 +3943,47 @@ var InputAbstract = /** @class */ (function (_super) {
         _this._readonly = false;
         _this._multilingual = false;
         _this._coreHTMLElements = [];
-        _this.notify(_this, _this.EVENT_INPUT_PRE_CONFIGURE);
+        _this.notify(_this, InputAbstract.EVENT_INPUT_PRE_CONFIGURE);
         _this._form = form;
+        _this._data = data;
         return _this;
     }
     InputAbstract.prototype.configuring = function (config) {
         _super.prototype.configuring.call(this, config);
         this.init();
     };
+    InputAbstract.prototype.handleDataEvent = function (event) {
+        var id = this.id;
+        if (event.id !== id)
+            return;
+        var dataSource = event.source;
+        this.setValue(dataSource.get(id));
+    };
+    InputAbstract.prototype.updateDataEvent = function (event) {
+        var input = event.source;
+        var dataSource = input._data;
+        dataSource.pauseAttach(this.handleDataEvent);
+        dataSource.set(input.id, input.getValue());
+        dataSource.pauseDetach(this.handleDataEvent);
+    };
     InputAbstract.prototype.init = function () {
-        var _this = this;
+        var main = this;
         var mainId = this.id;
         var isMultilingual = this.isMultilingual;
         var languages = isMultilingual ? this.form.languages : [this.form.languages[0]];
         var coreHTMLElements = this.coreHTMLElements = [];
-        languages.forEach(function (language) {
+        var formData = this._data;
+        var data = formData.get(mainId);
+        formData.attach(DataAbstract_1.DataAbstract.DATA_POST_SET, main.handleDataEvent);
+        main.attach(InputAbstract.EVENT_INPUT_POST_CHANGE, main.updateDataEvent);
+        for (var key in languages) {
+            var language = languages[key];
             var id = isMultilingual ? "".concat(mainId, "_").concat(language) : mainId;
-            var name = isMultilingual ? "".concat(mainId, "[").concat(language, "]") : mainId;
-            var object = _this.coreHTMLInput(id, name, language);
+            var name_1 = isMultilingual ? "".concat(mainId, "[").concat(language, "]") : mainId;
+            var object = this.coreHTMLInput(id, name_1, language);
             coreHTMLElements.push(object);
-        });
+        }
+        this.setValue(data);
     };
     InputAbstract.prototype.preCoreHTMLInput = function () { return null; };
     InputAbstract.prototype.preHTMLInput = function () { return null; };
@@ -3800,6 +4010,11 @@ var InputAbstract = /** @class */ (function (_super) {
             multilingual: false,
             builders: []
         };
+    };
+    InputAbstract.prototype.configureId = function (rawFields) {
+        var formId = this.form.id;
+        var id = formId + '_' + rawFields;
+        this.id = id;
     };
     InputAbstract.prototype.configureBuilders = function (rawFields) {
         var main = this;
@@ -3836,7 +4051,8 @@ var InputAbstract = /** @class */ (function (_super) {
         var output = new NodeCore_1.NodeCore('div', {});
         output.appendElement(this.preCoreHTMLInput());
         for (var key in coreElements) {
-            output.appendElement_(coreElements[key]);
+            var element = coreElements[key];
+            output.appendElement_(element);
         }
         output
             .appendElement_(this.postCoreHTMLInput())
@@ -3847,7 +4063,8 @@ var InputAbstract = /** @class */ (function (_super) {
     };
     Object.defineProperty(InputAbstract.prototype, "isMultilingual", {
         get: function () {
-            var isMultilingualRequested = this.form && this.form.languages && this.form.languages.length > 1 && this.multilingual;
+            var _a, _b;
+            var isMultilingualRequested = ((_b = (_a = this.form) === null || _a === void 0 ? void 0 : _a.languages) === null || _b === void 0 ? void 0 : _b.length) > 1 && this.multilingual;
             return this.canBeMultilingual() && isMultilingualRequested;
         },
         enumerable: false,
@@ -4045,6 +4262,11 @@ var InputAbstract = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+    InputAbstract.EVENT_INPUT_PRE_CONFIGURE = 1;
+    InputAbstract.EVENT_INPUT_POST_CONFIGURE = 2;
+    InputAbstract.EVENT_INPUT_FINISHED = 3;
+    InputAbstract.EVENT_INPUT_PRE_CHANGE = 4;
+    InputAbstract.EVENT_INPUT_POST_CHANGE = 5;
     return InputAbstract;
 }((0, ts_mixer_1.Mixin)(ConfigurableAbstract_1.ConfigurableAbstract, SubjectAbstract_1.SubjectAbstract, ObserverAbstract_1.ObserverAbstract)));
 exports.InputAbstract = InputAbstract;
@@ -4086,6 +4308,19 @@ var InputBuilderAbstract = /** @class */ (function (_super) {
     return InputBuilderAbstract;
 }(BuilderAbstract_1.BuilderAbstract));
 exports.InputBuilderAbstract = InputBuilderAbstract;
+
+
+/***/ }),
+
+/***/ "./src/StorableInterface.ts":
+/*!**********************************!*\
+  !*** ./src/StorableInterface.ts ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 /***/ }),
@@ -4363,6 +4598,7 @@ __exportStar(__webpack_require__(/*! ./FormBuilderAbstract */ "./src/FormBuilder
 __exportStar(__webpack_require__(/*! ./GroupInputAbstract */ "./src/GroupInputAbstract.ts"), exports);
 __exportStar(__webpack_require__(/*! ./InputAbstract */ "./src/InputAbstract.ts"), exports);
 __exportStar(__webpack_require__(/*! ./InputBuilderAbstract */ "./src/InputBuilderAbstract.ts"), exports);
+__exportStar(__webpack_require__(/*! ./StorableInterface */ "./src/StorableInterface.ts"), exports);
 __exportStar(__webpack_require__(/*! ./ValidationAbstract */ "./src/ValidationAbstract.ts"), exports);
 
 

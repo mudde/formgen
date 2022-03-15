@@ -1,4 +1,5 @@
 import { NodeCore } from "mudde-core/src/Core/NodeCore";
+import { DataAbstract } from "../DataAbstract";
 import { Form } from "../Form";
 import { InputAbstract } from "../InputAbstract";
 export declare class Text extends InputAbstract {
@@ -8,7 +9,7 @@ export declare class Text extends InputAbstract {
     private _suffix;
     private _multiple;
     private _spellcheck;
-    constructor(config: any, form: Form);
+    constructor(config: any, form: Form, data: DataAbstract);
     protected canBeMultilingual(): boolean;
     getDefaultConfig(): {
         mask: string;
