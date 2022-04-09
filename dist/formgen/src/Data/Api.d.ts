@@ -5,19 +5,14 @@ export declare class Api extends DataAbstract {
     private _contentType;
     private _charset;
     private _id;
-    private _processItem;
-    private _errorItem;
-    private _finishedItem;
     constructor(config: any);
     getDefaultConfig(): {};
     private ajaxSettings;
+    private ajax;
     post(): Promise<any>;
     put(): Promise<any>;
     delete(): Promise<any>;
     init(): Promise<any>;
-    process(data: any): void;
-    error(error: any): void;
-    finished(): void;
     get url(): string;
     set url(value: string);
     get contentType(): string;
@@ -28,10 +23,4 @@ export declare class Api extends DataAbstract {
     set type(value: string);
     get id(): string;
     set id(value: string);
-    get processItem(): CallableFunction;
-    set processItem(value: CallableFunction);
-    get errorItem(): CallableFunction;
-    set errorItem(value: CallableFunction);
-    get finishedItem(): CallableFunction;
-    set finishedItem(value: CallableFunction);
 }

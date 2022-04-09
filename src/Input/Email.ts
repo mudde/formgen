@@ -34,7 +34,7 @@ export class Email extends InputAbstract {
    }
 
    getValue(): any{
-      return this.coreHTMLElements.every(item => {
+      return this.coreHTMLElements.map(item => {
          return item.getAttribute('value')
       })
    }

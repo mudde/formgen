@@ -14,11 +14,11 @@ import { DataEvent } from './DataEvent';
 export abstract class InputAbstract
    extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverAbstract) {
 
-   public static EVENT_INPUT_PRE_CONFIGURE = 1
-   public static EVENT_INPUT_POST_CONFIGURE = 2
-   public static EVENT_INPUT_FINISHED = 3
-   public static EVENT_INPUT_PRE_CHANGE = 4
-   public static EVENT_INPUT_POST_CHANGE = 5
+   static readonly EVENT_INPUT_PRE_CONFIGURE = 1
+   static readonly EVENT_INPUT_POST_CONFIGURE = 2
+   static readonly EVENT_INPUT_FINISHED = 4
+   static readonly EVENT_INPUT_PRE_CHANGE = 8
+   static readonly EVENT_INPUT_POST_CHANGE = 16
 
    private __type: string = ''
    private _id: string = ''
@@ -39,10 +39,26 @@ export abstract class InputAbstract
    private _data?: DataAbstract
    private _coreHTMLElements: NodeCore[] = []
    private _extraJs: CallableFunction
+   private _handleDataEvent:CallableFunction = (event) => {
+      let id = event.id
+      let dataSource: DataAbstract = event.source
+      let data = dataSource.get(id)
 
+      this.addValue(id, data)
+   }
+   private _updateDataEvent: CallableFunction = (event) => {
+      let input: InputAbstract = event.source
+      let dataSource: DataAbstract = input._data
+
+      dataSource.pauseAttach(this._handleDataEvent)
+      console.debug('------------------------------------- pause -------------------------------------')
+      dataSource.set(input.id, input.getValue())
+      dataSource.pauseDetach(this._handleDataEvent)
+      console.debug('------------------------------------ unpause ------------------------------------')
+   }
+   
    constructor(form: Form, data: DataAbstract) {
       super()
-
       this.notify(this, InputAbstract.EVENT_INPUT_PRE_CONFIGURE)
 
       this._form = form
@@ -54,36 +70,11 @@ export abstract class InputAbstract
       this.init()
    }
 
-   handleDataEvent(event: DataEvent) {
-      let id = this.id
-
-      if (event.id !== id) return
-
-      let dataSource: DataAbstract = event.source
-
-      this.setValue(dataSource.get(id))
-   }
-
-   updateDataEvent(event: Event) {
-      let input: InputAbstract = event.source
-      let dataSource: DataAbstract = input._data
-
-      dataSource.pauseAttach(this.handleDataEvent)
-      dataSource.set(input.id, input.getValue())
-      dataSource.pauseDetach(this.handleDataEvent)
-   }
-
    private init() {
-      let main = this
       let mainId = this.id
       let isMultilingual: boolean = this.isMultilingual
       let languages: string[] = isMultilingual ? this.form.languages : [this.form.languages[0]]
       let coreHTMLElements: NodeCore[] = this.coreHTMLElements = []
-      let formData = this._data
-      let data = formData.get(mainId)
-      
-      formData.attach(DataAbstract.DATA_POST_SET, main.handleDataEvent)
-      main.attach(InputAbstract.EVENT_INPUT_POST_CHANGE, main.updateDataEvent)
 
       for (const key in languages) {
          let language = languages[key];
@@ -93,8 +84,6 @@ export abstract class InputAbstract
 
          coreHTMLElements.push(object)
       }
-
-      this.setValue(data)
    }
 
    abstract coreHTMLInput(id: string, name: string, language: string): NodeCore<HTMLInputElement>
@@ -106,7 +95,7 @@ export abstract class InputAbstract
    protected preHTMLInput(): NodeCore | null { return null }
    protected postCoreHTMLInput(): NodeCore | null { return null }
    protected postHTMLInput(): NodeCore | null { return null }
-   protected javascript(): string { return '' }
+   protected javascript(): void { }
    protected canBeMultilingual(): boolean { return false }
    update(event: Event) { }
 

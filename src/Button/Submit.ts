@@ -29,11 +29,10 @@ export class Submit extends ButtonAbstract {
       form
          .post()
          .then(data => {
-            alert('saved!')
+            console.debug(data)
          })
          .catch(error => {
             console.debug(error)
-            alert('error')
          })
    }
 

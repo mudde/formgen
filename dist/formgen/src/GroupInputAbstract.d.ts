@@ -24,7 +24,7 @@ export declare abstract class GroupInputAbstract extends InputAbstract {
         multilingual: boolean;
         builders: any[];
     };
-    configureData(config: Object[]): void;
+    configureInputData(config: Object[]): void;
     render(): NodeCore;
     set buildData(value: DataAbstract);
     get buildData(): DataAbstract;

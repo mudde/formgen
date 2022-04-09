@@ -7,9 +7,6 @@ export class Api extends DataAbstract {
    private _contentType: string = ''
    private _charset: string = ''
    private _id: string = ''
-   private _processItem: CallableFunction
-   private _errorItem: CallableFunction
-   private _finishedItem: CallableFunction
 
    constructor(config: any) {
       super()
@@ -22,74 +19,53 @@ export class Api extends DataAbstract {
          type: 'get',
          contentType: 'application/json',
          charset: 'utf-8',
-         processItem: (data) => { this._data = data },
-         errorItem: (error) => { throw new Error(error.statusText); },
-         finishedItem: () => { },
          ...super.getDefaultConfig()
       }
    }
 
    private ajaxSettings(method: string = 'get'): any {
       var settings = {
-         url: this.url,
-         method: method,
-         type: this.type,
          contentType: this.contentType + (this.charset ? '; charset=' + this.charset : ''),
-         data: method !== 'get' ? this.data : null
+         url: this.url,
+         type: method,
+         dataType: "json"
       }
+
+      if (method == 'post') {
+         settings['data'] = JSON.stringify(this._data)
+      }
+
+      console.debug(settings)
 
       return settings
    }
 
-   post(): Promise<any> {
-      let settings = this.ajaxSettings('post')
+   private ajax(method: string | any): Promise<any> {
+      let settings = typeof method == 'string'
+         ? this.ajaxSettings(method)
+         : method
 
       return new Promise(function (resolve, reject) {
-         jQuery.ajax(settings).done(resolve).fail(reject);
+         jQuery.ajax(settings).done((data) => { resolve(data) }).fail((error) => { reject(error) });
       });
+   }
+
+   post(): Promise<any> {
+      return this.ajax('post')
    }
 
    put(): Promise<any> {
-      let settings = this.ajaxSettings('put')
-
-      return new Promise(function (resolve, reject) {
-         jQuery.ajax(settings).done(resolve).fail(reject);
-      });
+      return this.ajax('put')
    }
 
    delete(): Promise<any> {
-      let settings = this.ajaxSettings('delete')
-
-      return new Promise(function (resolve, reject) {
-         jQuery.ajax(settings).done(resolve).fail(reject);
-      });
+      return this.ajax('delete')
    }
 
    init(): Promise<any> {
-      var main = this;
-      var settings = {
-         url: main.url,
-         type: main.type,
-         contentType: main.contentType + (main.charset ? '; charset=' + main.charset : ''),
-      }
+      var settings = this.ajaxSettings(this.type);
 
-      return new Promise(function (resolve, reject) {
-         jQuery.ajax(settings).done(resolve).fail(reject);
-      });
-   }
-
-   process(data) {
-      this._originalData = data
-      !this.processItem || this.processItem(data)
-   }
-
-   error(error: any) {
-      this._originalData = null
-      !this.errorItem || this.errorItem(error)
-   }
-
-   finished() {
-      !this.finishedItem || this.finishedItem()
+      return this.ajax(settings)
    }
 
    get url(): string {
@@ -130,30 +106,6 @@ export class Api extends DataAbstract {
 
    set id(value: string) {
       this._id = value;
-   }
-
-   get processItem(): CallableFunction {
-      return this._processItem;
-   }
-
-   set processItem(value: CallableFunction) {
-      this._processItem = value;
-   }
-
-   get errorItem(): CallableFunction {
-      return this._errorItem;
-   }
-
-   set errorItem(value: CallableFunction) {
-      this._errorItem = value;
-   }
-
-   get finishedItem(): CallableFunction {
-      return this._finishedItem;
-   }
-
-   set finishedItem(value: CallableFunction) {
-      this._finishedItem = value;
    }
 
 }

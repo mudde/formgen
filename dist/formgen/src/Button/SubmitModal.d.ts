@@ -12,7 +12,7 @@ export declare class SubmitModal extends ButtonAbstract {
         uri: string;
         fieldId: string;
     };
-    click(event: any): void;
+    click(event: Event): void;
     x(event: any): boolean;
     coreHTMLInput(id: string, name: string, language: string): NodeCore;
 }

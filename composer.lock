@@ -1,0 +1,43 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "fb806a1f63ad59266c29b14f8a0ffd43",
+    "packages": [
+        {
+            "name": "mudde/core",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:mudde/core.git",
+                "reference": "ead5f26ece523885116e363a3ef4e62c33839d86"
+            },
+            "default-branch": true,
+            "type": "module",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Olaf Mudde",
+                    "email": "olaf.mudde@xs4all.nl"
+                }
+            ],
+            "description": "Tools for creating a typescript app",
+            "time": "2022-04-09T22:00:44+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "mudde/core": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}

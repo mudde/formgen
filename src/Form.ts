@@ -12,31 +12,34 @@ import { Event } from "mudde-core/src/Core/ObserverPattern/Event";
 import { ButtonAbstract } from "./ButtonAbstract"
 import { DataAbstract } from "./DataAbstract"
 import { StorableInterface } from "./StorableInterface";
+import { Array } from "./Data";
 
 export class Form
    extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverAbstract)
    implements StorableInterface {
 
-   static readonly EVENT_FORM_PRE_CONFIGURE = 1
    static readonly EVENT_FORM_POST_CONFIGURE = 2
    static readonly EVENT_FORM_PRE_RENDER = 4
    static readonly EVENT_FORM_POST_RENDER = 8
    static readonly EVENT_FORM_FINISHED = 16
 
-   private _id: string = ''
-   private _languages: string[] = []
-   private _fields: {} = {}
-   private _buttons: ButtonAbstract[] = []
-   private _form?: NodeCore
-   private _rootForm?: Form = null        //  For pop-up forms  Gr.O.M.
-   private _data?: DataAbstract
-   private _builder?: HandlerInterface
-   private _panels: any = {}
+   private _id: string
+   private _data: DataAbstract
+   private _languages: string[]
+   private _buttons: ButtonAbstract[]
+   private _builder: HandlerInterface
+   private _panels: any
+   private _method: string
+   private _action: string
+   private _fields: {}
+   private _form: NodeCore
+   private _rootForm: Form
+   private _validations: any
+   private _formValidation: JQueryValidation.Validator
    private _additionalJs: Promise<void>[] = []
-   private _validations: any = {}
-   private _method: string = ''
-   private _action: string = ''
-   static _validatorDefaults: any = {
+
+   static forms: {} = {}
+   static validatorDefaults: any = {
       dynamic: {
          settings: {
             trigger: [
@@ -57,17 +60,26 @@ export class Form
       debug: true,
       ignore: [".ck-hidden", ".ck, .select2-search__field", ".btn"]
    }
-   private _formValidation: JQueryValidation.Validator
-   static _forms: {} = {}
+
+   getDefaultConfig(): any {
+      return {
+         id: GuidHelper.raw(),
+         data: new Array({ data: [] }),
+         languages: ['nl'],
+         buttons: [],
+         builder: [],
+         panels: {},
+         method: 'POST',
+         action: '.',
+         fields: {}
+      }
+   }
 
    constructor(config: any) {
-      //  todo  var a='olaf'; var b='test ${a}'; let tpl = eval('`'+b+'`'); console.debug(tpl)  Gr.O.M.
       super()
 
-      this.notify(this, Form.EVENT_FORM_PRE_CONFIGURE)
-
       this.form = new NodeCore('form')
-      !jQuery.isEmptyObject(Form._forms) || $.validator.setDefaults(Form._validatorDefaults)
+      !jQuery.isEmptyObject(Form.forms) || $.validator.setDefaults(Form.validatorDefaults)
 
       this.configuring(config)
       this.updateForm()
@@ -77,34 +89,21 @@ export class Form
    private updateForm() {
       let form = this.form
 
-      Form._forms[this.id] = this
       form.setAttributes({ method: this.method, action: this.action, id: this.id })
       jQuery(form.root).data('creator', this)
-   }
 
-   getDefaultConfig(): any {
-      return {
-         id: GuidHelper.raw(),
-         data: {},
-         languages: ['nl'],
-         fields: {},
-         buttons: [],
-         layout: [],
-         builder: [],
-         panels: {},
-         method: 'POST',
-         action: '.'
-      }
+      Form.forms[this.id] = this
    }
 
    private configureFields(rawFields: Object[]): void {
       let main = this
+      let data = this.data
       let fields: {} = this.fields = {}
 
       rawFields.forEach(config => {
          let type = config['_type']
          let className = window['MuddeFormgen'].Input[type]
-         let object = new className(config, main)
+         let object = new className(config, main, data)
 
          fields[object.id] = object
       })
@@ -124,7 +123,7 @@ export class Form
    }
 
    private configureBuilder(rawFields: Object[]): void {
-      !(rawFields.indexOf('GeneralBuilder') === -1) || rawFields.unshift('GeneralBuilder')
+      rawFields.indexOf('GeneralBuilder') !== -1 || rawFields.unshift('GeneralBuilder')
 
       rawFields.forEach(builder => {
          let className = window['MuddeFormgen'].Builder[builder]
@@ -139,23 +138,16 @@ export class Form
    }
 
    private configureData(config: Object[]) {
-      var object = null
       let type = StringHelper.ucFirst(config['_type'])
+      let className = window['MuddeFormgen'].Data[type]
 
-      if (type) {
-         let className = window['MuddeFormgen'].Data[type]
+      if (!type || !className) throw new Error(`Datatype '${type}' not found for found for form!`)
 
-         object = new className(config, this)
-         !object.init() || object.process()
-      }
-
-      this._data = object
+      this._data = new className(config)
    }
 
    static getFormById(id: string): Form | null {
-      let form = Form._forms[id]
-
-      return form
+      return Form.forms[id]
    }
 
    getFieldById(id: string) {
@@ -163,7 +155,7 @@ export class Form
    }
 
    showValidationErrors() {
-      let formValidation: JQueryValidation.Validator = this._formValidation
+      let formValidation = this._formValidation
 
       formValidation.checkForm()
       formValidation.showErrors(formValidation.errorMap)
@@ -176,7 +168,27 @@ export class Form
    }
 
    post() {
+      this.data.data = this.getFormData()
+
       return this.data.post()
+   }
+
+   getFormData(): any {
+      let fields = this.fields;
+      let output = {}
+
+      for (const fieldName in fields) {
+         let field = fields[fieldName]
+         let properName = fieldName.substring(fieldName.indexOf('_') + 1)
+         let data = field.getValue()
+         let anEmptyId = properName === 'id' && data[0] != undefined && data[0] == ''
+
+         if (!anEmptyId) {
+            output[properName] = window.Array.isArray(data) ? data[0] : data
+         }
+      }
+
+      return output
    }
 
    put() {

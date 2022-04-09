@@ -4,36 +4,42 @@ import { InputAbstract } from "../InputAbstract"
 import { DataAbstract } from "../DataAbstract"
 import { Array } from "../Data/Array"
 import { StringHelper } from "mudde-core/src/Helper/StringHelper"
-import { Event } from "mudde-core/src/Core/ObserverPattern/Event"
+import { DataEvent } from "../DataEvent"
+import { Api } from "../Data"
 
 export class Combobox extends InputAbstract {
 
    private _multiple: boolean = false
-   private _buildData: DataAbstract = new Array({ data: [] })
-
-   constructor(config: any, form: Form, data: DataAbstract) {
-      super(form,data)
-      this.configuring(config)
-   }
+   private _inputData: DataAbstract
 
    getDefaultConfig() {
       return {
          ...super.getDefaultConfig(),
+         inputData: new Array({ data: [] }),
          multiple: false,
-         data: new Array({ data: [] })
       }
    }
 
-   configureData(config: Object[]): void {
-      let type: string = StringHelper.ucFirst(config['_type'])
-      let className = window['MuddeFormgen'].Data[type]
-      let object = this._buildData = new className(config, this)
+   constructor(config: any, form: Form, data: DataAbstract) {
+      super(form, data)
 
-      object.attach(DataAbstract.DATA_FINALLY, this)
+      this.configuring(config)
    }
 
-   update(event: Event): void {
-       console.debug(event)
+   private configureInputData(rawData: any) {
+      let main = this
+      let type = StringHelper.ucFirst(rawData['_type'])
+      let className = window['MuddeFormgen'].Data[type]
+      let inputData = this._inputData = rawData instanceof DataAbstract ? rawData : new className(rawData, main)
+
+      inputData.attach(DataAbstract.DATA_POST_SET, (event: DataEvent) => {
+         let data: any = event.data
+         let id_prefix = ''
+         if (inputData instanceof Api) {
+            id_prefix = '/' + inputData.url + '/'
+         }
+         main.addValue(id_prefix + data.id, data.name ?? data.title ?? 'No title :(')
+      })
    }
 
    coreHTMLInput(id: string, name: string, language: string): NodeCore {
@@ -44,9 +50,7 @@ export class Combobox extends InputAbstract {
          ...this.multiple === true ? { 'multiple': '' } : {}
       })
 
-      if (this.multiple !== true) {
-         element.appendNode('option', { value: '' }, '')
-      }
+      this.multiple || element.appendNode('option', { value: '' }, '')
 
       return element
    }
@@ -67,14 +71,11 @@ export class Combobox extends InputAbstract {
    }
 
    getValue(): any {
-      let values = {}
-      let lastValue = null
-
-      this.coreHTMLElements.forEach((value: NodeCore) => {
-         lastValue = values[value.id] = value
+      let data = this.coreHTMLElements.map(item => {
+         return $(item.root).find(':selected').val()
       })
 
-      return this.multiple ? values : lastValue
+      return this.multiple ? data : data[0]
    }
 
    addValue(key: string, value: any): void {
@@ -91,11 +92,11 @@ export class Combobox extends InputAbstract {
       return this._multiple
    }
 
-   set buildData(value: DataAbstract) {
-      this._buildData = value
+   set inputData(value: DataAbstract) {
+      this._inputData = value
    }
 
-   get buildData(): DataAbstract {
-      return this._buildData
+   get inputData(): DataAbstract {
+      return this._inputData
    }
 }

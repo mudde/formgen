@@ -1,7 +1,7 @@
 {
   "name": "mudde/formgen",
   "description": "Tools for creating a form",
-  "type": "library",
+  "type": "module",
   "license": "MIT",
   "authors": [
     {

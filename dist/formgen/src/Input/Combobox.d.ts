@@ -3,14 +3,12 @@ import { Form } from "../Form";
 import { InputAbstract } from "../InputAbstract";
 import { DataAbstract } from "../DataAbstract";
 import { Array } from "../Data/Array";
-import { Event } from "mudde-core/src/Core/ObserverPattern/Event";
 export declare class Combobox extends InputAbstract {
     private _multiple;
-    private _buildData;
-    constructor(config: any, form: Form, data: DataAbstract);
+    private _inputData;
     getDefaultConfig(): {
+        inputData: Array;
         multiple: boolean;
-        data: Array;
         _type: string;
         id: string;
         input: boolean;
@@ -27,14 +25,14 @@ export declare class Combobox extends InputAbstract {
         multilingual: boolean;
         builders: any[];
     };
-    configureData(config: Object[]): void;
-    update(event: Event): void;
+    constructor(config: any, form: Form, data: DataAbstract);
+    private configureInputData;
     coreHTMLInput(id: string, name: string, language: string): NodeCore;
     setValue(values: any): void;
     getValue(): any;
     addValue(key: string, value: any): void;
     set multiple(value: boolean);
     get multiple(): boolean;
-    set buildData(value: DataAbstract);
-    get buildData(): DataAbstract;
+    set inputData(value: DataAbstract);
+    get inputData(): DataAbstract;
 }

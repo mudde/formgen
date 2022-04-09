@@ -7,14 +7,13 @@ import { Form } from "./Form";
 import { Event } from 'mudde-core/src/Core/ObserverPattern/Event';
 import { ValidationAbstract } from './ValidationAbstract';
 import { DataAbstract } from './DataAbstract';
-import { DataEvent } from './DataEvent';
 declare const InputAbstract_base: import("ts-mixer/dist/types/types").Class<any[], ConfigurableAbstract & SubjectAbstract & ObserverAbstract, typeof ConfigurableAbstract & typeof SubjectAbstract & typeof ObserverAbstract, false>;
 export declare abstract class InputAbstract extends InputAbstract_base {
-    static EVENT_INPUT_PRE_CONFIGURE: number;
-    static EVENT_INPUT_POST_CONFIGURE: number;
-    static EVENT_INPUT_FINISHED: number;
-    static EVENT_INPUT_PRE_CHANGE: number;
-    static EVENT_INPUT_POST_CHANGE: number;
+    static readonly EVENT_INPUT_PRE_CONFIGURE = 1;
+    static readonly EVENT_INPUT_POST_CONFIGURE = 2;
+    static readonly EVENT_INPUT_FINISHED = 4;
+    static readonly EVENT_INPUT_PRE_CHANGE = 8;
+    static readonly EVENT_INPUT_POST_CHANGE = 16;
     private __type;
     private _id;
     private _label;
@@ -34,10 +33,10 @@ export declare abstract class InputAbstract extends InputAbstract_base {
     private _data?;
     private _coreHTMLElements;
     private _extraJs;
+    private _handleDataEvent;
+    private _updateDataEvent;
     constructor(form: Form, data: DataAbstract);
     configuring(config: any): void;
-    handleDataEvent(event: DataEvent): void;
-    updateDataEvent(event: Event): void;
     private init;
     abstract coreHTMLInput(id: string, name: string, language: string): NodeCore<HTMLInputElement>;
     abstract setValue(value: any): void;
@@ -47,7 +46,7 @@ export declare abstract class InputAbstract extends InputAbstract_base {
     protected preHTMLInput(): NodeCore | null;
     protected postCoreHTMLInput(): NodeCore | null;
     protected postHTMLInput(): NodeCore | null;
-    protected javascript(): string;
+    protected javascript(): void;
     protected canBeMultilingual(): boolean;
     update(event: Event): void;
     getDefaultConfig(): {

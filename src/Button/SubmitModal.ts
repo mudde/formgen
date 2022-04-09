@@ -23,21 +23,25 @@ export class SubmitModal extends ButtonAbstract {
       }
    }
 
-   click(event) {
+   click(event: Event) {
       event.preventDefault()
 
-      let form = this.form;
-      let parentForm = this.parentForm
-      let parentFieldId = this.fieldId
+      let form:Form = jQuery(document.forms[this.form.id]).data('creator')
 
-      if (form.validate()) {
+      if (!form.validate()) {
          form.showValidationErrors()
+
          return
       }
 
-      form.post().then(data => {
-         parentForm.getFieldById(parentFieldId).addValue(data['id'], data['name'])
-      })
+      form
+         .post()
+         .then(data => {
+            console.debug(data)
+         })
+         .catch(error => {
+            console.debug(error)
+         })
    }
 
    x(event) {
@@ -62,6 +66,8 @@ export class SubmitModal extends ButtonAbstract {
       let fieldId = this.fieldId
       let mainForm = this.parentForm
       let uri = this.uri
+
+      console.debug(data)
 
       //  todo  Form.save()  Gr.O.M.
       jQuery

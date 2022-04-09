@@ -4,12 +4,11 @@
 ┃    █   █   █ █   █ █   █  ┃
 ┃    █    ███  ████   ███   ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-ﻩ Add relations between two entities (for example add x times a different address to a company) (use jQuery.validation)
-ﻩ Fix test error - Cannot use import statement outside a module
-ﻩ Field type decimal
+Fix test error - Cannot use import statement outside a module
+var a='olaf'; var b='test ${a}'; let tpl = eval('`'+b+'`'); console.debug(tpl)
 ┏━━━━━━━━━┓
 ┃  INPUT  ┃
 ┗━━━━━━━━━┛
-ﻩ Date from till
-ﻩ DateTime from till
-ﻩ Create an input for "Radio or else"/"Checkbox or else". ( ) Radio ( ) Radio ( ) Radio (ﻩ) Or else [Bla bla bla_____________________]
+Date from till
+DateTime from till
+Create an input for "Radio or else"/"Checkbox or else". ( ) Radio ( ) Radio ( ) Radio (ﻩ) Or else [Bla bla bla_____________________]

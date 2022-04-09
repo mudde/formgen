@@ -4,8 +4,11 @@ import { SubjectAbstract } from "mudde-core/src/Core/ObserverPattern/SubjectAbst
 import { ObserverAbstract } from "mudde-core/src/Core/ObserverPattern/ObserverAbstract";
 import { Event } from 'mudde-core/src/Core/ObserverPattern/Event';
 import { DataEvent } from './DataEvent';
+import { StorableInterface } from './StorableInterface';
 
-export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverAbstract) {
+export abstract class DataAbstract
+   extends Mixin(ConfigurableAbstract, SubjectAbstract, ObserverAbstract)
+   implements StorableInterface {
 
    static readonly DATA_PRE_SET = 1;
    static readonly DATA_POST_SET = 2;
@@ -14,78 +17,97 @@ export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAb
    static readonly DATA_FINALLY = 16;
    static readonly DATA_ERROR = 32;
 
-   protected _data: any[] = []
-   protected _originalData: any[] = []
+   protected _data: any
+   protected _originalData: any
+   private _processItem: CallableFunction
+   private _errorItem: CallableFunction
+   private _finishedItem: CallableFunction
 
-   abstract post():Promise<any>
-   abstract put():Promise<any>
-   abstract delete():Promise<any>
+   abstract post(): Promise<any>
+   abstract put(): Promise<any>
+   abstract delete(): Promise<any>
 
    getDefaultConfig(): {} {
       return {
          data: [],
-         originalData: []
+         originalData: [],
+         processItem: (data) => {
+            //console.debug(data)
+         },
+         errorItem: (error) => {
+            console.debug(error)
+         },
+         finishedItem: () => {
+         },
       };
    }
 
    configuring(config: any): void {
       super.configuring(config)
+
       this.init().then((data) => {
-         this.notify(new DataEvent(this,DataAbstract.DATA_POST_GET,null))
          this.process(data)
-         this.notify(new DataEvent(this,DataAbstract.DATA_POST_SET,null))
-      }).catch((error)=>{
-         this.notify(new DataEvent(this,DataAbstract.DATA_ERROR,null))
+      }).catch((error) => {
          this.error(error)
       }).finally(() => {
-         this.notify(new DataEvent(this,DataAbstract.DATA_FINALLY,null))
          this.finished()
       })
    }
 
-   /** @override */
    init(): Promise<any> {
+      let main = this
+
       return new Promise((resolve, reject) => {
-         resolve
+         resolve(main.data)
       });
    }
 
-   /** @override */
    process(data: any) {
+      let processItem = this._processItem
+
       this._originalData = data
+      for (const item of data) {
+         this.set(item.id, item)
+         !processItem || processItem(item)
+      }
    }
 
-   /** @override */
    error(error) {
       this._originalData = null
+      this.notify(new DataEvent(this, DataAbstract.DATA_ERROR, null, null))
+
+      !this._errorItem || this._errorItem(error)
+
       throw new Error(error)
    }
 
-   /** @override */
    finished() {
+      this.notify(new DataEvent(this, DataAbstract.DATA_FINALLY, null, this._data))
+
+      !this._finishedItem || this._finishedItem()
    }
 
-   /** @override */
    update(event: Event) {
    }
 
    get(id: string): any {
-      this.notify(new DataEvent(this,DataAbstract.DATA_PRE_GET,id))
+      this.notify(new DataEvent(this, DataAbstract.DATA_PRE_GET, id))
 
       let value = this._data[id]
 
-      this.notify(new DataEvent(this,DataAbstract.DATA_POST_GET,id))
+      this.notify(new DataEvent(this, DataAbstract.DATA_POST_GET, id))
 
       return value;
    }
 
    set(id: string, value: any): void {
-      this.notify(new DataEvent(this,DataAbstract.DATA_PRE_SET,id))
+      if (value === undefined) return
+
+      this.notify(new DataEvent(this, DataAbstract.DATA_PRE_SET, id, value))
 
       this._data[id] = value
-      
-      this.notify(new DataEvent(this,DataAbstract.DATA_POST_SET,id))
-      this.notify(new DataEvent(this,DataAbstract.DATA_FINALLY,id))
+
+      this.notify(new DataEvent(this, DataAbstract.DATA_POST_SET, id, value))
    }
 
    restore(id: string): any {
@@ -94,17 +116,11 @@ export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAb
       this._data[id] = this._originalData[id]
    }
 
-   forEach(callable: any): DataAbstract {
-      this._data.forEach(callable)
-
-      return this
+   set data(value: any) {
+      this._data = value
    }
 
-   set data(value: any[]) {
-      this._data = this._originalData = value
-   }
-
-   get data(): any[] {
+   get data(): any {
       if (this._data === undefined) throw new Error('Data not set!')
 
       return this._data
@@ -120,4 +136,27 @@ export abstract class DataAbstract extends Mixin(ConfigurableAbstract, SubjectAb
       return this._originalData
    }
 
+   get processItem(): CallableFunction {
+      return this._processItem;
+   }
+
+   set processItem(value: CallableFunction) {
+      this._processItem = value;
+   }
+
+   get errorItem(): CallableFunction {
+      return this._errorItem;
+   }
+
+   set errorItem(value: CallableFunction) {
+      this._errorItem = value;
+   }
+
+   get finishedItem(): CallableFunction {
+      return this._finishedItem;
+   }
+
+   set finishedItem(value: CallableFunction) {
+      this._finishedItem = value;
+   }
 }

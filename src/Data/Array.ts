@@ -21,8 +21,9 @@ export class Array extends DataAbstract {
 
    delete(): Promise<any> {
       let main = this
+      
       return new Promise((resolve, reject) => {
-         main.data = []
+         main._data = []
          resolve
       })
    }
