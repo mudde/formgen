@@ -1,14 +1,5 @@
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃  █████  ███  ████   ███   ┃
-┃    █   █   █ █   █ █   █  ┃
-┃    █   █   █ █   █ █   █  ┃
-┃    █    ███  ████   ███   ┃
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-Fix test error - Cannot use import statement outside a module
-var a='olaf'; var b='test ${a}'; let tpl = eval('`'+b+'`'); console.debug(tpl)
-┏━━━━━━━━━┓
-┃  INPUT  ┃
-┗━━━━━━━━━┛
-Date from till
-DateTime from till
-Create an input for "Radio or else"/"Checkbox or else". ( ) Radio ( ) Radio ( ) Radio (ﻩ) Or else [Bla bla bla_____________________]
+- Fix test error - Cannot use import statement outside a module
+- var a='olaf'; var b='test ${a}'; let tpl = eval('`'+b+'`'); console.debug(tpl)
+- Date from till
+- DateTime from till
+- Create an input for "Radio or else"/"Checkbox or else". ( ) Radio ( ) Radio ( ) Radio (ﻩ) Or else [Bla bla bla_____________________]
