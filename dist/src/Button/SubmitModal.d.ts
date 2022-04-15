@@ -8,11 +8,10 @@ export declare class SubmitModal extends ButtonAbstract {
     constructor(config: any, form: Form);
     getDefaultConfig(): {
         label: string;
-        originalForm: any;
+        parentForm: any;
         uri: string;
         fieldId: string;
     };
-    click(event: Event): void;
-    x(event: any): boolean;
     coreHTMLInput(id: string, name: string, language: string): NodeCore;
+    click(event: Event): void;
 }

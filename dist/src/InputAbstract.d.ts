@@ -69,6 +69,8 @@ export declare abstract class InputAbstract extends InputAbstract_base {
     private configureId;
     private configureBuilders;
     private configureValidations;
+    appendNode(tagName: string, attributes: any, text?: string): void;
+    setAttributes(value: any): void;
     render(): NodeCore;
     get isMultilingual(): boolean;
     get extraJs(): CallableFunction;

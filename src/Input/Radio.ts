@@ -6,7 +6,7 @@ import { GroupInputAbstract } from "../GroupInputAbstract"
 export class Radio extends GroupInputAbstract {
 
    constructor(config: any, form: Form, data: DataAbstract) {
-      super(form,data)
+      super(form, data)
       this.configuring(config)
    }
 
@@ -71,19 +71,18 @@ export class Radio extends GroupInputAbstract {
       let id = this.id
       let newId = id + '_' + key
 
-      this.coreHTMLElements.forEach(element => {            //  todo  Merge with coreHTMLInput, redundant  Gr.O.M.
-         element.appendNode('input', {
-            id: newId,
-            name: id,
-            class: 'form-check-input',
-            type: 'radio',
-            value: key
-         })
-         .appendNode('label', {
-            'for': newId,
-            'class': 'form-check-label'
-         }, value)
+      this.appendNode('input', {
+         id: newId,
+         name: id,
+         class: 'form-check-input',
+         type: 'radio',
+         value: key
       })
+      this.appendNode('label', {
+         'for': newId,
+         'class': 'form-check-label'
+      }, value)
+
    }
 
 }

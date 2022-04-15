@@ -14,6 +14,8 @@ export declare class Form extends Form_base implements StorableInterface {
     static readonly EVENT_FORM_PRE_RENDER = 4;
     static readonly EVENT_FORM_POST_RENDER = 8;
     static readonly EVENT_FORM_FINISHED = 16;
+    static readonly EVENT_FORM_PRE_POST = 32;
+    static readonly EVENT_FORM_POST_POST = 64;
     private _id;
     private _data;
     private _languages;
@@ -24,14 +26,16 @@ export declare class Form extends Form_base implements StorableInterface {
     private _action;
     private _fields;
     private _form;
-    private _rootForm;
+    private _parent;
     private _validations;
     private _formValidation;
     private _additionalJs;
+    private _click;
+    private _change;
     static forms: {};
-    static validatorDefaults: any;
     getDefaultConfig(): any;
     constructor(config: any);
+    setValidationDefaults(): void;
     private updateForm;
     private configureFields;
     private configureButtons;
@@ -64,8 +68,8 @@ export declare class Form extends Form_base implements StorableInterface {
     get buttons(): ButtonAbstract[];
     set form(value: NodeCore);
     get form(): NodeCore;
-    set rootForm(value: Form);
-    get rootForm(): Form;
+    set parent(value: Form);
+    get parent(): Form;
     set builder(value: HandlerInterface);
     get builder(): HandlerInterface;
     get additionalJs(): Promise<void>[];

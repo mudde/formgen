@@ -11,6 +11,7 @@ export declare abstract class ButtonAbstract extends ConfigurableAbstract {
         label: string;
     };
     render(): NodeCore;
+    formValidate(): boolean;
     set _type(value: string);
     get _type(): string;
     set label(value: string);

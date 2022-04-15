@@ -30,8 +30,9 @@ export class Select2Relation extends Combobox {
       let formId = this.form.id
       let source = event.source;
       let uri = source.url + '/form'
+      let buttonAttributes = { type: "button", class: "btn btn-primary btn-self", "data-bs-toggle": "modal", "data-bs-target": "#" + BootstrapHelper.getModelId(id) }
+      let addButton = new NodeCore('button', buttonAttributes, '+')
       let modal = BootstrapHelper.modal(id);
-      let addButton = new NodeCore('button', { type: "button", class: "btn btn-primary btn-self", "data-bs-toggle": "modal", "data-bs-target": "#model_" + id }, '+')
 
       $("#" + id).select2();
       $(addButton.root).insertBefore('#' + id + '-error')
@@ -41,9 +42,10 @@ export class Select2Relation extends Combobox {
          .ajax({ url: uri })
          .then(
             (config) => {
-               let replaceButton = config.buttons[0]
+               let replaceButton = config.buttons.find(button => button._type === 'Submit')
+
                replaceButton._type = 'SubmitModal'
-               replaceButton.originalForm = main.form
+               replaceButton.parentForm = main.form
                replaceButton.uri = source.url
                replaceButton.fieldId = id
 

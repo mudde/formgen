@@ -46,11 +46,8 @@ export class Text extends InputAbstract {
    }
 
    setValue(value:any): void {
-      this.coreHTMLElements.forEach(item => {
-         item.setAttributes({value: value})
-      })
+      this.setAttributes({value: value})
    }
-
 
    getValue(): any{
       return this.coreHTMLElements.map(item => {

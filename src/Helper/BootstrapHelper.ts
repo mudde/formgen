@@ -3,7 +3,7 @@ import { NodeCore } from "mudde-core/src/Core/NodeCore"
 export class BootstrapHelper {
 
    static modal(id: string): NodeCore {
-      let modelId = 'model_' + id
+      let modelId = BootstrapHelper.getModelId(id)
       let modelLabelId = 'model_label_' + id
       let modelBodyId = 'model_body_' + id
 
@@ -16,6 +16,10 @@ export class BootstrapHelper {
          .appendNode('button', { type: "button", class: "btn-close", "data-bs-dismiss": "modal", "aria-label": "Close" })
          ._()
          .appendNode_('div', { class: "modal-body", id: modelBodyId })
+   }
+
+   static getModelId(id: string): string {
+      return 'model_' + id
    }
 
 }

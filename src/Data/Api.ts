@@ -44,7 +44,7 @@ export class Api extends DataAbstract {
       let settings = typeof method == 'string'
          ? this.ajaxSettings(method)
          : method
-
+      
       return new Promise(function (resolve, reject) {
          jQuery.ajax(settings).done((data) => { resolve(data) }).fail((error) => { reject(error) });
       });

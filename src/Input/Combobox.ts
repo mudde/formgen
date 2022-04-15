@@ -24,6 +24,16 @@ export class Combobox extends InputAbstract {
       super(form, data)
 
       this.configuring(config)
+
+      let inputData = this.inputData
+      let id_prefix = inputData instanceof Api ? `/${inputData.url}/` : ''
+      let id = this.id.split('_')[1]
+
+      this.form.attach(Form.EVENT_FORM_PRE_POST, event => {
+         let data2 = event.source
+
+         data2[id] = id_prefix + data2[id]
+      })
    }
 
    private configureInputData(rawData: any) {
@@ -34,11 +44,7 @@ export class Combobox extends InputAbstract {
 
       inputData.attach(DataAbstract.DATA_POST_SET, (event: DataEvent) => {
          let data: any = event.data
-         let id_prefix = ''
-         if (inputData instanceof Api) {
-            id_prefix = '/' + inputData.url + '/'
-         }
-         main.addValue(id_prefix + data.id, data.name ?? data.title ?? 'No title :(')
+         main.addValue(data.id, data.name ?? data.title ?? 'No title :(')
       })
    }
 
@@ -79,9 +85,7 @@ export class Combobox extends InputAbstract {
    }
 
    addValue(key: string, value: any): void {
-      this.coreHTMLElements.forEach((element: NodeCore) => {
-         element.appendNode('option', { value: key }, value)
-      })
+      this.appendNode('option', { value: key }, value)
    }
 
    set multiple(value: boolean) {

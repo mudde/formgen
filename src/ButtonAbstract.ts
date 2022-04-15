@@ -28,6 +28,18 @@ export abstract class ButtonAbstract extends ConfigurableAbstract {
       return output
    }
 
+   formValidate(): boolean {
+      let form = this.form
+
+      if (!form.validate()) {
+         form.showValidationErrors()
+         
+         return false
+      }
+      
+      return true
+   }
+
    set _type(value: string) {
       this.__type = value
    }

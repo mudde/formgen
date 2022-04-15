@@ -43,9 +43,7 @@ export class Number extends InputAbstract {
    }
    
    setValue(value:any): void {
-      this.coreHTMLElements.forEach(item => {
-         item.setAttributes({value: value})
-      })
+      this.setAttributes({value: value})
    }
 
 

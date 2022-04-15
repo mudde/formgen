@@ -39,7 +39,7 @@ export abstract class InputAbstract
    private _data?: DataAbstract
    private _coreHTMLElements: NodeCore[] = []
    private _extraJs: CallableFunction
-   private _handleDataEvent:CallableFunction = (event) => {
+   private _handleDataEvent: CallableFunction = (event) => {
       let id = event.id
       let dataSource: DataAbstract = event.source
       let data = dataSource.get(id)
@@ -56,7 +56,7 @@ export abstract class InputAbstract
       dataSource.pauseDetach(this._handleDataEvent)
       console.debug('------------------------------------ unpause ------------------------------------')
    }
-   
+
    constructor(form: Form, data: DataAbstract) {
       super()
       this.notify(this, InputAbstract.EVENT_INPUT_PRE_CONFIGURE)
@@ -155,6 +155,18 @@ export abstract class InputAbstract
          } else {
             main._handlerValidations.setNext(handler);
          }
+      })
+   }
+
+   appendNode(tagName: string, attributes: any, text: string = null): void {
+      this.coreHTMLElements.forEach((element: NodeCore) => {
+         element.appendNode(tagName, attributes, text)
+      })
+   }
+
+   setAttributes(value: any): void {
+      this.coreHTMLElements.forEach(item => {
+         item.setAttributes(value)
       })
    }
 

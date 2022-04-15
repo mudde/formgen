@@ -22,6 +22,8 @@ export class Form
    static readonly EVENT_FORM_PRE_RENDER = 4
    static readonly EVENT_FORM_POST_RENDER = 8
    static readonly EVENT_FORM_FINISHED = 16
+   static readonly EVENT_FORM_PRE_POST = 32
+   static readonly EVENT_FORM_POST_POST = 64
 
    private _id: string
    private _data: DataAbstract
@@ -33,33 +35,15 @@ export class Form
    private _action: string
    private _fields: {}
    private _form: NodeCore
-   private _rootForm: Form
+   private _parent: Form
    private _validations: any
    private _formValidation: JQueryValidation.Validator
    private _additionalJs: Promise<void>[] = []
 
-   static forms: {} = {}
-   static validatorDefaults: any = {
-      dynamic: {
-         settings: {
-            trigger: [
-               "focusout", "keydown",
-               "keypress", "keyup"
-            ]
-         }
-      },
-      showErrors: function (errorMap) {
-         for (const key in errorMap) {
-            let item = $(`#${key}-error`)
-            let currentText = item.text()
-            let errorText = errorMap[key] ? (errorMap[key] ? errorMap[key] : currentText) : ''
+   private _click: string[] = ['click']
+   private _change: string[] = ['keydown', 'keypress', 'keyup', 'mousedown', 'mouseup', 'change']
 
-            item.text(errorText)
-         }
-      },
-      debug: true,
-      ignore: [".ck-hidden", ".ck, .select2-search__field", ".btn"]
-   }
+   static forms: {} = {}
 
    getDefaultConfig(): any {
       return {
@@ -79,17 +63,36 @@ export class Form
       super()
 
       this.form = new NodeCore('form')
-      !jQuery.isEmptyObject(Form.forms) || $.validator.setDefaults(Form.validatorDefaults)
+      !jQuery.isEmptyObject(Form.forms) || this.setValidationDefaults()
 
       this.configuring(config)
       this.updateForm()
       this.notify(this, Form.EVENT_FORM_POST_CONFIGURE)
    }
 
+   setValidationDefaults() {
+      $.validator.setDefaults({
+         showErrors: function (errorMap) {
+            for (const key in errorMap) {
+               let item = $(`#${key}-error`)
+               let currentText = item.text()
+               let errorText = errorMap[key] ? (errorMap[key] ? errorMap[key] : currentText) : ''
+
+               item.text(errorText)
+            }
+         },
+         debug: true,
+         ignore: ".ck-hidden  .ck, .select2-search__field .btn"
+      })
+   }
+
    private updateForm() {
       let form = this.form
 
-      form.setAttributes({ method: this.method, action: this.action, id: this.id })
+      form
+         .gotoRoot()
+         .setAttributes({ method: this.method, action: this.action, id: this.id })
+
       jQuery(form.root).data('creator', this)
 
       Form.forms[this.id] = this
@@ -168,9 +171,15 @@ export class Form
    }
 
    post() {
-      this.data.data = this.getFormData()
+      let data = this.data.data = this.getFormData()
+      
+      this.notify(data, Form.EVENT_FORM_PRE_POST)
+      
+      let output = this.data.post()
+      
+      this.notify(data, Form.EVENT_FORM_POST_POST)
 
-      return this.data.post()
+      return output
    }
 
    getFormData(): any {
@@ -248,12 +257,11 @@ export class Form
 
       return new Promise((resolve, reject) => {
          var formgenValidator = $('#' + main.id).validate({ rules: rules })
-         if (!formgenValidator) {
-            return reject
-         }
+         if (!formgenValidator) return reject
 
          main._formValidation = formgenValidator
          formgenValidator.checkForm()
+
          resolve
       })
    }
@@ -358,14 +366,14 @@ export class Form
       return this._form
    }
 
-   set rootForm(value: Form) {
-      this._rootForm = value
+   set parent(value: Form) {
+      this._parent = value
    }
 
-   get rootForm(): Form {
-      if (this._rootForm === undefined) throw new Error('Form not set!')
+   get parent(): Form {
+      if (this._parent === undefined) throw new Error('Form not set!')
 
-      return this._rootForm
+      return this._parent
    }
 
    set builder(value: HandlerInterface) {

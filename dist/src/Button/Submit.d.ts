@@ -6,6 +6,6 @@ export declare class Submit extends ButtonAbstract {
     getDefaultConfig(): {
         label: string;
     };
-    click(event: Event): void;
     coreHTMLInput(id: string, name: string, language: string): NodeCore;
+    click(event: Event): void;
 }

@@ -28,9 +28,7 @@ export class Email extends InputAbstract {
       return element
    }
    setValue(value:any): void {
-      this.coreHTMLElements.forEach(item => {
-         item.setAttributes({value: value})
-      })
+      this.setAttributes({value: value})
    }
 
    getValue(): any{
