@@ -37,7 +37,7 @@ export class Submit extends ButtonAbstract {
       if (!this.formValidate()) return
 
       form
-         .post()
+         .save()
          .then(data => {
             form.getFieldById(form.id + '_id').setValue(data['id'])
          })

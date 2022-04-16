@@ -170,14 +170,23 @@ export class Form
       return this._formValidation.checkForm()
    }
 
-   post() {
-      let data = this.data.data = this.getFormData()
+   post(optionalData:any = null) {
+      let data = optionalData ? optionalData : this.data.data = this.getFormData()
       
       this.notify(data, Form.EVENT_FORM_PRE_POST)
       
       let output = this.data.post()
       
       this.notify(data, Form.EVENT_FORM_POST_POST)
+
+      return output
+   }
+
+   save() {
+      let data = this.data.data = this.getFormData()
+      
+      let method = data['id'] ? 'put' : 'post'
+      let output = this[method](data)
 
       return output
    }
@@ -200,8 +209,16 @@ export class Form
       return output
    }
 
-   put() {
-      return this.data.put()
+   put(optionalData:any = null) {
+      let data = optionalData ? optionalData : this.data.data = this.getFormData()
+      
+      this.notify(data, Form.EVENT_FORM_PRE_POST)
+      
+      let output = this.data.put()
+      
+      this.notify(data, Form.EVENT_FORM_POST_POST)
+
+      return output
    }
 
    delete() {

@@ -45,9 +45,10 @@ export declare class Form extends Form_base implements StorableInterface {
     getFieldById(id: string): any;
     showValidationErrors(): JQueryValidation.ErrorDictionary;
     validate(): boolean;
-    post(): Promise<any>;
+    post(optionalData?: any): Promise<any>;
+    save(): any;
     getFormData(): any;
-    put(): Promise<any>;
+    put(optionalData?: any): Promise<any>;
     delete(): Promise<any>;
     render(): Promise<NodeCore>;
     private handleXtraJs;

@@ -1,7 +1,7 @@
 export interface StorableInterface {
 
-  post()
-  put()
+  post(optionalData:any)
+  put(optionalData:any)
   delete()
 
 }

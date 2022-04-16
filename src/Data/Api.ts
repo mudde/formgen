@@ -33,6 +33,9 @@ export class Api extends DataAbstract {
 
       if (method == 'post') {
          settings['data'] = JSON.stringify(this._data)
+      } else if (method == 'put') {
+         settings['data'] = JSON.stringify(this._data)
+         settings['url'] = settings['url'] + '/' + this._data.id
       }
 
       console.debug(settings)

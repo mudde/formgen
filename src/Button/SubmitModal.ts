@@ -52,7 +52,7 @@ export class SubmitModal extends ButtonAbstract {
       let parentForm = this.parentForm
 
       form
-         .post()
+         .save()
          .then(data => {
             $('#model_' + fieldId).modal("hide")
             $('form#' + formId).trigger('reset')

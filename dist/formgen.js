@@ -969,7 +969,7 @@ var Submit = /** @class */ (function (_super) {
         if (!this.formValidate())
             return;
         form
-            .post()
+            .save()
             .then(function (data) {
             form.getFieldById(form.id + '_id').setValue(data['id']);
         })
@@ -1055,7 +1055,7 @@ var SubmitModal = /** @class */ (function (_super) {
         var fieldId = this.fieldId;
         var parentForm = this.parentForm;
         form
-            .post()
+            .save()
             .then(function (data) {
             var _a, _b;
             $('#model_' + fieldId).modal("hide");
@@ -1275,6 +1275,10 @@ var Api = /** @class */ (function (_super) {
         };
         if (method == 'post') {
             settings['data'] = JSON.stringify(this._data);
+        }
+        else if (method == 'put') {
+            settings['data'] = JSON.stringify(this._data);
+            settings['url'] = settings['url'] + '/' + this._data.id;
         }
         console.debug(settings);
         return settings;
@@ -1827,11 +1831,18 @@ var Form = /** @class */ (function (_super) {
     Form.prototype.validate = function () {
         return this._formValidation.checkForm();
     };
-    Form.prototype.post = function () {
-        var data = this.data.data = this.getFormData();
+    Form.prototype.post = function (optionalData) {
+        if (optionalData === void 0) { optionalData = null; }
+        var data = optionalData ? optionalData : this.data.data = this.getFormData();
         this.notify(data, Form.EVENT_FORM_PRE_POST);
         var output = this.data.post();
         this.notify(data, Form.EVENT_FORM_POST_POST);
+        return output;
+    };
+    Form.prototype.save = function () {
+        var data = this.data.data = this.getFormData();
+        var method = data['id'] ? 'put' : 'post';
+        var output = this[method](data);
         return output;
     };
     Form.prototype.getFormData = function () {
@@ -1848,8 +1859,13 @@ var Form = /** @class */ (function (_super) {
         }
         return output;
     };
-    Form.prototype.put = function () {
-        return this.data.put();
+    Form.prototype.put = function (optionalData) {
+        if (optionalData === void 0) { optionalData = null; }
+        var data = optionalData ? optionalData : this.data.data = this.getFormData();
+        this.notify(data, Form.EVENT_FORM_PRE_POST);
+        var output = this.data.put();
+        this.notify(data, Form.EVENT_FORM_POST_POST);
+        return output;
     };
     Form.prototype.delete = function () {
         return this.data.delete();
