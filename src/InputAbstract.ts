@@ -63,6 +63,22 @@ export abstract class InputAbstract
 
       this._form = form
       this._data = data
+
+      let isMultilingual: boolean = this.isMultilingual
+      let main = this
+      let mainId = this.id
+      let languages: string[] = isMultilingual ? this.form.languages : [this.form.languages[0]]
+
+      for (const language in languages) {
+         let name: string = isMultilingual ? `${mainId}[${language}]` : mainId
+
+         data.attach(DataAbstract.DATA_FINALLY, event => {
+            let data = event.data
+            console.debug(name)
+            
+            main.setValue(data[name])
+         })
+      }
    }
 
    configuring(config: any): void {

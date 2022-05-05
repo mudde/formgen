@@ -17,8 +17,8 @@ export abstract class DataAbstract
    static readonly DATA_FINALLY = 16;
    static readonly DATA_ERROR = 32;
 
-   protected _data: any
-   protected _originalData: any
+   private _data: any
+   private _originalData: any
    private _processItem: CallableFunction
    private _errorItem: CallableFunction
    private _finishedItem: CallableFunction
@@ -42,24 +42,11 @@ export abstract class DataAbstract
       };
    }
 
-   configuring(config: any): void {
-      super.configuring(config)
+   init(): void {
+      let data = this.data
 
-      this.init().then((data) => {
-         this.process(data)
-      }).catch((error) => {
-         this.error(error)
-      }).finally(() => {
-         this.finished()
-      })
-   }
-
-   init(): Promise<any> {
-      let main = this
-
-      return new Promise((resolve, reject) => {
-         resolve(main.data)
-      });
+      this.process(data)
+      this.finished()
    }
 
    process(data: any) {
@@ -88,6 +75,11 @@ export abstract class DataAbstract
    }
 
    update(event: Event) {
+   }
+
+   /** @override */
+   load(id: string) { 
+      throw new Error('Method not implemented for this data structure.');
    }
 
    get(id: string): any {

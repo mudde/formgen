@@ -1,4 +1,9 @@
-# TypeScript Formgen
+# Formgen - A Typescript Form Generator
+
+![Npm version](https://img.shields.io/npm/v/core.svg)
+![license](https://img.shields.io/badge/license-MIT-green.svg)
+
+## About
 
 A form generator written in Typescript. It converts a JSON into a HTML-form.
 
@@ -12,7 +17,22 @@ Some of the features are
 
 Gr.O.M.
 
-**JSON**
+## Requirements
+
+npm version 8.5.0
+
+## Installation
+
+```bash
+  npm install mudde/formgen
+```
+
+## Examples
+
+There is an example in the folder "examples"
+
+### Example 1
+**JSON:**
 ```JSON
 {
   "id": "form01",
@@ -112,6 +132,16 @@ Gr.O.M.
   }]
 }
 ```
-*OUTPUTS*
+**Javascript:**
+```javascript
+    let config = ...
+    let formgen = new MuddeFormgen.Form(config)
+    formgen
+        .render()
+        .then((form) => {
+            $('#main').empty().append(form.root)
+        })
+```
+**Output:**
 
-![Output image](readme.md/example-output.png?raw=true)
+![Generated form](readme.md/example-output.png?raw=true)

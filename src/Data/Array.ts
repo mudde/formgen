@@ -23,7 +23,7 @@ export class Array extends DataAbstract {
       let main = this
       
       return new Promise((resolve, reject) => {
-         main._data = []
+         main.data = []
          resolve
       })
    }

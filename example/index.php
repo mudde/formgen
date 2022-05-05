@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FormGen Base example</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/semantic-ui-flag/flag.min.css">
-    <link rel="stylesheet" href="node_modules/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../node_modules/semantic-ui-flag/flag.min.css">
+    <link rel="stylesheet" href="../node_modules/select2/dist/css/select2.min.css">
     <style>
         body {
             overflow-y: scroll;
@@ -80,88 +80,130 @@
 
     <script id="config" type="application/json">
         {
-            "title": "FormGen Base example",
-            "description": "This is a simple example of FormGen.js",
+            "id": "form01",
+            "languages": ["nl", "uk"],
+            "buttons": [{
+                "_type": "Submit",
+                "label": "Save"
+            }],
+            "panels": {
+                "a" : "Panel A",
+                "b" : "Panel B"
+            },
+            "builder": ["TabsBuilder"],
             "data": {
-                "_type": "Array",
+                "_type": "array",
                 "data": {
-                    "name": "Olaf",
-                    "email": "olaf.mudde@xs4all.nl"
+                    "name": {
+                        "nl": "Olaf",
+                        "uk": "Olaf"
+                    },
+                    "email": "olaf@xs4all.nl",
+                    "file": []
                 }
-            }
+            },
             "fields": [{
-                    "_type": "text",
-                    "name": "name",
-                    "label": "Name",
-                    "placeholder": "Enter your name",
-                    "required": true,
-                    "validation": {
-                        "minLength": 3,
-                        "maxLength": 20
-                    }
-                },
-                {
-                    "_type": "email",
-                    "name": "email",
-                    "label": "Email",
-                    "placeholder": "Enter your email",
-                    "required": true,
-                    "validation": {
-                        "minLength": 3,
-                        "maxLength": 20,
-                        "email": true
-                    }
-                },
-                {
-                    "_type": "text",
-                    "name": "phone",
-                    "label": "Phone",
-                    "placeholder": "Enter your phone",
-                    "required": true,
-                    "validation": {
-                        "minLength": 3,
-                        "maxLength": 20,
-                        "phone": true
-                    }
-                },
-                {
-                    "_type": "text",
-                    "name": "address",
-                    "label": "Address",
-                    "placeholder": "Enter your address",
-                    "required": true,
-                    "validation": {
-                        "minLength": 3,
-                        "maxLength": 20
-                    }
-                },
-                {
-                    "_type": "text",
-                    "name": "city",
-                    "label": "City",
-                    "placeholder": "Enter your city",
-                    "required": true,
-                    "validation": {
-                        "minLength": 3,
-                        "maxLength": 20
-                    }
-                }
-            ]
+                "_type": "Text",
+                "id": "name",
+                "input": true,
+                "label": "Name",
+                "help": "Your name is being used for correspondence with the client",
+                "unique": false,
+                "validations": [{
+                    "_type": "NotEmpty"
+                }],
+                "builders": [
+                    "BootstrapBuilder"
+                ],
+                "autofocus": true,
+                "hidden": false,
+                "multilingual": true,
+                "panel": "a",
+                "mask": "",
+                "format": "",
+                "require": true,
+                "placeholder": "Enter your name here",
+                "prefix": "",
+                "suffix": "",
+                "multiple": false,
+                "spellcheck": true
+            }, {
+                "_type": "Email",
+                "id": "email",
+                "input": true,
+                "label": "Email",
+                "mask": "",
+                "format": "",
+                "require": false,
+                "panel": "a",
+                "placeholder": "Enter your email here",
+                "help": "Your email is being used for correspondence with the client",
+                "unique": false,
+                "prefix": "",
+                "suffix": "",
+                "multiple": false,
+                "validations": [{
+                    "_type": "NotEmpty"
+                }, {
+                    "_type": "Length",
+                    "min": 4,
+                    "max": 10
+                }],
+                "autofocus": false,
+                "hidden": false,
+                "spellcheck": true,
+                "multilingual": false,
+                "builders": [
+                    "BootstrapBuilder"
+                ]
+            }, {
+                "_type": "Text",
+                "id": "file",
+                "input": true,
+                "label": "Attachments",
+                "mask": "",
+                "panel": "b",
+                "format": "",
+                "require": false,
+                "placeholder": "Upload your files here",
+                "help": "These file\"s wil be added to your dossier",
+                "unique": false,
+                "prefix": "",
+                "suffix": "",
+                "multiple": true,
+                "validations": [{
+                    "_type": "NotEmpty"
+                }],
+                "autofocus": false,
+                "hidden": false,
+                "spellcheck": true,
+                "multilingual": false,
+                "builders": [
+                    "BootstrapBuilder"
+                ]
+            }]
         }
     </script>
 
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/jquery-validation/dist/jquery.validate.min.js"></script>"
-    <script src="node_modules/select2/dist/js/select2.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/jquery-validation/dist/jquery.validate.min.js"></script>"
+    <script src="../node_modules/select2/dist/js/select2.min.js"></script>
     <!-- <script src="./script/ckeditor.js"></script> -->
-    <script src="dist/formgen.js"></script>
+    <script src="../dist/formgen.js"></script>
 
     <script>
-        var config = document.getElementById('config');
+        var config = JSON.parse(document.getElementById('config').innerText);
         var formgen = new MuddeFormgen.Form(config)
-        formgen.render().then(form => {
-            document.getElementById('main').innerHTML = form.root.outerHTML
+        var initForm = (config) => {
+            formgen = new MuddeFormgen.Form(config)
+            formgen.render().then((form) => {
+                $('#main').empty().append(form.root)
+            })
+        }
+
+        jQuery(() => {
+            initForm(config)
         })
     </script>
 </body>

@@ -29,10 +29,12 @@ export class Combobox extends InputAbstract {
       let id_prefix = inputData instanceof Api ? `/${inputData.url}/` : ''
       let id = this.id.split('_')[1]
 
-      this.form.attach(Form.EVENT_FORM_PRE_POST, event => {
-         let data2 = event.source
+      inputData.init()
 
-         data2[id] = id_prefix + data2[id]
+      this.form.attach(Form.EVENT_FORM_PRE_POST, event => {
+         let sourceData = event.source
+         
+         sourceData[id] = id_prefix + sourceData[id]
       })
    }
 

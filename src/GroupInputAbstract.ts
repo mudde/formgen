@@ -20,20 +20,15 @@ export abstract class GroupInputAbstract extends InputAbstract {
 
    configureInputData(config: Object[]): void {
       var main = this
-      var object = null
+      var buildData = null
       let type = StringHelper.ucFirst(config['_type'])
       let className = window['MuddeFormgen'].Data[type]
 
       if (!type) throw new Error('Datatype fot found for form!')
 
-      this._buildData = object = new className(config, this)
-      object.attach(DataAbstract.DATA_FINALLY, this)
-
-      object.init().then(data => {
-         object.process(data)
-      }).catch(error => {
-         throw new Error(error)
-      })
+      this._buildData = buildData = new className(config, this)
+      buildData.attach(DataAbstract.DATA_FINALLY, event => { main.update(event) })
+      buildData.init()
    }
    
    render(): NodeCore {

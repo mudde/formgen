@@ -39,10 +39,6 @@ export class Form
    private _validations: any
    private _formValidation: JQueryValidation.Validator
    private _additionalJs: Promise<void>[] = []
-
-   private _click: string[] = ['click']
-   private _change: string[] = ['keydown', 'keypress', 'keyup', 'mousedown', 'mouseup', 'change']
-
    static forms: {} = {}
 
    getDefaultConfig(): any {
@@ -63,14 +59,15 @@ export class Form
       super()
 
       this.form = new NodeCore('form')
-      !jQuery.isEmptyObject(Form.forms) || this.setValidationDefaults()
-
+      this.setValidationDefaults()
       this.configuring(config)
-      this.updateForm()
+      this.initForm()
       this.notify(this, Form.EVENT_FORM_POST_CONFIGURE)
    }
 
    setValidationDefaults() {
+      if (!jQuery.isEmptyObject(Form.forms)) return
+
       $.validator.setDefaults({
          showErrors: function (errorMap) {
             for (const key in errorMap) {
@@ -81,19 +78,27 @@ export class Form
                item.text(errorText)
             }
          },
-         debug: true,
-         ignore: ".ck-hidden  .ck, .select2-search__field .btn"
+         ignore: ".ck-hidden .ck, .select2-search__field .btn"
       })
    }
 
-   private updateForm() {
+   private initForm() {
+      let main = this
       let form = this.form
 
       form
          .gotoRoot()
          .setAttributes({ method: this.method, action: this.action, id: this.id })
+         .change(event => {
+            if (event instanceof MouseEvent || event instanceof KeyboardEvent) {
+               let data = main.getFormData();
+               for (const key in data) {
+                  main.data.set(key, data[key])
+               }
+            }
+         })
 
-      jQuery(form.root).data('creator', this)
+      jQuery(form.root).data('creator', this)            //  todo  move to NodeCore (node.data(ker, value))  Gr.O.M.
 
       Form.forms[this.id] = this
    }
@@ -104,10 +109,10 @@ export class Form
       let fields: {} = this.fields = {}
 
       rawFields.forEach(config => {
-         let type = config['_type']
+         let type = StringHelper.ucFirst(config['_type'])
          let className = window['MuddeFormgen'].Input[type]
          let object = new className(config, main, data)
-
+         
          fields[object.id] = object
       })
    }
@@ -146,6 +151,8 @@ export class Form
 
       if (!type || !className) throw new Error(`Datatype '${type}' not found for found for form!`)
 
+      config['recordOnly'] = true
+
       this._data = new className(config)
    }
 
@@ -170,13 +177,13 @@ export class Form
       return this._formValidation.checkForm()
    }
 
-   post(optionalData:any = null) {
+   post(optionalData: any = null) {
       let data = optionalData ? optionalData : this.data.data = this.getFormData()
-      
+
       this.notify(data, Form.EVENT_FORM_PRE_POST)
-      
+
       let output = this.data.post()
-      
+
       this.notify(data, Form.EVENT_FORM_POST_POST)
 
       return output
@@ -184,11 +191,15 @@ export class Form
 
    save() {
       let data = this.data.data = this.getFormData()
-      
+
       let method = data['id'] ? 'put' : 'post'
       let output = this[method](data)
 
       return output
+   }
+
+   load(id: string): void {
+      this.data.load(id)
    }
 
    getFormData(): any {
@@ -209,13 +220,13 @@ export class Form
       return output
    }
 
-   put(optionalData:any = null) {
+   put(optionalData: any = null) {
       let data = optionalData ? optionalData : this.data.data = this.getFormData()
-      
+
       this.notify(data, Form.EVENT_FORM_PRE_POST)
-      
+
       let output = this.data.put()
-      
+
       this.notify(data, Form.EVENT_FORM_POST_POST)
 
       return output

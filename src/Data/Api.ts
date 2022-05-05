@@ -7,6 +7,7 @@ export class Api extends DataAbstract {
    private _contentType: string = ''
    private _charset: string = ''
    private _id: string = ''
+   private _recordOnly: boolean = false
 
    constructor(config: any) {
       super()
@@ -19,6 +20,7 @@ export class Api extends DataAbstract {
          type: 'get',
          contentType: 'application/json',
          charset: 'utf-8',
+         recordOnly: false,
          ...super.getDefaultConfig()
       }
    }
@@ -31,14 +33,12 @@ export class Api extends DataAbstract {
          dataType: "json"
       }
 
-      if (method == 'post') {
-         settings['data'] = JSON.stringify(this._data)
-      } else if (method == 'put') {
-         settings['data'] = JSON.stringify(this._data)
-         settings['url'] = settings['url'] + '/' + this._data.id
+      if (['post', 'put'].indexOf(method) !== -1) {
+         settings['data'] = JSON.stringify(this.data)
       }
-
-      console.debug(settings)
+      if (['put', 'get'].indexOf(method) !== -1 && this.id) {
+         settings['url'] = settings['url'] + '/' + this.id
+      }
 
       return settings
    }
@@ -47,7 +47,7 @@ export class Api extends DataAbstract {
       let settings = typeof method == 'string'
          ? this.ajaxSettings(method)
          : method
-      
+
       return new Promise(function (resolve, reject) {
          jQuery.ajax(settings).done((data) => { resolve(data) }).fail((error) => { reject(error) });
       });
@@ -58,6 +58,8 @@ export class Api extends DataAbstract {
    }
 
    put(): Promise<any> {
+      this.id = this.data.id
+
       return this.ajax('put')
    }
 
@@ -65,10 +67,48 @@ export class Api extends DataAbstract {
       return this.ajax('delete')
    }
 
-   init(): Promise<any> {
-      var settings = this.ajaxSettings(this.type);
+   get(id: string): Promise<any> | any {
+      return parseInt(id) === NaN ? super.get(id) : this.ajax('get')
+   }
 
-      return this.ajax(settings)
+   load(id: string): void {
+      if (parseInt(id) === NaN) throw new Error('Data load expects a number as id')
+
+      this.id = id
+      
+      let main = this
+      let settings = this.ajaxSettings('get')
+      let promise = this.ajax(settings)
+
+      Promise.resolve(promise).then((data) => {
+         if (data instanceof Array && main.recordOnly == true) throw new Error('Record not found')
+
+         for (const key in data) {
+            main.set(key, data[key])
+         }
+      }).catch((error) => {
+         this.error(error)
+      }).finally(() => {
+         this.finished()
+      })
+   }
+
+   init(): void {
+      let main = this
+      let settings = this.ajaxSettings(this.type)
+      let promise = this.ajax(settings)
+
+      Promise.resolve(promise).then((data) => {
+         if (data instanceof Array && main.recordOnly == true) throw new Error('Record not found')
+
+         for (const key in data) {
+            main.set(key, data[key])
+         }
+      }).catch((error) => {
+         this.error(error)
+      }).finally(() => {
+         this.finished()
+      })
    }
 
    get url(): string {
@@ -109,6 +149,14 @@ export class Api extends DataAbstract {
 
    set id(value: string) {
       this._id = value;
+   }
+
+   get recordOnly(): boolean {
+      return this._recordOnly;
+   }
+
+   set recordOnly(value: boolean) {
+      this._recordOnly = value;
    }
 
 }

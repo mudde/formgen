@@ -5,6 +5,7 @@ export declare class Api extends DataAbstract {
     private _contentType;
     private _charset;
     private _id;
+    private _recordOnly;
     constructor(config: any);
     getDefaultConfig(): {};
     private ajaxSettings;
@@ -12,7 +13,9 @@ export declare class Api extends DataAbstract {
     post(): Promise<any>;
     put(): Promise<any>;
     delete(): Promise<any>;
-    init(): Promise<any>;
+    get(id: string): Promise<any> | any;
+    load(id: string): void;
+    init(): void;
     get url(): string;
     set url(value: string);
     get contentType(): string;
@@ -23,4 +26,6 @@ export declare class Api extends DataAbstract {
     set type(value: string);
     get id(): string;
     set id(value: string);
+    get recordOnly(): boolean;
+    set recordOnly(value: boolean);
 }

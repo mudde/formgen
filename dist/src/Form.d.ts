@@ -30,13 +30,11 @@ export declare class Form extends Form_base implements StorableInterface {
     private _validations;
     private _formValidation;
     private _additionalJs;
-    private _click;
-    private _change;
     static forms: {};
     getDefaultConfig(): any;
     constructor(config: any);
     setValidationDefaults(): void;
-    private updateForm;
+    private initForm;
     private configureFields;
     private configureButtons;
     private configureBuilder;
@@ -47,6 +45,7 @@ export declare class Form extends Form_base implements StorableInterface {
     validate(): boolean;
     post(optionalData?: any): Promise<any>;
     save(): any;
+    load(id: string): void;
     getFormData(): any;
     put(optionalData?: any): Promise<any>;
     delete(): Promise<any>;
